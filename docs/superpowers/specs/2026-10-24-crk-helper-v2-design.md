@@ -235,3 +235,21 @@ P4-A／B僅分階段調試，不修改第7節G0–G5最終標準。P0–P4-C完�
 
 已處理的技術衝突：原P0的30段先決條件與先做5段的順序不一致，因此30段分組凍結延後至P4-C入口；原「每張三次變換」僅在P4-C啟用；P4-A只用原始像素，P4-B只用固定等比例縮放；所有最終G0–G5保留。沒有把中間里程碑或P0–P3單元測試通過當成G4正式完成。
 
+
+## 11. P0–P3 核心實作與審閱修訂（2026-10-24）
+
+本節修訂的是獨立核心契約，不變更P0–P5與G0–G5門檻。V2位於 `C:/Users/User/Documents/Codex/CRK-Helper-V2`，尚未整合V1正式入口。
+
+- 地圖區域證據必須有有效區域編號、progress.score≥0.90且conflictingEvidence=false；畫面分類信心不能替代區域身份。
+- 兩幀不只目標框穩定；前置節點身份、樓層、欄位、完成狀態、框與連線端點也須一致。proof保留兩幀完整Frame及前置證據。
+- 只要地圖來源包含影片PTS，整個交易就是video模式；所有後續幀必須帶有限、嚴格遞增PTS。不能省略一次來重設防重播鏈。capture模式不混入影片PTS。
+- 點擊後證據的擷取時間必須嚴格晚於實際dispatch時間。trace／排程耗時之後重查來源新鮮度；準備事件CLICK_PREPARED與實際呼叫事件CLICK_SENT分開。
+- 明確提供tick()；回放排程器即使無新幀／回條也須推進注入時鐘並tick。snapshot與observe同樣檢查15秒期限。掛起傳輸被結算為DISPATCH_UNCERTAIN，遲到回條不能恢復工作或重送。
+- snapshot與trace保留proof、意圖、點位、來源、回條、deadline、後續觀察與verdict。呼叫者修改輸出副本不影響交易。
+- P4-A/B結果彙總核對五類工件hash、manifest、PNG標頭、JSON內容、成功狀態與單次交易事件；A須5個不重疊來源區間各100%，B須同樣5個區間各75/100/125%。這是證據完整性檢查，不能取代人工來源標註與實際影像測試。
+- 新增只讀saved-sequence診斷入口：真值可點擊框與人工操作窗口只傳給虛擬dispatcher；辨識器收不到真值。時間／落點錯誤不釋放後續預覽。耗時另記實際processingMs，不以虛擬時鐘冒充效能合格。
+
+獨立審閱的7項Important均已建立回歸測試並修正。35項核心測試通過不代表真實影片辨識成功。既有V1 packet沒有獨立selected-preview-node像素證明；adapter保留selectedNode=null，交易拒絕確認。P4-A需要補足並以真實序列驗證，禁止從intent或pending灌入身份。
+
+最初baseline所列2384檔hash未變；另補快照10個HTML/CSS／寶物JSON檔。補快照不是追溯的初始證據；選定檔案比對也不偵測範圍外新增檔案。不宣稱全V1所有檔案皆已完整凍結。
+

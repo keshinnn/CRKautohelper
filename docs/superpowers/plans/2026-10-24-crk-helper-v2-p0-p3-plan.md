@@ -117,3 +117,20 @@
 獨立目錄執行 `node --test tests/*.test.cjs`；成功為0失敗、非0退出即未完成。每個任務單獨保留RED與GREEN輸出，完整套件作為任務出口，不以單一測試取代。
 
 本次結束的狀態須分別列出：設計修訂、P0–P3程式／測試進度、P4-A/P4-B/P4-C未執行或實際結果、G4正式未通過、P5未批准。
+
+## 實作後契約補充與審閱結論（2026-10-24）
+
+上述T1–T5的核心模組／單元測試／只讀診斷已執行；原有checkbox保留原始計畫，完成證據以progress.md與驗證報告為準，不以整張勾選表宣稱影像閉環已完成。
+
+追加檔案：`tests/review-regressions.test.cjs`、`lib/replay-runner.cjs`、`tests/replay-runner.test.cjs`、`scripts/replay-saved.cjs`。
+
+固定介面更新：
+- Frame可含sourcePtsMs；SelectionProof新增previousFrame完整來源、sourceMode、predecessors。video模式後續不可缺PTS，capture模式不可途中加入PTS。
+- PreviewSession新增tick()；snapshot包含proof/action/receipt/deadlineMs/observations/events。實際呼叫前重查新鮮度，後續幀時間必須晚於實際送出，準備／送出事件分開。
+- MapObservation.verified要求區域高分且無衝突。預覽畫面verified只代表畫面分類成立，selectedNode=null時仍不能確認身份。
+- milestoneResult每例要求id,passed,source:{videoSha256,startPtsMs,endPtsMs},scale,artifacts,hashes,manifest。result.json須綁定同一id/stage/source/scale/transactionId與PREVIEW_CONFIRMED；事件須一次CLICK_SENT、兩張穩定確認與合法時間順序。每例路徑不可共用，來源區間不可重疊，A/B指定縮放組合不可缺。只能檢查已保存證據一致性，真值凍結仍屬P4。
+- runReplay({frames,intent,gate,observe})只有虛擬dispatcher；gate包含windowMs、clientBox與previewFromPtsMs，不傳入observe。診斷CLI只讀已綁定PNG/packet序列，輸出run.json與各幀五類工件，永遠p4Accepted=false、g4Complete=false。
+
+回歸案例包含：點前預覽冒充、掛起傳輸／斷流／遲到回條、低分與衝突區域、缺失/NaN/倒退PTS、前置位置與拓撲變更、證據輸出被修改、工件共用／篡改／缺manifest／重複區間、錯誤虛擬點擊不釋放人工預覽。
+
+目前出口：35/35核心測試、真實PNG單張診斷、saved-sequence入口單幀負向診斷。五個影片區間仍未review；P4-A/B/C與G4均未驗收；實際預覽選中節點證明仍待P4-A處理。P5未批准。
