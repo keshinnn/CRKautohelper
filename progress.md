@@ -9,3 +9,4 @@ Task 1: complete — evidence tests RED→GREEN, suite 3/3; baseline and five un
 Task 2: complete — geometry RED→GREEN, whole suite 6/6. Added assertCurrentGeometry for explicit stale-frame rejection; no DPI multiplication. Local commits attributed to Codex, no user git identity changed.
 Task 3: complete — node selection RED→GREEN, full suite 10/10; immutable branded proofs, linked select and second-floor resume; unverified completion rejects.
 Task 4: complete — transaction tests RED→GREEN, full suite 18/18; injected transport only, concurrent dispatch reserved, independent preview identity, post-click resize and exact deadline. No native entry point.
+Task 5: implementation and diagnostics verified — full suite 23/23; original PNG MAP and PREVIEW recognized; independent selected-preview identity remains unproven and is deliberately not copied from intent. V1 baseline 2384 files unchanged. Final independent review pending; G4 not run.
