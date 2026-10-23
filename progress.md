@@ -6,3 +6,4 @@ Ruling: V1 git work-tree operations fail with permissions; V2 lives in a new iso
 Ruling: Source candidate ranges are unreviewed and cannot count toward five original-resolution closures. Cost: P4-A needs manual verification before execution.
 T1 RED: node --test tests/evidence.test.cjs failed because lib/evidence.cjs did not exist; captured artifacts/T1-red.log.
 Task 1: complete — evidence tests RED→GREEN, suite 3/3; baseline and five unreviewed candidates frozen. G4 not run.
+Task 2: complete — geometry RED→GREEN, whole suite 6/6. Added assertCurrentGeometry for explicit stale-frame rejection; no DPI multiplication. Local commits attributed to Codex, no user git identity changed.
