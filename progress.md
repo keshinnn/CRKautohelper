@@ -8,3 +8,4 @@ T1 RED: node --test tests/evidence.test.cjs failed because lib/evidence.cjs did 
 Task 1: complete — evidence tests RED→GREEN, suite 3/3; baseline and five unreviewed candidates frozen. G4 not run.
 Task 2: complete — geometry RED→GREEN, whole suite 6/6. Added assertCurrentGeometry for explicit stale-frame rejection; no DPI multiplication. Local commits attributed to Codex, no user git identity changed.
 Task 3: complete — node selection RED→GREEN, full suite 10/10; immutable branded proofs, linked select and second-floor resume; unverified completion rejects.
+Task 4: complete — transaction tests RED→GREEN, full suite 18/18; injected transport only, concurrent dispatch reserved, independent preview identity, post-click resize and exact deadline. No native entry point.
