@@ -1,0 +1,266 @@
+{
+  "purpose": "Native identity and timing only; geometry truth pending, not formal holdout acceptance",
+  "motionAuditSha256": "44381b707431fecb11a34039f0055c703ae803eac2156460b0654ae897d6f656",
+  "cases": [
+    {
+      "id": "held-L0ktY5qUppI-zone9-floor1-col4-select",
+      "intent": {
+        "zone": 9,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "sourceVideoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        88191,
+        88197
+      ],
+      "pairedPreview": {
+        "frameIndex": 88206,
+        "imageSha256": "32ae27c401e804c9684bb3063261d5a3e9f698f52e20be495b5f014fefc1b065",
+        "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-timing-01\\L0ktY5qUppI-2940\\0088206.png"
+      },
+      "lastFrame": 88212,
+      "pairedNativePreviewAndSecondPreFrameVisuallyReviewed": true,
+      "firstPreFrameVisualReviewPending": false,
+      "originalTargetBoxReviewPending": false,
+      "nativeTimingAndContactReviewed": true,
+      "modelInferenceRun": false,
+      "split": "reserved-holdout-candidate",
+      "formal30Frozen": false,
+      "g4Complete": false,
+      "expectedBox": [
+        633,
+        344,
+        75,
+        77
+      ],
+      "clientBox": [
+        651,
+        363,
+        38,
+        38
+      ],
+      "geometryReview": {
+        "method": "Manual nearest-neighbor original-pixel crop grid, 5px guides; includes solid cyan/yellow outer rim and small AA, excludes diffuse glow, triangle, connecting lines and text labels",
+        "gridSha256": "d3410c07ae2a1185ff572030faa2445866753f0da59fdbb483946e9ce404ed7c",
+        "currentMarkerLowerContourPartiallyOccludedByLabel": false,
+        "modelOutputUsed": false
+      }
+    },
+    {
+      "id": "held-0QxozULx_SQ-zone2-floor1-col3-resume",
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 3,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "sourceVideoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "preFrames": [
+        13615,
+        13627
+      ],
+      "pairedPreview": {
+        "frameIndex": 13674,
+        "imageSha256": "cdf03107a342cdd96c01abae5f24b2cdbe4fdee858edbe7138e60e082d10b8c2",
+        "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-timing-01\\0QxozULx_SQ-228\\0013674.png"
+      },
+      "lastFrame": 13680,
+      "pairedNativePreviewAndSecondPreFrameVisuallyReviewed": true,
+      "firstPreFrameVisualReviewPending": false,
+      "originalTargetBoxReviewPending": false,
+      "nativeTimingAndContactReviewed": true,
+      "modelInferenceRun": false,
+      "split": "reserved-holdout-candidate",
+      "formal30Frozen": false,
+      "g4Complete": false,
+      "expectedBox": [
+        683,
+        341,
+        74,
+        80
+      ],
+      "clientBox": [
+        701,
+        362,
+        38,
+        38
+      ],
+      "geometryReview": {
+        "method": "Manual nearest-neighbor original-pixel crop grid, 5px guides; includes solid cyan/yellow outer rim and small AA, excludes diffuse glow, triangle, connecting lines and text labels",
+        "gridSha256": "11a216ed65ff61699b106948266ef7f58d3ae88e8b164729e0c460e938cd9eaf",
+        "currentMarkerLowerContourPartiallyOccludedByLabel": true,
+        "modelOutputUsed": false
+      }
+    },
+    {
+      "id": "held-0QxozULx_SQ-zone2-floor2-col4-select",
+      "intent": {
+        "zone": 2,
+        "floor": 2,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "sourceVideoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "preFrames": [
+        16770,
+        16782
+      ],
+      "pairedPreview": {
+        "frameIndex": 16848,
+        "imageSha256": "de4ca604ee15ca6d1c59499eb043d209b4866064669032a82703e5ad22fa7f6e",
+        "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-timing-01\\0QxozULx_SQ-281\\0016848.png"
+      },
+      "lastFrame": 16866,
+      "pairedNativePreviewAndSecondPreFrameVisuallyReviewed": true,
+      "firstPreFrameVisualReviewPending": false,
+      "originalTargetBoxReviewPending": false,
+      "nativeTimingAndContactReviewed": true,
+      "modelInferenceRun": false,
+      "split": "reserved-holdout-candidate",
+      "formal30Frozen": false,
+      "g4Complete": false,
+      "expectedBox": [
+        793,
+        447,
+        75,
+        77
+      ],
+      "clientBox": [
+        811,
+        466,
+        38,
+        38
+      ],
+      "geometryReview": {
+        "method": "Manual nearest-neighbor original-pixel crop grid, 5px guides; includes solid cyan/yellow outer rim and small AA, excludes diffuse glow, triangle, connecting lines and text labels",
+        "gridSha256": "9dbae8b2be55e7f805de37123bdd0d7be2e5f281fd60627193f714aa076c49d8",
+        "currentMarkerLowerContourPartiallyOccludedByLabel": false,
+        "modelOutputUsed": false
+      }
+    },
+    {
+      "id": "held-0QxozULx_SQ-zone3-floor1-col2-select",
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "sourceVideoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "preFrames": [
+        30030,
+        30042
+      ],
+      "pairedPreview": {
+        "frameIndex": 30072,
+        "imageSha256": "1ad34ca87d5a3479bee7b90dba658f9867cd121e8cf8b23b999aac213898b526",
+        "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-timing-01\\0QxozULx_SQ-501\\0030072.png"
+      },
+      "lastFrame": 30084,
+      "pairedNativePreviewAndSecondPreFrameVisuallyReviewed": true,
+      "firstPreFrameVisualReviewPending": false,
+      "originalTargetBoxReviewPending": false,
+      "nativeTimingAndContactReviewed": true,
+      "modelInferenceRun": false,
+      "split": "reserved-holdout-candidate",
+      "formal30Frozen": false,
+      "g4Complete": false,
+      "expectedBox": [
+        573,
+        344,
+        75,
+        77
+      ],
+      "clientBox": [
+        591,
+        363,
+        38,
+        38
+      ],
+      "geometryReview": {
+        "method": "Manual nearest-neighbor original-pixel crop grid, 5px guides; includes solid cyan/yellow outer rim and small AA, excludes diffuse glow, triangle, connecting lines and text labels",
+        "gridSha256": "3c897bab3f24197bf04e1dcc3388109c634e971bae7818dea5c76f52a2a876c1",
+        "currentMarkerLowerContourPartiallyOccludedByLabel": false,
+        "modelOutputUsed": false
+      }
+    },
+    {
+      "id": "held-0QxozULx_SQ-zone9-floor1-col1-select",
+      "intent": {
+        "zone": 9,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "sourceVideoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "preFrames": [
+        152444,
+        152456
+      ],
+      "pairedPreview": {
+        "frameIndex": 152526,
+        "imageSha256": "10784aeb3f99fa8d1a69091197908a5a9ed252b4295cb95a7ef4a8afdf800c25",
+        "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-timing-01\\0QxozULx_SQ-2542\\0152526.png"
+      },
+      "lastFrame": 152544,
+      "pairedNativePreviewAndSecondPreFrameVisuallyReviewed": true,
+      "firstPreFrameVisualReviewPending": false,
+      "originalTargetBoxReviewPending": false,
+      "nativeTimingAndContactReviewed": true,
+      "modelInferenceRun": false,
+      "split": "reserved-holdout-candidate",
+      "formal30Frozen": false,
+      "g4Complete": false,
+      "expectedBox": [
+        463,
+        344,
+        75,
+        77
+      ],
+      "clientBox": [
+        481,
+        363,
+        38,
+        38
+      ],
+      "geometryReview": {
+        "method": "Manual nearest-neighbor original-pixel crop grid, 5px guides; includes solid cyan/yellow outer rim and small AA, excludes diffuse glow, triangle, connecting lines and text labels",
+        "gridSha256": "222e82763a24dae2591ff81d97eaf7f2b4ffb0a2508c1eb8d99bff1c014ffe0c",
+        "currentMarkerLowerContourPartiallyOccludedByLabel": false,
+        "modelOutputUsed": false
+      }
+    }
+  ]
+}

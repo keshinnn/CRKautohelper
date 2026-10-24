@@ -9,12 +9,39 @@ import sys
 from pathlib import Path
 import cv2
 import numpy as np
+from PIL import Image
 
 def _box(row):
     points=np.asarray(row.get('box',[]),dtype=float)
     if points.shape!=(4,2) or not np.isfinite(points).all():return None
     lo=points.min(axis=0);hi=points.max(axis=0)
     return [float(lo[0]),float(lo[1]),float(hi[0]-lo[0]),float(hi[1]-lo[1])]
+
+def _english_ordinary_crop(image,evidence):
+    labels=[r for r in evidence if r.get('text','').strip().casefold()=='difficulty' and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>image.width*.5]
+    if len(labels)!=1:return []
+    x,y,w,h=_box(labels[0])
+    if h<=0 or h>image.height*.1 or x+w>=image.width:return []
+    left,top=int(x+w),max(0,int(y-h*.15))
+    right,bottom=max(left,int(image.width-h)),min(image.height,int(y+h*1.15))
+    if min(right-left,bottom-top)<=0:return []
+    crop=image.crop((left,top,right,bottom))
+    import text_reader
+    runtime=getattr(text_reader,'_v2_bounded_ocr_runtime',None)
+    if not runtime or not runtime.enabled:return []
+    sizes=[(max(24,round(crop.width/crop.height*40*ratio)),40) for ratio in [.65,.8,.95]]
+    pixels=[np.asarray(crop.convert('RGB').resize(size,Image.Resampling.LANCZOS))[:,:,::-1].copy() for size in sizes]
+    readings,elapsed=runtime.reader.text_rec(pixels)
+    runtime.recognition_crops.append({'inputSize':list(crop.size),'source':'difficulty_adjacent_english_line','variants':[{'text':text,'score':float(score),'analysisSize':list(size)} for size,(text,score) in zip(sizes,readings)],'elapsedMs':float(elapsed)*1000})
+    # Difficulty stars are part of the actual observed line. Keep them and
+    # the original recognizer score; reject every other prefix/suffix.
+    matches=[(text,float(score),size) for size,(text,score) in zip(sizes,readings) if re.fullmatch(r'\*{0,2}Normal',text.strip(),re.I) and float(score)>=.95]
+    if not matches:return []
+    text,score,analysis_size=max(matches,key=lambda row:row[1])
+    return [{'text':text,'score':score,'box':[[left,top],[right,top],[right,bottom],[left,bottom]],
+        'boxSource':'original_line_crop_extent','source':'difficulty_adjacent_english_normal_original_crop','cropBox':[left,top,right-left,bottom-top],'analysisSize':list(analysis_size)}]
+
+
 
 def inspect_preview_identity(image,packet):
     unknown={'verified':False,'reason':'PREVIEW_IDENTITY_UNPROVEN'}
@@ -35,9 +62,11 @@ def inspect_preview_identity(image,packet):
     if progress.get('conflictingEvidence') is not False or not .9<=progress.get('score',0)<=1 or type(progress.get('displayedZone')) is not int:return unknown
     if not 1<=progress['displayedZone']<=10:return unknown
     evidence=packet.get('evidence',[])
-    enters=[r for r in evidence if re.sub(r'\s+','',r.get('text',''))=='進入' and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>width*.5]
+    enters=[r for r in evidence if re.sub(r'\s+','',r.get('text','')).casefold() in ('進入','enter') and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>width*.5]
     timers=[r for r in evidence if r.get('text')=='03:00' and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>width*.5]
     ordinary=[r for r in evidence if '普通' in r.get('text','') and r.get('score',0)>=.65 and _box(r) and _box(r)[0]>width*.5]
+    if not ordinary and len(enters)==1 and len(timers)==1 and enters[0].get('text','').strip().casefold()=='enter':
+        ordinary=_english_ordinary_crop(image,evidence)
     if len(enters)!=1 or len(timers)!=1 or len(ordinary)!=1:return unknown
     if not m:
         # A weak MAP title classifier must not prevent independent preview
@@ -52,6 +81,8 @@ def inspect_preview_identity(image,packet):
         recovered_map=m
     if m.get('frameId')!=digest[:20] or m.get('absoluteFloorKnown') is not True or not (m.get('floorAnchorSource')=='visible_top_gate' or tracking_valid):return unknown
     ordinary_evidence={'kind':'original_ocr','originalScore':ordinary[0]['score']}
+    if ordinary[0].get('source')=='difficulty_adjacent_english_normal_original_crop':
+        ordinary_evidence={**ordinary_evidence,'kind':ordinary[0]['source'],'originalPixelReading':ordinary[0]}
     if ordinary[0]['score']<.8:
         # Re-read a bounded original-pixel crop; do not promote the old score
         # or substitute an expected word into OCR output.

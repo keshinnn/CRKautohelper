@@ -1,0 +1,157 @@
+{
+  "purpose": "Visual navigation and native qualification audit; no30freeze or final rejection based solely on thumbnail sampling",
+  "reviewedSheets": 25,
+  "reviews": [
+    {
+      "contact": "artifacts\\p4c-primary-anchor-lookback-01\\0009420-lookback.jpg",
+      "sha256": "def43a823bf411780f415568714a4280f537b36e9110641439e6e3b9aab890d7",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-primary-anchor-lookback-01\\0009501-lookback.jpg",
+      "sha256": "b19708490cd2efd2caa852324dcf7c0682b7f0836c8c1ba98635be6182425cc4",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-primary-anchor-lookback-01\\0035427-lookback.jpg",
+      "sha256": "574b93f8e02ca80c3e6e2335703a3632a4db31dba0f15bbea6c1d5e3fa17839a",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-primary-anchor-lookback-01\\0042630-lookback.jpg",
+      "sha256": "d488ba22862cb5a9322d78ebb8f247da579d7d80d79c0be40c3993796acf31d3",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-primary-anchor-lookback-01\\0056334-lookback.jpg",
+      "sha256": "4513ea650d93a7836b42119af402604a65118eebd05732b3cb9789f929e17ce1",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-primary-anchor-lookback-01\\0059793-lookback.jpg",
+      "sha256": "8153019a13e57f922e25e7b427874986253ae784c16f0e92988c9dd49ef04023",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-01\\00-L0ktY5qUppI-496.jpg",
+      "sha256": "981a14f636ed1f31f06ac5080c600348980a829a9e949d7d7da84248a3b98284",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-01\\02-L0ktY5qUppI-731.jpg",
+      "sha256": "9168f081b31d2461dbcf36569b06fb5047682bb6f67bb9536d3fc4856904d685",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-01\\04-L0ktY5qUppI-1490.jpg",
+      "sha256": "962e7a0a31d317f458da9baa17f63afca73cc25dada8b20ff336b78eec0a971c",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-01\\05-L0ktY5qUppI-1550.jpg",
+      "sha256": "e1ff3e3d244c36a38325c167c54ec7733009a886d67ca7b997259bf5892915ea",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-01\\06-L0ktY5qUppI-1563.jpg",
+      "sha256": "7ad98f92a505a95c1083fdcdba74bf5dc9768a4831ab207e6837b4d5686422ac",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-01\\07-L0ktY5qUppI-1577.jpg",
+      "sha256": "c929283c34f35bd3fd359cf695ce4ca2426bdcfb6392680df72cf424379c459b",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-01\\11-L0ktY5qUppI-2282.jpg",
+      "sha256": "d3b3a69f3a5aced05c079cdde45eb1de5622b0967b364063ca7ecae18eb712f6",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-01\\21-0QxozULx_SQ-1232.jpg",
+      "sha256": "35bfb89d73e0e940e54c908b2b8688be7262dc78380269d4f1c01f6cc243d0b4",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-01\\29-L0ktY5qUppI-906.1.jpg",
+      "sha256": "83e4f1dcb6f660be437b2293113029dc2f07b4bdc0a02312056825e3779e3f80",
+      "decision": "Earlier complete gate and target visible; new ordinary candidate, needs full native timing/paired selected-preview annotation. Reserved from recognizer development for now.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-01\\30-0QxozULx_SQ-392.2.jpg",
+      "sha256": "d8d55d909c416a3db0321a580bd1326cefda3e496ad1023abcb3b91e71db21e9",
+      "decision": "No complete pre-click gate found in reviewed2FPS lookback samples; not a final native-frame rejection.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-02\\01-L0ktY5qUppI-599.jpg",
+      "sha256": "65569b2f44f60f26de52da5e748e22533e429ae3d754be6e728678996a5cf11d",
+      "decision": "Multiple disabled/elite/ordinary panel changes; no200ms closed map immediately before ordinary confirmed. Native review still needed.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-02\\03-L0ktY5qUppI-1206.jpg",
+      "sha256": "33c8a16c1ea7934d2afe2f3f990cee234497ee342febbcb4961614704b0ee06b",
+      "decision": "Earlier full gate and actual firstfloor column1 target confirmed in native36195preview; native280frames preserved. Earliest stable windows exist but need assess long post-dispatch scroll delay; do not relabel as negative merely for existing2500ms tracker limit.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-02\\12-L0ktY5qUppI-2571.jpg",
+      "sha256": "ef994d87b1c8070555b8b688c3ae96d1d3530ae58e521fd153a0e26b4052fa4b",
+      "decision": "Earlier full gate and actual firstfloor column4 target confirmed in native77133preview; native130frames preserved. Stable77035..77041 and preview770xx near freshness edge; pending actual model-free qualification.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-02\\18-0QxozULx_SQ-771.jpg",
+      "sha256": "83302567e61c2771cc7e4b91d2823d4ef4009ce417dfe6f69268ef5715bae4cf",
+      "decision": "Historical development interaction, earlier full gate around766.3..767.3, target firstfloor column4 confirmed in native46260preview. Native361frames saved; no holdout claim.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-02\\19-0QxozULx_SQ-977.jpg",
+      "sha256": "1f8625ae8f49c9c7b2d3e83c467c2fbe923423b2396eda7afd7998a7582a2dec",
+      "decision": "No complete gate found in reward-return map samples before ordinary preview. Not a model-recognition exclusion.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-02\\22-0QxozULx_SQ-1743.jpg",
+      "sha256": "48cd221d0878f0986eb294a1615a3f09611dd6afcd388bb6f580599f77735992",
+      "decision": "Closed map after disabled elite is scrolled without full gate in reviewed samples; earlier full gate is behind open panel. Native200ms proof unresolved.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-02\\23-0QxozULx_SQ-2074.jpg",
+      "sha256": "ab42e416d9b4e9ed0af57d63b8edf5a88ef4c9a3a899b4ee9c42064f08028a9a",
+      "decision": "Earlier firstfloor map exists, but elite/heal panels intervene before ordinary. No200ms closed-map-before-ordinary confirmed in reviewed samples.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-02\\25-0QxozULx_SQ-2651.jpg",
+      "sha256": "6f50683927b9288aa2779e298e89ae757975bdcc3c12233cb45f3683ecc45226",
+      "decision": "Heal panel and effect overlay intervene; high-floor gate absent in reviewed map. Not a new qualified closed-map interaction.",
+      "acceptedPositive": false
+    },
+    {
+      "contact": "artifacts\\p4c-extra-anchor-lookback-02\\27-0QxozULx_SQ-2923.jpg",
+      "sha256": "80123f5e1394cf4af2af5e7671ce4da20da8b9476612f070c6403fa7e093b2fc",
+      "decision": "Return from cookie-status modal to the same preview as earlier2910 interaction; do not count twice.",
+      "acceptedPositive": false
+    }
+  ],
+  "g4Complete": false
+}

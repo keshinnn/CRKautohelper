@@ -1,0 +1,42 @@
+{
+  "id": "LX46_2XTfJg",
+  "url": "https://www.youtube.com/watch?v=LX46_2XTfJg",
+  "title": "Trials Of The Nether Realm Hard Mode Season 3 Zone 1 - 10 Guide | Cookie Run Kingdom",
+  "sourceVideoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+  "sourceBytes": 1610250431,
+  "formatId": "299",
+  "rendition": "platform native1920x1080 60FPS video-only AVC; no resizing/reencoding",
+  "fps": 60.0,
+  "size": [
+    1920,
+    1080
+  ],
+  "frames": 172969,
+  "watermarkPolicy": "Keep unchanged in all native and transformed source frames; never erase or treat watermark as game evidence. Occluded required proof remains unproven.",
+  "qualificationOnly": true,
+  "g4Complete": false,
+  "userProvided": true,
+  "sourcePreviouslyUsedForDevelopment": false,
+  "inferenceRun": false,
+  "uiLanguage": "English (visually observed, not yet adapted/tested)",
+  "navigationOverviewSeconds": [
+    0,
+    10,
+    20,
+    30,
+    60,
+    90,
+    120,
+    180,
+    300,
+    600,
+    1500,
+    2800
+  ],
+  "watermarkObservation": "Repeated semitransparent @chateaw text inside game viewport; retain in original pixels and transformations.",
+  "downloadEvidence": [
+    "artifacts/p4c-new-source-LX46_2XTfJg-metadata-02.log",
+    "artifacts/p4c-new-source-LX46_2XTfJg-download-02.log"
+  ],
+  "qualificationRule": "Native paired map/selected preview review before freezing development/holdout; language failure cannot be reclassified as negative."
+}

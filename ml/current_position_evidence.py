@@ -7,7 +7,7 @@ import numpy as np
 def inspect_in_progress(rgb,packet,node_actions):
     m=packet.get('mapReview') or {};progress=packet.get('progress') or {}
     if m.get('absoluteFloorKnown') is not True or m.get('floorAnchorSource')!='visible_top_gate' or len([n for n in m.get('nodes',[]) if n.get('type')=='exit'])!=1 or progress.get('conflictingEvidence') is not False or progress.get('score',0)<.9 or type(progress.get('displayedZone')) is not int or not 1<=progress['displayedZone']<=10:return None
-    labels=[r for r in packet.get('evidence',[]) if re.sub(r'\s+','',r.get('text',''))=='進行中' and r.get('score',0)>=.95]
+    labels=[r for r in packet.get('evidence',[]) if re.sub(r'\s+','',r.get('text','')).casefold() in ('進行中','inprogress') and r.get('score',0)>=.95]
     if len(labels)!=1:return None
     points=np.asarray(labels[0].get('box'),dtype=float)
     if points.shape!=(4,2) or not np.isfinite(points).all():return None

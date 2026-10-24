@@ -108,3 +108,15 @@ test('malformed native current marker claims cannot authorize resume',()=>{
   const {p,f}=nativeInProgressSource();mutate(p);assert.equal(adaptMap(f,p).current,null);
  }
 });
+
+
+test('English native current marker binds exact actual label while ignoring watermark',()=>{
+ const p=JSON.parse(fs.readFileSync(path.join(__dirname,'../artifacts/p4c-LX46-english-current.packet.json')));
+ const png=fs.readFileSync(path.join(__dirname,'../artifacts/p4c-LX46-native-qualification-01/candidate-00-38.0/0002194.png'));
+ const f={id:p.binding.frameId,sha256:p.binding.imageSha256,width:p.binding.width,height:p.binding.height,atMs:1000,windowKey:'offline:native',geometryVersion:'original',origin:[0,0],png};
+ assert.deepEqual(adaptMap(f,p).current,{nodeId:'visible-1-1',verified:true,inProgress:true});
+ for(const text of ['@chateaw In Progress','In Progr']){
+  const changed=structuredClone(p);changed.evidence.find(r=>r.text==='In progress').text=text;
+  assert.equal(adaptMap(f,changed).current,null);
+ }
+});

@@ -1,0 +1,281 @@
+{
+  "purpose": "Paired original-native identity and earlier-gate qualification, not formal30/20-10freeze or recognizer acceptance",
+  "sourceVideoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+  "nativeFrames": 1629,
+  "cases": [
+    {
+      "candidate": 0,
+      "intent": {
+        "zone": 1,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "pairedPreviewFrame": 2286,
+      "pairedPreviewImageSha256": "31cf2d0125d20d126886098e3bf938bd7c1deed9b7360773959304b8fe8f2eef",
+      "identityReview": "Native selected green outline paired with closed-map global4-column lattice, including empty row positions. No observer/model output used.",
+      "pixelStabilityCandidatePreFrames": [
+        2194,
+        2206
+      ],
+      "orangeAuditSha256": "9c11ed20cc273db6d8e055a209867bcac6c075880049ad31b3b49c4854c1f254",
+      "geometryAndFullPrepairReviewComplete": false,
+      "acceptedPositive": false,
+      "split": "development",
+      "modelInferenceRun": true,
+      "developmentResult": {
+        "report": "artifacts/p4c-LX46-dev-replay-01/report.json",
+        "passed": true,
+        "formalG4": false,
+        "nativeActions": 0,
+        "virtualClicks": 1,
+        "consumedFrames": 63,
+        "note": "V2 identity recomputed on explicitly bound saved V1 packets; not fresh performance"
+      }
+    },
+    {
+      "candidate": 4,
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "pairedPreviewFrame": 12198,
+      "pairedPreviewImageSha256": "ab585662d56b94326f9454d82ffb3d3fe9c4f30c6ff22aeeeb574cfd73816edc",
+      "identityReview": "Native selected green outline paired with closed-map global4-column lattice, including empty row positions. No observer/model output used.",
+      "pixelStabilityCandidatePreFrames": [
+        12156,
+        12168
+      ],
+      "orangeAuditSha256": "9c11ed20cc273db6d8e055a209867bcac6c075880049ad31b3b49c4854c1f254",
+      "geometryAndFullPrepairReviewComplete": false,
+      "acceptedPositive": false,
+      "split": "unassigned",
+      "modelInferenceRun": false,
+      "earlierGateCandidate": {
+        "preFrames": [
+          12001,
+          12013
+        ],
+        "nativeIntervalMs": 200,
+        "targetOrangeCentroidRangePx": 0.31595974430047136,
+        "auditSha256": "9b1a67b80804543612dbeeb5c2efd90c62103fb09acdfa6edb7af6d200096d8a",
+        "visuallyReviewedNativePair": true,
+        "hasFadingZoneBanner": true,
+        "geometryAnnotationPending": true,
+        "previewAnchorFreshnessRisk": "Real human scrolling after earlier visible gate may exceed current 2500ms registration guard; retain as development challenge, never silently relabel as negative or extend guard."
+      }
+    },
+    {
+      "candidate": 8,
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "pairedPreviewFrame": 19764,
+      "pairedPreviewImageSha256": "116be87535b8847c38706a017498bcc8e2f70418c86608724f2aa766f56683b9",
+      "identityReview": "Native selected green outline paired with closed-map global4-column lattice, including empty row positions. No observer/model output used.",
+      "pixelStabilityCandidatePreFrames": [
+        19716,
+        19728
+      ],
+      "orangeAuditSha256": "9c11ed20cc273db6d8e055a209867bcac6c075880049ad31b3b49c4854c1f254",
+      "geometryAndFullPrepairReviewComplete": false,
+      "acceptedPositive": false,
+      "split": "unassigned",
+      "modelInferenceRun": false,
+      "earlierGateCandidate": {
+        "preFrames": [
+          19578,
+          19590
+        ],
+        "nativeIntervalMs": 200,
+        "targetOrangeCentroidRangePx": 0.06800670299935518,
+        "auditSha256": "9b1a67b80804543612dbeeb5c2efd90c62103fb09acdfa6edb7af6d200096d8a",
+        "visuallyReviewedNativePair": true,
+        "hasFadingZoneBanner": false,
+        "geometryAnnotationPending": true,
+        "previewAnchorFreshnessRisk": "Real human scrolling after earlier visible gate may exceed current 2500ms registration guard; retain as development challenge, never silently relabel as negative or extend guard."
+      }
+    },
+    {
+      "candidate": 12,
+      "intent": {
+        "zone": 4,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "pairedPreviewFrame": 28368,
+      "pairedPreviewImageSha256": "fcb77e6ef2d8deadcd0324571e8fd37181f079c14943d6acc41a605c89d26dcb",
+      "identityReview": "Native selected green outline paired with closed-map global4-column lattice, including empty row positions. No observer/model output used.",
+      "pixelStabilityCandidatePreFrames": [
+        28326,
+        28338
+      ],
+      "orangeAuditSha256": "9c11ed20cc273db6d8e055a209867bcac6c075880049ad31b3b49c4854c1f254",
+      "geometryAndFullPrepairReviewComplete": false,
+      "acceptedPositive": false,
+      "split": "unassigned",
+      "modelInferenceRun": false,
+      "earlierGateCandidate": {
+        "preFrames": [
+          28176,
+          28188
+        ],
+        "nativeIntervalMs": 200,
+        "targetOrangeCentroidRangePx": 0.16309603043600873,
+        "auditSha256": "9b1a67b80804543612dbeeb5c2efd90c62103fb09acdfa6edb7af6d200096d8a",
+        "visuallyReviewedNativePair": true,
+        "hasFadingZoneBanner": false,
+        "geometryAnnotationPending": true,
+        "previewAnchorFreshnessRisk": "Real human scrolling after earlier visible gate may exceed current 2500ms registration guard; retain as development challenge, never silently relabel as negative or extend guard."
+      }
+    },
+    {
+      "candidate": 13,
+      "intent": {
+        "zone": 4,
+        "floor": 2,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "pairedPreviewFrame": 30132,
+      "pairedPreviewImageSha256": "fae4585b9f94b4ec452aa9302d8ab9672180a8b8ba05fc983b5df04e8ec88c08",
+      "identityReview": "Native selected green outline paired with closed-map global4-column lattice, including empty row positions. No observer/model output used.",
+      "pixelStabilityCandidatePreFrames": [
+        30090,
+        30102
+      ],
+      "orangeAuditSha256": "9c11ed20cc273db6d8e055a209867bcac6c075880049ad31b3b49c4854c1f254",
+      "geometryAndFullPrepairReviewComplete": false,
+      "acceptedPositive": false,
+      "split": "unassigned",
+      "modelInferenceRun": false
+    },
+    {
+      "candidate": 18,
+      "intent": {
+        "zone": 5,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "pairedPreviewFrame": 41952,
+      "pairedPreviewImageSha256": "bcefd6c164ed6c1c4cb281f39f111da045ef449697ff9b8f83ff70442981954b",
+      "identityReview": "Native selected green outline paired with closed-map global4-column lattice, including empty row positions. No observer/model output used.",
+      "pixelStabilityCandidatePreFrames": [
+        41922,
+        41934
+      ],
+      "orangeAuditSha256": "9c11ed20cc273db6d8e055a209867bcac6c075880049ad31b3b49c4854c1f254",
+      "geometryAndFullPrepairReviewComplete": false,
+      "acceptedPositive": false,
+      "split": "unassigned",
+      "modelInferenceRun": false,
+      "earlierGateCandidate": {
+        "preFrames": [
+          41758,
+          41770
+        ],
+        "nativeIntervalMs": 200,
+        "targetOrangeCentroidRangePx": 0.17813188579145844,
+        "auditSha256": "9b1a67b80804543612dbeeb5c2efd90c62103fb09acdfa6edb7af6d200096d8a",
+        "visuallyReviewedNativePair": false,
+        "hasFadingZoneBanner": true,
+        "geometryAnnotationPending": true,
+        "previewAnchorFreshnessRisk": "Real human scrolling after earlier visible gate may exceed current 2500ms registration guard; retain as development challenge, never silently relabel as negative or extend guard."
+      }
+    },
+    {
+      "candidate": 24,
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "pairedPreviewFrame": 58794,
+      "pairedPreviewImageSha256": "010816457bcd053e648061a2a00defde3491bd17628edc13af434f6654149583",
+      "identityReview": "Native selected green outline paired with closed-map global4-column lattice, including empty row positions. No observer/model output used.",
+      "pixelStabilityCandidatePreFrames": [
+        58752,
+        58764
+      ],
+      "orangeAuditSha256": "9c11ed20cc273db6d8e055a209867bcac6c075880049ad31b3b49c4854c1f254",
+      "geometryAndFullPrepairReviewComplete": false,
+      "acceptedPositive": false,
+      "split": "unassigned",
+      "modelInferenceRun": false
+    },
+    {
+      "candidate": 28,
+      "intent": {
+        "zone": 7,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "pairedPreviewFrame": 75714,
+      "pairedPreviewImageSha256": "0b5d3f85c879ec83d14d6c337e60a3d2c88460b0408208fd8dd391776c3d0c9e",
+      "identityReview": "Native selected green outline paired with closed-map global4-column lattice, including empty row positions. No observer/model output used.",
+      "pixelStabilityCandidatePreFrames": [
+        75638,
+        75650
+      ],
+      "orangeAuditSha256": "9c11ed20cc273db6d8e055a209867bcac6c075880049ad31b3b49c4854c1f254",
+      "geometryAndFullPrepairReviewComplete": false,
+      "acceptedPositive": false,
+      "split": "unassigned",
+      "modelInferenceRun": false,
+      "earlierGateCandidate": {
+        "preFrames": [
+          75051,
+          75063
+        ],
+        "nativeIntervalMs": 200,
+        "targetOrangeCentroidRangePx": 0.1739029893379893,
+        "auditSha256": "9b1a67b80804543612dbeeb5c2efd90c62103fb09acdfa6edb7af6d200096d8a",
+        "visuallyReviewedNativePair": true,
+        "hasFadingZoneBanner": false,
+        "geometryAnnotationPending": true,
+        "previewAnchorFreshnessRisk": "Real human scrolling after earlier visible gate may exceed current 2500ms registration guard; retain as development challenge, never silently relabel as negative or extend guard."
+      }
+    },
+    {
+      "candidate": 29,
+      "intent": {
+        "zone": 7,
+        "floor": 2,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "pairedPreviewFrame": 77814,
+      "pairedPreviewImageSha256": "4484ea29af9dd8d1de050f85b27c46820fbdb0d5c08202c8b5d2ac56d2d4ac66",
+      "identityReview": "Native selected green outline paired with closed-map global4-column lattice, including empty row positions. No observer/model output used.",
+      "pixelStabilityCandidatePreFrames": [
+        77766,
+        77778
+      ],
+      "orangeAuditSha256": "9c11ed20cc273db6d8e055a209867bcac6c075880049ad31b3b49c4854c1f254",
+      "geometryAndFullPrepairReviewComplete": false,
+      "acceptedPositive": false,
+      "split": "unassigned",
+      "modelInferenceRun": false
+    }
+  ],
+  "g4Complete": false,
+  "additionalEarlierNativeFrames": 719
+}

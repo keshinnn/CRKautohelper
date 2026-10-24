@@ -9,6 +9,8 @@ sys.path.insert(0, str(root/'ml'))
 from observation import inspect_capture
 from progress_evidence import ProgressRuntime
 progress_runtime=ProgressRuntime();progress_runtime.__enter__();atexit.register(progress_runtime.close)
+from english_scene import EnglishSceneRuntime
+english_runtime=EnglishSceneRuntime();english_runtime.__enter__();atexit.register(english_runtime.close)
 raw = filename.read_bytes()
 with Image.open(filename) as image:
     if image.format != 'PNG': raise ValueError('original PNG required; no implicit resize or re-encode')

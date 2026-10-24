@@ -2,6 +2,23 @@ import hashlib,json,os,subprocess,sys,tempfile,unittest
 from pathlib import Path
 
 class OfflineAnalyzerTests(unittest.TestCase):
+    def test_changed_language_or_progress_code_invalidates_cached_legacy_semantics(self):
+        root=Path(__file__).resolve().parents[1]
+        original=json.loads((root/'artifacts/p4c-LX46-dev-analysis-02/manifest.json').read_text(encoding='utf-8'))
+        entry=original['cases'][0]['frames'][0]
+        with tempfile.TemporaryDirectory(prefix='crk-language-cache-',dir=root/'artifacts') as folder:
+            folder=Path(folder);source=folder/'source.json'
+            source.write_text(json.dumps({'cases':[{'id':'language-cache','videoSha256':original['cases'][0]['videoSha256'],'frames':[{k:v for k,v in entry.items() if k!='packet'}]}]}),encoding='utf-8')
+            for key in ['englishSceneCodeSha256','progressCodeSha256']:
+                cache=json.loads(json.dumps(original));cache['analysis'][key]='a'*64
+                cachefile=folder/(key+'.json');cachefile.write_text(json.dumps(cache),encoding='utf-8');out=folder/key
+                r=subprocess.run([sys.executable,'-B',str(root/'ml/analyze_cases.py'),str(source),str(out),'--fast-map','--bounded-ocr','960','--cache',str(cachefile)],capture_output=True,text=True,encoding='utf-8')
+                self.assertEqual(r.returncode,0,r.stderr)
+                m=json.loads((out/'manifest.json').read_text(encoding='utf-8'))
+                packet=json.loads(Path(m['cases'][0]['frames'][0]['packet']).read_text(encoding='utf-8'))
+                self.assertTrue(packet['analysisTiming']['freshFullPipeline'])
+                self.assertEqual(m['analysis']['cacheIgnoredReason'],'SEMANTIC_RUNTIME_CHANGED_OR_UNBOUND')
+
     def test_case_source_rejects_missing_malformed_and_conflicting_claims(self):
         sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'ml'))
         from analyze_cases import case_source_sha,source_frame_id

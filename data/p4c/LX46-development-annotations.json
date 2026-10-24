@@ -1,0 +1,47 @@
+{
+  "purpose": "Explicit English/watermark development interaction; never holdout or formal30 pass claim",
+  "cases": [
+    {
+      "id": "dev-LX46-zone1-floor1-col1-resume",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        2194,
+        2206
+      ],
+      "lastFrame": 2286,
+      "intent": {
+        "zone": 1,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "expectedBox": [
+        607,
+        493,
+        146,
+        160
+      ],
+      "clientBox": [
+        646,
+        539,
+        68,
+        68
+      ],
+      "reviewed": true,
+      "reviewMethod": "Paired original native PNGs2194/2206/2286 and earlier pixel-grid review before any model inference; watermark retained",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        36766.666667,
+        36766.666667
+      ]
+    }
+  ]
+}

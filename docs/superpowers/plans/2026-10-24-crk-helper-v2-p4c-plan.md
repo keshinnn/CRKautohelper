@@ -78,3 +78,7 @@ L0原生resume兩張地圖已讀到區域6與節點旁「進行中」，但V1cur
 ## G0多來源影格與快取隔離 brief
 
 正式C將使用不同原生影片；目前batch frameId只讀manifest頂層videoSha256，快取key也只有frameIndex/PNG SHA。即使兩個來源有完全相同PNG及影格編號，也必須保有各自影片身份，不得跨片重用packet。先以真實PNG建立兩個明確來源雜湊的入口測試：沒有全域videoSha時仍能逐案例建立不同frameId；同runtime快取只能命中同來源，來源不同必須新鮮辨識。沿用既有單片frameId公式與頂層fallback，驗證SHA格式及同案例source/direct聲明衝突；未知歷史快取來源不能給權限。記錄來源綁定與拒絕原因，維持PNG/RGB/尺寸檢查。這是資料身份契約測試，不將相同測試PNG計入30個影片互動。
+
+### English source development repair brief (2026-10-25)
+
+Real LX46original2194 fails UNKNOWN with fragmented Zone/1inl/Progr despite actual English title and time labels. Permanently development-assigned before inference, original watermark retained. First RED tests require exact full English zone phrases, conflict rejection across languages, no watermark/reward/partial text as zone authority; independently bounded original crop next to unique actual Ends in label must reread missing full zone. Erased original zone pixels must remain unknown. Do not concatenate speculative OCR fragments or fabricate/translate English text into Chinese evidence. Preserve scores/boxes/source references and existing V1 behavior. Subsequent semantic/current/preview support needs its own failing tests; no inference on pending holdout. This repair alone is not a closed-loop pass or formalG4.

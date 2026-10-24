@@ -44,7 +44,7 @@ class BoundedOCRRuntime:
         rows=normalize_evidence(self.previous_read(image))
         header=text_reader.map_header_from_evidence(rows)
         if header['displayedZone'] is not None or header['conflictingEvidence']:return rows
-        remaining=[r for r in rows if '剩餘時間' in r.get('text','') and r.get('score',0)>=.85]
+        remaining=[r for r in rows if ('剩餘時間' in r.get('text','') or re.fullmatch(r'Ends\s+in:\s*\d+D\s+\d{2}:\d{2}:\d{2}',r.get('text','').strip(),re.I)) and r.get('score',0)>=.85]
         if len(remaining)!=1:return rows
         points=np.asarray(remaining[0].get('box'),dtype=float)
         if points.shape!=(4,2) or not np.isfinite(points).all():return rows
@@ -55,7 +55,7 @@ class BoundedOCRRuntime:
         if endx<=left or endy<=top:return rows
         crop=image.crop((left,top,endx,endy));size=(crop.width*3,crop.height*3)
         local=normalize_evidence(self.previous_read(crop.resize(size,Image.Resampling.LANCZOS)))
-        matches=[r for r in local if r.get('score',0)>=.9 and re.fullmatch(r'[區区]域(?:10|[1-9])[進进]行中',re.sub(r'\s+','',r.get('text','')))]
+        matches=[r for r in local if r.get('score',0)>=.9 and re.fullmatch(r'(?:[區区]域(?:10|[1-9])[進进]行中|Zone(?:10|[1-9])inProgress)',re.sub(r'\s+','',r.get('text','')),re.I)]
         if len(matches)!=1:return rows
         row=matches[0]
         return [*rows,{**row,'box':[[round(px/3+left,2),round(py/3+top,2)] for px,py in row['box']],
