@@ -21,17 +21,21 @@ def main():
         from bounded_ocr import BoundedOCRRuntime
         bounded=BoundedOCRRuntime(args.bounded_ocr);bounded.__enter__();atexit.register(bounded.close)
         ocr_mode=bounded.mode;ocr_code=hashlib.sha256((Path(__file__).parent/'bounded_ocr.py').read_bytes()).hexdigest()
+    from runtime_evidence import capture_runtime_evidence
+    runtime_evidence=capture_runtime_evidence()
     source_path=Path(args.source_manifest);m=json.loads(source_path.read_text(encoding='utf-8'));out=Path(args.output);out.mkdir()
     cached={};cache_ignored=None
     if args.cache:
         old=json.loads(Path(args.cache).read_text(encoding='utf-8'))
         old_ocr=(old.get('analysis') or {}).get('ocrPreprocessing') or {'mode':'original_v1','codeSha256':None}
         if old_ocr.get('mode')!=ocr_mode or old_ocr.get('codeSha256')!=ocr_code:cache_ignored='OCR_PREPROCESSING_CHANGED'
+        elif (old.get('analysis') or {}).get('runtimeEvidence',{}).get('fingerprint')!=runtime_evidence['fingerprint']:cache_ignored='OCR_RUNTIME_CHANGED_OR_UNBOUND'
         else:
             for c in old['cases']:
                 for f in c['frames']:
                     if f.get('packet'):cached[(f['frameIndex'],f['sha256'])]=f['packet']
     m['analysis']={'sourceManifestSha256':hashlib.sha256(source_path.read_bytes()).hexdigest(),
+      'runtimeEvidence':runtime_evidence,
       'identityCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_identity.py').read_bytes()).hexdigest(),
       'mapActionCodeSha256':hashlib.sha256((Path(__file__).parent/'map_action_evidence.py').read_bytes()).hexdigest(),
       'previewRegistrationCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_registration.py').read_bytes()).hexdigest(),

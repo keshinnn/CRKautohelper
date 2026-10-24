@@ -49,3 +49,7 @@
 ## Task 4追加實作 brief：點擊前重新取得穩定畫面
 
 離線runner目前遇到第一對移動畫面或幾何變更立即結束，不能驗證點前變更後重新穩定的正例。保留selector原有200ms、相同視窗／幾何與像素穩定門檻；runner只對同視窗的短間隔、幾何變更或MAP_MOVING重新等待。每次拒絕記完整影格ID／錯誤碼；移動／幾何變更後舊候選作廢，從新圖重新累積200ms。視窗改變、未知、不可用、缺身份／連線等仍立即拒絕。先以連續33ms影格、移動後停止、點前尺寸變更、跨視窗反例TDD；實際影片負例仍不得點擊。
+
+## G0追加實作 brief：實際OCR資產與runtime可追溯
+
+初始2384檔快照未包含venv內的OCR ONNX。正式C之前，在離線analysis記錄Python／Pillow／NumPy／OpenCV／RapidOCR／ORT版本、RapidOCR程式／設定檔及三個實際ONNX的SHA與大小。綁成可重現fingerprint；快取若缺fingerprint或不一致，即使OCR模式與V2程式相同仍須重新辨識。保留OCR模式變更拒絕優先順序。先測實際模型清單／雜湊及偽造runtime快取必須失效，不改任何V1／套件檔。舊報告維持當時證據，不追溯冒稱已記錄。

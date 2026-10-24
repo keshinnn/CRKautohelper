@@ -1,0 +1,2066 @@
+{
+  "purpose": "5FPS native source samples visually audited; not frozen positive labels or holdout selection",
+  "cases": [
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 496,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\00-L0ktY5qUppI-496.jpg",
+      "frames": [
+        {
+          "frameIndex": 14832,
+          "sourcePtsMs": 494400.0
+        },
+        {
+          "frameIndex": 14838,
+          "sourcePtsMs": 494600.0
+        },
+        {
+          "frameIndex": 14844,
+          "sourcePtsMs": 494800.0
+        },
+        {
+          "frameIndex": 14850,
+          "sourcePtsMs": 495000.0
+        },
+        {
+          "frameIndex": 14856,
+          "sourcePtsMs": 495200.0
+        },
+        {
+          "frameIndex": 14862,
+          "sourcePtsMs": 495400.0
+        },
+        {
+          "frameIndex": 14868,
+          "sourcePtsMs": 495600.0
+        },
+        {
+          "frameIndex": 14874,
+          "sourcePtsMs": 495800.0
+        },
+        {
+          "frameIndex": 14880,
+          "sourcePtsMs": 496000.0
+        },
+        {
+          "frameIndex": 14886,
+          "sourcePtsMs": 496200.0
+        },
+        {
+          "frameIndex": 14892,
+          "sourcePtsMs": 496400.0
+        },
+        {
+          "frameIndex": 14898,
+          "sourcePtsMs": 496600.0
+        },
+        {
+          "frameIndex": 14904,
+          "sourcePtsMs": 496800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_absolute_anchor_search",
+      "acceptedPositive": false,
+      "contactSha256": "27ce752e4d02f37df3368e9645326963c38b06553e9279460f681989819db9d8"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 599,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\01-L0ktY5qUppI-599.jpg",
+      "frames": [
+        {
+          "frameIndex": 17922,
+          "sourcePtsMs": 597400.0
+        },
+        {
+          "frameIndex": 17928,
+          "sourcePtsMs": 597600.0
+        },
+        {
+          "frameIndex": 17934,
+          "sourcePtsMs": 597800.0
+        },
+        {
+          "frameIndex": 17940,
+          "sourcePtsMs": 598000.0
+        },
+        {
+          "frameIndex": 17946,
+          "sourcePtsMs": 598200.0
+        },
+        {
+          "frameIndex": 17952,
+          "sourcePtsMs": 598400.0
+        },
+        {
+          "frameIndex": 17958,
+          "sourcePtsMs": 598600.0
+        },
+        {
+          "frameIndex": 17964,
+          "sourcePtsMs": 598800.0
+        },
+        {
+          "frameIndex": 17970,
+          "sourcePtsMs": 599000.0
+        },
+        {
+          "frameIndex": 17976,
+          "sourcePtsMs": 599200.0
+        },
+        {
+          "frameIndex": 17982,
+          "sourcePtsMs": 599400.0
+        },
+        {
+          "frameIndex": 17988,
+          "sourcePtsMs": 599600.0
+        },
+        {
+          "frameIndex": 17994,
+          "sourcePtsMs": 599800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "panel_already_open_or_overlay_requires_earlier_interaction_search",
+      "acceptedPositive": false,
+      "contactSha256": "db4fba5b7345457887503e1c3d3b160aa295bb695aab74ee4d08831a431aacd9"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 731,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\02-L0ktY5qUppI-731.jpg",
+      "frames": [
+        {
+          "frameIndex": 21882,
+          "sourcePtsMs": 729400.0
+        },
+        {
+          "frameIndex": 21888,
+          "sourcePtsMs": 729600.0
+        },
+        {
+          "frameIndex": 21894,
+          "sourcePtsMs": 729800.0
+        },
+        {
+          "frameIndex": 21900,
+          "sourcePtsMs": 730000.0
+        },
+        {
+          "frameIndex": 21906,
+          "sourcePtsMs": 730200.0
+        },
+        {
+          "frameIndex": 21912,
+          "sourcePtsMs": 730400.0
+        },
+        {
+          "frameIndex": 21918,
+          "sourcePtsMs": 730600.0
+        },
+        {
+          "frameIndex": 21924,
+          "sourcePtsMs": 730800.0
+        },
+        {
+          "frameIndex": 21930,
+          "sourcePtsMs": 731000.0
+        },
+        {
+          "frameIndex": 21936,
+          "sourcePtsMs": 731200.0
+        },
+        {
+          "frameIndex": 21942,
+          "sourcePtsMs": 731400.0
+        },
+        {
+          "frameIndex": 21948,
+          "sourcePtsMs": 731600.0
+        },
+        {
+          "frameIndex": 21954,
+          "sourcePtsMs": 731800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_absolute_anchor_search",
+      "acceptedPositive": false,
+      "contactSha256": "aaadc74ecfa9bf16659d4f3e87ddff33aed23bc80fa11c6d6a9c7ca5fc5b8455"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 1206,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\03-L0ktY5qUppI-1206.jpg",
+      "frames": [
+        {
+          "frameIndex": 36132,
+          "sourcePtsMs": 1204400.0
+        },
+        {
+          "frameIndex": 36138,
+          "sourcePtsMs": 1204600.0
+        },
+        {
+          "frameIndex": 36144,
+          "sourcePtsMs": 1204800.0
+        },
+        {
+          "frameIndex": 36150,
+          "sourcePtsMs": 1205000.0
+        },
+        {
+          "frameIndex": 36156,
+          "sourcePtsMs": 1205200.0
+        },
+        {
+          "frameIndex": 36162,
+          "sourcePtsMs": 1205400.0
+        },
+        {
+          "frameIndex": 36168,
+          "sourcePtsMs": 1205600.0
+        },
+        {
+          "frameIndex": 36174,
+          "sourcePtsMs": 1205800.0
+        },
+        {
+          "frameIndex": 36180,
+          "sourcePtsMs": 1206000.0
+        },
+        {
+          "frameIndex": 36186,
+          "sourcePtsMs": 1206200.0
+        },
+        {
+          "frameIndex": 36192,
+          "sourcePtsMs": 1206400.0
+        },
+        {
+          "frameIndex": 36198,
+          "sourcePtsMs": 1206600.0
+        },
+        {
+          "frameIndex": 36204,
+          "sourcePtsMs": 1206800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_gate_and_stability_search",
+      "acceptedPositive": false,
+      "contactSha256": "bc122f79d010bbda64f8544dc663386f879d432e1675b40546b5c430bac85f3e"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 1490,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\04-L0ktY5qUppI-1490.jpg",
+      "frames": [
+        {
+          "frameIndex": 44652,
+          "sourcePtsMs": 1488400.0
+        },
+        {
+          "frameIndex": 44658,
+          "sourcePtsMs": 1488600.0
+        },
+        {
+          "frameIndex": 44664,
+          "sourcePtsMs": 1488800.0
+        },
+        {
+          "frameIndex": 44670,
+          "sourcePtsMs": 1489000.0
+        },
+        {
+          "frameIndex": 44676,
+          "sourcePtsMs": 1489200.0
+        },
+        {
+          "frameIndex": 44682,
+          "sourcePtsMs": 1489400.0
+        },
+        {
+          "frameIndex": 44688,
+          "sourcePtsMs": 1489600.0
+        },
+        {
+          "frameIndex": 44694,
+          "sourcePtsMs": 1489800.0
+        },
+        {
+          "frameIndex": 44700,
+          "sourcePtsMs": 1490000.0
+        },
+        {
+          "frameIndex": 44706,
+          "sourcePtsMs": 1490200.0
+        },
+        {
+          "frameIndex": 44712,
+          "sourcePtsMs": 1490400.0
+        },
+        {
+          "frameIndex": 44718,
+          "sourcePtsMs": 1490600.0
+        },
+        {
+          "frameIndex": 44724,
+          "sourcePtsMs": 1490800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_absolute_anchor_search",
+      "acceptedPositive": false,
+      "contactSha256": "f9a5ad1f8bd9e869dfdc642e5185aa6dd0fb488726dee617ec5e14fc3fc738c3"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 1550,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\05-L0ktY5qUppI-1550.jpg",
+      "frames": [
+        {
+          "frameIndex": 46452,
+          "sourcePtsMs": 1548400.0
+        },
+        {
+          "frameIndex": 46458,
+          "sourcePtsMs": 1548600.0
+        },
+        {
+          "frameIndex": 46464,
+          "sourcePtsMs": 1548800.0
+        },
+        {
+          "frameIndex": 46470,
+          "sourcePtsMs": 1549000.0
+        },
+        {
+          "frameIndex": 46476,
+          "sourcePtsMs": 1549200.0
+        },
+        {
+          "frameIndex": 46482,
+          "sourcePtsMs": 1549400.0
+        },
+        {
+          "frameIndex": 46488,
+          "sourcePtsMs": 1549600.0
+        },
+        {
+          "frameIndex": 46494,
+          "sourcePtsMs": 1549800.0
+        },
+        {
+          "frameIndex": 46500,
+          "sourcePtsMs": 1550000.0
+        },
+        {
+          "frameIndex": 46506,
+          "sourcePtsMs": 1550200.0
+        },
+        {
+          "frameIndex": 46512,
+          "sourcePtsMs": 1550400.0
+        },
+        {
+          "frameIndex": 46518,
+          "sourcePtsMs": 1550600.0
+        },
+        {
+          "frameIndex": 46524,
+          "sourcePtsMs": 1550800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_absolute_anchor_search",
+      "acceptedPositive": false,
+      "contactSha256": "4f3726495841dc2b7f9bff6ed8700537f678736e01c6ca8190ae6725514b490c"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 1563,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\06-L0ktY5qUppI-1563.jpg",
+      "frames": [
+        {
+          "frameIndex": 46842,
+          "sourcePtsMs": 1561400.0
+        },
+        {
+          "frameIndex": 46848,
+          "sourcePtsMs": 1561600.0
+        },
+        {
+          "frameIndex": 46854,
+          "sourcePtsMs": 1561800.0
+        },
+        {
+          "frameIndex": 46860,
+          "sourcePtsMs": 1562000.0
+        },
+        {
+          "frameIndex": 46866,
+          "sourcePtsMs": 1562200.0
+        },
+        {
+          "frameIndex": 46872,
+          "sourcePtsMs": 1562400.0
+        },
+        {
+          "frameIndex": 46878,
+          "sourcePtsMs": 1562600.0
+        },
+        {
+          "frameIndex": 46884,
+          "sourcePtsMs": 1562800.0
+        },
+        {
+          "frameIndex": 46890,
+          "sourcePtsMs": 1563000.0
+        },
+        {
+          "frameIndex": 46896,
+          "sourcePtsMs": 1563200.0
+        },
+        {
+          "frameIndex": 46902,
+          "sourcePtsMs": 1563400.0
+        },
+        {
+          "frameIndex": 46908,
+          "sourcePtsMs": 1563600.0
+        },
+        {
+          "frameIndex": 46914,
+          "sourcePtsMs": 1563800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_absolute_anchor_search",
+      "acceptedPositive": false,
+      "contactSha256": "88f2d847759e813e1c4a9ca48c0468fb92a7fc37ee761b1069170331e3b64b86"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 1577,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\07-L0ktY5qUppI-1577.jpg",
+      "frames": [
+        {
+          "frameIndex": 47262,
+          "sourcePtsMs": 1575400.0
+        },
+        {
+          "frameIndex": 47268,
+          "sourcePtsMs": 1575600.0
+        },
+        {
+          "frameIndex": 47274,
+          "sourcePtsMs": 1575800.0
+        },
+        {
+          "frameIndex": 47280,
+          "sourcePtsMs": 1576000.0
+        },
+        {
+          "frameIndex": 47286,
+          "sourcePtsMs": 1576200.0
+        },
+        {
+          "frameIndex": 47292,
+          "sourcePtsMs": 1576400.0
+        },
+        {
+          "frameIndex": 47298,
+          "sourcePtsMs": 1576600.0
+        },
+        {
+          "frameIndex": 47304,
+          "sourcePtsMs": 1576800.0
+        },
+        {
+          "frameIndex": 47310,
+          "sourcePtsMs": 1577000.0
+        },
+        {
+          "frameIndex": 47316,
+          "sourcePtsMs": 1577200.0
+        },
+        {
+          "frameIndex": 47322,
+          "sourcePtsMs": 1577400.0
+        },
+        {
+          "frameIndex": 47328,
+          "sourcePtsMs": 1577600.0
+        },
+        {
+          "frameIndex": 47334,
+          "sourcePtsMs": 1577800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_absolute_anchor_search",
+      "acceptedPositive": false,
+      "contactSha256": "079d32bfdfb24cd060bb608479a2392f69d4ac2da2e845ab687a9868522d9d5c"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 1773,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\08-L0ktY5qUppI-1773.jpg",
+      "frames": [
+        {
+          "frameIndex": 53142,
+          "sourcePtsMs": 1771400.0
+        },
+        {
+          "frameIndex": 53148,
+          "sourcePtsMs": 1771600.0
+        },
+        {
+          "frameIndex": 53154,
+          "sourcePtsMs": 1771800.0
+        },
+        {
+          "frameIndex": 53160,
+          "sourcePtsMs": 1772000.0
+        },
+        {
+          "frameIndex": 53166,
+          "sourcePtsMs": 1772200.0
+        },
+        {
+          "frameIndex": 53172,
+          "sourcePtsMs": 1772400.0
+        },
+        {
+          "frameIndex": 53178,
+          "sourcePtsMs": 1772600.0
+        },
+        {
+          "frameIndex": 53184,
+          "sourcePtsMs": 1772800.0
+        },
+        {
+          "frameIndex": 53190,
+          "sourcePtsMs": 1773000.0
+        },
+        {
+          "frameIndex": 53196,
+          "sourcePtsMs": 1773200.0
+        },
+        {
+          "frameIndex": 53202,
+          "sourcePtsMs": 1773400.0
+        },
+        {
+          "frameIndex": 53208,
+          "sourcePtsMs": 1773600.0
+        },
+        {
+          "frameIndex": 53214,
+          "sourcePtsMs": 1773800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "candidate_pending_exact_native_timing",
+      "acceptedPositive": false,
+      "contactSha256": "a2285f1494e481dae8192b94551f9b4b007065f65e7269f6172fd8054efb2dd2"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 1781,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\09-L0ktY5qUppI-1781.jpg",
+      "frames": [
+        {
+          "frameIndex": 53382,
+          "sourcePtsMs": 1779400.0
+        },
+        {
+          "frameIndex": 53388,
+          "sourcePtsMs": 1779600.0
+        },
+        {
+          "frameIndex": 53394,
+          "sourcePtsMs": 1779800.0
+        },
+        {
+          "frameIndex": 53400,
+          "sourcePtsMs": 1780000.0
+        },
+        {
+          "frameIndex": 53406,
+          "sourcePtsMs": 1780200.0
+        },
+        {
+          "frameIndex": 53412,
+          "sourcePtsMs": 1780400.0
+        },
+        {
+          "frameIndex": 53418,
+          "sourcePtsMs": 1780600.0
+        },
+        {
+          "frameIndex": 53424,
+          "sourcePtsMs": 1780800.0
+        },
+        {
+          "frameIndex": 53430,
+          "sourcePtsMs": 1781000.0
+        },
+        {
+          "frameIndex": 53436,
+          "sourcePtsMs": 1781200.0
+        },
+        {
+          "frameIndex": 53442,
+          "sourcePtsMs": 1781400.0
+        },
+        {
+          "frameIndex": 53448,
+          "sourcePtsMs": 1781600.0
+        },
+        {
+          "frameIndex": 53454,
+          "sourcePtsMs": 1781800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "candidate_pending_exact_native_timing",
+      "acceptedPositive": false,
+      "contactSha256": "5a1159657263316f7e3e8737f2a302b38b17438740edea0efe6634dea0ead1f8"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 1932,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\10-L0ktY5qUppI-1932.jpg",
+      "frames": [
+        {
+          "frameIndex": 57912,
+          "sourcePtsMs": 1930400.0
+        },
+        {
+          "frameIndex": 57918,
+          "sourcePtsMs": 1930600.0
+        },
+        {
+          "frameIndex": 57924,
+          "sourcePtsMs": 1930800.0
+        },
+        {
+          "frameIndex": 57930,
+          "sourcePtsMs": 1931000.0
+        },
+        {
+          "frameIndex": 57936,
+          "sourcePtsMs": 1931200.0
+        },
+        {
+          "frameIndex": 57942,
+          "sourcePtsMs": 1931400.0
+        },
+        {
+          "frameIndex": 57948,
+          "sourcePtsMs": 1931600.0
+        },
+        {
+          "frameIndex": 57954,
+          "sourcePtsMs": 1931800.0
+        },
+        {
+          "frameIndex": 57960,
+          "sourcePtsMs": 1932000.0
+        },
+        {
+          "frameIndex": 57966,
+          "sourcePtsMs": 1932200.0
+        },
+        {
+          "frameIndex": 57972,
+          "sourcePtsMs": 1932400.0
+        },
+        {
+          "frameIndex": 57978,
+          "sourcePtsMs": 1932600.0
+        },
+        {
+          "frameIndex": 57984,
+          "sourcePtsMs": 1932800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "candidate_pending_exact_native_timing",
+      "acceptedPositive": false,
+      "contactSha256": "bf8110f2982f850dbb7ab28bec045a165899ac55d6bba3ec2fe529a84430c914"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 2282,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\11-L0ktY5qUppI-2282.jpg",
+      "frames": [
+        {
+          "frameIndex": 68412,
+          "sourcePtsMs": 2280400.0
+        },
+        {
+          "frameIndex": 68418,
+          "sourcePtsMs": 2280600.0
+        },
+        {
+          "frameIndex": 68424,
+          "sourcePtsMs": 2280800.0
+        },
+        {
+          "frameIndex": 68430,
+          "sourcePtsMs": 2281000.0
+        },
+        {
+          "frameIndex": 68436,
+          "sourcePtsMs": 2281200.0
+        },
+        {
+          "frameIndex": 68442,
+          "sourcePtsMs": 2281400.0
+        },
+        {
+          "frameIndex": 68448,
+          "sourcePtsMs": 2281600.0
+        },
+        {
+          "frameIndex": 68454,
+          "sourcePtsMs": 2281800.0
+        },
+        {
+          "frameIndex": 68460,
+          "sourcePtsMs": 2282000.0
+        },
+        {
+          "frameIndex": 68466,
+          "sourcePtsMs": 2282200.0
+        },
+        {
+          "frameIndex": 68472,
+          "sourcePtsMs": 2282400.0
+        },
+        {
+          "frameIndex": 68478,
+          "sourcePtsMs": 2282600.0
+        },
+        {
+          "frameIndex": 68484,
+          "sourcePtsMs": 2282800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_absolute_anchor_search",
+      "acceptedPositive": false,
+      "contactSha256": "56d893a0cb22f0119a12b415b972d78c033b28971d92677886b7d19bea5e5b4e"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 2571,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\12-L0ktY5qUppI-2571.jpg",
+      "frames": [
+        {
+          "frameIndex": 77082,
+          "sourcePtsMs": 2569400.0
+        },
+        {
+          "frameIndex": 77088,
+          "sourcePtsMs": 2569600.0
+        },
+        {
+          "frameIndex": 77094,
+          "sourcePtsMs": 2569800.0
+        },
+        {
+          "frameIndex": 77100,
+          "sourcePtsMs": 2570000.0
+        },
+        {
+          "frameIndex": 77106,
+          "sourcePtsMs": 2570200.0
+        },
+        {
+          "frameIndex": 77112,
+          "sourcePtsMs": 2570400.0
+        },
+        {
+          "frameIndex": 77118,
+          "sourcePtsMs": 2570600.0
+        },
+        {
+          "frameIndex": 77124,
+          "sourcePtsMs": 2570800.0
+        },
+        {
+          "frameIndex": 77130,
+          "sourcePtsMs": 2571000.0
+        },
+        {
+          "frameIndex": 77136,
+          "sourcePtsMs": 2571200.0
+        },
+        {
+          "frameIndex": 77142,
+          "sourcePtsMs": 2571400.0
+        },
+        {
+          "frameIndex": 77148,
+          "sourcePtsMs": 2571600.0
+        },
+        {
+          "frameIndex": 77154,
+          "sourcePtsMs": 2571800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_gate_and_stability_search",
+      "acceptedPositive": false,
+      "contactSha256": "2b39cbc09b8521edae4e2ca2b8427dcfce2bacc0fe48efba3ea538930becf951"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "startSeconds": 2940,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\13-L0ktY5qUppI-2940.jpg",
+      "frames": [
+        {
+          "frameIndex": 88152,
+          "sourcePtsMs": 2938400.0
+        },
+        {
+          "frameIndex": 88158,
+          "sourcePtsMs": 2938600.0
+        },
+        {
+          "frameIndex": 88164,
+          "sourcePtsMs": 2938800.0
+        },
+        {
+          "frameIndex": 88170,
+          "sourcePtsMs": 2939000.0
+        },
+        {
+          "frameIndex": 88176,
+          "sourcePtsMs": 2939200.0
+        },
+        {
+          "frameIndex": 88182,
+          "sourcePtsMs": 2939400.0
+        },
+        {
+          "frameIndex": 88188,
+          "sourcePtsMs": 2939600.0
+        },
+        {
+          "frameIndex": 88194,
+          "sourcePtsMs": 2939800.0
+        },
+        {
+          "frameIndex": 88200,
+          "sourcePtsMs": 2940000.0
+        },
+        {
+          "frameIndex": 88206,
+          "sourcePtsMs": 2940200.0
+        },
+        {
+          "frameIndex": 88212,
+          "sourcePtsMs": 2940400.0
+        },
+        {
+          "frameIndex": 88218,
+          "sourcePtsMs": 2940600.0
+        },
+        {
+          "frameIndex": 88224,
+          "sourcePtsMs": 2940800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "candidate_pending_exact_native_timing",
+      "acceptedPositive": false,
+      "contactSha256": "3715fbbe8f3c1b5992f03390e5a81d5520e10b83111b3af481a9668a4bd3fdae"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 228,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\14-0QxozULx_SQ-228.jpg",
+      "frames": [
+        {
+          "frameIndex": 13584,
+          "sourcePtsMs": 226400.0
+        },
+        {
+          "frameIndex": 13596,
+          "sourcePtsMs": 226600.0
+        },
+        {
+          "frameIndex": 13608,
+          "sourcePtsMs": 226800.0
+        },
+        {
+          "frameIndex": 13620,
+          "sourcePtsMs": 227000.0
+        },
+        {
+          "frameIndex": 13632,
+          "sourcePtsMs": 227200.0
+        },
+        {
+          "frameIndex": 13644,
+          "sourcePtsMs": 227400.0
+        },
+        {
+          "frameIndex": 13656,
+          "sourcePtsMs": 227600.0
+        },
+        {
+          "frameIndex": 13668,
+          "sourcePtsMs": 227800.0
+        },
+        {
+          "frameIndex": 13680,
+          "sourcePtsMs": 228000.0
+        },
+        {
+          "frameIndex": 13692,
+          "sourcePtsMs": 228200.0
+        },
+        {
+          "frameIndex": 13704,
+          "sourcePtsMs": 228400.0
+        },
+        {
+          "frameIndex": 13716,
+          "sourcePtsMs": 228600.0
+        },
+        {
+          "frameIndex": 13728,
+          "sourcePtsMs": 228800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "candidate_pending_exact_native_timing",
+      "acceptedPositive": false,
+      "contactSha256": "bce9c7e531831a85a65ba078902538f611d2e1d59fd728a3e7d86b0928dfc447"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 281,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\15-0QxozULx_SQ-281.jpg",
+      "frames": [
+        {
+          "frameIndex": 16764,
+          "sourcePtsMs": 279400.0
+        },
+        {
+          "frameIndex": 16776,
+          "sourcePtsMs": 279600.0
+        },
+        {
+          "frameIndex": 16788,
+          "sourcePtsMs": 279800.0
+        },
+        {
+          "frameIndex": 16800,
+          "sourcePtsMs": 280000.0
+        },
+        {
+          "frameIndex": 16812,
+          "sourcePtsMs": 280200.0
+        },
+        {
+          "frameIndex": 16824,
+          "sourcePtsMs": 280400.0
+        },
+        {
+          "frameIndex": 16836,
+          "sourcePtsMs": 280600.0
+        },
+        {
+          "frameIndex": 16848,
+          "sourcePtsMs": 280800.0
+        },
+        {
+          "frameIndex": 16860,
+          "sourcePtsMs": 281000.0
+        },
+        {
+          "frameIndex": 16872,
+          "sourcePtsMs": 281200.0
+        },
+        {
+          "frameIndex": 16884,
+          "sourcePtsMs": 281400.0
+        },
+        {
+          "frameIndex": 16896,
+          "sourcePtsMs": 281600.0
+        },
+        {
+          "frameIndex": 16908,
+          "sourcePtsMs": 281800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "candidate_pending_exact_native_timing",
+      "acceptedPositive": false,
+      "contactSha256": "183eedcc7d3d6ab96425051e48783024aaf7d3a72cbf65bd8ee4845078a76048"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 501,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\16-0QxozULx_SQ-501.jpg",
+      "frames": [
+        {
+          "frameIndex": 29964,
+          "sourcePtsMs": 499400.0
+        },
+        {
+          "frameIndex": 29976,
+          "sourcePtsMs": 499600.0
+        },
+        {
+          "frameIndex": 29988,
+          "sourcePtsMs": 499800.0
+        },
+        {
+          "frameIndex": 30000,
+          "sourcePtsMs": 500000.0
+        },
+        {
+          "frameIndex": 30012,
+          "sourcePtsMs": 500200.0
+        },
+        {
+          "frameIndex": 30024,
+          "sourcePtsMs": 500400.0
+        },
+        {
+          "frameIndex": 30036,
+          "sourcePtsMs": 500600.0
+        },
+        {
+          "frameIndex": 30048,
+          "sourcePtsMs": 500800.0
+        },
+        {
+          "frameIndex": 30060,
+          "sourcePtsMs": 501000.0
+        },
+        {
+          "frameIndex": 30072,
+          "sourcePtsMs": 501200.0
+        },
+        {
+          "frameIndex": 30084,
+          "sourcePtsMs": 501400.0
+        },
+        {
+          "frameIndex": 30096,
+          "sourcePtsMs": 501600.0
+        },
+        {
+          "frameIndex": 30108,
+          "sourcePtsMs": 501800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "candidate_pending_exact_native_timing",
+      "acceptedPositive": false,
+      "contactSha256": "82e82d8a64dc56a6180e59539aebb4695d4db7ed0c3d241ea5a97cc7a900df35"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 572,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\17-0QxozULx_SQ-572.jpg",
+      "frames": [
+        {
+          "frameIndex": 34224,
+          "sourcePtsMs": 570400.0
+        },
+        {
+          "frameIndex": 34236,
+          "sourcePtsMs": 570600.0
+        },
+        {
+          "frameIndex": 34248,
+          "sourcePtsMs": 570800.0
+        },
+        {
+          "frameIndex": 34260,
+          "sourcePtsMs": 571000.0
+        },
+        {
+          "frameIndex": 34272,
+          "sourcePtsMs": 571200.0
+        },
+        {
+          "frameIndex": 34284,
+          "sourcePtsMs": 571400.0
+        },
+        {
+          "frameIndex": 34296,
+          "sourcePtsMs": 571600.0
+        },
+        {
+          "frameIndex": 34308,
+          "sourcePtsMs": 571800.0
+        },
+        {
+          "frameIndex": 34320,
+          "sourcePtsMs": 572000.0
+        },
+        {
+          "frameIndex": 34332,
+          "sourcePtsMs": 572200.0
+        },
+        {
+          "frameIndex": 34344,
+          "sourcePtsMs": 572400.0
+        },
+        {
+          "frameIndex": 34356,
+          "sourcePtsMs": 572600.0
+        },
+        {
+          "frameIndex": 34368,
+          "sourcePtsMs": 572800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "candidate_pending_exact_native_timing",
+      "acceptedPositive": false,
+      "contactSha256": "0b7f6a01c637ee974cf03022ded49959bf4454ed79b1ffb5caaef4c2efd2af2d"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 771,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\18-0QxozULx_SQ-771.jpg",
+      "frames": [
+        {
+          "frameIndex": 46164,
+          "sourcePtsMs": 769400.0
+        },
+        {
+          "frameIndex": 46176,
+          "sourcePtsMs": 769600.0
+        },
+        {
+          "frameIndex": 46188,
+          "sourcePtsMs": 769800.0
+        },
+        {
+          "frameIndex": 46200,
+          "sourcePtsMs": 770000.0
+        },
+        {
+          "frameIndex": 46212,
+          "sourcePtsMs": 770200.0
+        },
+        {
+          "frameIndex": 46224,
+          "sourcePtsMs": 770400.0
+        },
+        {
+          "frameIndex": 46236,
+          "sourcePtsMs": 770600.0
+        },
+        {
+          "frameIndex": 46248,
+          "sourcePtsMs": 770800.0
+        },
+        {
+          "frameIndex": 46260,
+          "sourcePtsMs": 771000.0
+        },
+        {
+          "frameIndex": 46272,
+          "sourcePtsMs": 771200.0
+        },
+        {
+          "frameIndex": 46284,
+          "sourcePtsMs": 771400.0
+        },
+        {
+          "frameIndex": 46296,
+          "sourcePtsMs": 771600.0
+        },
+        {
+          "frameIndex": 46308,
+          "sourcePtsMs": 771800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_gate_and_stability_search",
+      "acceptedPositive": false,
+      "contactSha256": "8c00ecc17f4d0d1f6ce9582ad2b2cb5c22a4eaf169769af35161dc0043c208b1"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 977,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\19-0QxozULx_SQ-977.jpg",
+      "frames": [
+        {
+          "frameIndex": 58524,
+          "sourcePtsMs": 975400.0
+        },
+        {
+          "frameIndex": 58536,
+          "sourcePtsMs": 975600.0
+        },
+        {
+          "frameIndex": 58548,
+          "sourcePtsMs": 975800.0
+        },
+        {
+          "frameIndex": 58560,
+          "sourcePtsMs": 976000.0
+        },
+        {
+          "frameIndex": 58572,
+          "sourcePtsMs": 976200.0
+        },
+        {
+          "frameIndex": 58584,
+          "sourcePtsMs": 976400.0
+        },
+        {
+          "frameIndex": 58596,
+          "sourcePtsMs": 976600.0
+        },
+        {
+          "frameIndex": 58608,
+          "sourcePtsMs": 976800.0
+        },
+        {
+          "frameIndex": 58620,
+          "sourcePtsMs": 977000.0
+        },
+        {
+          "frameIndex": 58632,
+          "sourcePtsMs": 977200.0
+        },
+        {
+          "frameIndex": 58644,
+          "sourcePtsMs": 977400.0
+        },
+        {
+          "frameIndex": 58656,
+          "sourcePtsMs": 977600.0
+        },
+        {
+          "frameIndex": 58668,
+          "sourcePtsMs": 977800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "panel_already_open_or_overlay_requires_earlier_interaction_search",
+      "acceptedPositive": false,
+      "contactSha256": "d296cb182c0f022410effb69f2cfb4cc5d1c620da1497d12e68814d373e048db"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 1181,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\20-0QxozULx_SQ-1181.jpg",
+      "frames": [
+        {
+          "frameIndex": 70764,
+          "sourcePtsMs": 1179400.0
+        },
+        {
+          "frameIndex": 70776,
+          "sourcePtsMs": 1179600.0
+        },
+        {
+          "frameIndex": 70788,
+          "sourcePtsMs": 1179800.0
+        },
+        {
+          "frameIndex": 70800,
+          "sourcePtsMs": 1180000.0
+        },
+        {
+          "frameIndex": 70812,
+          "sourcePtsMs": 1180200.0
+        },
+        {
+          "frameIndex": 70824,
+          "sourcePtsMs": 1180400.0
+        },
+        {
+          "frameIndex": 70836,
+          "sourcePtsMs": 1180600.0
+        },
+        {
+          "frameIndex": 70848,
+          "sourcePtsMs": 1180800.0
+        },
+        {
+          "frameIndex": 70860,
+          "sourcePtsMs": 1181000.0
+        },
+        {
+          "frameIndex": 70872,
+          "sourcePtsMs": 1181200.0
+        },
+        {
+          "frameIndex": 70884,
+          "sourcePtsMs": 1181400.0
+        },
+        {
+          "frameIndex": 70896,
+          "sourcePtsMs": 1181600.0
+        },
+        {
+          "frameIndex": 70908,
+          "sourcePtsMs": 1181800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "candidate_pending_exact_native_timing",
+      "acceptedPositive": false,
+      "contactSha256": "2de3b1f045d9ec9bd97ec14eb695cb678e274e8d3684a72c3a70c43d57b4abf5"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 1232,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\21-0QxozULx_SQ-1232.jpg",
+      "frames": [
+        {
+          "frameIndex": 73824,
+          "sourcePtsMs": 1230400.0
+        },
+        {
+          "frameIndex": 73836,
+          "sourcePtsMs": 1230600.0
+        },
+        {
+          "frameIndex": 73848,
+          "sourcePtsMs": 1230800.0
+        },
+        {
+          "frameIndex": 73860,
+          "sourcePtsMs": 1231000.0
+        },
+        {
+          "frameIndex": 73872,
+          "sourcePtsMs": 1231200.0
+        },
+        {
+          "frameIndex": 73884,
+          "sourcePtsMs": 1231400.0
+        },
+        {
+          "frameIndex": 73896,
+          "sourcePtsMs": 1231600.0
+        },
+        {
+          "frameIndex": 73908,
+          "sourcePtsMs": 1231800.0
+        },
+        {
+          "frameIndex": 73920,
+          "sourcePtsMs": 1232000.0
+        },
+        {
+          "frameIndex": 73932,
+          "sourcePtsMs": 1232200.0
+        },
+        {
+          "frameIndex": 73944,
+          "sourcePtsMs": 1232400.0
+        },
+        {
+          "frameIndex": 73956,
+          "sourcePtsMs": 1232600.0
+        },
+        {
+          "frameIndex": 73968,
+          "sourcePtsMs": 1232800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_absolute_anchor_search",
+      "acceptedPositive": false,
+      "contactSha256": "9cdc8d22076f2d105883fdccf090d9ef691d7a8661ec8fed30f775c80aaa0b8f"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 1743,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\22-0QxozULx_SQ-1743.jpg",
+      "frames": [
+        {
+          "frameIndex": 104484,
+          "sourcePtsMs": 1741400.0
+        },
+        {
+          "frameIndex": 104496,
+          "sourcePtsMs": 1741600.0
+        },
+        {
+          "frameIndex": 104508,
+          "sourcePtsMs": 1741800.0
+        },
+        {
+          "frameIndex": 104520,
+          "sourcePtsMs": 1742000.0
+        },
+        {
+          "frameIndex": 104532,
+          "sourcePtsMs": 1742200.0
+        },
+        {
+          "frameIndex": 104544,
+          "sourcePtsMs": 1742400.0
+        },
+        {
+          "frameIndex": 104556,
+          "sourcePtsMs": 1742600.0
+        },
+        {
+          "frameIndex": 104568,
+          "sourcePtsMs": 1742800.0
+        },
+        {
+          "frameIndex": 104580,
+          "sourcePtsMs": 1743000.0
+        },
+        {
+          "frameIndex": 104592,
+          "sourcePtsMs": 1743200.0
+        },
+        {
+          "frameIndex": 104604,
+          "sourcePtsMs": 1743400.0
+        },
+        {
+          "frameIndex": 104616,
+          "sourcePtsMs": 1743600.0
+        },
+        {
+          "frameIndex": 104628,
+          "sourcePtsMs": 1743800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "requires_earlier_gate_and_stability_search",
+      "acceptedPositive": false,
+      "contactSha256": "426cf47d3ecb6ee389ed64ce1d012b5c4ea59afb10c4783bb127a6aeb15f81c6"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 2074,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\23-0QxozULx_SQ-2074.jpg",
+      "frames": [
+        {
+          "frameIndex": 124344,
+          "sourcePtsMs": 2072400.0
+        },
+        {
+          "frameIndex": 124356,
+          "sourcePtsMs": 2072600.0
+        },
+        {
+          "frameIndex": 124368,
+          "sourcePtsMs": 2072800.0
+        },
+        {
+          "frameIndex": 124380,
+          "sourcePtsMs": 2073000.0
+        },
+        {
+          "frameIndex": 124392,
+          "sourcePtsMs": 2073200.0
+        },
+        {
+          "frameIndex": 124404,
+          "sourcePtsMs": 2073400.0
+        },
+        {
+          "frameIndex": 124416,
+          "sourcePtsMs": 2073600.0
+        },
+        {
+          "frameIndex": 124428,
+          "sourcePtsMs": 2073800.0
+        },
+        {
+          "frameIndex": 124440,
+          "sourcePtsMs": 2074000.0
+        },
+        {
+          "frameIndex": 124452,
+          "sourcePtsMs": 2074200.0
+        },
+        {
+          "frameIndex": 124464,
+          "sourcePtsMs": 2074400.0
+        },
+        {
+          "frameIndex": 124476,
+          "sourcePtsMs": 2074600.0
+        },
+        {
+          "frameIndex": 124488,
+          "sourcePtsMs": 2074800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "panel_already_open_or_overlay_requires_earlier_interaction_search",
+      "acceptedPositive": false,
+      "contactSha256": "7f33fe530922198203ec32a0494f8740c8d8e70d2bfab3b3eba4a8546cac7f93"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 2542,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\24-0QxozULx_SQ-2542.jpg",
+      "frames": [
+        {
+          "frameIndex": 152424,
+          "sourcePtsMs": 2540400.0
+        },
+        {
+          "frameIndex": 152436,
+          "sourcePtsMs": 2540600.0
+        },
+        {
+          "frameIndex": 152448,
+          "sourcePtsMs": 2540800.0
+        },
+        {
+          "frameIndex": 152460,
+          "sourcePtsMs": 2541000.0
+        },
+        {
+          "frameIndex": 152472,
+          "sourcePtsMs": 2541200.0
+        },
+        {
+          "frameIndex": 152484,
+          "sourcePtsMs": 2541400.0
+        },
+        {
+          "frameIndex": 152496,
+          "sourcePtsMs": 2541600.0
+        },
+        {
+          "frameIndex": 152508,
+          "sourcePtsMs": 2541800.0
+        },
+        {
+          "frameIndex": 152520,
+          "sourcePtsMs": 2542000.0
+        },
+        {
+          "frameIndex": 152532,
+          "sourcePtsMs": 2542200.0
+        },
+        {
+          "frameIndex": 152544,
+          "sourcePtsMs": 2542400.0
+        },
+        {
+          "frameIndex": 152556,
+          "sourcePtsMs": 2542600.0
+        },
+        {
+          "frameIndex": 152568,
+          "sourcePtsMs": 2542800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "candidate_pending_exact_native_timing",
+      "acceptedPositive": false,
+      "contactSha256": "5675fbffeb814aa70b6d55548e15d4657ab3b091fa2b73185779ef1bdfff575c"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 2651,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\25-0QxozULx_SQ-2651.jpg",
+      "frames": [
+        {
+          "frameIndex": 158964,
+          "sourcePtsMs": 2649400.0
+        },
+        {
+          "frameIndex": 158976,
+          "sourcePtsMs": 2649600.0
+        },
+        {
+          "frameIndex": 158988,
+          "sourcePtsMs": 2649800.0
+        },
+        {
+          "frameIndex": 159000,
+          "sourcePtsMs": 2650000.0
+        },
+        {
+          "frameIndex": 159012,
+          "sourcePtsMs": 2650200.0
+        },
+        {
+          "frameIndex": 159024,
+          "sourcePtsMs": 2650400.0
+        },
+        {
+          "frameIndex": 159036,
+          "sourcePtsMs": 2650600.0
+        },
+        {
+          "frameIndex": 159048,
+          "sourcePtsMs": 2650800.0
+        },
+        {
+          "frameIndex": 159060,
+          "sourcePtsMs": 2651000.0
+        },
+        {
+          "frameIndex": 159072,
+          "sourcePtsMs": 2651200.0
+        },
+        {
+          "frameIndex": 159084,
+          "sourcePtsMs": 2651400.0
+        },
+        {
+          "frameIndex": 159096,
+          "sourcePtsMs": 2651600.0
+        },
+        {
+          "frameIndex": 159108,
+          "sourcePtsMs": 2651800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "panel_already_open_or_overlay_requires_earlier_interaction_search",
+      "acceptedPositive": false,
+      "contactSha256": "036e6108c0cda0bc10305703a3951d28b4706edfe1bf4fc785d15064fa74e6f3"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 2910,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\26-0QxozULx_SQ-2910.jpg",
+      "frames": [
+        {
+          "frameIndex": 174504,
+          "sourcePtsMs": 2908400.0
+        },
+        {
+          "frameIndex": 174516,
+          "sourcePtsMs": 2908600.0
+        },
+        {
+          "frameIndex": 174528,
+          "sourcePtsMs": 2908800.0
+        },
+        {
+          "frameIndex": 174540,
+          "sourcePtsMs": 2909000.0
+        },
+        {
+          "frameIndex": 174552,
+          "sourcePtsMs": 2909200.0
+        },
+        {
+          "frameIndex": 174564,
+          "sourcePtsMs": 2909400.0
+        },
+        {
+          "frameIndex": 174576,
+          "sourcePtsMs": 2909600.0
+        },
+        {
+          "frameIndex": 174588,
+          "sourcePtsMs": 2909800.0
+        },
+        {
+          "frameIndex": 174600,
+          "sourcePtsMs": 2910000.0
+        },
+        {
+          "frameIndex": 174612,
+          "sourcePtsMs": 2910200.0
+        },
+        {
+          "frameIndex": 174624,
+          "sourcePtsMs": 2910400.0
+        },
+        {
+          "frameIndex": 174636,
+          "sourcePtsMs": 2910600.0
+        },
+        {
+          "frameIndex": 174648,
+          "sourcePtsMs": 2910800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "zone10_current_implementation_limit_needs_scope_fix",
+      "acceptedPositive": false,
+      "contactSha256": "ac468ac4e9575c82959747d72b07cf30ba803ab98bd8e8c19be15f6a464d5619"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 2923,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\27-0QxozULx_SQ-2923.jpg",
+      "frames": [
+        {
+          "frameIndex": 175284,
+          "sourcePtsMs": 2921400.0
+        },
+        {
+          "frameIndex": 175296,
+          "sourcePtsMs": 2921600.0
+        },
+        {
+          "frameIndex": 175308,
+          "sourcePtsMs": 2921800.0
+        },
+        {
+          "frameIndex": 175320,
+          "sourcePtsMs": 2922000.0
+        },
+        {
+          "frameIndex": 175332,
+          "sourcePtsMs": 2922200.0
+        },
+        {
+          "frameIndex": 175344,
+          "sourcePtsMs": 2922400.0
+        },
+        {
+          "frameIndex": 175356,
+          "sourcePtsMs": 2922600.0
+        },
+        {
+          "frameIndex": 175368,
+          "sourcePtsMs": 2922800.0
+        },
+        {
+          "frameIndex": 175380,
+          "sourcePtsMs": 2923000.0
+        },
+        {
+          "frameIndex": 175392,
+          "sourcePtsMs": 2923200.0
+        },
+        {
+          "frameIndex": 175404,
+          "sourcePtsMs": 2923400.0
+        },
+        {
+          "frameIndex": 175416,
+          "sourcePtsMs": 2923600.0
+        },
+        {
+          "frameIndex": 175428,
+          "sourcePtsMs": 2923800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "panel_already_open_or_overlay_requires_earlier_interaction_search",
+      "acceptedPositive": false,
+      "contactSha256": "8a3ef9184d71b9fb276016480f645284e4b9590d62075d87321a80ae9297d962"
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "startSeconds": 2961,
+      "contact": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-candidate-contacts-01\\28-0QxozULx_SQ-2961.jpg",
+      "frames": [
+        {
+          "frameIndex": 177564,
+          "sourcePtsMs": 2959400.0
+        },
+        {
+          "frameIndex": 177576,
+          "sourcePtsMs": 2959600.0
+        },
+        {
+          "frameIndex": 177588,
+          "sourcePtsMs": 2959800.0
+        },
+        {
+          "frameIndex": 177600,
+          "sourcePtsMs": 2960000.0
+        },
+        {
+          "frameIndex": 177612,
+          "sourcePtsMs": 2960200.0
+        },
+        {
+          "frameIndex": 177624,
+          "sourcePtsMs": 2960400.0
+        },
+        {
+          "frameIndex": 177636,
+          "sourcePtsMs": 2960600.0
+        },
+        {
+          "frameIndex": 177648,
+          "sourcePtsMs": 2960800.0
+        },
+        {
+          "frameIndex": 177660,
+          "sourcePtsMs": 2961000.0
+        },
+        {
+          "frameIndex": 177672,
+          "sourcePtsMs": 2961200.0
+        },
+        {
+          "frameIndex": 177684,
+          "sourcePtsMs": 2961400.0
+        },
+        {
+          "frameIndex": 177696,
+          "sourcePtsMs": 2961600.0
+        },
+        {
+          "frameIndex": 177708,
+          "sourcePtsMs": 2961800.0
+        }
+      ],
+      "purpose": "native-frame navigation only; not frozen labels or acceptance",
+      "sampleVisualReviewed": true,
+      "exactAllFrameTemporalReviewed": false,
+      "status": "zone10_current_implementation_limit_needs_scope_fix",
+      "acceptedPositive": false,
+      "contactSha256": "3fdcbf9b7d87a6e06a201bc3402798c92c61ce516b3c3034169e690a31a4a12b"
+    }
+  ],
+  "formalCasesFrozen": false,
+  "g4Complete": false
+}

@@ -1,0 +1,144 @@
+{
+  "purpose": "Three new independent native development interactions; not frozen30/holdout",
+  "cases": [
+    {
+      "id": "dev-L0-zone6-floor1-col2-select-1773",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        53163,
+        53169
+      ],
+      "lastFrame": 53196,
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        413,
+        345,
+        75,
+        77
+      ],
+      "clientBox": [
+        431,
+        363,
+        38,
+        38
+      ],
+      "humanClickInterval": [
+        1772366.666667,
+        1772400
+      ],
+      "reviewed": true,
+      "reviewMethod": "Independent original PNG/manual full-source contact and orange fill stability audit before model inference",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        1772300.0,
+        1772300.0
+      ]
+    },
+    {
+      "id": "dev-L0-zone6-floor1-col2-resume-1781",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        53400,
+        53406
+      ],
+      "lastFrame": 53445,
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "expectedBox": [
+        413,
+        193,
+        75,
+        77
+      ],
+      "clientBox": [
+        431,
+        211,
+        38,
+        38
+      ],
+      "humanClickInterval": [
+        1780766.666667,
+        1780800
+      ],
+      "reviewed": true,
+      "reviewMethod": "Independent original PNG/manual full-source contact and orange fill stability audit before model inference",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        1780200.0,
+        1780200.0
+      ]
+    },
+    {
+      "id": "dev-L0-zone6-floor3-col3-select-1932",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        57923,
+        57929
+      ],
+      "lastFrame": 57972,
+      "intent": {
+        "zone": 6,
+        "floor": 3,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        523,
+        448,
+        75,
+        77
+      ],
+      "clientBox": [
+        541,
+        466,
+        38,
+        38
+      ],
+      "humanClickInterval": [
+        1931466.666667,
+        1931500
+      ],
+      "reviewed": true,
+      "reviewMethod": "Independent original PNG/manual full-source contact and orange fill stability audit before model inference",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        1930966.666667,
+        1930966.666667
+      ]
+    }
+  ],
+  "g4Complete": false
+}

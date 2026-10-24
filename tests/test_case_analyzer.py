@@ -19,6 +19,30 @@ class OfflineAnalyzerTests(unittest.TestCase):
             self.assertEqual(p['ocrAnalysis']['maximumTensorSide'],960);self.assertGreater(len(p['ocrAnalysis']['detectorCalls']),0)
             for call in p['ocrAnalysis']['detectorCalls']:self.assertLessEqual(max(call['tensorSize']),960)
 
+    def test_matching_ocr_mode_cannot_reuse_unbound_or_changed_runtime_cache(self):
+        root=Path(__file__).resolve().parents[1];image=root/'artifacts/p4a-native/0002550.png'
+        old=json.loads((root/'artifacts/p4a-first-preview-v2/observation.json').read_text(encoding='utf-8'))['rawPacket']
+        with tempfile.TemporaryDirectory(prefix='crk-runtime-',dir=root/'artifacts') as folder:
+            folder=Path(folder);packet=folder/'old.json';packet.write_text(json.dumps(old),encoding='utf-8')
+            entry={'image':str(image),'sha256':old['binding']['imageSha256'],'frameIndex':2550,'size':[1440,1080]}
+            source=folder/'source.json';source.write_text(json.dumps({'videoSha256':'a'*64,'cases':[{'id':'test','frames':[entry]}]}),encoding='utf-8')
+            cache=folder/'cache.json';cache.write_text(json.dumps({'analysis':{'runtimeEvidence':{'fingerprint':'0'*64}},'cases':[{'frames':[{**entry,'packet':str(packet)}]}]}),encoding='utf-8')
+            out=folder/'result'
+            r=subprocess.run([sys.executable,'-B',str(root/'ml/analyze_cases.py'),str(source),str(out),'--fast-map','--cache',str(cache)],capture_output=True,text=True,encoding='utf-8')
+            self.assertEqual(r.returncode,0,r.stderr)
+            m=json.loads((out/'manifest.json').read_text(encoding='utf-8'));p=json.loads(Path(m['cases'][0]['frames'][0]['packet']).read_text(encoding='utf-8'))
+            self.assertTrue(p['analysisTiming']['freshFullPipeline'])
+            self.assertEqual(m['analysis']['cacheIgnoredReason'],'OCR_RUNTIME_CHANGED_OR_UNBOUND')
+            self.assertEqual(len(m['analysis']['runtimeEvidence']['fingerprint']),64)
+            runtime=m['analysis']['runtimeEvidence']
+            models=[a for a in runtime['ocrAssets'] if a['path'].endswith('.onnx')]
+            self.assertEqual(len(models),3)
+            for asset in models:
+                actual=Path(runtime['packageRoot'])/asset['path']
+                self.assertEqual(hashlib.sha256(actual.read_bytes()).hexdigest(),asset['sha256'])
+                self.assertEqual(actual.stat().st_size,asset['size'])
+            self.assertTrue(all(runtime['versions'].values()))
+
     def test_batch_stream_recomputes_pixel_registration_without_intent_or_truth(self):
         root=Path(__file__).resolve().parents[1];frames=[]
         for index in [23724,23730,23745]:
