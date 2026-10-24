@@ -1,0 +1,51 @@
+{
+  "revision": 2,
+  "supersedesAnnotationSha256": "5714af16c3e7e3c85c12cbb1e6038f711e51226ddd6b25a5d7a408b52d3ad444",
+  "reason": "Original prepair is moving; earlier genuine stable200ms original pair before human input. No recognizer threshold change.",
+  "cases": [
+    {
+      "id": "dev-earlier-L0-zone5-floor1-col1",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        35929,
+        35935
+      ],
+      "lastFrame": 36198,
+      "intent": {
+        "zone": 5,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        303,
+        344,
+        75,
+        77
+      ],
+      "clientBox": [
+        321,
+        363,
+        38,
+        38
+      ],
+      "reviewed": true,
+      "reviewMethod": "Development revision after MAP_MOVING. Original full native35929/35935 manually reviewed: closed map, full visible gate, same zone5 first-row column1, stable target, clear dispatch frame. Same selected-preview36181 manually reviewed. Old failed pair retained; not blind holdout.",
+      "split": "development",
+      "formalG4": false,
+      "targetGridSha256": "349eaf4dbd2fbb617bf9fe6c391b61e396e05a56dad0a4c9f155eae9158f10fb",
+      "gateWindowMs": [
+        1197833.333333,
+        1197833.333333
+      ]
+    }
+  ],
+  "g4Complete": false
+}

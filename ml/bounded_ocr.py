@@ -42,6 +42,7 @@ class BoundedOCRRuntime:
 
     def _read_with_progress(self,image):
         rows=self._reread_map_title(image,normalize_evidence(self.previous_read(image)))
+        rows=self._reread_map_context(image,rows)
         header=text_reader.map_header_from_evidence(rows)
         if header['displayedZone'] is not None or header['conflictingEvidence']:return rows
         remaining=[r for r in rows if ('剩餘時間' in r.get('text','') or re.fullmatch(r'Ends\s+in:\s*\d+D\s+\d{2}:\d{2}:\d{2}',r.get('text','').strip(),re.I)) and r.get('score',0)>=.85]
@@ -58,8 +59,9 @@ class BoundedOCRRuntime:
         matches=[r for r in local if r.get('score',0)>=.9 and re.fullmatch(r'(?:[區区]域(?:10|[1-9])[進进]行中|Zone(?:10|[1-9])inProgress)',re.sub(r'\s+','',r.get('text','')),re.I)]
         if len(matches)!=1:return rows
         row=matches[0]
-        return [*rows,{**row,'box':[[round(px/3+left,2),round(py/3+top,2)] for px,py in row['box']],
+        augmented=[*rows,{**row,'box':[[round(px/3+left,2),round(py/3+top,2)] for px,py in row['box']],
             'source':'remaining_time_adjacent_progress_original_crop','cropBox':[left,top,endx-left,endy-top],'analysisSize':list(size)}]
+        return self._reread_map_context(image,self._reread_map_title(image,augmented))
 
     def _reread_map_title(self,image,rows):
         # A partial OCR result only locates pixels; it never grants MAP state.
@@ -79,6 +81,48 @@ class BoundedOCRRuntime:
         matches=sorted(matches,key=lambda r:r['score'],reverse=True)[:1]
         if len(matches)!=1:return rows
         return [*rows,{**matches[0],'box':[[left,top],[endx,top],[endx,endy],[left,endy]],'source':'map_title_original_crop','cropBox':[left,top,endx-left,endy-top],'originalText':partial[0]['text'],'originalScore':partial[0]['score']}]
+
+    def _reread_map_context(self,image,rows):
+        import flow_vision
+        scene=flow_vision.semantic_state(rows)
+        if scene['state'] not in ('MAP','UNKNOWN') or scene['state']=='MAP' and scene['confidence']>=.9:return rows
+        season_candidates=[r for r in rows if re.fullmatch(r'冥界[試试](?:[煉炼])?季[1-9]\d?',r.get('text','').strip()) and .75<=r.get('score',0)<=1]
+        # Original global boxes locate crops. A known V1 reread of that same
+        # line is preserved as evidence, not counted as a second location.
+        global_seasons=[r for r in season_candidates if not r.get('source')]
+        seasons=global_seasons or season_candidates
+        timers=[r for r in rows if '剩餘時間' in r.get('text','') and .85<=r.get('score',0)<=1]
+        header=text_reader.map_header_from_evidence(rows)
+        if len(seasons)!=1 or len(timers)!=1 or header['displayedZone'] is None or header['score']<.9 or header['conflictingEvidence']:return rows
+        bounds=[]
+        for row in [seasons[0],timers[0]]:
+            points=np.asarray(row.get('box'),dtype=float)
+            if points.shape!=(4,2) or not np.isfinite(points).all():return rows
+            x,y=points.min(0);right,bottom=points.max(0);h=bottom-y
+            if not 0<h<image.height*.1 or x<0 or right>image.width*.5 or y>image.height*.3:return rows
+            bounds.append((x,y,right,bottom,h))
+        a,b=bounds
+        if not a[3]<=b[1] or abs(a[0]-b[0])>max(a[4],b[4]):return rows
+        fresh=[]
+        for kind,row,(x,y,right,bottom,h) in zip(['season','timer'],[seasons[0],timers[0]],bounds):
+            trim=.12*h if kind=='season' else -.1*h
+            left,top=max(0,int(x+trim)),max(0,int(y+trim))
+            endx,endy=min(image.width,int(right-trim)),min(image.height,int(bottom-trim))
+            if endx<=left or endy<=top:return rows
+            pattern=r'冥界[試试](?:[煉炼])?季[1-9]\d?' if kind=='season' else r'剩餘時間\d+天\d{2}:\d{2}:\d{2}'
+            crops=[(left,top,endx,endy)]
+            if kind=='season':crops.append((left,max(0,int(y+h*.08)),min(image.width,int(right-h*.30)),min(image.height,int(bottom-h*.18))))
+            matches=[]
+            for crop_box in crops:
+                if crop_box[2]<=crop_box[0] or crop_box[3]<=crop_box[1]:continue
+                readings=normalize_evidence(self.read_line_variants(image.crop(crop_box),len(re.sub(r'\s+','',row['text']))))
+                matches=[{**r,'actualCropBox':crop_box} for r in readings if r['score']>=.9 and re.fullmatch(pattern,re.sub(r'\s+','',r['text']))]
+                if matches:break
+            keys={re.sub(r'\s+','',r['text']) for r in matches}
+            if len(keys)!=1:return rows
+            best=max(matches,key=lambda r:r['score']);left,top,endx,endy=best.pop('actualCropBox')
+            fresh.append({**best,'box':[[left,top],[endx,top],[endx,endy],[left,endy]],'source':'map_context_original_crop','contextKind':kind,'cropBox':[left,top,endx-left,endy-top],'originalText':row['text'],'originalScore':row['score']})
+        return [*rows,*fresh]
 
     def take_metadata(self):
         records,self.records=self.records,[]

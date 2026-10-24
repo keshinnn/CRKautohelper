@@ -168,9 +168,9 @@
     "semantic_hash": ""
   },
   "ml/bounded_ocr.py": {
-    "mtime": 1792881851.208282,
-    "seen": 1792881964.5450077,
-    "ast_hash": "5e429d2199eb0267e87b03ccb983c73b",
+    "mtime": 1792884226.2907758,
+    "seen": 1792884400.9311664,
+    "ast_hash": "43e85efea0543ccdd29aebb9f0b5a2f7",
     "semantic_hash": ""
   },
   "ml/current_position_evidence.py": {
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "ml/english_scene.py": {
-    "mtime": 1792867964.857503,
-    "seen": 1792881320.0168226,
-    "ast_hash": "10461a25e25922165a2f196573bf07df",
+    "mtime": 1792884037.424349,
+    "seen": 1792884400.9311717,
+    "ast_hash": "6e016fb41ceb46650a4ecad4ab73022a",
     "semantic_hash": ""
   },
   "ml/fast_map_candidates.py": {
@@ -504,9 +504,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-24-crk-helper-v2-p4c-plan.md": {
-    "mtime": 1792882255.0808446,
-    "seen": 1792882408.7750356,
-    "ast_hash": "53e5f78f80d26dec9596ae8d18630394",
+    "mtime": 1792883580.7797682,
+    "seen": 1792883822.7636533,
+    "ast_hash": "ed6b697eaad65c7a1cf4d082bbaf72ac",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-10-24-crk-helper-v2-design.md": {
@@ -534,21 +534,39 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-10-24-p4c-progress.md": {
-    "mtime": 1792881281.0642042,
-    "seen": 1792881320.0169108,
-    "ast_hash": "52265a85cb65d80fa18e25b9674cf7cb",
+    "mtime": 1792882883.1253724,
+    "seen": 1792883822.763662,
+    "ast_hash": "1e4bb7b71eb6512d1ca052c55c25c6d0",
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1792882145.7658632,
-    "seen": 1792882408.7750478,
-    "ast_hash": "938fde0c9f25246173db00616188bb37",
+    "mtime": 1792884353.0873215,
+    "seen": 1792884400.931286,
+    "ast_hash": "2bca3a40d9779f1fb5baab4a15812bf1",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
     "mtime": 1792881877.583362,
     "seen": 1792881964.545183,
     "ast_hash": "7c74e17d7b7fd578a549251adf9ec86c",
+    "semantic_hash": ""
+  },
+  "data/p4c/corpus-30-v2.json": {
+    "mtime": 1792883759.5422015,
+    "seen": 1792883822.7635112,
+    "ast_hash": "2e2c8846de9b6db895d6ee4f5026c6d8",
+    "semantic_hash": ""
+  },
+  "data/p4c/earlier-gate-development-revision-02.json": {
+    "mtime": 1792883163.6003582,
+    "seen": 1792883822.763521,
+    "ast_hash": "0636455641752bc75669b5b5255ee858",
+    "semantic_hash": ""
+  },
+  "tests/test_watermarked_map_context.py": {
+    "mtime": 1792883992.2935057,
+    "seen": 1792884400.931264,
+    "ast_hash": "b355a6b272a8ba07ded54e81502afc9e",
     "semantic_hash": ""
   }
 }
