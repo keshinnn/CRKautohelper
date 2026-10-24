@@ -1,0 +1,61 @@
+{
+  "revision": 3,
+  "supersedesAnnotationSha256": "e80a657b08abb7e02f0ef4e82a4318c92554bbf40e81261419d5b6607132dbb7",
+  "reason": "Metadata-only correction: inherited old grid explicitly marked prior; actual revised manual prepair and coordinates unchanged",
+  "cases": [
+    {
+      "id": "dev-earlier-L0-zone5-floor1-col1",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        35929,
+        35935
+      ],
+      "lastFrame": 36198,
+      "intent": {
+        "zone": 5,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        303,
+        344,
+        75,
+        77
+      ],
+      "clientBox": [
+        321,
+        363,
+        38,
+        38
+      ],
+      "reviewed": true,
+      "reviewMethod": "Development revision after MAP_MOVING. Original full native35929/35935 manually reviewed: closed map, full visible gate, same zone5 first-row column1, stable target, clear dispatch frame. Same selected-preview36181 manually reviewed. Old failed pair retained; not blind holdout.",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        1197833.333333,
+        1197833.333333
+      ],
+      "priorTargetGridSha256": "349eaf4dbd2fbb617bf9fe6c391b61e396e05a56dad0a4c9f155eae9158f10fb",
+      "manualReviewFrames": [
+        {
+          "frameIndex": 35929,
+          "imageSha256": "e5ee0a94a9099610069ca6faa492147b6540f6e46971fb985c2be21c5dccf19b"
+        },
+        {
+          "frameIndex": 35935,
+          "imageSha256": "48f8c56f4bc1b7c6ae781e94801c7d4fad7efb09ea5b789617ff873f20377145"
+        }
+      ]
+    }
+  ],
+  "g4Complete": false
+}

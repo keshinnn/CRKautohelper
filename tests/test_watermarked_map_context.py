@@ -21,7 +21,7 @@ class WatermarkedMapContextTests(unittest.TestCase):
         self.assertTrue(any('PonPon' in r['text'] for r in rows))
     def test_real_duplicate_and_missing_global_zone_frames_keep_independent_context(self):
         with ProgressRuntime(),BoundedOCRRuntime(960),EnglishSceneRuntime():
-            for index in [46045,46046,46058,46072]:
+            for index in [46045,46046,46058,46072,46166]:
                 with self.subTest(index=index):
                     image=Image.open(ROOT/f'artifacts/p4c-earlier-gate-native-01/0QxozULx_SQ-766/{index:07}.png').convert('RGB')
                     rows=text_reader.read_text(image);state=flow_vision.semantic_state(rows)
@@ -36,6 +36,17 @@ class WatermarkedMapContextTests(unittest.TestCase):
         for bad in variants:
             state=semantic_state(bad)
             self.assertFalse(state['state']=='MAP' and state['confidence']>=.9)
+
+    def test_same_line_or_large_overlap_is_not_separate_context(self):
+        import copy,json
+        packet=json.loads((ROOT/'artifacts/p4c-watermarked-context-third-analysis-02/dev-earlier-0Q-zone4-floor1-col4/0046166.packet.json').read_text(encoding='utf-8'))
+        rows=copy.deepcopy(packet['evidence'])
+        season=next(r for r in rows if '季6' in r['text'] and not r.get('source'))
+        timer=next(r for r in rows if '剩餘時間' in r['text'])
+        timer['box']=copy.deepcopy(season['box'])
+        with ProgressRuntime(),BoundedOCRRuntime(960) as runtime,EnglishSceneRuntime():
+            self.assertEqual(runtime._reread_map_context(self.image(),rows),rows)
+            self.assertFalse(runtime.take_metadata()['recognitionCrops'])
 
     def test_erasing_required_original_context_cannot_gain_map_authority(self):
         for box in [(173,47,291,79),(170,77,390,112),(208,123,320,157)]:

@@ -1,0 +1,39 @@
+{
+  "appliesToAnnotationSha256": "f6d3a5561fa30c5484750a811b4b09e0be07fddf58a82d6b5dc3351854f0d3b7",
+  "caseId": "dev-earlier-L0-zone5-floor1-col1",
+  "field": "targetGridSha256",
+  "inheritedValue": "349eaf4dbd2fbb617bf9fe6c391b61e396e05a56dad0a4c9f155eae9158f10fb",
+  "meaning": "Historical grid from superseded preFrames35939/35945, NOT a grid for revised35929/35935. Retained frozen v2 cannot be silently edited.",
+  "currentManualTruth": {
+    "preFrames": [
+      35929,
+      35935
+    ],
+    "expectedBox": [
+      303,
+      344,
+      75,
+      77
+    ],
+    "clientBox": [
+      321,
+      363,
+      38,
+      38
+    ],
+    "review": "Both full native original PNGs visually reviewed before revised replay; new boxes independently read from pixels",
+    "sourceFrames": [
+      {
+        "frameIndex": 35929,
+        "imageSha256": "e5ee0a94a9099610069ca6faa492147b6540f6e46971fb985c2be21c5dccf19b"
+      },
+      {
+        "frameIndex": 35935,
+        "imageSha256": "48f8c56f4bc1b7c6ae781e94801c7d4fad7efb09ea5b789617ff873f20377145"
+      }
+    ]
+  },
+  "affectsOperationalCoordinates": false,
+  "requiredBeforeFormalG4": "Normalize historical grid field into explicit prior-grid reference in next corpus revision; include this errata in any v2 development report",
+  "g4Complete": false
+}

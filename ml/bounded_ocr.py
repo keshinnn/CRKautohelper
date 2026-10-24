@@ -102,7 +102,11 @@ class BoundedOCRRuntime:
             if not 0<h<image.height*.1 or x<0 or right>image.width*.5 or y>image.height*.3:return rows
             bounds.append((x,y,right,bottom,h))
         a,b=bounds
-        if not a[3]<=b[1] or abs(a[0]-b[0])>max(a[4],b[4]):return rows
+        # Detector quadrilateral padding may touch or slightly overlap even
+        # though the two original text baselines are clearly separate.
+        minimum_height=min(a[4],b[4])
+        separation=(b[1]+b[3]-a[1]-a[3])/2
+        if separation<minimum_height*.75 or a[3]-b[1]>minimum_height*.15 or abs(a[0]-b[0])>max(a[4],b[4]):return rows
         fresh=[]
         for kind,row,(x,y,right,bottom,h) in zip(['season','timer'],[seasons[0],timers[0]],bounds):
             trim=.12*h if kind=='season' else -.1*h

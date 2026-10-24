@@ -1,0 +1,1480 @@
+{
+  "schema": 1,
+  "purpose": "Thirty manually reviewed ordinary-node interactions; fixed20 development/10 interaction-level holdout before any holdout inference. Annotation data is not replay acceptance.",
+  "splitUnit": "actual-source-interaction; not unseen-video or unseen-whole-map generalization",
+  "inputAnnotationSnapshots": [
+    {
+      "path": "data/p4a/cases.json",
+      "sha256": "ef41a4126733449fb0a7715331679113cf6717383ec35239372f37b251de54a5"
+    },
+    {
+      "path": "data/p4c/primary-higher-development-annotations.json",
+      "sha256": "12571046370a4b46836091a9e6d33f85252dc9deacb805fba4ecb4c193d478b7"
+    },
+    {
+      "path": "data/p4c/primary-development-annotations.json",
+      "sha256": "a76ea783d5c4d35d1c1d6f72f736adea286742abd3c8a144453185ab91d14b35"
+    },
+    {
+      "path": "data/p4c/development-annotations.json",
+      "sha256": "3c6a863ef14356dc3eb2f17754b05a91b4ad822687d579a96a2cf26a7dbb2186"
+    },
+    {
+      "path": "data/p4c/earlier-gate-development-annotations.json",
+      "sha256": "5714af16c3e7e3c85c12cbb1e6038f711e51226ddd6b25a5d7a408b52d3ad444"
+    },
+    {
+      "path": "data/p4c/LX46-development-annotations.json",
+      "sha256": "2e12a8ee2558079c402907c8c7dd76a26ad5b3e763692b49463652e867cf2068"
+    },
+    {
+      "path": "data/p4c/held-native-identity-review.json",
+      "sha256": "1880b084253d754172410ca7000b37224620d4a18ba50c0ae47838cf30dd73b8"
+    },
+    {
+      "path": "data/p4c/LX46-held-annotations.json",
+      "sha256": "45399ffa39132b94f5ad2c0e2f2037641adde281cfb11604bc650a14f65dac95"
+    },
+    {
+      "path": "data\\p4c\\earlier-gate-development-revision-02.json",
+      "sha256": "e80a657b08abb7e02f0ef4e82a4318c92554bbf40e81261419d5b6607132dbb7"
+    },
+    {
+      "path": "data\\p4c\\earlier-gate-development-revision-03.json",
+      "sha256": "c6f0f5403caa0bcd2a4b1aef072e3545ae6b313340865da4d1bb93eff1364274"
+    },
+    {
+      "path": "data\\p4c\\corpus-30-v2-provenance-errata.json",
+      "sha256": "577725458d5c2bfab7057ed957f16f14dcd6cfe36d9b07356def2991afb8ab3e"
+    }
+  ],
+  "watermarkPolicy": "Retain original watermark pixels; never use watermark labels as game authority.",
+  "cases": [
+    {
+      "id": "zone-1-first-battle",
+      "preFrames": [
+        2514,
+        2520
+      ],
+      "lastFrame": 2556,
+      "humanClickInterval": [
+        84600,
+        84700
+      ],
+      "gateWindowMs": [
+        84000,
+        84000
+      ],
+      "intent": {
+        "zone": 1,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        618,
+        516,
+        115,
+        115
+      ],
+      "clientBox": [
+        632,
+        538,
+        86,
+        70
+      ],
+      "reviewed": true,
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "split": "development",
+      "formalG4": false
+    },
+    {
+      "id": "zone-2-first-battle",
+      "preFrames": [
+        12318,
+        12324
+      ],
+      "lastFrame": 12360,
+      "humanClickInterval": [
+        411200,
+        411300
+      ],
+      "gateWindowMs": [
+        410800,
+        410800
+      ],
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        618,
+        516,
+        115,
+        115
+      ],
+      "clientBox": [
+        632,
+        538,
+        86,
+        70
+      ],
+      "reviewed": true,
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "split": "development",
+      "formalG4": false
+    },
+    {
+      "id": "zone-3-first-battle",
+      "preFrames": [
+        20214,
+        20220
+      ],
+      "lastFrame": 20235,
+      "humanClickInterval": [
+        674000,
+        674100
+      ],
+      "gateWindowMs": [
+        674000,
+        674000
+      ],
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        618,
+        516,
+        115,
+        115
+      ],
+      "clientBox": [
+        632,
+        538,
+        86,
+        70
+      ],
+      "reviewed": true,
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "split": "development",
+      "formalG4": false
+    },
+    {
+      "id": "zone-8-first-battle",
+      "preFrames": [
+        64878,
+        64884
+      ],
+      "lastFrame": 64896,
+      "humanClickInterval": [
+        2162800,
+        2163000
+      ],
+      "gateWindowMs": [
+        2162800,
+        2162800
+      ],
+      "intent": {
+        "zone": 8,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        948,
+        516,
+        115,
+        115
+      ],
+      "clientBox": [
+        962,
+        538,
+        86,
+        70
+      ],
+      "reviewed": true,
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "split": "development",
+      "formalG4": false
+    },
+    {
+      "id": "zone-9-first-battle",
+      "preFrames": [
+        78294,
+        78300
+      ],
+      "lastFrame": 78318,
+      "humanClickInterval": [
+        2610000,
+        2610200
+      ],
+      "gateWindowMs": [
+        2610000,
+        2610000
+      ],
+      "intent": {
+        "zone": 9,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        948,
+        516,
+        115,
+        115
+      ],
+      "clientBox": [
+        962,
+        538,
+        86,
+        70
+      ],
+      "reviewed": true,
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "split": "development",
+      "formalG4": false
+    },
+    {
+      "id": "dev-primary-zone2-floor2-col3-higher",
+      "preFrames": [
+        14530,
+        14540
+      ],
+      "lastFrame": 14570,
+      "intent": {
+        "zone": 2,
+        "floor": 2,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "gateWindowMs": [
+        484666.666667,
+        484666.666667
+      ],
+      "clientBox": [
+        810,
+        700,
+        60,
+        60
+      ],
+      "expectedBox": [
+        784,
+        675,
+        115,
+        115
+      ],
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "split": "development",
+      "formalG4": false,
+      "targetGridSha256": "16d46b3f70b8aeafbf48e4469daf781081b030ebac6464e61f0a1146aac3ff41",
+      "reviewMethod": "Additional manual original-pixel box review of previously used development interactions; not blind holdout",
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "reviewed": true
+    },
+    {
+      "id": "dev-primary-zone3-floor3-col1-higher",
+      "intent": {
+        "zone": 3,
+        "floor": 3,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        454,
+        675,
+        115,
+        115
+      ],
+      "preFrames": [
+        23724,
+        23730
+      ],
+      "lastFrame": 23751,
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        791000.0,
+        791000.0
+      ],
+      "targetGridSha256": "5522dc623b52a89f78f9e0c615a3381d4d4d8de45662decd66f0775c026c6cc7",
+      "reviewMethod": "Additional manual original-pixel box review of previously used development interactions; not blind holdout",
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "reviewed": true,
+      "clientBox": [
+        480,
+        700,
+        60,
+        60
+      ]
+    },
+    {
+      "id": "dev-primary-zone4-floor2-col3",
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        30087,
+        30093
+      ],
+      "lastFrame": 30138,
+      "intent": {
+        "zone": 4,
+        "floor": 2,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        784,
+        675,
+        115,
+        115
+      ],
+      "clientBox": [
+        812,
+        706,
+        56,
+        56
+      ],
+      "humanClickInterval": [
+        1003800,
+        1003900
+      ],
+      "gateWindowMs": [
+        1003100.0,
+        1003100.0
+      ],
+      "reviewed": true,
+      "reviewMethod": "Native paired map and selected preview visual review; development only. Explicit post-failure annotation corrections recorded in annotationRevisions; not blind holdout.",
+      "split": "development",
+      "formalG4": false
+    },
+    {
+      "id": "dev-primary-zone6-floor1-col2",
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        46293,
+        46299
+      ],
+      "lastFrame": 46356,
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        618,
+        272,
+        115,
+        115
+      ],
+      "clientBox": [
+        647,
+        301,
+        56,
+        56
+      ],
+      "humanClickInterval": [
+        1544400,
+        1544500
+      ],
+      "gateWindowMs": [
+        1543300.0,
+        1543300.0
+      ],
+      "reviewed": true,
+      "reviewMethod": "Native paired map and selected preview visual review; development only. Explicit post-failure annotation corrections recorded in annotationRevisions; not blind holdout.",
+      "split": "development",
+      "formalG4": false
+    },
+    {
+      "id": "dev-primary-zone10-floor1-col2",
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        95307,
+        95313
+      ],
+      "lastFrame": 95343,
+      "intent": {
+        "zone": 10,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        618,
+        519,
+        115,
+        115
+      ],
+      "clientBox": [
+        647,
+        548,
+        56,
+        56
+      ],
+      "humanClickInterval": [
+        3177300,
+        3177400
+      ],
+      "gateWindowMs": [
+        3177100.0,
+        3177100.0
+      ],
+      "reviewed": true,
+      "reviewMethod": "Native paired map and selected preview visual review; development only. Explicit post-failure annotation corrections recorded in annotationRevisions; not blind holdout.",
+      "split": "development",
+      "formalG4": false
+    },
+    {
+      "id": "dev-L0-zone6-floor1-col2-select-1773",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        53163,
+        53169
+      ],
+      "lastFrame": 53196,
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        413,
+        345,
+        75,
+        77
+      ],
+      "clientBox": [
+        431,
+        363,
+        38,
+        38
+      ],
+      "humanClickInterval": [
+        1772366.666667,
+        1772400
+      ],
+      "reviewed": true,
+      "reviewMethod": "Independent original PNG/manual full-source contact and orange fill stability audit before model inference",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        1772300.0,
+        1772300.0
+      ]
+    },
+    {
+      "id": "dev-L0-zone6-floor1-col2-resume-1781",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        53400,
+        53406
+      ],
+      "lastFrame": 53445,
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "expectedBox": [
+        413,
+        193,
+        75,
+        77
+      ],
+      "clientBox": [
+        431,
+        211,
+        38,
+        38
+      ],
+      "humanClickInterval": [
+        1780766.666667,
+        1780800
+      ],
+      "reviewed": true,
+      "reviewMethod": "Independent original PNG/manual full-source contact and orange fill stability audit before model inference",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        1780200.0,
+        1780200.0
+      ]
+    },
+    {
+      "id": "dev-L0-zone6-floor3-col3-select-1932",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        57923,
+        57929
+      ],
+      "lastFrame": 57972,
+      "intent": {
+        "zone": 6,
+        "floor": 3,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        523,
+        448,
+        75,
+        77
+      ],
+      "clientBox": [
+        541,
+        466,
+        38,
+        38
+      ],
+      "humanClickInterval": [
+        1931466.666667,
+        1931500
+      ],
+      "reviewed": true,
+      "reviewMethod": "Independent original PNG/manual full-source contact and orange fill stability audit before model inference",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        1930966.666667,
+        1930966.666667
+      ]
+    },
+    {
+      "id": "dev-earlier-L0-zone5-floor1-col1",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        35929,
+        35935
+      ],
+      "lastFrame": 36198,
+      "intent": {
+        "zone": 5,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        303,
+        344,
+        75,
+        77
+      ],
+      "clientBox": [
+        321,
+        363,
+        38,
+        38
+      ],
+      "reviewed": true,
+      "reviewMethod": "Development revision after MAP_MOVING. Original full native35929/35935 manually reviewed: closed map, full visible gate, same zone5 first-row column1, stable target, clear dispatch frame. Same selected-preview36181 manually reviewed. Old failed pair retained; not blind holdout.",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        1197833.333333,
+        1197833.333333
+      ],
+      "priorTargetGridSha256": "349eaf4dbd2fbb617bf9fe6c391b61e396e05a56dad0a4c9f155eae9158f10fb",
+      "manualReviewFrames": [
+        {
+          "frameIndex": 35929,
+          "imageSha256": "e5ee0a94a9099610069ca6faa492147b6540f6e46971fb985c2be21c5dccf19b"
+        },
+        {
+          "frameIndex": 35935,
+          "imageSha256": "48f8c56f4bc1b7c6ae781e94801c7d4fad7efb09ea5b789617ff873f20377145"
+        }
+      ],
+      "modelInferenceRun": true,
+      "developmentRevisionAfterFailure": true
+    },
+    {
+      "id": "dev-earlier-L0-zone8-floor1-col4",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        77035,
+        77041
+      ],
+      "lastFrame": 77142,
+      "intent": {
+        "zone": 8,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        633,
+        343,
+        75,
+        77
+      ],
+      "clientBox": [
+        651,
+        362,
+        38,
+        38
+      ],
+      "reviewed": true,
+      "reviewMethod": "Original full native prepair and matching selected-preview checked; 5px nearest-neighbor geometry grid, original orange stability window. Original evidence retained, no recognizer output used for these boxes.",
+      "split": "development",
+      "formalG4": false,
+      "targetGridSha256": "d664eac234bc55a9edb96fa247b91701c3770ef54b426c73aca4bc8f8e7be94e",
+      "gateWindowMs": [
+        2568033.333333,
+        2568033.333333
+      ]
+    },
+    {
+      "id": "dev-earlier-0Q-zone4-floor1-col4",
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "preFrames": [
+        46021,
+        46033
+      ],
+      "lastFrame": 46272,
+      "intent": {
+        "zone": 4,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        793,
+        343,
+        75,
+        77
+      ],
+      "clientBox": [
+        811,
+        362,
+        38,
+        38
+      ],
+      "reviewed": true,
+      "reviewMethod": "Original full native prepair and matching selected-preview checked; 5px nearest-neighbor geometry grid, original orange stability window. Original evidence retained, no recognizer output used for these boxes.",
+      "split": "development",
+      "formalG4": false,
+      "targetGridSha256": "f1c5b4be1b4c9271a1c7a1c90523d335f64be2a96959716293c872427a5d9048",
+      "gateWindowMs": [
+        767216.666667,
+        767216.666667
+      ]
+    },
+    {
+      "id": "dev-LX46-zone1-floor1-col1-resume",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        2194,
+        2206
+      ],
+      "lastFrame": 2286,
+      "intent": {
+        "zone": 1,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "expectedBox": [
+        607,
+        493,
+        146,
+        160
+      ],
+      "clientBox": [
+        646,
+        539,
+        68,
+        68
+      ],
+      "reviewed": true,
+      "reviewMethod": "Paired original native PNGs2194/2206/2286 and earlier pixel-grid review before any model inference; watermark retained",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        36766.666667,
+        36766.666667
+      ]
+    },
+    {
+      "id": "dev-LX46-zone2-floor1-col2-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        12001,
+        12013
+      ],
+      "lastFrame": 12210,
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        826,
+        686,
+        148,
+        154
+      ],
+      "clientBox": [
+        866,
+        727,
+        68,
+        68
+      ],
+      "reviewed": true,
+      "reviewMethod": "Original native paired pre-map/selected-preview, 200ms orange centroid audit and nearest-neighbor target pixel-grid review before first inference. Real watermark and fading entry banner retained.",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        200216.666667,
+        200216.666667
+      ]
+    },
+    {
+      "id": "dev-LX46-zone3-floor1-col4-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        19578,
+        19590
+      ],
+      "lastFrame": 19770,
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        1266,
+        684,
+        148,
+        154
+      ],
+      "clientBox": [
+        1306,
+        725,
+        68,
+        68
+      ],
+      "reviewed": true,
+      "reviewMethod": "Original native paired pre-map/selected-preview, 200ms orange centroid audit and nearest-neighbor target pixel-grid review before first inference. Real watermark and fading entry banner retained.",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        326500.0,
+        326500.0
+      ]
+    },
+    {
+      "id": "dev-LX46-zone4-floor2-col1-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        30090,
+        30102
+      ],
+      "lastFrame": 30144,
+      "intent": {
+        "zone": 4,
+        "floor": 2,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        606,
+        718,
+        148,
+        154
+      ],
+      "clientBox": [
+        646,
+        761,
+        68,
+        68
+      ],
+      "reviewed": true,
+      "reviewMethod": "Original native paired pre-map/selected-preview, 200ms orange centroid audit and nearest-neighbor target pixel-grid review before first inference. Real watermark and fading entry banner retained.",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        501700.0,
+        501700.0
+      ]
+    },
+    {
+      "id": "held-L0ktY5qUppI-zone9-floor1-col4-select",
+      "intent": {
+        "zone": 9,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "sourceVideoId": "L0ktY5qUppI",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        88191,
+        88197
+      ],
+      "pairedPreview": {
+        "frameIndex": 88206,
+        "imageSha256": "32ae27c401e804c9684bb3063261d5a3e9f698f52e20be495b5f014fefc1b065",
+        "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-timing-01\\L0ktY5qUppI-2940\\0088206.png"
+      },
+      "lastFrame": 88212,
+      "pairedNativePreviewAndSecondPreFrameVisuallyReviewed": true,
+      "firstPreFrameVisualReviewPending": false,
+      "originalTargetBoxReviewPending": false,
+      "nativeTimingAndContactReviewed": true,
+      "modelInferenceRun": false,
+      "split": "holdout",
+      "formal30Frozen": false,
+      "g4Complete": false,
+      "expectedBox": [
+        633,
+        344,
+        75,
+        77
+      ],
+      "clientBox": [
+        651,
+        363,
+        38,
+        38
+      ],
+      "geometryReview": {
+        "method": "Manual nearest-neighbor original-pixel crop grid, 5px guides; includes solid cyan/yellow outer rim and small AA, excludes diffuse glow, triangle, connecting lines and text labels",
+        "gridSha256": "d3410c07ae2a1185ff572030faa2445866753f0da59fdbb483946e9ce404ed7c",
+        "currentMarkerLowerContourPartiallyOccludedByLabel": false,
+        "modelOutputUsed": false
+      },
+      "video": "F:/CRK helper/data/map-video/L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "reviewed": true,
+      "gateWindowMs": [
+        2939900.0,
+        2939900.0
+      ],
+      "formalG4": false
+    },
+    {
+      "id": "held-0QxozULx_SQ-zone2-floor1-col3-resume",
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 3,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "sourceVideoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "preFrames": [
+        13615,
+        13627
+      ],
+      "pairedPreview": {
+        "frameIndex": 13674,
+        "imageSha256": "cdf03107a342cdd96c01abae5f24b2cdbe4fdee858edbe7138e60e082d10b8c2",
+        "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-timing-01\\0QxozULx_SQ-228\\0013674.png"
+      },
+      "lastFrame": 13680,
+      "pairedNativePreviewAndSecondPreFrameVisuallyReviewed": true,
+      "firstPreFrameVisualReviewPending": false,
+      "originalTargetBoxReviewPending": false,
+      "nativeTimingAndContactReviewed": true,
+      "modelInferenceRun": false,
+      "split": "holdout",
+      "formal30Frozen": false,
+      "g4Complete": false,
+      "expectedBox": [
+        683,
+        341,
+        74,
+        80
+      ],
+      "clientBox": [
+        701,
+        362,
+        38,
+        38
+      ],
+      "geometryReview": {
+        "method": "Manual nearest-neighbor original-pixel crop grid, 5px guides; includes solid cyan/yellow outer rim and small AA, excludes diffuse glow, triangle, connecting lines and text labels",
+        "gridSha256": "11a216ed65ff61699b106948266ef7f58d3ae88e8b164729e0c460e938cd9eaf",
+        "currentMarkerLowerContourPartiallyOccludedByLabel": true,
+        "modelOutputUsed": false
+      },
+      "video": "F:/CRK helper/data/map-video/0QxozULx_SQ.mp4",
+      "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+      "reviewed": true,
+      "gateWindowMs": [
+        227116.666667,
+        227116.666667
+      ],
+      "formalG4": false
+    },
+    {
+      "id": "held-0QxozULx_SQ-zone2-floor2-col4-select",
+      "intent": {
+        "zone": 2,
+        "floor": 2,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "sourceVideoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "preFrames": [
+        16770,
+        16782
+      ],
+      "pairedPreview": {
+        "frameIndex": 16848,
+        "imageSha256": "de4ca604ee15ca6d1c59499eb043d209b4866064669032a82703e5ad22fa7f6e",
+        "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-timing-01\\0QxozULx_SQ-281\\0016848.png"
+      },
+      "lastFrame": 16866,
+      "pairedNativePreviewAndSecondPreFrameVisuallyReviewed": true,
+      "firstPreFrameVisualReviewPending": false,
+      "originalTargetBoxReviewPending": false,
+      "nativeTimingAndContactReviewed": true,
+      "modelInferenceRun": false,
+      "split": "holdout",
+      "formal30Frozen": false,
+      "g4Complete": false,
+      "expectedBox": [
+        793,
+        447,
+        75,
+        77
+      ],
+      "clientBox": [
+        811,
+        466,
+        38,
+        38
+      ],
+      "geometryReview": {
+        "method": "Manual nearest-neighbor original-pixel crop grid, 5px guides; includes solid cyan/yellow outer rim and small AA, excludes diffuse glow, triangle, connecting lines and text labels",
+        "gridSha256": "9dbae8b2be55e7f805de37123bdd0d7be2e5f281fd60627193f714aa076c49d8",
+        "currentMarkerLowerContourPartiallyOccludedByLabel": false,
+        "modelOutputUsed": false
+      },
+      "video": "F:/CRK helper/data/map-video/0QxozULx_SQ.mp4",
+      "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+      "reviewed": true,
+      "gateWindowMs": [
+        279700.0,
+        279700.0
+      ],
+      "formalG4": false
+    },
+    {
+      "id": "held-0QxozULx_SQ-zone3-floor1-col2-select",
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "sourceVideoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "preFrames": [
+        30030,
+        30042
+      ],
+      "pairedPreview": {
+        "frameIndex": 30072,
+        "imageSha256": "1ad34ca87d5a3479bee7b90dba658f9867cd121e8cf8b23b999aac213898b526",
+        "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-timing-01\\0QxozULx_SQ-501\\0030072.png"
+      },
+      "lastFrame": 30084,
+      "pairedNativePreviewAndSecondPreFrameVisuallyReviewed": true,
+      "firstPreFrameVisualReviewPending": false,
+      "originalTargetBoxReviewPending": false,
+      "nativeTimingAndContactReviewed": true,
+      "modelInferenceRun": false,
+      "split": "holdout",
+      "formal30Frozen": false,
+      "g4Complete": false,
+      "expectedBox": [
+        573,
+        344,
+        75,
+        77
+      ],
+      "clientBox": [
+        591,
+        363,
+        38,
+        38
+      ],
+      "geometryReview": {
+        "method": "Manual nearest-neighbor original-pixel crop grid, 5px guides; includes solid cyan/yellow outer rim and small AA, excludes diffuse glow, triangle, connecting lines and text labels",
+        "gridSha256": "3c897bab3f24197bf04e1dcc3388109c634e971bae7818dea5c76f52a2a876c1",
+        "currentMarkerLowerContourPartiallyOccludedByLabel": false,
+        "modelOutputUsed": false
+      },
+      "video": "F:/CRK helper/data/map-video/0QxozULx_SQ.mp4",
+      "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+      "reviewed": true,
+      "gateWindowMs": [
+        500700.0,
+        500700.0
+      ],
+      "formalG4": false
+    },
+    {
+      "id": "held-0QxozULx_SQ-zone9-floor1-col1-select",
+      "intent": {
+        "zone": 9,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "sourceVideoId": "0QxozULx_SQ",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "preFrames": [
+        152444,
+        152456
+      ],
+      "pairedPreview": {
+        "frameIndex": 152526,
+        "imageSha256": "10784aeb3f99fa8d1a69091197908a5a9ed252b4295cb95a7ef4a8afdf800c25",
+        "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-timing-01\\0QxozULx_SQ-2542\\0152526.png"
+      },
+      "lastFrame": 152544,
+      "pairedNativePreviewAndSecondPreFrameVisuallyReviewed": true,
+      "firstPreFrameVisualReviewPending": false,
+      "originalTargetBoxReviewPending": false,
+      "nativeTimingAndContactReviewed": true,
+      "modelInferenceRun": false,
+      "split": "holdout",
+      "formal30Frozen": false,
+      "g4Complete": false,
+      "expectedBox": [
+        463,
+        344,
+        75,
+        77
+      ],
+      "clientBox": [
+        481,
+        363,
+        38,
+        38
+      ],
+      "geometryReview": {
+        "method": "Manual nearest-neighbor original-pixel crop grid, 5px guides; includes solid cyan/yellow outer rim and small AA, excludes diffuse glow, triangle, connecting lines and text labels",
+        "gridSha256": "222e82763a24dae2591ff81d97eaf7f2b4ffb0a2508c1eb8d99bff1c014ffe0c",
+        "currentMarkerLowerContourPartiallyOccludedByLabel": false,
+        "modelOutputUsed": false
+      },
+      "video": "F:/CRK helper/data/map-video/0QxozULx_SQ.mp4",
+      "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+      "reviewed": true,
+      "gateWindowMs": [
+        2540933.333333,
+        2540933.333333
+      ],
+      "formalG4": false
+    },
+    {
+      "id": "held-LX46-zone4-floor1-col2-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        28176,
+        28188
+      ],
+      "lastFrame": 28380,
+      "intent": {
+        "zone": 4,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        826,
+        686,
+        148,
+        154
+      ],
+      "clientBox": [
+        866,
+        727,
+        68,
+        68
+      ],
+      "gateWindowMs": [
+        469800.0,
+        469800.0
+      ],
+      "pairedPreviewFrame": 28368,
+      "pairedPreviewSha256": "fcb77e6ef2d8deadcd0324571e8fd37181f079c14943d6acc41a605c89d26dcb",
+      "reviewed": true,
+      "reviewMethod": "Original native prepair and independent matching green selected-preview; original target-grid manual bounds reviewed, 200ms orange centroid audit. Watermark retained. Candidate18 first preframe has real fading entry banner; retain as challenging positive, do not relabel to hide recognizer failure.",
+      "split": "holdout",
+      "modelInferenceRun": false,
+      "formalG4": false
+    },
+    {
+      "id": "held-LX46-zone5-floor1-col4-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        41758,
+        41770
+      ],
+      "lastFrame": 41964,
+      "intent": {
+        "zone": 5,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        1266,
+        686,
+        148,
+        154
+      ],
+      "clientBox": [
+        1306,
+        727,
+        68,
+        68
+      ],
+      "gateWindowMs": [
+        696166.666667,
+        696166.666667
+      ],
+      "pairedPreviewFrame": 41952,
+      "pairedPreviewSha256": "bcefd6c164ed6c1c4cb281f39f111da045ef449697ff9b8f83ff70442981954b",
+      "reviewed": true,
+      "reviewMethod": "Original native prepair and independent matching green selected-preview; original target-grid manual bounds reviewed, 200ms orange centroid audit. Watermark retained. Candidate18 first preframe has real fading entry banner; retain as challenging positive, do not relabel to hide recognizer failure.",
+      "split": "holdout",
+      "modelInferenceRun": false,
+      "formalG4": false
+    },
+    {
+      "id": "held-LX46-zone6-floor1-col2-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        58752,
+        58764
+      ],
+      "lastFrame": 58818,
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        826,
+        342,
+        148,
+        154
+      ],
+      "clientBox": [
+        866,
+        385,
+        68,
+        68
+      ],
+      "gateWindowMs": [
+        979400.0,
+        979400.0
+      ],
+      "pairedPreviewFrame": 58794,
+      "pairedPreviewSha256": "010816457bcd053e648061a2a00defde3491bd17628edc13af434f6654149583",
+      "reviewed": true,
+      "reviewMethod": "Original native prepair and independent matching green selected-preview; original target-grid manual bounds reviewed, 200ms orange centroid audit. Watermark retained. Candidate18 first preframe has real fading entry banner; retain as challenging positive, do not relabel to hide recognizer failure.",
+      "split": "holdout",
+      "modelInferenceRun": false,
+      "formalG4": false
+    },
+    {
+      "id": "held-LX46-zone7-floor1-col2-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        75051,
+        75063
+      ],
+      "lastFrame": 75726,
+      "intent": {
+        "zone": 7,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        826,
+        684,
+        148,
+        154
+      ],
+      "clientBox": [
+        866,
+        725,
+        68,
+        68
+      ],
+      "gateWindowMs": [
+        1251050.0,
+        1251050.0
+      ],
+      "pairedPreviewFrame": 75714,
+      "pairedPreviewSha256": "0b5d3f85c879ec83d14d6c337e60a3d2c88460b0408208fd8dd391776c3d0c9e",
+      "reviewed": true,
+      "reviewMethod": "Original native prepair and independent matching green selected-preview; original target-grid manual bounds reviewed, 200ms orange centroid audit. Watermark retained. Candidate18 first preframe has real fading entry banner; retain as challenging positive, do not relabel to hide recognizer failure.",
+      "split": "holdout",
+      "modelInferenceRun": false,
+      "formalG4": false
+    },
+    {
+      "id": "held-LX46-zone7-floor2-col2-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        77766,
+        77778
+      ],
+      "lastFrame": 77826,
+      "intent": {
+        "zone": 7,
+        "floor": 2,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        826,
+        718,
+        148,
+        154
+      ],
+      "clientBox": [
+        866,
+        761,
+        68,
+        68
+      ],
+      "gateWindowMs": [
+        1296300.0,
+        1296300.0
+      ],
+      "pairedPreviewFrame": 77814,
+      "pairedPreviewSha256": "4484ea29af9dd8d1de050f85b27c46820fbdb0d5c08202c8b5d2ac56d2d4ac66",
+      "reviewed": true,
+      "reviewMethod": "Original native prepair and independent matching green selected-preview; original target-grid manual bounds reviewed, 200ms orange centroid audit. Watermark retained. Candidate18 first preframe has real fading entry banner; retain as challenging positive, do not relabel to hide recognizer failure.",
+      "split": "holdout",
+      "modelInferenceRun": false,
+      "formalG4": false
+    }
+  ],
+  "g4Complete": false,
+  "nativeActions": 0,
+  "supersedesAnnotationSha256": "f6d3a5561fa30c5484750a811b4b09e0be07fddf58a82d6b5dc3351854f0d3b7",
+  "revision": 3,
+  "revisionReason": "Metadata-only prior-grid reference normalization; original source interactions, preFrames, expected/safe boxes and holdout split unchanged"
+}
