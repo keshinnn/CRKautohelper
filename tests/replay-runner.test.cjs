@@ -49,3 +49,12 @@ test('pre-click window replacement remains an immediate rejection',async()=>{
  const r=await runReplay({frames,intent,gate,observe:async f=>f});
  assert.equal(r.state,'STALE_GEOMETRY');assert.equal(r.actions.length,0);assert.equal(r.observations.length,2);
 });
+
+test('motion waiting cannot read the human post-click branch or dispatch late',async()=>{
+ const frames=[map('a',600),map('b',800),map('human-map',1000),preview('human-preview',1200)];
+ frames[0].nodes.find(n=>n.id==='target').box[0]-=20;
+ frames.forEach(o=>o.frame.sourcePtsMs=o.frame.atMs);const read=[];
+ const r=await runReplay({frames,intent,gate:{...gate,windowMs:[800,800],previewFromPtsMs:900},observe:async f=>{read.push(f.frame.id);return f;}});
+ assert.equal(r.state,'MAP_MOVING');assert.equal(r.actions.length,0);assert.deepEqual(read,['a','b']);
+ assert(r.selectionAttempts.some(a=>a.code==='HUMAN_BRANCH_NOT_RELEASED'));
+});

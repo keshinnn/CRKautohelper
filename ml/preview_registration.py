@@ -28,7 +28,7 @@ def recover_preview_anchor(before,after):
         zones=[]
         for p in [pa,pb]:
             z=p.get('progress',{})
-            if type(z.get('displayedZone')) is not int or not 1<=z['displayedZone']<=9 or z.get('conflictingEvidence') is not False or not .9<=z.get('score',0)<=1:return rejected
+            if type(z.get('displayedZone')) is not int or not 1<=z['displayedZone']<=10 or z.get('conflictingEvidence') is not False or not .9<=z.get('score',0)<=1:return rejected
             zones.append(z['displayedZone'])
         if zones[0]!=zones[1] or ga.get('absoluteFloorKnown') is not True or ga.get('floorAnchorSource')!='visible_top_gate' or len([n for n in ga['nodes'] if n.get('type')=='exit'])!=1:return rejected
         for g in [ga,gb]:

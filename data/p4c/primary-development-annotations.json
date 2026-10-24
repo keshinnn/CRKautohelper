@@ -1,0 +1,181 @@
+{
+  "purpose": "Three independently reviewed native development interactions; not frozen30 or holdout",
+  "cases": [
+    {
+      "id": "dev-primary-zone4-floor2-col3",
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        30087,
+        30093
+      ],
+      "lastFrame": 30138,
+      "intent": {
+        "zone": 4,
+        "floor": 2,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        784,
+        675,
+        115,
+        115
+      ],
+      "clientBox": [
+        812,
+        706,
+        56,
+        56
+      ],
+      "humanClickInterval": [
+        1003800,
+        1003900
+      ],
+      "gateWindowMs": [
+        1003100.0,
+        1003100.0
+      ],
+      "reviewed": true,
+      "reviewMethod": "Native paired map and selected preview visual review; development only. Explicit post-failure annotation corrections recorded in annotationRevisions; not blind holdout.",
+      "split": "development",
+      "formalG4": false
+    },
+    {
+      "id": "dev-primary-zone6-floor1-col2",
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        46293,
+        46299
+      ],
+      "lastFrame": 46356,
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        618,
+        272,
+        115,
+        115
+      ],
+      "clientBox": [
+        647,
+        301,
+        56,
+        56
+      ],
+      "humanClickInterval": [
+        1544400,
+        1544500
+      ],
+      "gateWindowMs": [
+        1543300.0,
+        1543300.0
+      ],
+      "reviewed": true,
+      "reviewMethod": "Native paired map and selected preview visual review; development only. Explicit post-failure annotation corrections recorded in annotationRevisions; not blind holdout.",
+      "split": "development",
+      "formalG4": false
+    },
+    {
+      "id": "dev-primary-zone10-floor1-col2",
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        95307,
+        95313
+      ],
+      "lastFrame": 95343,
+      "intent": {
+        "zone": 10,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        618,
+        519,
+        115,
+        115
+      ],
+      "clientBox": [
+        647,
+        548,
+        56,
+        56
+      ],
+      "humanClickInterval": [
+        3177300,
+        3177400
+      ],
+      "gateWindowMs": [
+        3177100.0,
+        3177100.0
+      ],
+      "reviewed": true,
+      "reviewMethod": "Native paired map and selected preview visual review; development only. Explicit post-failure annotation corrections recorded in annotationRevisions; not blind holdout.",
+      "split": "development",
+      "formalG4": false
+    }
+  ],
+  "g4Complete": false,
+  "annotationRevisions": [
+    {
+      "reason": "Native nearest-neighbor grid review shows upper solid node rim at y675, not initial y677. Corrected manual vertical origin by2px; same width,height,safe region,identity,timing. Reviewed after development coordinate failure, not independent holdout. Initial failure and original annotation preserved.",
+      "previousSha256": "a66b806f29625e95f46498a218bd94d9cf1eae2736c698dee26b7817b2cb5351",
+      "evidence": "artifacts/p4c-primary-zone4-manual-pixel-grid.png",
+      "before": [
+        784,
+        677,
+        115,
+        115
+      ],
+      "after": [
+        784,
+        675,
+        115,
+        115
+      ]
+    },
+    {
+      "reason": "Paired native preview46335 green outline is firstfloor column2, not column1. Initial pre-map-only identity annotation was wrong. Development annotation reviewed after mismatch; keep failed column1 replay, which correctly rejected wrong target. No recognizer change.",
+      "sourceFrame": "artifacts/p4c-primary-native-timing-01/candidate-46335/0046335.png",
+      "beforeColumn": 1,
+      "afterColumn": 2,
+      "beforeExpectedBox": [
+        453,
+        272,
+        115,
+        115
+      ],
+      "afterExpectedBox": [
+        618,
+        272,
+        115,
+        115
+      ]
+    }
+  ]
+}

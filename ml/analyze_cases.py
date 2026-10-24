@@ -1,8 +1,21 @@
 """Read-only batch observer. Test truth and intent never reach the recognizer."""
-import argparse,atexit,base64,hashlib,json,os,socket,sys,time
+import argparse,atexit,base64,hashlib,json,os,re,socket,sys,time
 from pathlib import Path
 from PIL import Image
 sys.dont_write_bytecode=True
+
+def case_source_sha(manifest,case):
+    direct=case.get('videoSha256');nested=(case.get('source') or {}).get('videoSha256')
+    if direct is not None and nested is not None and direct!=nested:raise ValueError('conflicting case video source')
+    value=direct if direct is not None else nested if nested is not None else manifest.get('videoSha256')
+    if not isinstance(value,str) or re.fullmatch(r'[a-f0-9]{64}',value) is None:raise ValueError('missing or invalid video source SHA256')
+    return value
+
+
+def source_frame_id(video_sha,index,image_sha):
+    if type(index) is not int or index<0:raise ValueError('invalid source frame index')
+    return hashlib.sha256((video_sha+str(index)+image_sha).encode()).hexdigest()[:32]
+
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('source_manifest');parser.add_argument('output');parser.add_argument('--cache');parser.add_argument('--fast-map',action='store_true');parser.add_argument('--bounded-ocr',type=int,choices=[736,960,1280]);args=parser.parse_args()
@@ -23,6 +36,8 @@ def main():
         ocr_mode=bounded.mode;ocr_code=hashlib.sha256((Path(__file__).parent/'bounded_ocr.py').read_bytes()).hexdigest()
     from runtime_evidence import capture_runtime_evidence
     runtime_evidence=capture_runtime_evidence()
+    from progress_evidence import ProgressRuntime,parse_progress
+    progress_runtime=ProgressRuntime();progress_runtime.__enter__();atexit.register(progress_runtime.close)
     source_path=Path(args.source_manifest);m=json.loads(source_path.read_text(encoding='utf-8'));out=Path(args.output);out.mkdir()
     cached={};cache_ignored=None
     if args.cache:
@@ -32,10 +47,13 @@ def main():
         elif (old.get('analysis') or {}).get('runtimeEvidence',{}).get('fingerprint')!=runtime_evidence['fingerprint']:cache_ignored='OCR_RUNTIME_CHANGED_OR_UNBOUND'
         else:
             for c in old['cases']:
+                try:video_sha=case_source_sha(old,c)
+                except ValueError:continue  # Unbound historical cache is not authoritative.
                 for f in c['frames']:
-                    if f.get('packet'):cached[(f['frameIndex'],f['sha256'])]=f['packet']
+                    if f.get('packet'):cached[(video_sha,f['frameIndex'],f['sha256'])]=f['packet']
     m['analysis']={'sourceManifestSha256':hashlib.sha256(source_path.read_bytes()).hexdigest(),
       'runtimeEvidence':runtime_evidence,
+      'progressCodeSha256':hashlib.sha256((Path(__file__).parent/'progress_evidence.py').read_bytes()).hexdigest(),
       'identityCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_identity.py').read_bytes()).hexdigest(),
       'mapActionCodeSha256':hashlib.sha256((Path(__file__).parent/'map_action_evidence.py').read_bytes()).hexdigest(),
       'currentPositionCodeSha256':hashlib.sha256((Path(__file__).parent/'current_position_evidence.py').read_bytes()).hexdigest(),
@@ -45,6 +63,7 @@ def main():
       'nativeActions':0,'allFramesAnalyzed':False,'mapBackend':'exact_grouped_masks_parallel4' if args.fast_map else 'v1_original',
       'mapBackendSha256':hashlib.sha256((Path(__file__).parent/'fast_map_candidates.py').read_bytes()).hexdigest() if args.fast_map else None}
     for c in m['cases']:
+        video_sha=case_source_sha(m,c)
         folder=out/c['id'];folder.mkdir();count=0;tracker=PreviewAnchorTracker()
         for f in c['frames']:
             started=time.perf_counter();image_path=Path(f['image']);raw=image_path.read_bytes();digest=hashlib.sha256(raw).hexdigest()
@@ -52,16 +71,22 @@ def main():
             with Image.open(image_path) as im:
                 if im.format!='PNG' or list(im.size)!=f['size']:raise ValueError('source PNG dimensions changed')
                 rgb=im.convert('RGB')
-            key=(f['frameIndex'],digest);cache=cached.get(key)
+            frame_id=source_frame_id(video_sha,f['frameIndex'],digest)
+            key=(video_sha,f['frameIndex'],digest);cache=cached.get(key);source_cache_rejection=None
+            if cache:
+                candidate=json.loads(Path(cache).read_text(encoding='utf-8'))
+                if candidate.get('binding',{}).get('frameId')!=frame_id:cache=None;source_cache_rejection='SOURCE_FRAME_ID_MISMATCH'
             if cache:
                 p=json.loads(Path(cache).read_text(encoding='utf-8'))
                 if p['binding']['imageSha256']!=digest or p['binding']['pixelSha256']!=hashlib.sha256(rgb.tobytes()).hexdigest():raise ValueError('cache does not bind original bytes')
                 p['analysisTiming']={'mode':'cached_v1_packet_current_v2_identity','freshFullPipeline':False,'cachedPacketSha256':hashlib.sha256(Path(cache).read_bytes()).hexdigest()}
             else:
-                frame_id=hashlib.sha256((m['videoSha256']+str(f['frameIndex'])+digest).encode()).hexdigest()[:32]
                 p=inspect_capture('data:image/png;base64,'+base64.b64encode(raw).decode(),
                   {'frameId':frame_id,'imageSha256':digest,'width':rgb.width,'height':rgb.height},root/'data/flow')
                 p['analysisTiming']={'mode':'fresh_full_pipeline','freshFullPipeline':True}
+            p['analysisTiming']['sourceCacheRejection']=source_cache_rejection
+            p['sourceBinding']={'videoSha256':video_sha,'frameIndex':f['frameIndex'],'imageSha256':digest}
+            p['progress']=parse_progress(p['evidence'])
             p.pop('v2TrackedMap',None)
             p['v2TrackedMap']=tracker.observe({'png':raw,'packet':p,'atMs':f.get('atMs'),'sourcePtsMs':f.get('sourcePtsMs'),'windowKey':'offline:original-video','geometryVersion':f.get('geometryVersion','original')})
             p['v2Preview']=inspect_preview_identity(rgb,p)

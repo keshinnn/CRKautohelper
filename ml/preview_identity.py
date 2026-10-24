@@ -33,7 +33,7 @@ def inspect_preview_identity(image,packet):
         if candidate.get('registrationEvidence')==proof and candidate.get('floorAnchorSource')=='verified_preview_pixel_registration':
             m=candidate;recovered_map=m;tracking_valid=True
     if progress.get('conflictingEvidence') is not False or not .9<=progress.get('score',0)<=1 or type(progress.get('displayedZone')) is not int:return unknown
-    if not 1<=progress['displayedZone']<=9:return unknown
+    if not 1<=progress['displayedZone']<=10:return unknown
     evidence=packet.get('evidence',[])
     enters=[r for r in evidence if re.sub(r'\s+','',r.get('text',''))=='進入' and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>width*.5]
     timers=[r for r in evidence if r.get('text')=='03:00' and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>width*.5]

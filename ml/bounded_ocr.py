@@ -55,7 +55,7 @@ class BoundedOCRRuntime:
         if endx<=left or endy<=top:return rows
         crop=image.crop((left,top,endx,endy));size=(crop.width*3,crop.height*3)
         local=normalize_evidence(self.previous_read(crop.resize(size,Image.Resampling.LANCZOS)))
-        matches=[r for r in local if r.get('score',0)>=.9 and re.fullmatch(r'[區区]域[1-9][進进]行中',re.sub(r'\s+','',r.get('text','')))]
+        matches=[r for r in local if r.get('score',0)>=.9 and re.fullmatch(r'[區区]域(?:10|[1-9])[進进]行中',re.sub(r'\s+','',r.get('text','')))]
         if len(matches)!=1:return rows
         row=matches[0]
         return [*rows,{**row,'box':[[round(px/3+left,2),round(py/3+top,2)] for px,py in row['box']],

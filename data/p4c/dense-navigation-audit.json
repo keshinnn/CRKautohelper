@@ -1,0 +1,178 @@
+{
+  "purpose": "Four navigation contact sheets visually reviewed. Native timing and full closed-map gate proof still required; not frozen30, not model acceptance.",
+  "reviewedSheets": [
+    {
+      "path": "artifacts\\p4c-extra-source-navigation-03-dense\\0QxozULx_SQ-00.jpg",
+      "sha256": "e8afc6703e09e9ad111d8f5b569b92150f491167a4c1111828184db273895231"
+    },
+    {
+      "path": "artifacts\\p4c-extra-source-navigation-03-dense\\0QxozULx_SQ-01.jpg",
+      "sha256": "98ef4b57d4e0e03c7313cef1248d2846331b766479e35e18e82dc374362a10d2"
+    },
+    {
+      "path": "artifacts\\p4c-extra-source-navigation-03-dense\\L0ktY5qUppI-00.jpg",
+      "sha256": "5d17b15e4f09862b53cb843936f96950e9a9deff78bef2a36ccf3e0ffd74c639"
+    },
+    {
+      "path": "artifacts\\p4c-extra-source-navigation-03-dense\\L0ktY5qUppI-01.jpg",
+      "sha256": "a74811d9288c0ec256096b99bf6ff695b091d927b52f4d031217f34d832a37ff"
+    }
+  ],
+  "newNavigationGroups": 19,
+  "ordinaryCandidates": 2,
+  "sources": [
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 249.2,
+      "endSeconds": 249.6,
+      "visualClass": "boss",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 315.2,
+      "endSeconds": 315.5,
+      "visualClass": "elite",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 415.3,
+      "endSeconds": 415.7,
+      "visualClass": "elite",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 456.4,
+      "endSeconds": 456.9,
+      "visualClass": "elite",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 906.1,
+      "endSeconds": 906.9,
+      "visualClass": "ordinary_candidate_needs_native_timing",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1087.4,
+      "endSeconds": 1087.9,
+      "visualClass": "boss",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2393.2,
+      "endSeconds": 2393.7,
+      "visualClass": "boss",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 3104.1,
+      "endSeconds": 3104.6,
+      "visualClass": "boss",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 3207.2,
+      "endSeconds": 3207.8,
+      "visualClass": "boss",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 3333.1,
+      "endSeconds": 3333.5,
+      "visualClass": "boss",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 91.2,
+      "endSeconds": 91.7,
+      "visualClass": "elite",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 392.2,
+      "endSeconds": 392.8,
+      "visualClass": "ordinary_candidate_needs_earlier_visible_gate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 660.3,
+      "endSeconds": 660.7,
+      "visualClass": "heal",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 842.3,
+      "endSeconds": 842.7,
+      "visualClass": "elite",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 871.1,
+      "endSeconds": 871.9,
+      "visualClass": "elite_historical_reference_interaction",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1330.1,
+      "endSeconds": 1330.7,
+      "visualClass": "boss",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1721.2,
+      "endSeconds": 1721.9,
+      "visualClass": "disabled_preview_negative",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1741.1,
+      "endSeconds": 1741.4,
+      "visualClass": "modal_return_same_preview",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2964.5,
+      "endSeconds": 2964.8,
+      "visualClass": "modal_return_same_preview",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false
+    }
+  ],
+  "g4Complete": false
+}

@@ -12,3 +12,9 @@ test('gray or missing availability evidence cannot mint a click even with a batt
   assert.throws(()=>selectNode(a,b,intent,{nowMs:1000}),/NODE_UNAVAILABLE/);
  }
 });
+
+test('actual tenth area is a valid intent while out-of-mode areas remain invalid',()=>{
+ const a=map('a',800),b=map();a.zone=10;b.zone=10;
+ assert.equal(selectNode(a,b,{...intent,zone:10},{nowMs:1000}).intent.zone,10);
+ for(const zone of [0,11,100])assert.throws(()=>selectNode(a,b,{...intent,zone},{nowMs:1000}),/INTENT_INVALID/);
+});

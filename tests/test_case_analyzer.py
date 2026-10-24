@@ -2,6 +2,42 @@ import hashlib,json,os,subprocess,sys,tempfile,unittest
 from pathlib import Path
 
 class OfflineAnalyzerTests(unittest.TestCase):
+    def test_case_source_rejects_missing_malformed_and_conflicting_claims(self):
+        sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'ml'))
+        from analyze_cases import case_source_sha,source_frame_id
+        self.assertEqual(case_source_sha({'videoSha256':'a'*64},{}),'a'*64)
+        self.assertEqual(case_source_sha({}, {'source':{'videoSha256':'b'*64}}),'b'*64)
+        for manifest,case in [({},{}),({}, {'videoSha256':'not-sha'}),({}, {'videoSha256':'a'*64,'source':{'videoSha256':'b'*64}})]:
+            with self.assertRaises(ValueError):case_source_sha(manifest,case)
+        for index in [-1,1.5,True]:
+            with self.assertRaises(ValueError):source_frame_id('a'*64,index,'b'*64)
+
+    def test_multisource_frames_and_cache_are_bound_to_each_video(self):
+        root=Path(__file__).resolve().parents[1];image=root/'artifacts/p4a-native/0002550.png';digest=hashlib.sha256(image.read_bytes()).hexdigest()
+        entry={'image':str(image),'sha256':digest,'frameIndex':2550,'size':[1440,1080]}
+        with tempfile.TemporaryDirectory(prefix='crk-multisource-',dir=root/'artifacts') as folder:
+            folder=Path(folder);source=folder/'source.json'
+            data={'cases':[{'id':'source-a','videoSha256':'a'*64,'frames':[entry.copy()]},{'id':'source-b','videoSha256':'b'*64,'frames':[entry.copy()]}]}
+            source.write_text(json.dumps(data),encoding='utf-8');out=folder/'first'
+            args=[sys.executable,'-B',str(root/'ml/analyze_cases.py')]
+            r=subprocess.run([*args,str(source),str(out),'--fast-map','--bounded-ocr','960'],capture_output=True,text=True,encoding='utf-8')
+            self.assertEqual(r.returncode,0,r.stderr)
+            m=json.loads((out/'manifest.json').read_text(encoding='utf-8'))
+            packets=[json.loads(Path(c['frames'][0]['packet']).read_text(encoding='utf-8')) for c in m['cases']]
+            self.assertNotEqual(packets[0]['binding']['frameId'],packets[1]['binding']['frameId'])
+            for video,p in zip(['a'*64,'b'*64],packets):
+                self.assertEqual(p['binding']['frameId'],hashlib.sha256((video+'2550'+digest).encode()).hexdigest()[:32])
+                self.assertEqual(p['sourceBinding'],{'videoSha256':video,'frameIndex':2550,'imageSha256':digest})
+            m['cases']=m['cases'][:1];cache=folder/'cache.json';cache.write_text(json.dumps(m),encoding='utf-8')
+            second=folder/'second'
+            r=subprocess.run([*args,str(source),str(second),'--fast-map','--bounded-ocr','960','--cache',str(cache)],capture_output=True,text=True,encoding='utf-8')
+            self.assertEqual(r.returncode,0,r.stderr)
+            m2=json.loads((second/'manifest.json').read_text(encoding='utf-8'))
+            p2=[json.loads(Path(c['frames'][0]['packet']).read_text(encoding='utf-8')) for c in m2['cases']]
+            self.assertFalse(p2[0]['analysisTiming']['freshFullPipeline'])
+            self.assertTrue(p2[1]['analysisTiming']['freshFullPipeline'])
+            self.assertEqual(p2[1]['binding']['frameId'],packets[1]['binding']['frameId'])
+
     def test_bounded_mode_recomputes_original_ocr_cache_and_records_actual_tensor_sizes(self):
         root=Path(__file__).resolve().parents[1];image=root/'artifacts/p4a-native/0002550.png'
         old=json.loads((root/'artifacts/p4a-first-preview-v2/observation.json').read_text(encoding='utf-8'))['rawPacket']
