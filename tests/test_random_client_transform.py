@@ -8,6 +8,15 @@ except ImportError:
     def sample_layout(*args,**kwargs):return None
 
 class RandomClientTransformTests(unittest.TestCase):
+    def test_random_virtual_clients_stay_in_the_design_test_range(self):
+        for size in [[960,720],[1440,1080],[1280,720]]:
+            for seed in range(30):
+                layout=sample_layout(size,[[10,10,size[0]-20,size[1]-20]],seed)
+                w,h=layout['outputSize']
+                self.assertGreaterEqual(w,960);self.assertLessEqual(w,2560)
+                self.assertGreaterEqual(h,540);self.assertLessEqual(h,1440)
+                self.assertGreaterEqual(w/h,1.25);self.assertLessEqual(w/h,2.5)
+
     def test_reproducible_nonfixed_sizes_aspects_and_crops_preserve_required_boxes(self):
         required=[[18,20,300,200],[610,500,120,120],[1000,250,420,680]]
         layouts=[sample_layout([1440,1080],required,seed) for seed in [119,120,121]]

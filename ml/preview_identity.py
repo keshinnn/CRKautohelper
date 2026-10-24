@@ -56,13 +56,29 @@ def inspect_preview_identity(image,packet):
         # Re-read a bounded original-pixel crop; do not promote the old score
         # or substitute an expected word into OCR output.
         ox,oy,ow,oh=_box(ordinary[0]);left=max(0,int(ox+ow-oh*2));top=max(0,int(oy-3));right=min(width,int(ox+ow+3));bottom=min(height,int(oy+oh+3))
-        crop=image.crop((left,top,right,bottom));crop=crop.resize((crop.width*3,crop.height*3))
+        crop=image.crop((left,top,right,bottom))
         root=Path(os.environ.get('CRK_V1_ROOT','F:/CRK helper'));module_path=str(root/'ml')
         if module_path not in sys.path:sys.path.insert(0,module_path)
-        from text_reader import read_text
-        refined=[r for r in read_text(crop) if re.sub(r'\s+','',r.get('text',''))=='普通' and r.get('score',0)>=.95]
+        import text_reader
+        runtime=getattr(text_reader,'_v2_bounded_ocr_runtime',None)
+        if runtime:
+            readings=runtime.read_line_variants(crop,sum('\u3400'<=c<='\u9fff' for c in ordinary[0]['text']));kind='bounded_original_pixel_line_recognition';crop_scale=1
+        else:
+            crop=crop.resize((crop.width*3,crop.height*3));readings=text_reader.read_text(crop);kind='bounded_original_pixel_crop_ocr';crop_scale=3
+        refined=[r for r in readings if re.sub(r'\s+','',r.get('text',''))=='普通' and r.get('score',0)>=.95]
+        if runtime and not refined:
+            # Adjacent difficulty stars can share the detected text box. Trim
+            # only a small, bounded left margin and require a new high-score
+            # reading from actual pixels; never strip punctuation from text.
+            for fraction in [.1,.2,.3]:
+                local_left=left+round(oh*fraction)
+                readings=runtime.read_line_variants(image.crop((local_left,top,right,bottom)),sum('\u3400'<=c<='\u9fff' for c in ordinary[0]['text']))
+                refined=[r for r in readings if re.sub(r'\s+','',r.get('text',''))=='普通' and r.get('score',0)>=.95]
+                if len(refined)==1:
+                    left=local_left
+                    break
         if len(refined)!=1:return unknown
-        ordinary_evidence={'kind':'bounded_original_pixel_crop_ocr','originalScore':ordinary[0]['score'],'refinedScore':refined[0]['score'],'cropBox':[left,top,right-left,bottom-top],'cropScale':3}
+        ordinary_evidence={'kind':kind,'originalScore':ordinary[0]['score'],'refinedScore':refined[0]['score'],'cropBox':[left,top,right-left,bottom-top],'cropScale':crop_scale}
     eb,tb,ob=map(_box,[enters[0],timers[0],ordinary[0]])
     if not ob[1]<tb[1]<eb[1] or eb[1]-tb[1]<height*.15:return unknown
     hsv=cv2.cvtColor(a,cv2.COLOR_RGB2HSV)

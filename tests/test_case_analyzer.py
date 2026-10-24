@@ -2,6 +2,23 @@ import hashlib,json,os,subprocess,sys,tempfile,unittest
 from pathlib import Path
 
 class OfflineAnalyzerTests(unittest.TestCase):
+    def test_bounded_mode_recomputes_original_ocr_cache_and_records_actual_tensor_sizes(self):
+        root=Path(__file__).resolve().parents[1];image=root/'artifacts/p4a-native/0002550.png'
+        old=json.loads((root/'artifacts/p4a-first-preview-v2/observation.json').read_text(encoding='utf-8'))['rawPacket']
+        self.assertEqual(old['binding']['imageSha256'],hashlib.sha256(image.read_bytes()).hexdigest())
+        with tempfile.TemporaryDirectory(prefix='crk-bounded-',dir=root/'artifacts') as folder:
+            folder=Path(folder);packet=folder/'old.json';packet.write_text(json.dumps(old),encoding='utf-8')
+            entry={'image':str(image),'sha256':old['binding']['imageSha256'],'frameIndex':2550,'size':[1440,1080]}
+            data={'videoSha256':'a'*64,'cases':[{'id':'test','frames':[entry]}]};source=folder/'source.json';source.write_text(json.dumps(data),encoding='utf-8')
+            cache=folder/'cache.json';cache.write_text(json.dumps({'analysis':{'ocrPreprocessing':{'mode':'original_v1'}},'cases':[{'frames':[{**entry,'packet':str(packet)}]}]}),encoding='utf-8');out=folder/'result'
+            r=subprocess.run([sys.executable,'-B',str(root/'ml/analyze_cases.py'),str(source),str(out),'--fast-map','--bounded-ocr','960','--cache',str(cache)],capture_output=True,text=True,encoding='utf-8')
+            self.assertEqual(r.returncode,0,r.stderr)
+            m=json.loads((out/'manifest.json').read_text(encoding='utf-8'));p=json.loads(Path(m['cases'][0]['frames'][0]['packet']).read_text(encoding='utf-8'))
+            self.assertTrue(p['analysisTiming']['freshFullPipeline']);self.assertTrue(p['v2Preview']['verified'])
+            self.assertEqual(m['analysis']['cacheIgnoredReason'],'OCR_PREPROCESSING_CHANGED')
+            self.assertEqual(p['ocrAnalysis']['maximumTensorSide'],960);self.assertGreater(len(p['ocrAnalysis']['detectorCalls']),0)
+            for call in p['ocrAnalysis']['detectorCalls']:self.assertLessEqual(max(call['tensorSize']),960)
+
     def test_batch_stream_recomputes_pixel_registration_without_intent_or_truth(self):
         root=Path(__file__).resolve().parents[1];frames=[]
         for index in [23724,23730,23745]:

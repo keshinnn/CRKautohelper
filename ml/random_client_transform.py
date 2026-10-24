@@ -19,8 +19,11 @@ def sample_layout(size,required_boxes,seed):
         margins.append(rng.randint(1,maximum) if maximum>0 else 0)
     if not sum(margins):raise ValueError('required anchors leave no positive crop possible')
     left,top,right,bottom=margins;cw,ch=w-left-right,h-top-bottom
-    base=rng.uniform(.65,1.4);aspect=rng.uniform(.8,1.2)
-    ow,oh=max(1,round(cw*base*aspect)),max(1,round(ch*base/aspect));sx,sy=ow/cw,oh/ch
+    # Sample absolute client dimensions inside the declared design test range.
+    # Native source dimensions do not silently shrink this range for 960px videos.
+    oh=rng.randint(540,1440)
+    ow=rng.randint(max(960,math.ceil(oh*1.25)),min(2560,math.floor(oh*2.5)))
+    sx,sy=ow/cw,oh/ch
     return {'kind':'virtual_client_random','seed':seed,'inputSize':list(size),'cropMargins':margins,'cropBox':[left,top,cw,ch],'outputSize':[ow,oh],'sx':sx,'sy':sy,
       'matrix':[[sx,0,-left*sx],[0,sy,-top*sy],[0,0,1]],'inverseMatrix':[[1/sx,0,left],[0,1/sy,top],[0,0,1]]}
 

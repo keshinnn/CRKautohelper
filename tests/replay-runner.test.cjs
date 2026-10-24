@@ -26,3 +26,26 @@ test('observer failure preserves the one dispatched transaction instead of escap
  const r=await runReplay({frames:sequence(),intent,gate,observe:async f=>{if(f.state==='PREVIEW')throw Error('pixel binding mismatch');return f;}});
  assert.equal(r.state,'OBSERVATION_FAILED');assert.equal(r.actions.length,1);assert.equal(r.failure.frameId,'c');assert(r.transaction.proof);
 });
+
+test('pre-click motion waits for a wholly new stable 200ms pair',async()=>{
+ const frames=[map('a',600),map('b',800),map('c',900),map('d',1000),preview('e',1200),preview('f',1400)];
+ frames[0].nodes.find(n=>n.id==='target').box[0]-=20;
+ frames.forEach(o=>o.frame.sourcePtsMs=o.frame.atMs);
+ const r=await runReplay({frames,intent,gate,observe:async f=>f});
+ assert.equal(r.state,'PREVIEW_CONFIRMED');assert.equal(r.actions.length,1);
+ assert.equal(r.transaction.proof.previousFrameId,'b');assert.equal(r.actions[0].frameId,'d');
+ assert(r.selectionAttempts.some(a=>a.code==='MAP_MOVING'));
+});
+test('short frame intervals accumulate 200ms without reusing changed geometry',async()=>{
+ const frames=[map('a',600),map('b',700),map('c',800),map('d',833),map('e',900),map('f',1000),preview('g',1200),preview('h',1400)];
+ for(const o of frames.slice(2))o.frame.geometryVersion='g2';
+ frames.forEach(o=>o.frame.sourcePtsMs=o.frame.atMs);
+ const r=await runReplay({frames,intent,gate,observe:async f=>f});
+ assert.equal(r.state,'PREVIEW_CONFIRMED');assert.equal(r.actions.length,1);
+ assert.equal(r.transaction.proof.previousFrameId,'c');assert.equal(r.actions[0].frameId,'f');
+});
+test('pre-click window replacement remains an immediate rejection',async()=>{
+ const frames=sequence();frames[1].frame.windowKey='other-window';
+ const r=await runReplay({frames,intent,gate,observe:async f=>f});
+ assert.equal(r.state,'STALE_GEOMETRY');assert.equal(r.actions.length,0);assert.equal(r.observations.length,2);
+});

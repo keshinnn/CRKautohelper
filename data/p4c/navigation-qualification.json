@@ -1,0 +1,1083 @@
+{
+  "purpose": "Visual qualification navigation audit, not formal truth or frozen20/10",
+  "reviewedContactSheets": 14,
+  "candidateGroups": 107,
+  "preliminaryOrdinaryCandidates": 29,
+  "sources": [
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 75,
+      "endSeconds": 76,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-00.jpg",
+      "preliminaryVisualClass": "blocking_notice_requires_additional_action",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 205,
+      "endSeconds": 208,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-00.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 374,
+      "endSeconds": 377,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-00.jpg",
+      "preliminaryVisualClass": "ordinary_panel_motion_negative_candidate",
+      "nativeTemporalReviewed": true,
+      "acceptedPositive": false,
+      "notes": "Native frames show only133ms stable before human opens preview. The200ms pre-pair11201->11207 moves~3.65px, exceeding2px tolerance. Not eligible as a stable positive; preserve as motion negative candidate. No recognizer used for this qualification.",
+      "nativeQualificationEvidence": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-native-qualification\\L0-zone2-first-candidate\\motion-audit.json",
+      "nativeQualificationSha256": "97f036cb60ac81d09d17432a40605274d077fe653ae146934e7bfb9c6185ed49"
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 496,
+      "endSeconds": 496,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-00.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 533,
+      "endSeconds": 533,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-00.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 596,
+      "endSeconds": 597,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-00.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 599,
+      "endSeconds": 600,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-00.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 652,
+      "endSeconds": 656,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-00.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 731,
+      "endSeconds": 731,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-01.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 799,
+      "endSeconds": 799,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-01.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 850,
+      "endSeconds": 850,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-01.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 964,
+      "endSeconds": 964,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-01.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1025,
+      "endSeconds": 1029,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-01.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1135,
+      "endSeconds": 1135,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-01.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1206,
+      "endSeconds": 1211,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-01.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1276,
+      "endSeconds": 1276,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-01.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1353,
+      "endSeconds": 1356,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-02.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1490,
+      "endSeconds": 1491,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-02.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1550,
+      "endSeconds": 1551,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-02.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1563,
+      "endSeconds": 1563,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-02.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1577,
+      "endSeconds": 1577,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-02.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1620,
+      "endSeconds": 1620,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-02.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1716,
+      "endSeconds": 1716,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-02.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1773,
+      "endSeconds": 1774,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-02.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1781,
+      "endSeconds": 1781,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-03.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1857,
+      "endSeconds": 1860,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 1932,
+      "endSeconds": 1935,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-03.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2005,
+      "endSeconds": 2007,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2056,
+      "endSeconds": 2059,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2101,
+      "endSeconds": 2102,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2169,
+      "endSeconds": 2169,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2218,
+      "endSeconds": 2223,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2225,
+      "endSeconds": 2225,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2282,
+      "endSeconds": 2285,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-04.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2350,
+      "endSeconds": 2350,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2443,
+      "endSeconds": 2443,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2571,
+      "endSeconds": 2573,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-04.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2652,
+      "endSeconds": 2654,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2705,
+      "endSeconds": 2705,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2764,
+      "endSeconds": 2765,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2809,
+      "endSeconds": 2813,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2872,
+      "endSeconds": 2872,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2940,
+      "endSeconds": 2944,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-05.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 2995,
+      "endSeconds": 2996,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 3043,
+      "endSeconds": 3044,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 3046,
+      "endSeconds": 3050,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 3376,
+      "endSeconds": 3376,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "L0ktY5qUppI",
+      "startSeconds": 3445,
+      "endSeconds": 3446,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\L0ktY5qUppI-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 49,
+      "endSeconds": 49,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-00.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 132,
+      "endSeconds": 135,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-00.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 185,
+      "endSeconds": 185,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-00.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 218,
+      "endSeconds": 225,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-00.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 228,
+      "endSeconds": 228,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-00.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 281,
+      "endSeconds": 281,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-00.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 344,
+      "endSeconds": 345,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-00.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 438,
+      "endSeconds": 438,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-00.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 501,
+      "endSeconds": 503,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-01.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 572,
+      "endSeconds": 572,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-01.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 631,
+      "endSeconds": 635,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-01.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 702,
+      "endSeconds": 703,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-01.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 733,
+      "endSeconds": 734,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-01.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 771,
+      "endSeconds": 776,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-01.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 915,
+      "endSeconds": 919,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-01.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 977,
+      "endSeconds": 978,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-01.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1037,
+      "endSeconds": 1037,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-02.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1103,
+      "endSeconds": 1133,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-02.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1181,
+      "endSeconds": 1183,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-02.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1232,
+      "endSeconds": 1232,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-02.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1299,
+      "endSeconds": 1300,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-02.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1375,
+      "endSeconds": 1375,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-02.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1423,
+      "endSeconds": 1433,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-02.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1435,
+      "endSeconds": 1441,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-02.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1455,
+      "endSeconds": 1458,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1490,
+      "endSeconds": 1491,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1533,
+      "endSeconds": 1538,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1604,
+      "endSeconds": 1608,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1679,
+      "endSeconds": 1681,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1683,
+      "endSeconds": 1683,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1723,
+      "endSeconds": 1723,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1725,
+      "endSeconds": 1740,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-03.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1743,
+      "endSeconds": 1748,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-04.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1819,
+      "endSeconds": 1819,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1857,
+      "endSeconds": 1861,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1929,
+      "endSeconds": 1936,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1950,
+      "endSeconds": 1950,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 1983,
+      "endSeconds": 1983,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2064,
+      "endSeconds": 2068,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-04.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2074,
+      "endSeconds": 2078,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-04.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2081,
+      "endSeconds": 2093,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2164,
+      "endSeconds": 2169,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2196,
+      "endSeconds": 2198,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2202,
+      "endSeconds": 2203,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2280,
+      "endSeconds": 2283,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2321,
+      "endSeconds": 2328,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2363,
+      "endSeconds": 2369,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-05.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2542,
+      "endSeconds": 2553,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-05.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2601,
+      "endSeconds": 2604,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-06.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2606,
+      "endSeconds": 2608,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-06.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2649,
+      "endSeconds": 2649,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-06.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2651,
+      "endSeconds": 2652,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-06.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2733,
+      "endSeconds": 2733,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-06.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2773,
+      "endSeconds": 2773,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-06.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2831,
+      "endSeconds": 2831,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-06.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2856,
+      "endSeconds": 2856,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-06.jpg",
+      "preliminaryVisualClass": "other_panel_or_blocked_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2910,
+      "endSeconds": 2911,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-07.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2923,
+      "endSeconds": 2923,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-07.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    },
+    {
+      "videoId": "0QxozULx_SQ",
+      "startSeconds": 2961,
+      "endSeconds": 2961,
+      "contactSheet": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-extra-source-navigation-02\\0QxozULx_SQ-07.jpg",
+      "preliminaryVisualClass": "ordinary_panel_candidate",
+      "nativeTemporalReviewed": false,
+      "acceptedPositive": false,
+      "notes": "Navigation only. Check original stable closed map, possible resume, same-node click, enabled preview, all intervening frames and visible pre-selection gate; earlier gate may be used for preview registration only."
+    }
+  ],
+  "formalCasesFrozen": false,
+  "g4Complete": false,
+  "nativeTemporallyReviewed": 1
+}
