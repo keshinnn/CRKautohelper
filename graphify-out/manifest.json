@@ -168,9 +168,9 @@
     "semantic_hash": ""
   },
   "ml/bounded_ocr.py": {
-    "mtime": 1792867833.8472013,
-    "seen": 1792881320.0168197,
-    "ast_hash": "eb5aaa7b30221a91b8b00f624e4daabf",
+    "mtime": 1792881851.208282,
+    "seen": 1792881964.5450077,
+    "ast_hash": "5e429d2199eb0267e87b03ccb983c73b",
     "semantic_hash": ""
   },
   "ml/current_position_evidence.py": {
@@ -372,9 +372,9 @@
     "semantic_hash": ""
   },
   "tests/test_case_analyzer.py": {
-    "mtime": 1792869225.4643557,
-    "seen": 1792881320.0168715,
-    "ast_hash": "3cef5e429499b2e1f191bbe711736a11",
+    "mtime": 1792882145.7508302,
+    "seen": 1792882408.774985,
+    "ast_hash": "7873a422721f848d234a2825e3535fa6",
     "semantic_hash": ""
   },
   "tests/test_corpus_freezer.py": {
@@ -504,9 +504,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-24-crk-helper-v2-p4c-plan.md": {
-    "mtime": 1792871028.9116426,
-    "seen": 1792881320.0169039,
-    "ast_hash": "2bfff59e8159caf11eb67b107e03d9e5",
+    "mtime": 1792882255.0808446,
+    "seen": 1792882408.7750356,
+    "ast_hash": "53e5f78f80d26dec9596ae8d18630394",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-10-24-crk-helper-v2-design.md": {
@@ -540,9 +540,15 @@
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1792881281.0632033,
-    "seen": 1792881320.0169122,
-    "ast_hash": "8dde3482a91fabd707bfbff9a877bcd5",
+    "mtime": 1792882145.7658632,
+    "seen": 1792882408.7750478,
+    "ast_hash": "938fde0c9f25246173db00616188bb37",
+    "semantic_hash": ""
+  },
+  "tests/test_map_title_reread.py": {
+    "mtime": 1792881877.583362,
+    "seen": 1792881964.545183,
+    "ast_hash": "7c74e17d7b7fd578a549251adf9ec86c",
     "semantic_hash": ""
   }
 }

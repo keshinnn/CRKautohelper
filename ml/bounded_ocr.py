@@ -41,7 +41,7 @@ class BoundedOCRRuntime:
         return self
 
     def _read_with_progress(self,image):
-        rows=normalize_evidence(self.previous_read(image))
+        rows=self._reread_map_title(image,normalize_evidence(self.previous_read(image)))
         header=text_reader.map_header_from_evidence(rows)
         if header['displayedZone'] is not None or header['conflictingEvidence']:return rows
         remaining=[r for r in rows if ('剩餘時間' in r.get('text','') or re.fullmatch(r'Ends\s+in:\s*\d+D\s+\d{2}:\d{2}:\d{2}',r.get('text','').strip(),re.I)) and r.get('score',0)>=.85]
@@ -60,6 +60,25 @@ class BoundedOCRRuntime:
         row=matches[0]
         return [*rows,{**row,'box':[[round(px/3+left,2),round(py/3+top,2)] for px,py in row['box']],
             'source':'remaining_time_adjacent_progress_original_crop','cropBox':[left,top,endx-left,endy-top],'analysisSize':list(size)}]
+
+    def _reread_map_title(self,image,rows):
+        # A partial OCR result only locates pixels; it never grants MAP state.
+        partial=[r for r in rows if r.get('text','').strip() in ('冥界','冥界試') and .9<=r.get('score',0)<=1]
+        full=[r for r in rows if r.get('text','').strip()=='冥界試煉' and r.get('score',0)>=.9]
+        timer=[r for r in rows if '剩餘時間' in r.get('text','') and .9<=r.get('score',0)<=1]
+        header=text_reader.map_header_from_evidence(rows)
+        if full or len(partial)!=1 or len(timer)!=1 or header['displayedZone'] is None or header['conflictingEvidence']:return rows
+        points=np.asarray(partial[0].get('box'),dtype=float);times=np.asarray(timer[0].get('box'),dtype=float)
+        if points.shape!=(4,2) or times.shape!=(4,2) or not np.isfinite(points).all() or not np.isfinite(times).all():return rows
+        x,y=points.min(0);right,bottom=points.max(0);h=bottom-y;tx,ty=times.min(0)
+        if not 0<h<image.height*.1 or x<0 or right>image.width*.35 or y>image.height*.15 or not bottom<ty<image.height*.3 or not x-h<=tx<image.width*.35:return rows
+        left,top=max(0,int(x-h*.1)),max(0,int(y-h*.1))
+        endx,endy=min(image.width,int(right+h*.1)),min(image.height,int(bottom+h*.1))
+        readings=self.read_line_variants(image.crop((left,top,endx,endy)),4)
+        matches=[r for r in readings if r['text'] in ('冥界試','冥界試煉') and r['score']>=.9]
+        matches=sorted(matches,key=lambda r:r['score'],reverse=True)[:1]
+        if len(matches)!=1:return rows
+        return [*rows,{**matches[0],'box':[[left,top],[endx,top],[endx,endy],[left,endy]],'source':'map_title_original_crop','cropBox':[left,top,endx-left,endy-top],'originalText':partial[0]['text'],'originalScore':partial[0]['score']}]
 
     def take_metadata(self):
         records,self.records=self.records,[]

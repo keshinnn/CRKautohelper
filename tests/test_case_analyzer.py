@@ -9,6 +9,12 @@ class OfflineAnalyzerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='crk-language-cache-',dir=root/'artifacts') as folder:
             folder=Path(folder);source=folder/'source.json'
             source.write_text(json.dumps({'cases':[{'id':'language-cache','videoSha256':original['cases'][0]['videoSha256'],'frames':[{k:v for k,v in entry.items() if k!='packet'}]}]}),encoding='utf-8')
+            # Build the control with the current OCR runtime, so changing only
+            # a semantic hash exercises the semantic gate, not an earlier gate.
+            baseline=folder/'baseline'
+            r=subprocess.run([sys.executable,'-B',str(root/'ml/analyze_cases.py'),str(source),str(baseline),'--fast-map','--bounded-ocr','960'],capture_output=True,text=True,encoding='utf-8')
+            self.assertEqual(r.returncode,0,r.stderr)
+            original=json.loads((baseline/'manifest.json').read_text(encoding='utf-8'))
             for key in ['englishSceneCodeSha256','progressCodeSha256']:
                 cache=json.loads(json.dumps(original));cache['analysis'][key]='a'*64
                 cachefile=folder/(key+'.json');cachefile.write_text(json.dumps(cache),encoding='utf-8');out=folder/key

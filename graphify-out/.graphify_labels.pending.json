@@ -1,16 +1,15 @@
 {
   "0": "hashlib",
-  "1": "preview-session.cjs",
+  "1": "preview-session.test.cjs",
   "2": "BoundedOCRRuntime",
-  "3": "analyze_cases.py",
+  "3": "replay-saved.cjs",
   "4": "inspect_map_actions",
   "5": "CRK Helper V2：失敗導向重構設計與分階段驗收",
   "6": "accept-replay.cjs",
   "7": "observer-adapter.cjs",
   "8": "evidence.test.cjs",
   "9": "CRK Helper V2 P4-C 正式集合與隨機壓力測試",
-  "10": "parse_progress",
-  "11": "artifact-writer.test.cjs",
+  "10": "analyze_cases.py",
   "12": "PreviewAnchorTracker",
   "13": "CRK Helper V2 P0–P3 Implementation Plan",
   "14": "P4-C 開發進度：尚未正式驗收",
@@ -30,5 +29,11 @@
   "28": "2026-10-24-crk-helper-v2-p4a-plan.md",
   "29": "2026-10-24-crk-helper-v2-p4b-plan.md",
   "30": "progress.md",
-  "31": "accept-p4a.cjs"
+  "31": "accept-p4a.cjs",
+  "32": "node-selector.cjs",
+  "33": "preview-session.cjs",
+  "34": "PreviewSession",
+  "35": "replay-evaluator.test.cjs",
+  "36": "node-selector.test.cjs",
+  "37": "review-regressions.test.cjs"
 }
