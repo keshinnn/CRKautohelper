@@ -5,11 +5,16 @@ from PIL import Image
 sys.dont_write_bytecode=True
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('source_manifest');parser.add_argument('output');parser.add_argument('--cache');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('source_manifest');parser.add_argument('output');parser.add_argument('--cache');parser.add_argument('--fast-map',action='store_true');args=parser.parse_args()
     root=Path(os.environ.get('CRK_V1_ROOT','F:/CRK helper'));sys.path.insert(0,str(root/'ml'))
     socket.socket.connect=lambda *a,**k: (_ for _ in ()).throw(RuntimeError('network disabled in offline observer'))
     from observation import inspect_capture
     from preview_identity import inspect_preview_identity
+    from map_action_evidence import inspect_map_actions
+    if args.fast_map:
+        import map_vision
+        from fast_map_candidates import node_candidates
+        map_vision.node_candidates=node_candidates
     source_path=Path(args.source_manifest);m=json.loads(source_path.read_text(encoding='utf-8'));out=Path(args.output);out.mkdir()
     cached={}
     if args.cache:
@@ -19,8 +24,10 @@ def main():
                 if f.get('packet'):cached[(f['frameIndex'],f['sha256'])]=f['packet']
     m['analysis']={'sourceManifestSha256':hashlib.sha256(source_path.read_bytes()).hexdigest(),
       'identityCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_identity.py').read_bytes()).hexdigest(),
+      'mapActionCodeSha256':hashlib.sha256((Path(__file__).parent/'map_action_evidence.py').read_bytes()).hexdigest(),
       'cacheManifestSha256':hashlib.sha256(Path(args.cache).read_bytes()).hexdigest() if args.cache else None,
-      'nativeActions':0,'allFramesAnalyzed':False}
+      'nativeActions':0,'allFramesAnalyzed':False,'mapBackend':'exact_grouped_masks_parallel4' if args.fast_map else 'v1_original',
+      'mapBackendSha256':hashlib.sha256((Path(__file__).parent/'fast_map_candidates.py').read_bytes()).hexdigest() if args.fast_map else None}
     for c in m['cases']:
         folder=out/c['id'];folder.mkdir();count=0
         for f in c['frames']:
@@ -40,6 +47,7 @@ def main():
                   {'frameId':frame_id,'imageSha256':digest,'width':rgb.width,'height':rgb.height},root/'data/flow')
                 p['analysisTiming']={'mode':'fresh_full_pipeline','freshFullPipeline':True}
             p['v2Preview']=inspect_preview_identity(rgb,p)
+            p['v2MapActions']=inspect_map_actions(rgb,p)
             p['analysisTiming']['elapsedMs']=(time.perf_counter()-started)*1000
             target=folder/f"{f['frameIndex']:07}.packet.json";target.write_text(json.dumps(p,ensure_ascii=False,indent=2),encoding='utf-8');f['packet']=str(target.resolve());count+=1
             (out/'manifest.json').write_text(json.dumps(m,ensure_ascii=False,indent=2),encoding='utf-8')

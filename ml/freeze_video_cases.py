@@ -3,25 +3,28 @@ import argparse,hashlib,json
 from pathlib import Path
 import cv2
 
-def extract_case(video,case,output):
+def extract_case(video,case,output,source_spec=None):
+    spec=source_spec or {'fps':30,'size':[1440,1080]}
+    fps=spec['fps'];size=spec['size']
+    if fps not in [30,60] or len(size)!=2 or any(type(n) is not int or n<=0 for n in size):raise ValueError('invalid reviewed source specification')
     pre=case['preFrames'];last=case['lastFrame']
-    if len(pre)!=2 or any(type(n) is not int or n<0 for n in [*pre,last]) or pre[1]-pre[0]<6 or last<=pre[1]:raise ValueError('invalid source interval')
+    if len(pre)!=2 or any(type(n) is not int or n<0 for n in [*pre,last]) or pre[1]-pre[0]<fps*.2 or last<=pre[1]:raise ValueError('invalid source interval')
     output=Path(output);output.mkdir()
     cap=cv2.VideoCapture(str(video))
-    if not cap.isOpened() or abs(cap.get(cv2.CAP_PROP_FPS)-30)>.0001:raise ValueError('expected reviewed 30fps source')
-    cap.set(cv2.CAP_PROP_POS_FRAMES,pre[0]);frames=[]
     try:
+        if not cap.isOpened() or abs(cap.get(cv2.CAP_PROP_FPS)-fps)>.0001:raise ValueError('expected reviewed source fps')
+        cap.set(cv2.CAP_PROP_POS_FRAMES,pre[0]);frames=[]
         for index in range(pre[0],last+1):
             ok,bgr=cap.read()
             if not ok:raise ValueError(f'missing original frame {index}')
             if index<pre[1] and index!=pre[0]:continue
-            if bgr.shape[:2]!=(1080,1440):raise ValueError('native dimensions changed')
+            if list(bgr.shape[:2])!=list(reversed(size)):raise ValueError('native dimensions changed')
             pts=cap.get(cv2.CAP_PROP_POS_MSEC)
-            if abs(pts-index/30*1000)>.1:raise ValueError('decoder PTS not aligned to reviewed source')
+            if abs(pts-index/fps*1000)>.1:raise ValueError('decoder PTS not aligned to reviewed source')
             p=output/f'{index:07}.png'
             if not cv2.imwrite(str(p),bgr):raise ValueError('PNG write failed')
             frames.append({'image':str(p.resolve()),'frameIndex':index,'sourcePtsMs':round(pts,6),'atMs':round(pts,6),
-              'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size':[1440,1080],'geometryVersion':'original'})
+              'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size':list(size),'geometryVersion':'original'})
     finally:cap.release()
     return frames
 

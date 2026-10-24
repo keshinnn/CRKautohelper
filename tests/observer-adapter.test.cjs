@@ -1,6 +1,24 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const {adaptMap,adaptPreview}=require('../lib/observer-adapter.cjs');
 const base=process.env.CRK_V1_ROOT||'F:/CRK helper';
+function floorTwoSource(){
+ const p=JSON.parse(fs.readFileSync(path.join(__dirname,'../artifacts/p4c-dev-floor2/action-evidence/0014530.packet.json'),'utf8'));
+ const png=fs.readFileSync(path.join(__dirname,'../artifacts/p4c-dev-floor2/0014530.png'));
+ return {p,f:{id:p.binding.frameId,sha256:p.binding.imageSha256,width:p.binding.width,height:p.binding.height,atMs:1000,windowKey:'offline:floor2',geometryVersion:'original',origin:[0,0],png}};
+}
+test('independent completed pixels establish a unique completed path and orange availability',()=>{
+ const {p,f}=floorTwoSource(),o=adaptMap(f,p);
+ assert.equal(o.current?.nodeId,'visible-1-3');assert.equal(o.current.inProgress,false);
+ assert.equal(o.nodes.find(n=>n.id==='visible-2-3').available,true);
+ assert.equal(o.nodes.find(n=>n.id==='visible-1-4').available,false);
+});
+test('missing or mismatched independent pixels never authorize availability or a completed path',()=>{
+ for(const mutate of [p=>delete p.v2MapActions,p=>p.v2MapActions.pixelSha256='a'.repeat(64),p=>p.v2MapActions.nodes['visible-2-3'].box[0]+=1]){
+  const {p,f}=floorTwoSource();mutate(p);const o=adaptMap(f,p);
+  assert.equal(o.nodes.find(n=>n.id==='visible-2-3').available,false);
+ }
+ const {p,f}=floorTwoSource();p.mapReview.edges=[];assert.equal(adaptMap(f,p).current,null);
+});
 function source(name){const p=path.join(base,'data/reviewed-frames/20261024',name),png=fs.readFileSync(p+'.png'),packet=JSON.parse(fs.readFileSync(p+'-analysis.json'));return {packet,frame:{id:packet.binding.frameId,sha256:crypto.createHash('sha256').update(png).digest('hex'),atMs:1000,windowKey:'offline:fixture',geometryVersion:'g',width:packet.binding.width,height:packet.binding.height,origin:[0,0],png}};}
 test('actual original GPG map packet retains byte binding and client node boxes',()=>{const {frame,packet}=source('gpg-native-map');const o=adaptMap(frame,packet);assert.equal(o.state,'MAP');assert.equal(o.anchorVerified,true);assert.equal(o.current.nodeId,'visible-1-4');const n=o.nodes.find(n=>n.id==='visible-1-4');assert.deepEqual(n.box,[1438.46,251.17,132.71,132.7]);assert.equal(n.floor,1);});
 test('wrong PNG hash and out-of-client geometry reject instead of trusting packet',()=>{for(const mutate of [(f,p)=>f.sha256='b'.repeat(64),(f,p)=>p.binding.frameId='0'.repeat(32),(f,p)=>p.mapReview.nodes[0].box=[99999,0,100,100]]){const {frame,packet}=source('gpg-native-map');mutate(frame,packet);assert.throws(()=>adaptMap(frame,packet));}});

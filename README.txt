@@ -58,3 +58,5 @@ PreviewSession使用注入時鐘；排程器在沒有新畫面或回條時仍須
 設計：docs/superpowers/specs/2026-10-24-crk-helper-v2-design.md
 實作計畫：docs/superpowers/plans/2026-10-24-crk-helper-v2-p0-p3-plan.md
 執行紀錄：progress.md
+
+P4-C持續開發：原381張固定縮放影格的加速辨識與舊版座標／身份逐張等價，加入灰色節點拒絕及唯一完成路徑證據後15組閉環再次通過。另有真實第2層開發閉環通過；均不代表G4完成。詳細進度見docs/validation/2026-10-24-p4c-progress.md。

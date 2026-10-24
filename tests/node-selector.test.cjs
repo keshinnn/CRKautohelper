@@ -4,3 +4,11 @@ test('two current anchored maps select only intended linked node and freeze proo
 test('resume can use verified in-progress second-floor identity without first-floor special case',()=>{const a=map('a',800),b=map();for(const o of [a,b]){o.nodes[1].floor=2;o.current={nodeId:'target',verified:true,inProgress:true};o.edges=[];}const p=selectNode(a,b,{...intent,floor:2,mode:'resume'},{nowMs:1000});assert.equal(p.intent.floor,2);b.current.verified=false;assert.throws(()=>selectNode(a,b,{...intent,floor:2,mode:'resume'},{nowMs:1000}));});
 test('ambiguous stale unanchored disconnected and moving maps never mint authority',()=>{const mutations=[o=>o.frame.id='a',o=>o.frame.atMs=900,o=>o.frame.atMs=-2000,o=>o.frame.atMs=1001,o=>o.frame.windowKey='other',o=>o.frame.geometryVersion='g2',o=>o.anchorVerified=false,o=>o.zone=2,o=>o.nodes.push(clone(o.nodes[1])),o=>o.edges=[],o=>o.edges[0].pixelSupport=.84,o=>o.nodes[1].box=[950,200,100,100],o=>o.nodes[1].box[0]+=20,o=>o.nodes[1].score=.1,o=>o.frame.sourcePtsMs=10];for(const mutate of mutations){const a=map('a',800),b=map();a.frame.sourcePtsMs=10;mutate(b);assert.throws(()=>selectNode(a,b,intent,{nowMs:1000}));}});
 test('higher-floor select cannot promote an unverified completion candidate',()=>{const a=map('a',800),b=map();for(const o of [a,b]){o.nodes[1].floor=2;o.nodes[2].completed=true;o.current={nodeId:'other',verified:false,inProgress:false};o.edges=[{from:'other',to:'target',pixelSupport:.99}];}assert.throws(()=>selectNode(a,b,{...intent,floor:2},{nowMs:1000}));});
+
+test('gray or missing availability evidence cannot mint a click even with a battle shape and edge',()=>{
+ for(const available of [false,undefined]){
+  const a=map('a',800),b=map();
+  for(const o of [a,b])o.nodes[1].available=available;
+  assert.throws(()=>selectNode(a,b,intent,{nowMs:1000}),/NODE_UNAVAILABLE/);
+ }
+});
