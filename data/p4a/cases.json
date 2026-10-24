@@ -1,0 +1,20 @@
+{
+  "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+  "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+  "reviewMethod": "Visual review of source-native PNGs and temporal contact sheets; timing is a conservative interval, not a fabricated exact click. The dispatch barrier is the last stable pre-click frame per design section 5.5. All following 30fps frames are retained.",
+  "cases": [
+    {"id":"zone-1-first-battle","preFrames":[2514,2520],"lastFrame":2556,"humanClickInterval":[84600,84700],"gateWindowMs":[84000,84000],"intent":{"zone":1,"floor":1,"column":2,"event":"battle","mode":"select"},"expectedBox":[618,516,115,115],"clientBox":[632,538,86,70],"reviewed":true},
+    {"id":"zone-2-first-battle","preFrames":[12318,12324],"lastFrame":12360,"humanClickInterval":[411200,411300],"gateWindowMs":[410800,410800],"intent":{"zone":2,"floor":1,"column":2,"event":"battle","mode":"select"},"expectedBox":[618,516,115,115],"clientBox":[632,538,86,70],"reviewed":true},
+    {"id":"zone-3-first-battle","preFrames":[20214,20220],"lastFrame":20235,"humanClickInterval":[674000,674100],"gateWindowMs":[674000,674000],"intent":{"zone":3,"floor":1,"column":2,"event":"battle","mode":"select"},"expectedBox":[618,516,115,115],"clientBox":[632,538,86,70],"reviewed":true},
+    {"id":"zone-8-first-battle","preFrames":[64878,64884],"lastFrame":64896,"humanClickInterval":[2162800,2163000],"gateWindowMs":[2162800,2162800],"intent":{"zone":8,"floor":1,"column":4,"event":"battle","mode":"select"},"expectedBox":[948,516,115,115],"clientBox":[962,538,86,70],"reviewed":true},
+    {"id":"zone-9-first-battle","preFrames":[78294,78300],"lastFrame":78318,"humanClickInterval":[2610000,2610200],"gateWindowMs":[2610000,2610000],"intent":{"zone":9,"floor":1,"column":4,"event":"battle","mode":"select"},"expectedBox":[948,516,115,115],"clientBox":[962,538,86,70],"reviewed":true}
+  ],
+  "candidateReview": [
+    {"rangeSeconds":[84,104],"decision":"refine to original first-node interaction; team setup after 85.9s is outside this loop"},
+    {"rangeSeconds":[410,430],"decision":"retain first ordinary preview only; later browsing is a separate interaction"},
+    {"rangeSeconds":[475,495],"decision":"different floor requires separate completed-predecessor proof; retained for later coverage, not silently counted here"},
+    {"rangeSeconds":[535,555],"decision":"elite preview and battle; outside ordinary-node P4-A positive scope"},
+    {"rangeSeconds":[895,915],"decision":"boss and team setup; outside ordinary-node P4-A positive scope"},
+    {"rangeSeconds":[1544.2,1545],"decision":"top gate cropped before human click; retain captured failure as missing-anchor negative; not an accepted positive"}
+  ]
+}

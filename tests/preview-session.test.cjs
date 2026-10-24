@@ -9,3 +9,9 @@ test('post-click geometry change reobserves identity without reusing click point
 test('deadline expires at exactly 15000ms after dispatch and does not resend',async()=>{const x=setup();await x.session.start(x.proof);x.time(15999);assert.equal(x.session.observe({...preview('wait',15999),state:'TRANSITION'}).state,'WAIT_PREVIEW');x.time(16000);assert.equal(x.session.observe({...preview('expired',16000),state:'TRANSITION'}).state,'PREVIEW_TIMEOUT');assert.equal(x.sent.length,1);});
 test('reused source time and changing preview identities cannot establish stability',async()=>{for(const mode of ['pts','identity','backwards']){const x=setup();await x.session.start(x.proof);const a=preview();a.frame.sourcePtsMs=50;x.time(1200);x.session.observe(a);const b=preview('d',1400);b.frame.sourcePtsMs=mode==='pts'?50:51;if(mode==='identity')b.selectedNode.column=3;if(mode==='backwards')b.frame.atMs=1100;x.time(1400);x.session.observe(b);assert.notEqual(x.session.snapshot().state,'PREVIEW_CONFIRMED');}});
 test('concurrent starts reserve the transaction before the transport resolves',async()=>{let release;const x=setup(a=>new Promise(r=>release=()=>r({status:'sent',transactionId:a.transactionId,frameId:a.frameId})));const running=x.session.start(x.proof);await x.session.start(x.proof);assert.equal(x.sent.length,1);release();await running;assert.equal(x.session.snapshot().state,'WAIT_PREVIEW');});
+test('recognized post-click map can wait without granting new action authority',async()=>{
+ const x=setup();await x.session.start(x.proof);x.time(1100);
+ const o=map('waiting-map',1100);o.verified=false;o.stateVerified=true;
+ assert.equal(x.session.observe(o).state,'WAIT_PREVIEW');assert.equal(x.sent.length,1);
+ x.time(1200);x.session.observe(preview());x.time(1400);assert.equal(x.session.observe(preview('d',1400)).state,'PREVIEW_CONFIRMED');
+});

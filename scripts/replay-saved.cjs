@@ -21,7 +21,7 @@ async function main(){
  const consumed=[];
  const result=await runReplay({frames,intent:manifest.intent,gate:manifest.gate,observe:async source=>{
   const bound={...source.frame,png:source.png};
-  const o=source.packet.flow.state==='MAP'?adaptMap(bound,source.packet):adaptPreview(bound,source.packet);
+  const o=source.packet.flow.state==='MAP'&&source.packet.v2Preview?.verified!==true?adaptMap(bound,source.packet):adaptPreview(bound,source.packet);
   consumed.push({source,observation:o});return o;
  }});
  fs.mkdirSync(output);

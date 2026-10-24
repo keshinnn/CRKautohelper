@@ -13,5 +13,8 @@ with Image.open(filename) as image:
     width, height = image.size
 packet = inspect_capture('data:image/png;base64,'+base64.b64encode(raw).decode(),
     {'frameId':frame_id,'imageSha256':hashlib.sha256(raw).hexdigest(),'width':width,'height':height}, root/'data/flow')
+from preview_identity import inspect_preview_identity
+with Image.open(filename) as image:
+    packet['v2Preview'] = inspect_preview_identity(image, packet)
 sys.stdout.reconfigure(encoding='utf-8')
 print(json.dumps(packet, ensure_ascii=False))

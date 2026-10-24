@@ -22,3 +22,7 @@ test('unknown or absent preview identity fails replay with retained transaction 
   assert.notEqual(r.state,'PREVIEW_CONFIRMED');assert.equal(r.actions.length,1);assert(r.transaction.proof);assert.equal(r.g4Complete,false);
  }
 });
+test('observer failure preserves the one dispatched transaction instead of escaping the replay',async()=>{
+ const r=await runReplay({frames:sequence(),intent,gate,observe:async f=>{if(f.state==='PREVIEW')throw Error('pixel binding mismatch');return f;}});
+ assert.equal(r.state,'OBSERVATION_FAILED');assert.equal(r.actions.length,1);assert.equal(r.failure.frameId,'c');assert(r.transaction.proof);
+});

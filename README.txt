@@ -40,10 +40,11 @@ frames必須按時間排列，使用實際綁定的PNG與packet。每幀包含�
 只傳給虛擬dispatcher，不傳給辨識器。錯誤點位或操作時間不會取得影片人工操作後的預覽。
 輸出run.json及各幀的原圖、辨識結果、疊圖、事件與結果。這個診斷入口不判P4通過。
 
-目前已知缺口
-V1預覽packet沒有獨立的「選中節點」像素證明，因此adapter保留selectedNode=null，
-核心會回報PREVIEW_IDENTITY_UNPROVEN。不能拿攻略意圖或pending欄位補成辨識成功。
-五段原始影片仍是未核對候選；P4-A、P4-B、P4-C、G4尚未通過。
+目前驗證進度與缺口
+P4-A：5段原始1440×1080影片閉環已通過；來源區域1、2、3、8、9，各一次虛擬點擊。
+已補上影片普通戰鬥預覽的獨立選中節點像素辨識；舊V1 packet缺少此證據時仍拒絕，
+不能拿攻略意圖或pending欄位補成辨識成功。
+P4-B固定75/100/125%已通過15/15；P4-C與G4尚未通過。不同真實模擬器布局尚未驗收。
 P5實機操作仍須使用者另行批准。
 
 回放時鐘
@@ -52,6 +53,8 @@ PreviewSession使用注入時鐘；排程器在沒有新畫面或回條時仍須
 虛擬時間處理新鮮度／期限；實際processingMs另外記錄，不代表p95已合格。
 
 詳細報告：docs/validation/2026-10-24-p0-p3-status.md
+原始影片結果：docs/validation/2026-10-24-p4a-status.md
+固定縮放結果：docs/validation/2026-10-24-p4b-status.md
 設計：docs/superpowers/specs/2026-10-24-crk-helper-v2-design.md
 實作計畫：docs/superpowers/plans/2026-10-24-crk-helper-v2-p0-p3-plan.md
 執行紀錄：progress.md
