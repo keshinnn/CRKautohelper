@@ -1,3 +1,4 @@
 artifacts/
 .superpowers/
 __pycache__/
+graphify-out/cache/
