@@ -1,17 +1,17 @@
 # Graph Report - CRK-Helper-V2  (2026-10-25)
 
 ## Corpus Check
-- 97 files · ~40,218 words
+- 97 files · ~40,444 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 1 file(s) not represented in the graph (top: (none) 1)
 
 ## Summary
-- 590 nodes · 1274 edges · 31 communities (24 shown, 7 thin omitted)
+- 590 nodes · 1275 edges · 32 communities (25 shown, 7 thin omitted)
 - Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 105 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d3963d3a`
+- Built from commit: `16608469`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -27,6 +27,7 @@
 - evidence.test.cjs
 - CRK Helper V2 P4-C 正式集合與隨機壓力測試
 - replay-saved.cjs
+- BoundedOCRRuntime
 - PreviewAnchorTracker
 - CRK Helper V2 P0–P3 Implementation Plan
 - P4-C 開發進度：尚未正式驗收
@@ -60,21 +61,21 @@
 10. `P4-C 開發進度：尚未正式驗收` - 14 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `BoundedOCRRuntime` --uses--> `BoundedOCRRuntime`  [INFERRED]
+  tests/test_bounded_ocr.py → ml/bounded_ocr.py
+- `BoundedOCRTests` --uses--> `BoundedOCRRuntime`  [INFERRED]
+  tests/test_bounded_ocr.py → ml/bounded_ocr.py
 - `EnglishPreviewTests` --uses--> `BoundedOCRRuntime`  [INFERRED]
   tests/test_english_preview.py → ml/bounded_ocr.py
-- `main()` --calls--> `compareSnapshot()`  [EXTRACTED]
-  scripts/accept-replay.cjs → lib/evidence.cjs
-- `main()` --calls--> `milestoneResult()`  [EXTRACTED]
-  scripts/accept-replay.cjs → lib/evidence.cjs
-- `setup()` --calls--> `selectNode()`  [EXTRACTED]
-  tests/preview-session.test.cjs → lib/node-selector.cjs
-- `setup()` --calls--> `selectNode()`  [EXTRACTED]
-  tests/review-regressions.test.cjs → lib/node-selector.cjs
+- `EnglishProgressTests` --uses--> `BoundedOCRRuntime`  [INFERRED]
+  tests/test_english_progress.py → ml/bounded_ocr.py
+- `EnglishSceneTests` --uses--> `BoundedOCRRuntime`  [INFERRED]
+  tests/test_english_scene.py → ml/bounded_ocr.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (31 total, 7 thin omitted)
+## Communities (32 total, 7 thin omitted)
 
 ### Community 0 - "hashlib"
 Cohesion: 0.06
@@ -85,8 +86,8 @@ Cohesion: 0.06
 Nodes (45): evaluateDevelopmentReplay(), evaluateReplay(), gradeReplay(), assert, fs, os, path, {test} (+37 more)
 
 ### Community 2 - "BoundedOCRRuntime"
-Cohesion: 0.06
-Nodes (17): BoundedOCRRuntime, _MeasuredPreprocess, normalize_evidence(), EnglishSceneRuntime, semantic_state(), parse_progress(), ProgressRuntime, BoundedOCRRuntime (+9 more)
+Cohesion: 0.07
+Nodes (14): EnglishSceneRuntime, semantic_state(), parse_progress(), ProgressRuntime, BoundedOCRRuntime, BoundedOCRTests, normalize_evidence(), EnglishProgressTests (+6 more)
 
 ### Community 3 - "inspect_preview_identity"
 Cohesion: 0.23
@@ -119,6 +120,10 @@ Nodes (18): Actual native map-title OCR truncation repair brief, Actual watermar
 ### Community 10 - "replay-saved.cjs"
 Cohesion: 0.29
 Nodes (6): {adaptMap,adaptPreview}, crypto, fs, path, {runReplay}, {writeCaseArtifacts}
+
+### Community 11 - "BoundedOCRRuntime"
+Cohesion: 0.19
+Nodes (3): BoundedOCRRuntime, _MeasuredPreprocess, normalize_evidence()
 
 ### Community 12 - "PreviewAnchorTracker"
 Cohesion: 0.24
@@ -178,17 +183,17 @@ Nodes (11): fail(), freeze(), iou(), issued, numbers(), selectNode(), validateFr
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `BoundedOCRRuntime` connect `BoundedOCRRuntime` to `hashlib`, `inspect_preview_identity`?**
+- **Why does `BoundedOCRRuntime` connect `BoundedOCRRuntime` to `hashlib`, `BoundedOCRRuntime`, `inspect_preview_identity`?**
   _High betweenness centrality (0.019) - this node is a cross-community bridge._
 - **Should `hashlib` be split into smaller, more focused modules?**
   _Cohesion score 0.05896595926506196 - nodes in this community are weakly interconnected._
-- **Why does `BoundedOCRRuntime` connect `BoundedOCRRuntime` to `hashlib`, `inspect_preview_identity`?**
+- **Why does `BoundedOCRRuntime` connect `BoundedOCRRuntime` to `hashlib`, `inspect_preview_identity`, `BoundedOCRRuntime`?**
   _High betweenness centrality (0.019) - this node is a cross-community bridge._
 - **Should `preview-session.test.cjs` be split into smaller, more focused modules?**
   _Cohesion score 0.05974025974025974 - nodes in this community are weakly interconnected._
 - **Why does `OfflineAnalyzerTests` connect `OfflineAnalyzerTests` to `hashlib`?**
   _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **Should `BoundedOCRRuntime` be split into smaller, more focused modules?**
-  _Cohesion score 0.05662862159789289 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07474600870827286 - nodes in this community are weakly interconnected._
 - **Should `inspect_map_actions` be split into smaller, more focused modules?**
   _Cohesion score 0.12807881773399016 - nodes in this community are weakly interconnected._

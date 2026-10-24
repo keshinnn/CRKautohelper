@@ -168,9 +168,9 @@
     "semantic_hash": ""
   },
   "ml/bounded_ocr.py": {
-    "mtime": 1792884871.7610009,
-    "seen": 1792885029.1655319,
-    "ast_hash": "d5bda02c1557decce5261dd403c59868",
+    "mtime": 1792885773.941704,
+    "seen": 1792885936.228082,
+    "ast_hash": "72552646df9a64cf87893c2ab6cb0ea6",
     "semantic_hash": ""
   },
   "ml/current_position_evidence.py": {
@@ -534,15 +534,15 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-10-24-p4c-progress.md": {
-    "mtime": 1792884532.248667,
-    "seen": 1792885029.1656375,
-    "ast_hash": "9dddbfda70d62ed6e3a8c4c2140f16bf",
+    "mtime": 1792885160.120188,
+    "seen": 1792885936.2281995,
+    "ast_hash": "6a2751b18edc6b49ab603d86065ce7dc",
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1792885016.9365396,
-    "seen": 1792885029.1656394,
-    "ast_hash": "f5fb5cb718d850a7b749abb788890f2b",
+    "mtime": 1792885925.1248887,
+    "seen": 1792885936.228201,
+    "ast_hash": "b7d88f74fd79f2ca3a6353138b08bcea",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -564,9 +564,9 @@
     "semantic_hash": ""
   },
   "tests/test_watermarked_map_context.py": {
-    "mtime": 1792884871.7599988,
-    "seen": 1792885029.1656213,
-    "ast_hash": "6acf1b9c96bbd82feec6df920befd0f2",
+    "mtime": 1792885471.7462351,
+    "seen": 1792885936.2281802,
+    "ast_hash": "e51532dbfb0acab90cf516c461fa6ad8",
     "semantic_hash": ""
   },
   "data/p4c/corpus-30-v2-provenance-errata.json": {

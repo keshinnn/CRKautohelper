@@ -21,7 +21,7 @@ class WatermarkedMapContextTests(unittest.TestCase):
         self.assertTrue(any('PonPon' in r['text'] for r in rows))
     def test_real_duplicate_and_missing_global_zone_frames_keep_independent_context(self):
         with ProgressRuntime(),BoundedOCRRuntime(960),EnglishSceneRuntime():
-            for index in [46045,46046,46058,46072,46166]:
+            for index in [46045,46046,46058,46072,46166,46220,46221,46241,46242]:
                 with self.subTest(index=index):
                     image=Image.open(ROOT/f'artifacts/p4c-earlier-gate-native-01/0QxozULx_SQ-766/{index:07}.png').convert('RGB')
                     rows=text_reader.read_text(image);state=flow_vision.semantic_state(rows)

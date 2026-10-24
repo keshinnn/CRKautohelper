@@ -27,7 +27,7 @@ class _MeasuredPreprocess(DetPreProcess):
 class BoundedOCRRuntime:
     def __init__(self,side):
         if type(side) is not int or side not in [736,960,1280]:raise ValueError('explicit tested OCR bound required')
-        self.side=side;self.reader=None;self.records=[];self.recognition_crops=[];self.enabled=False
+        self.side=side;self.reader=None;self.records=[];self.recognition_crops=[];self.enabled=False;self.context_refining=False
         self.mode=f'bounded_detector_{side}_orthographic_v1'
 
     def __enter__(self):
@@ -83,6 +83,7 @@ class BoundedOCRRuntime:
         return [*rows,{**matches[0],'box':[[left,top],[endx,top],[endx,endy],[left,endy]],'source':'map_title_original_crop','cropBox':[left,top,endx-left,endy-top],'originalText':partial[0]['text'],'originalScore':partial[0]['score']}]
 
     def _reread_map_context(self,image,rows):
+        if self.context_refining:return rows
         import flow_vision
         scene=flow_vision.semantic_state(rows)
         if scene['state'] not in ('MAP','UNKNOWN') or scene['state']=='MAP' and scene['confidence']>=.9:return rows
@@ -91,6 +92,21 @@ class BoundedOCRRuntime:
         # line is preserved as evidence, not counted as a second location.
         global_seasons=[r for r in season_candidates if not r.get('source')]
         seasons=global_seasons or season_candidates
+        if len(global_seasons)==1:
+            base=global_seasons[0];base_points=np.asarray(base.get('box'),dtype=float)
+            if base_points.shape!=(4,2) or not np.isfinite(base_points).all():return rows
+            low,high=base_points.min(0),base_points.max(0)
+            number=re.search(r'季([1-9]\d?)$',base['text'].strip()).group(1)
+            precise=[]
+            for candidate in season_candidates:
+                if candidate.get('source')!='bounded_map_title_crop_ocr' or candidate['score']<.9:continue
+                points=np.asarray(candidate.get('box'),dtype=float)
+                if points.shape!=(4,2) or not np.isfinite(points).all():continue
+                if (points.min(0)<low).any() or (points.max(0)>high).any():continue
+                if re.search(r'季([1-9]\d?)$',candidate['text'].strip()).group(1)!=number:return rows
+                precise.append(candidate)
+            if len(precise)==1:seasons=precise
+            elif len(precise)>1:return rows
         timers=[r for r in rows if '剩餘時間' in r.get('text','') and .85<=r.get('score',0)<=1]
         header=text_reader.map_header_from_evidence(rows)
         if len(seasons)!=1 or len(timers)!=1 or header['displayedZone'] is None or header['score']<.9 or header['conflictingEvidence']:return rows
@@ -106,16 +122,28 @@ class BoundedOCRRuntime:
         # though the two original text baselines are clearly separate.
         minimum_height=min(a[4],b[4])
         separation=(b[1]+b[3]-a[1]-a[3])/2
-        if separation<minimum_height*.75 or a[3]-b[1]>minimum_height*.15 or abs(a[0]-b[0])>max(a[4],b[4]):return rows
+        if separation<minimum_height*.75 or a[3]-b[1]>minimum_height*.15 or abs(a[0]-b[0])>max(a[4],b[4]):
+            if not any(r.get('source')=='bounded_map_title_crop_ocr' for r in season_candidates):
+                # Reuse the existing bounded original-pixel detector retry to
+                # obtain a tighter quadrilateral; never relax the line gate.
+                context=[r for r in rows if r is seasons[0] or not re.search(r'冥界[試试]',r.get('text',''))]
+                self.context_refining=True
+                try:refined=text_reader.refine_map_title(image,context)
+                finally:self.context_refining=False
+                actual=[r for r in refined if r.get('source')=='bounded_map_title_crop_ocr']
+                if len(actual)==1:return self._reread_map_context(image,[*rows,*actual])
+            return rows
         fresh=[]
         for kind,row,(x,y,right,bottom,h) in zip(['season','timer'],[seasons[0],timers[0]],bounds):
-            trim=.12*h if kind=='season' else -.1*h
+            trim=(0 if row.get('source')=='bounded_map_title_crop_ocr' else .12*h) if kind=='season' else -.1*h
             left,top=max(0,int(x+trim)),max(0,int(y+trim))
             endx,endy=min(image.width,int(right-trim)),min(image.height,int(bottom-trim))
             if endx<=left or endy<=top:return rows
             pattern=r'冥界[試试](?:[煉炼])?季[1-9]\d?' if kind=='season' else r'剩餘時間\d+天\d{2}:\d{2}:\d{2}'
             crops=[(left,top,endx,endy)]
-            if kind=='season':crops.append((left,max(0,int(y+h*.08)),min(image.width,int(right-h*.30)),min(image.height,int(bottom-h*.18))))
+            if kind=='season':
+                crops.append((left,max(0,int(y+h*.08)),min(image.width,int(right-h*.30)),min(image.height,int(bottom-h*.18))))
+                crops.append((left,top,endx,min(image.height,int(bottom-h*.25))))
             matches=[]
             for crop_box in crops:
                 if crop_box[2]<=crop_box[0] or crop_box[3]<=crop_box[1]:continue
