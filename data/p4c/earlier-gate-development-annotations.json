@@ -1,0 +1,134 @@
+{
+  "purpose": "Three long pre-map to preview actual development interactions, not holdout or formal30freeze",
+  "cases": [
+    {
+      "id": "dev-earlier-L0-zone5-floor1-col1",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        35939,
+        35945
+      ],
+      "lastFrame": 36198,
+      "intent": {
+        "zone": 5,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        303,
+        282,
+        75,
+        77
+      ],
+      "clientBox": [
+        321,
+        301,
+        38,
+        38
+      ],
+      "reviewed": true,
+      "reviewMethod": "Original full native prepair and matching selected-preview checked; 5px nearest-neighbor geometry grid, original orange stability window. Original evidence retained, no recognizer output used for these boxes.",
+      "split": "development",
+      "formalG4": false,
+      "targetGridSha256": "349eaf4dbd2fbb617bf9fe6c391b61e396e05a56dad0a4c9f155eae9158f10fb",
+      "gateWindowMs": [
+        1198166.666667,
+        1198166.666667
+      ]
+    },
+    {
+      "id": "dev-earlier-L0-zone8-floor1-col4",
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "preFrames": [
+        77035,
+        77041
+      ],
+      "lastFrame": 77142,
+      "intent": {
+        "zone": 8,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        633,
+        343,
+        75,
+        77
+      ],
+      "clientBox": [
+        651,
+        362,
+        38,
+        38
+      ],
+      "reviewed": true,
+      "reviewMethod": "Original full native prepair and matching selected-preview checked; 5px nearest-neighbor geometry grid, original orange stability window. Original evidence retained, no recognizer output used for these boxes.",
+      "split": "development",
+      "formalG4": false,
+      "targetGridSha256": "d664eac234bc55a9edb96fa247b91701c3770ef54b426c73aca4bc8f8e7be94e",
+      "gateWindowMs": [
+        2568033.333333,
+        2568033.333333
+      ]
+    },
+    {
+      "id": "dev-earlier-0Q-zone4-floor1-col4",
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "preFrames": [
+        46021,
+        46033
+      ],
+      "lastFrame": 46272,
+      "intent": {
+        "zone": 4,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        793,
+        343,
+        75,
+        77
+      ],
+      "clientBox": [
+        811,
+        362,
+        38,
+        38
+      ],
+      "reviewed": true,
+      "reviewMethod": "Original full native prepair and matching selected-preview checked; 5px nearest-neighbor geometry grid, original orange stability window. Original evidence retained, no recognizer output used for these boxes.",
+      "split": "development",
+      "formalG4": false,
+      "targetGridSha256": "f1c5b4be1b4c9271a1c7a1c90523d335f64be2a96959716293c872427a5d9048",
+      "gateWindowMs": [
+        767216.666667,
+        767216.666667
+      ]
+    }
+  ]
+}

@@ -59,6 +59,7 @@ def main():
       'englishSceneCodeSha256':hashlib.sha256((Path(__file__).parent/'english_scene.py').read_bytes()).hexdigest(),
       'progressCodeSha256':hashlib.sha256((Path(__file__).parent/'progress_evidence.py').read_bytes()).hexdigest(),
       'identityCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_identity.py').read_bytes()).hexdigest(),
+      'mapGeometryCodeSha256':hashlib.sha256((Path(__file__).parent/'sparse_map_geometry.py').read_bytes()).hexdigest(),
       'mapActionCodeSha256':hashlib.sha256((Path(__file__).parent/'map_action_evidence.py').read_bytes()).hexdigest(),
       'currentPositionCodeSha256':hashlib.sha256((Path(__file__).parent/'current_position_evidence.py').read_bytes()).hexdigest(),
       'previewRegistrationCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_registration.py').read_bytes()).hexdigest(),
@@ -91,6 +92,12 @@ def main():
             p['analysisTiming']['sourceCacheRejection']=source_cache_rejection
             p['sourceBinding']={'videoSha256':video_sha,'frameIndex':f['frameIndex'],'imageSha256':digest}
             p['progress']=parse_progress(p['evidence'])
+            from sparse_map_geometry import recover_map_geometry
+            original_map=p.pop('v2OriginalMapReview',None)
+            if original_map is not None:p['mapReview']=original_map
+            repaired_map=recover_map_geometry(rgb,p)
+            if repaired_map is not p.get('mapReview'):
+                p['v2OriginalMapReview']=p.get('mapReview');p['mapReview']=repaired_map
             p.pop('v2TrackedMap',None)
             p['v2TrackedMap']=tracker.observe({'png':raw,'packet':p,'atMs':f.get('atMs'),'sourcePtsMs':f.get('sourcePtsMs'),'windowKey':'offline:original-video','geometryVersion':f.get('geometryVersion','original')})
             p['v2Preview']=inspect_preview_identity(rgb,p)

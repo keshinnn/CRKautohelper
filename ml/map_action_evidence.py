@@ -19,6 +19,26 @@ def _check_masks():
             masks.append(_green(np.array(im.convert('RGB').resize((58,58)))[12:46,12:46]))
     return masks
 
+def _neutral_overlay_check(q):
+    """Two agreeing saturation levels must retain the same reviewed shape."""
+    hsv=cv2.cvtColor(q,cv2.COLOR_RGB2HSV);levels=[]
+    for saturation in [60,80,100,120]:
+        mask=((hsv[:,:,0]>35)&(hsv[:,:,0]<85)&(hsv[:,:,1]>saturation)&(hsv[:,:,2]>130)).astype('uint8')
+        if .04<float(mask.mean())<.30:levels.append((saturation,mask))
+    best=None
+    for reference in _check_masks():
+        for dx in [-2,0,2]:
+            for dy in [-2,0,2]:
+                shifted=cv2.warpAffine(reference,np.float32([[1,0,dx],[0,1,dy]]),(34,34));scores=[]
+                for saturation,mask in levels:
+                    union=np.logical_or(shifted,mask).sum()
+                    if union:scores.append((float(np.logical_and(shifted,mask).sum()/union),saturation))
+                scores.sort(reverse=True)
+                if len(scores)>=2 and scores[1][0]>=.8 and (best is None or scores[1][0]>best['score']):
+                    best={'score':scores[1][0],'alignmentPx':[dx,dy],'saturationLevels':[x[1] for x in scores[:2]],'maskIoUs':[x[0] for x in scores[:2]],'minimumTemplateIoU':.8,'method':'same_check_shape_at_two_neutral_overlay_color_levels'}
+    return best
+
+
 def inspect_map_actions(image,packet):
     unknown={'verified':False,'nodes':{},'current':None,'actionsExecuted':False}
     rgb=np.array(image.convert('RGB'));digest=hashlib.sha256(rgb.tobytes()).hexdigest()
@@ -42,8 +62,12 @@ def inspect_map_actions(image,packet):
                         shifted=cv2.warpAffine(mask,np.float32([[1,0,dx],[0,1,dy]]),(34,34))
                         union=np.logical_or(shifted,check).sum()
                         if union:score=max(score,float(np.logical_and(shifted,check).sum()/union))
+        original_score=score;overlay=None
+        if score<.8:
+            overlay=_neutral_overlay_check(q)
+            if overlay:score=overlay['score']
         completed=score>=.8
-        nodes[n['id']]={'verified':True,'available':n.get('type')=='battle' and orange>=.2 and not completed,'completed':completed,'orangeCoverage':orange,'checkMaskIoU':score,'box':list(box)}
+        nodes[n['id']]={'verified':True,'available':n.get('type')=='battle' and orange>=.2 and not completed,'completed':completed,'orangeCoverage':orange,'checkMaskIoU':score,'originalCheckMaskIoU':original_score,'neutralOverlayCheck':overlay,'box':list(box)}
     result={'verified':True,'method':'original_pixel_orange_fill_and_check_mask_unique_path','pixelSha256':digest,'nodes':nodes,'current':None,'actionsExecuted':False}
     if m.get('absoluteFloorKnown') is not True or m.get('floorAnchorSource')!='visible_top_gate':return result
     from current_position_evidence import inspect_in_progress

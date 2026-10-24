@@ -1,0 +1,230 @@
+{
+  "purpose": "Five qualified English native holdout interactions, before any inference; not an acceptance result",
+  "cases": [
+    {
+      "id": "held-LX46-zone4-floor1-col2-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        28176,
+        28188
+      ],
+      "lastFrame": 28380,
+      "intent": {
+        "zone": 4,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        826,
+        686,
+        148,
+        154
+      ],
+      "clientBox": [
+        866,
+        727,
+        68,
+        68
+      ],
+      "gateWindowMs": [
+        469800.0,
+        469800.0
+      ],
+      "pairedPreviewFrame": 28368,
+      "pairedPreviewSha256": "fcb77e6ef2d8deadcd0324571e8fd37181f079c14943d6acc41a605c89d26dcb",
+      "reviewed": true,
+      "reviewMethod": "Original native prepair and independent matching green selected-preview; original target-grid manual bounds reviewed, 200ms orange centroid audit. Watermark retained. Candidate18 first preframe has real fading entry banner; retain as challenging positive, do not relabel to hide recognizer failure.",
+      "split": "holdout",
+      "modelInferenceRun": false,
+      "formalG4": false
+    },
+    {
+      "id": "held-LX46-zone5-floor1-col4-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        41758,
+        41770
+      ],
+      "lastFrame": 41964,
+      "intent": {
+        "zone": 5,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        1266,
+        686,
+        148,
+        154
+      ],
+      "clientBox": [
+        1306,
+        727,
+        68,
+        68
+      ],
+      "gateWindowMs": [
+        696166.666667,
+        696166.666667
+      ],
+      "pairedPreviewFrame": 41952,
+      "pairedPreviewSha256": "bcefd6c164ed6c1c4cb281f39f111da045ef449697ff9b8f83ff70442981954b",
+      "reviewed": true,
+      "reviewMethod": "Original native prepair and independent matching green selected-preview; original target-grid manual bounds reviewed, 200ms orange centroid audit. Watermark retained. Candidate18 first preframe has real fading entry banner; retain as challenging positive, do not relabel to hide recognizer failure.",
+      "split": "holdout",
+      "modelInferenceRun": false,
+      "formalG4": false
+    },
+    {
+      "id": "held-LX46-zone6-floor1-col2-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        58752,
+        58764
+      ],
+      "lastFrame": 58818,
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        826,
+        342,
+        148,
+        154
+      ],
+      "clientBox": [
+        866,
+        385,
+        68,
+        68
+      ],
+      "gateWindowMs": [
+        979400.0,
+        979400.0
+      ],
+      "pairedPreviewFrame": 58794,
+      "pairedPreviewSha256": "010816457bcd053e648061a2a00defde3491bd17628edc13af434f6654149583",
+      "reviewed": true,
+      "reviewMethod": "Original native prepair and independent matching green selected-preview; original target-grid manual bounds reviewed, 200ms orange centroid audit. Watermark retained. Candidate18 first preframe has real fading entry banner; retain as challenging positive, do not relabel to hide recognizer failure.",
+      "split": "holdout",
+      "modelInferenceRun": false,
+      "formalG4": false
+    },
+    {
+      "id": "held-LX46-zone7-floor1-col2-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        75051,
+        75063
+      ],
+      "lastFrame": 75726,
+      "intent": {
+        "zone": 7,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        826,
+        684,
+        148,
+        154
+      ],
+      "clientBox": [
+        866,
+        725,
+        68,
+        68
+      ],
+      "gateWindowMs": [
+        1251050.0,
+        1251050.0
+      ],
+      "pairedPreviewFrame": 75714,
+      "pairedPreviewSha256": "0b5d3f85c879ec83d14d6c337e60a3d2c88460b0408208fd8dd391776c3d0c9e",
+      "reviewed": true,
+      "reviewMethod": "Original native prepair and independent matching green selected-preview; original target-grid manual bounds reviewed, 200ms orange centroid audit. Watermark retained. Candidate18 first preframe has real fading entry banner; retain as challenging positive, do not relabel to hide recognizer failure.",
+      "split": "holdout",
+      "modelInferenceRun": false,
+      "formalG4": false
+    },
+    {
+      "id": "held-LX46-zone7-floor2-col2-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        77766,
+        77778
+      ],
+      "lastFrame": 77826,
+      "intent": {
+        "zone": 7,
+        "floor": 2,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        826,
+        718,
+        148,
+        154
+      ],
+      "clientBox": [
+        866,
+        761,
+        68,
+        68
+      ],
+      "gateWindowMs": [
+        1296300.0,
+        1296300.0
+      ],
+      "pairedPreviewFrame": 77814,
+      "pairedPreviewSha256": "4484ea29af9dd8d1de050f85b27c46820fbdb0d5c08202c8b5d2ac56d2d4ac66",
+      "reviewed": true,
+      "reviewMethod": "Original native prepair and independent matching green selected-preview; original target-grid manual bounds reviewed, 200ms orange centroid audit. Watermark retained. Candidate18 first preframe has real fading entry banner; retain as challenging positive, do not relabel to hide recognizer failure.",
+      "split": "holdout",
+      "modelInferenceRun": false,
+      "formalG4": false
+    }
+  ]
+}

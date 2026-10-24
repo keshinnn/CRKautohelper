@@ -42,6 +42,132 @@
         36766.666667,
         36766.666667
       ]
+    },
+    {
+      "id": "dev-LX46-zone2-floor1-col2-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        12001,
+        12013
+      ],
+      "lastFrame": 12210,
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        826,
+        686,
+        148,
+        154
+      ],
+      "clientBox": [
+        866,
+        727,
+        68,
+        68
+      ],
+      "reviewed": true,
+      "reviewMethod": "Original native paired pre-map/selected-preview, 200ms orange centroid audit and nearest-neighbor target pixel-grid review before first inference. Real watermark and fading entry banner retained.",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        200216.666667,
+        200216.666667
+      ]
+    },
+    {
+      "id": "dev-LX46-zone3-floor1-col4-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        19578,
+        19590
+      ],
+      "lastFrame": 19770,
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        1266,
+        684,
+        148,
+        154
+      ],
+      "clientBox": [
+        1306,
+        725,
+        68,
+        68
+      ],
+      "reviewed": true,
+      "reviewMethod": "Original native paired pre-map/selected-preview, 200ms orange centroid audit and nearest-neighbor target pixel-grid review before first inference. Real watermark and fading entry banner retained.",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        326500.0,
+        326500.0
+      ]
+    },
+    {
+      "id": "dev-LX46-zone4-floor2-col1-select",
+      "video": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-new-source-LX46_2XTfJg\\LX46_2XTfJg.mp4",
+      "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+      "sourceFps": 60,
+      "sourceSize": [
+        1920,
+        1080
+      ],
+      "preFrames": [
+        30090,
+        30102
+      ],
+      "lastFrame": 30144,
+      "intent": {
+        "zone": 4,
+        "floor": 2,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        606,
+        718,
+        148,
+        154
+      ],
+      "clientBox": [
+        646,
+        761,
+        68,
+        68
+      ],
+      "reviewed": true,
+      "reviewMethod": "Original native paired pre-map/selected-preview, 200ms orange centroid audit and nearest-neighbor target pixel-grid review before first inference. Real watermark and fading entry banner retained.",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        501700.0,
+        501700.0
+      ]
     }
   ]
 }

@@ -1,0 +1,91 @@
+{
+  "purpose": "Reviewed target boxes for two existing development interactions; not new unseen positives",
+  "cases": [
+    {
+      "id": "dev-primary-zone2-floor2-col3-higher",
+      "preFrames": [
+        14530,
+        14540
+      ],
+      "lastFrame": 14570,
+      "intent": {
+        "zone": 2,
+        "floor": 2,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "gateWindowMs": [
+        484666.666667,
+        484666.666667
+      ],
+      "clientBox": [
+        810,
+        700,
+        60,
+        60
+      ],
+      "expectedBox": [
+        784,
+        675,
+        115,
+        115
+      ],
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "split": "development",
+      "formalG4": false,
+      "targetGridSha256": "16d46b3f70b8aeafbf48e4469daf781081b030ebac6464e61f0a1146aac3ff41",
+      "reviewMethod": "Additional manual original-pixel box review of previously used development interactions; not blind holdout",
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "reviewed": true
+    },
+    {
+      "id": "dev-primary-zone3-floor3-col1-higher",
+      "intent": {
+        "zone": 3,
+        "floor": 3,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedBox": [
+        454,
+        675,
+        115,
+        115
+      ],
+      "preFrames": [
+        23724,
+        23730
+      ],
+      "lastFrame": 23751,
+      "sourceFps": 30,
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "split": "development",
+      "formalG4": false,
+      "gateWindowMs": [
+        791000.0,
+        791000.0
+      ],
+      "targetGridSha256": "5522dc623b52a89f78f9e0c615a3381d4d4d8de45662decd66f0775c026c6cc7",
+      "reviewMethod": "Additional manual original-pixel box review of previously used development interactions; not blind holdout",
+      "video": "F:/CRK helper/data/video-validation/buAwy1zf2LI/buAwy1zf2LI.mp4",
+      "reviewed": true,
+      "clientBox": [
+        480,
+        700,
+        60,
+        60
+      ]
+    }
+  ]
+}
