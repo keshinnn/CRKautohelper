@@ -38,6 +38,7 @@ def main():
       'runtimeEvidence':runtime_evidence,
       'identityCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_identity.py').read_bytes()).hexdigest(),
       'mapActionCodeSha256':hashlib.sha256((Path(__file__).parent/'map_action_evidence.py').read_bytes()).hexdigest(),
+      'currentPositionCodeSha256':hashlib.sha256((Path(__file__).parent/'current_position_evidence.py').read_bytes()).hexdigest(),
       'previewRegistrationCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_registration.py').read_bytes()).hexdigest(),
       'ocrPreprocessing':{'mode':ocr_mode,'codeSha256':ocr_code,'maximumTensorSide':args.bounded_ocr,'thresholdsChanged':False},'cacheIgnoredReason':cache_ignored,
       'cacheManifestSha256':hashlib.sha256(Path(args.cache).read_bytes()).hexdigest() if args.cache else None,

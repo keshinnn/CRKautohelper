@@ -46,6 +46,24 @@ class BoundedOCRTests(unittest.TestCase):
             self.assertGreater(len(crops),1)
             self.assertTrue(any(v['text']=='普通' and v['score']>=.95 for c in crops for v in c['variants']))
 
+    def test_actual_native_missing_zone_requires_new_text_pixels_not_history(self):
+        from PIL import ImageDraw
+        root=Path(__file__).resolve().parents[1]
+        packet=json.loads((root/'artifacts/p4c-L0-native-dev-analysis-01/dev-L0-zone6-floor1-col2-resume-1781/0053427.packet.json').read_text(encoding='utf-8'))
+        self.assertIsNone(packet['progress']['displayedZone'])
+        source=root/'artifacts/p4c-native-timing-01/L0ktY5qUppI-1781/0053427.png'
+        image=Image.open(source).convert('RGB')
+        with BoundedOCRRuntime(960):
+            evidence=text_reader.read_text(image)
+            progress=text_reader.map_header_from_evidence(evidence)
+            self.assertEqual(progress['displayedZone'],6)
+            self.assertGreaterEqual(progress['score'],.9)
+            row=next(r for r in evidence if r.get('source')=='remaining_time_adjacent_progress_original_crop')
+            self.assertGreaterEqual(row['score'],.9)
+            self.assertGreater(min(p[1] for p in row['box']),118)
+            erased=image.copy();ImageDraw.Draw(erased).rectangle((0,118,246,180),fill='black')
+            self.assertIsNone(text_reader.map_header_from_evidence(text_reader.read_text(erased))['displayedZone'])
+
     def test_transitional_frame_without_four_column_geometry_is_still_unproven(self):
         from preview_identity import inspect_preview_identity
         root=Path(__file__).resolve().parents[1]

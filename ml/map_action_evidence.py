@@ -46,6 +46,11 @@ def inspect_map_actions(image,packet):
         nodes[n['id']]={'verified':True,'available':n.get('type')=='battle' and orange>=.2 and not completed,'completed':completed,'orangeCoverage':orange,'checkMaskIoU':score,'box':list(box)}
     result={'verified':True,'method':'original_pixel_orange_fill_and_check_mask_unique_path','pixelSha256':digest,'nodes':nodes,'current':None,'actionsExecuted':False}
     if m.get('absoluteFloorKnown') is not True or m.get('floorAnchorSource')!='visible_top_gate':return result
+    from current_position_evidence import inspect_in_progress
+    current=inspect_in_progress(rgb,packet,nodes)
+    if current:
+        result['current']=current
+        return result
     gates=[n for n in m.get('nodes',[]) if n.get('type')=='exit']
     done=sorted([n for n in m.get('nodes',[]) if nodes[n['id']]['completed']],key=lambda n:n.get('floor') or -1)
     if len(gates)!=1 or not done:return result

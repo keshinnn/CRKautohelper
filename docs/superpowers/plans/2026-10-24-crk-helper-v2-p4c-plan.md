@@ -53,3 +53,15 @@
 ## G0追加實作 brief：實際OCR資產與runtime可追溯
 
 初始2384檔快照未包含venv內的OCR ONNX。正式C之前，在離線analysis記錄Python／Pillow／NumPy／OpenCV／RapidOCR／ORT版本、RapidOCR程式／設定檔及三個實際ONNX的SHA與大小。綁成可重現fingerprint；快取若缺fingerprint或不一致，即使OCR模式與V2程式相同仍須重新辨識。保留OCR模式變更拒絕優先順序。先測實際模型清單／雜湊及偽造runtime快取必須失效，不改任何V1／套件檔。舊報告維持當時證據，不追溯冒稱已記錄。
+
+## Task3新增實際失敗：原生960px區域小字漏偵測
+
+L0zone6resume原圖53427的完整OCR漏掉實際可見「區域6進行中」，造成UNKNOWN；保存並停該案例。由已讀出的唯一高信心剩餘時間行，定位其下方有限原圖區域做3倍OCR重讀，只接受實際讀出的完整區域進行中詞與>=.9分數，座標還原原圖；不讀intent、不補數字、不沿用歷史zone。僅明確bounded模式啟用；有可解析區域時不覆寫，衝突交由既有header拒絕。原字被遮掉的反例仍無區域。先實際影格及遮字反例RED->GREEN，再重跑完整三段與固定縮放。
+
+## G2評分器校正與開發報告
+
+G2規定距人工可點擊區邊界至少目標短邊5%，舊評分器卻用了可點擊區短邊5%。以較小人工安全框先重現誤接受，改用人工目標真值短邊；不改選點位置。原固定縮放須回歸。另提供明確development grade供不同原生尺寸開發案例核對IoU／落點；與A/B里程碑嚴格入口分開，永遠不能產生G4true。
+
+## Task2新增實際失敗：只有區域文字的進行中節點
+
+L0原生resume兩張地圖已讀到區域6與節點旁「進行中」，但V1current helper要求舊式header中的lastEnteredFloor，加上完整模板精確比對，故CURRENT_POSITION_UNPROVEN且0點擊。不得把真值resume改成select避開。新增V2獨立證據：當張可見唯一入口／絕對層數、唯一>=.95的精確進行中標籤、鄰接唯一未完成可用普通節點、四象限黃色外框與上方唯一向下三角。樓層來自當張格線，不填入progress或intent；缺標籤／三角、重複標籤、錯像素均拒絕。保留既有嚴格模板路徑；Node須核對新證據綁定、框、分數與形狀數值再允許resume。先實際兩張與負例Python RED->GREEN，生成實際packet，再Node橋接RED->GREEN，再三段完整回放。

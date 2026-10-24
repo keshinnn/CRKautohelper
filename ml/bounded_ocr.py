@@ -36,9 +36,30 @@ class BoundedOCRRuntime:
         self.had_previous_runtime=hasattr(text_reader,'_v2_bounded_ocr_runtime');self.previous_runtime=getattr(text_reader,'_v2_bounded_ocr_runtime',None)
         reader=RapidOCR(intra_op_num_threads=4,inter_op_num_threads=2)
         reader.text_det.get_preprocess=lambda max_wh:_MeasuredPreprocess(self.side,reader.text_det.mean,reader.text_det.std,self.records)
-        self.reader=reader;self.wrapper=lambda image:normalize_evidence(self.previous_read(image))
+        self.reader=reader;self.wrapper=self._read_with_progress
         text_reader._reader=reader;text_reader.read_text=self.wrapper;text_reader._v2_bounded_ocr_runtime=self;self.enabled=True
         return self
+
+    def _read_with_progress(self,image):
+        rows=normalize_evidence(self.previous_read(image))
+        header=text_reader.map_header_from_evidence(rows)
+        if header['displayedZone'] is not None or header['conflictingEvidence']:return rows
+        remaining=[r for r in rows if '剩餘時間' in r.get('text','') and r.get('score',0)>=.85]
+        if len(remaining)!=1:return rows
+        points=np.asarray(remaining[0].get('box'),dtype=float)
+        if points.shape!=(4,2) or not np.isfinite(points).all():return rows
+        x,y=points.min(0);right,bottom=points.max(0);h=bottom-y
+        if not 0<h<image.height*.1 or x<0 or right>image.width*.5 or y>image.height*.35:return rows
+        left,top=max(0,int(x-h)),int(bottom+h*.5)
+        endx,endy=min(image.width,int(right+h)),min(image.height,int(bottom+h*3))
+        if endx<=left or endy<=top:return rows
+        crop=image.crop((left,top,endx,endy));size=(crop.width*3,crop.height*3)
+        local=normalize_evidence(self.previous_read(crop.resize(size,Image.Resampling.LANCZOS)))
+        matches=[r for r in local if r.get('score',0)>=.9 and re.fullmatch(r'[區区]域[1-9][進进]行中',re.sub(r'\s+','',r.get('text','')))]
+        if len(matches)!=1:return rows
+        row=matches[0]
+        return [*rows,{**row,'box':[[round(px/3+left,2),round(py/3+top,2)] for px,py in row['box']],
+            'source':'remaining_time_adjacent_progress_original_crop','cropBox':[left,top,endx-left,endy-top],'analysisSize':list(size)}]
 
     def take_metadata(self):
         records,self.records=self.records,[]

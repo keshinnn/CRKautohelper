@@ -30,7 +30,54 @@
         3412
       ],
       "sourcePreviouslyUsedForDevelopment": true,
-      "unseenVideo": false
+      "unseenVideo": false,
+      "newDevelopmentInteractions": [
+        {
+          "id": "dev-L0-zone6-floor1-col2-select-1773",
+          "preFrames": [
+            53163,
+            53169
+          ],
+          "lastFrame": 53196,
+          "intent": {
+            "zone": 6,
+            "floor": 1,
+            "column": 2,
+            "event": "battle",
+            "mode": "select"
+          }
+        },
+        {
+          "id": "dev-L0-zone6-floor1-col2-resume-1781",
+          "preFrames": [
+            53400,
+            53406
+          ],
+          "lastFrame": 53445,
+          "intent": {
+            "zone": 6,
+            "floor": 1,
+            "column": 2,
+            "event": "battle",
+            "mode": "resume"
+          }
+        },
+        {
+          "id": "dev-L0-zone6-floor3-col3-select-1932",
+          "preFrames": [
+            57923,
+            57929
+          ],
+          "lastFrame": 57972,
+          "intent": {
+            "zone": 6,
+            "floor": 3,
+            "column": 3,
+            "event": "battle",
+            "mode": "select"
+          }
+        }
+      ]
     },
     {
       "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",

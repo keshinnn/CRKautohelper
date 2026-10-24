@@ -93,3 +93,18 @@ test('zero title confidence with complete pixel lattice permits waiting but neve
  const f={id:p.binding.frameId,sha256:p.binding.imageSha256,width:p.binding.width,height:p.binding.height,atMs:1000,windowKey:'offline:video',geometryVersion:'fixed-1.25',origin:[0,0],png};
  assert.equal(p.flow.confidence,0);const o=adaptMap(f,p);assert.equal(o.stateVerified,true);assert.equal(o.verified,false);
 });
+
+function nativeInProgressSource(){
+ const p=JSON.parse(fs.readFileSync(path.join(__dirname,'../artifacts/p4c-L0-current-node.packet.json')));
+ const png=fs.readFileSync(path.join(__dirname,'../artifacts/p4c-native-timing-01/L0ktY5qUppI-1781/0053406.png'));
+ return {p,f:{id:p.binding.frameId,sha256:p.binding.imageSha256,width:p.binding.width,height:p.binding.height,atMs:1000,windowKey:'offline:native',geometryVersion:'original',origin:[0,0],png}};
+}
+test('native current proof uses bound label ring and triangle without inventing a header floor',()=>{
+ const {p,f}=nativeInProgressSource();assert.equal(p.progress.lastEnteredFloor,null);
+ const o=adaptMap(f,p);assert.deepEqual(o.current,{nodeId:'visible-1-2',verified:true,inProgress:true});
+});
+test('malformed native current marker claims cannot authorize resume',()=>{
+ for(const mutate of [p=>p.v2MapActions.current.labelScore=.94,p=>p.v2MapActions.current.ringCoverage=NaN,p=>p.v2MapActions.current.triangle.lowerWidth=999,p=>p.v2MapActions.current.box[0]+=1,p=>p.v2MapActions.current.zone=3,p=>p.evidence=p.evidence.filter(r=>r.text!=='進行中')]){
+  const {p,f}=nativeInProgressSource();mutate(p);assert.equal(adaptMap(f,p).current,null);
+ }
+});
