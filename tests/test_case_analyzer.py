@@ -2,6 +2,19 @@ import hashlib,json,os,subprocess,sys,tempfile,unittest
 from pathlib import Path
 
 class OfflineAnalyzerTests(unittest.TestCase):
+    def test_batch_stream_recomputes_pixel_registration_without_intent_or_truth(self):
+        root=Path(__file__).resolve().parents[1];frames=[]
+        for index in [23724,23730,23745]:
+            image=root/f'artifacts/p4c-registration-dev-source/{index:07}.png'
+            frames.append({'image':str(image),'sha256':hashlib.sha256(image.read_bytes()).hexdigest(),'frameIndex':index,'size':[1440,1080],'atMs':round(index/30*1000,6),'sourcePtsMs':round(index/30*1000,6),'geometryVersion':'original'})
+        with tempfile.TemporaryDirectory(prefix='crk-track-',dir=root/'artifacts') as folder:
+            source=Path(folder)/'source.json';source.write_text(json.dumps({'videoSha256':'a'*64,'cases':[{'id':'test-stream','frames':frames}]}),encoding='utf-8');out=Path(folder)/'result'
+            r=subprocess.run([sys.executable,'-B',str(root/'ml/analyze_cases.py'),str(source),str(out),'--fast-map'],capture_output=True,text=True,encoding='utf-8')
+            self.assertEqual(r.returncode,0,r.stderr)
+            m=json.loads((out/'manifest.json').read_text(encoding='utf-8'));p=json.loads(Path(m['cases'][0]['frames'][-1]['packet']).read_text(encoding='utf-8'))
+            self.assertTrue(p['v2Preview']['verified'])
+            self.assertEqual(p['v2TrackedMap']['sourceImageSha256'],frames[0]['sha256'])
+
     def test_saved_png_binding_and_independent_identity_survive_batch_entry(self):
         root=Path(__file__).resolve().parents[1];image=root/'artifacts/p4a-native/0002550.png';before=image.read_bytes()
         with tempfile.TemporaryDirectory(prefix='crk-analyzer-',dir=root/'artifacts') as folder:

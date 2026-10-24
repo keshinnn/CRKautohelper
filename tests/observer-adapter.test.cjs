@@ -6,6 +6,25 @@ function floorTwoSource(){
  const png=fs.readFileSync(path.join(__dirname,'../artifacts/p4c-dev-floor2/0014530.png'));
  return {p,f:{id:p.binding.frameId,sha256:p.binding.imageSha256,width:p.binding.width,height:p.binding.height,atMs:1000,windowKey:'offline:floor2',geometryVersion:'original',origin:[0,0],png}};
 }
+test('registered cropped-gate preview exposes only independently verified current pixels and its source',()=>{
+ const p=JSON.parse(fs.readFileSync(path.join(__dirname,'../artifacts/p4c-registration-preview.packet.json'),'utf8'));
+ const png=fs.readFileSync(path.join(__dirname,'../artifacts/p4c-registration-dev-source/0023745.png'));
+ const f={id:p.binding.frameId,sha256:p.binding.imageSha256,width:p.binding.width,height:p.binding.height,atMs:791500,sourcePtsMs:791500,windowKey:'offline:dev',geometryVersion:'original',origin:[0,0],png};
+ const o=adaptPreview(f,p);assert.equal(o.state,'PREVIEW');assert.equal(o.selectedNode.floor,3);assert.equal(o.selectedNode.column,1);
+ assert.equal(o.registrationSource.imageSha256,p.v2TrackedMap.sourceImageSha256);
+ p.v2Preview.recoveredMapReview.registrationEvidence.registration.verified=false;
+ assert.notEqual(adaptPreview(f,p).state,'PREVIEW');
+});
+test('nonfinite registration consensus cannot become verified preview evidence',()=>{
+ const p=JSON.parse(fs.readFileSync(path.join(__dirname,'../artifacts/p4c-registration-preview.packet.json'),'utf8'));
+ const png=fs.readFileSync(path.join(__dirname,'../artifacts/p4c-registration-dev-source/0023745.png'));
+ const f={id:p.binding.frameId,sha256:p.binding.imageSha256,width:p.binding.width,height:p.binding.height,atMs:791500,sourcePtsMs:791500,windowKey:'offline:dev',geometryVersion:'original',origin:[0,0],png};
+ p.v2TrackedMap.registration.inliers=NaN;
+ const proof=structuredClone(Object.fromEntries(Object.entries(p.v2TrackedMap).filter(([k])=>k!=='mapReview')));
+ p.v2TrackedMap.mapReview.registrationEvidence=proof;
+ p.v2Preview.recoveredMapReview=structuredClone(p.v2TrackedMap.mapReview);
+ assert.notEqual(adaptPreview(f,p).state,'PREVIEW');
+});
 test('independent completed pixels establish a unique completed path and orange availability',()=>{
  const {p,f}=floorTwoSource(),o=adaptMap(f,p);
  assert.equal(o.current?.nodeId,'visible-1-3');assert.equal(o.current.inProgress,false);
@@ -36,6 +55,15 @@ test('independent original-video pixel proof can identify preview despite V1 MAP
  const png=fs.readFileSync(path.join(__dirname,'../artifacts/p4a-native/0002550.png'));
  const f={id:p.binding.frameId,sha256:p.binding.imageSha256,width:p.binding.width,height:p.binding.height,atMs:1000,windowKey:'offline:video',geometryVersion:'original',origin:[0,0],png};
  const o=adaptPreview(f,p);assert.equal(o.state,'PREVIEW');assert.equal(o.selectedNode.column,2);assert.equal(o.selectedNode.floor,1);assert.equal(o.controlsVerified,true);
+});
+
+test('a claimed preview with missing map evidence rejects without crashing',()=>{
+ const file=path.join(__dirname,'../artifacts/p4a-first-preview-v2/observation.json');
+ const p=JSON.parse(fs.readFileSync(file,'utf8')).rawPacket;
+ const png=fs.readFileSync(path.join(__dirname,'../artifacts/p4a-native/0002550.png'));
+ const f={id:p.binding.frameId,sha256:p.binding.imageSha256,width:p.binding.width,height:p.binding.height,atMs:1000,windowKey:'offline:video',geometryVersion:'original',origin:[0,0],png};
+ p.mapReview=null;p.v2Preview.recoveredMapReview=null;
+ assert.notEqual(adaptPreview(f,p).state,'PREVIEW');
 });
 test('original video maps with strong lattice and zone evidence do not depend on one title OCR confidence',()=>{
  for(const [zone,name] of [[1,'0002532'],[2,'0012336']]){

@@ -21,6 +21,17 @@ def inspect_preview_identity(image,packet):
     a=np.asarray(image.convert('RGB'));height,width=a.shape[:2]
     digest=hashlib.sha256(a.tobytes()).hexdigest();m=packet.get('mapReview') or {};progress=packet.get('progress') or {};recovered_map=None
     if packet.get('binding',{}).get('pixelSha256')!=digest:return unknown
+    tracked=packet.get('v2TrackedMap') or {};registration=tracked.get('registration') or {};tracking_valid=False
+    if (tracked.get('verified') is True and tracked.get('previewOnly') is True and tracked.get('actionsExecuted') is False
+        and tracked.get('method')=='fresh_same_zone_direct_map_pixel_registration' and tracked.get('pixelSha256')==digest
+        and tracked.get('zone')==progress.get('displayedZone') and registration.get('verified') is True
+        and registration.get('method')=='map_pixel_translation_and_node_consensus'
+        and registration.get('pixelSha256')==[tracked.get('sourcePixelSha256'),digest]
+        and len(registration.get('pairs',[]))>=5
+        and 0<tracked.get('atMs',0)-tracked.get('sourceAtMs',0)<=2500):
+        candidate=tracked.get('mapReview') or {};proof={k:v for k,v in tracked.items() if k!='mapReview'}
+        if candidate.get('registrationEvidence')==proof and candidate.get('floorAnchorSource')=='verified_preview_pixel_registration':
+            m=candidate;recovered_map=m;tracking_valid=True
     if progress.get('conflictingEvidence') is not False or not .9<=progress.get('score',0)<=1 or type(progress.get('displayedZone')) is not int:return unknown
     if not 1<=progress['displayedZone']<=9:return unknown
     evidence=packet.get('evidence',[])
@@ -39,7 +50,7 @@ def inspect_preview_identity(image,packet):
         m=inspect_map(image,root/'data/map',read_header=False)
         if len(m.get('columns') or [])!=4 or len(m.get('nodes',[]))<6 or len([e for e in m.get('edges',[]) if e.get('pixel_support',0)>=.85])<3:return unknown
         recovered_map=m
-    if m.get('frameId')!=digest[:20] or m.get('absoluteFloorKnown') is not True or m.get('floorAnchorSource')!='visible_top_gate':return unknown
+    if m.get('frameId')!=digest[:20] or m.get('absoluteFloorKnown') is not True or not (m.get('floorAnchorSource')=='visible_top_gate' or tracking_valid):return unknown
     ordinary_evidence={'kind':'original_ocr','originalScore':ordinary[0]['score']}
     if ordinary[0]['score']<.8:
         # Re-read a bounded original-pixel crop; do not promote the old score

@@ -11,6 +11,7 @@ def main():
     from observation import inspect_capture
     from preview_identity import inspect_preview_identity
     from map_action_evidence import inspect_map_actions
+    from preview_registration import PreviewAnchorTracker
     if args.fast_map:
         import map_vision
         from fast_map_candidates import node_candidates
@@ -25,11 +26,12 @@ def main():
     m['analysis']={'sourceManifestSha256':hashlib.sha256(source_path.read_bytes()).hexdigest(),
       'identityCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_identity.py').read_bytes()).hexdigest(),
       'mapActionCodeSha256':hashlib.sha256((Path(__file__).parent/'map_action_evidence.py').read_bytes()).hexdigest(),
+      'previewRegistrationCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_registration.py').read_bytes()).hexdigest(),
       'cacheManifestSha256':hashlib.sha256(Path(args.cache).read_bytes()).hexdigest() if args.cache else None,
       'nativeActions':0,'allFramesAnalyzed':False,'mapBackend':'exact_grouped_masks_parallel4' if args.fast_map else 'v1_original',
       'mapBackendSha256':hashlib.sha256((Path(__file__).parent/'fast_map_candidates.py').read_bytes()).hexdigest() if args.fast_map else None}
     for c in m['cases']:
-        folder=out/c['id'];folder.mkdir();count=0
+        folder=out/c['id'];folder.mkdir();count=0;tracker=PreviewAnchorTracker()
         for f in c['frames']:
             started=time.perf_counter();image_path=Path(f['image']);raw=image_path.read_bytes();digest=hashlib.sha256(raw).hexdigest()
             if digest!=f['sha256']:raise ValueError('frozen image bytes changed')
@@ -46,6 +48,8 @@ def main():
                 p=inspect_capture('data:image/png;base64,'+base64.b64encode(raw).decode(),
                   {'frameId':frame_id,'imageSha256':digest,'width':rgb.width,'height':rgb.height},root/'data/flow')
                 p['analysisTiming']={'mode':'fresh_full_pipeline','freshFullPipeline':True}
+            p.pop('v2TrackedMap',None)
+            p['v2TrackedMap']=tracker.observe({'png':raw,'packet':p,'atMs':f.get('atMs'),'sourcePtsMs':f.get('sourcePtsMs'),'windowKey':'offline:original-video','geometryVersion':f.get('geometryVersion','original')})
             p['v2Preview']=inspect_preview_identity(rgb,p)
             p['v2MapActions']=inspect_map_actions(rgb,p)
             p['analysisTiming']['elapsedMs']=(time.perf_counter()-started)*1000

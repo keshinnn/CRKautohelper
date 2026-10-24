@@ -1,0 +1,96 @@
+{
+  "purpose": "Source provenance audit, not frozen positive cases or acceptance",
+  "sources": [
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\L0ktY5qUppI.mp4",
+      "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+      "sourceFps": 30,
+      "sourceSize": [
+        960,
+        720
+      ],
+      "navigationOnlyPanelGroups": 48,
+      "historicallyObservedSeconds": [
+        16,
+        140,
+        332,
+        727,
+        737,
+        742,
+        1712,
+        1717,
+        1732,
+        3357,
+        3370,
+        3412,
+        3447
+      ],
+      "holdoutExclusionRule": "Exclude entire interaction containing any historically observed timestamp; conservative +/-5s is only an initial navigation buffer, not final interaction boundary",
+      "templateBuildSeconds": [
+        3412
+      ],
+      "sourcePreviouslyUsedForDevelopment": true,
+      "unseenVideo": false
+    },
+    {
+      "video": "F:\\CRK helper\\data\\map-video\\0QxozULx_SQ.mp4",
+      "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+      "sourceFps": 60,
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "navigationOnlyPanelGroups": 59,
+      "historicallyObservedSeconds": [
+        100,
+        762,
+        768,
+        769,
+        770,
+        771,
+        772,
+        773,
+        774,
+        775,
+        776,
+        777,
+        857,
+        867,
+        869,
+        1095,
+        1740,
+        1815,
+        1817,
+        1818.6,
+        2899,
+        2900
+      ],
+      "holdoutExclusionRule": "Exclude entire interaction containing any historically observed timestamp; conservative +/-5s is only an initial navigation buffer, not final interaction boundary",
+      "templateBuildSeconds": [
+        869
+      ],
+      "sourcePreviouslyUsedForDevelopment": true,
+      "unseenVideo": false
+    }
+  ],
+  "referenceFiles": [
+    {
+      "path": "F:\\CRK helper\\data\\map-video\\observations.json",
+      "sha256": "184f6924c29d652eb094108f4e4c478f643fd979448e3e5de644ce7d69c37f54"
+    },
+    {
+      "path": "F:\\CRK helper\\scripts\\build_map_references.py",
+      "sha256": "6b48b612c9fd24be835f361b4750df16ffa1883103a48fe8253fe54995dc8b50"
+    },
+    {
+      "path": "F:\\CRK helper\\scripts\\evaluate_map_corpus.py",
+      "sha256": "31ab25bd4d75fa8bd53a492d570924f06e15eccb7ea52ab8d3edf13105acca2e"
+    },
+    {
+      "path": "F:\\CRK helper\\scripts\\evaluate_full_map.py",
+      "sha256": "960dd4c1ba92ea10d2798ab5bef21a169371d7780235db329c2fecc3a714cd7f"
+    }
+  ],
+  "formalCasesFrozen": false,
+  "g4Complete": false
+}
