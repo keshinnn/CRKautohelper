@@ -199,6 +199,43 @@ print(json.dumps(packets))
  }
 });
 
+test('completed extent refinement keeps model score and independently binds source pixels',()=>{
+ const {execFileSync}=require('node:child_process'),source='artifacts/p4c-random-development-60-run-14/dev-primary-zone3-floor3-col1-higher-random-pre-change/analysis/manifest.json';
+ const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
+import json,sys,pathlib
+sys.path[:0]=['ml','F:/CRK helper/ml']
+from PIL import Image
+from map_aspect import recover_map_aspect
+from map_action_evidence import inspect_map_actions
+from bounded_ocr import BoundedOCRRuntime
+from progress_evidence import ProgressRuntime
+from english_scene import EnglishSceneRuntime,semantic_state
+m=json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'));packets=[]
+for f in m['cases'][0]['frames'][1:3]:
+ p=json.loads(pathlib.Path(f['packet']).read_text(encoding='utf-8'));original=p['mapReview']
+ with Image.open(f['image']) as im,ProgressRuntime(),BoundedOCRRuntime(960) as runtime,EnglishSceneRuntime():
+  p['evidence']=runtime._reread_map_context(im,p['evidence']);p['flow'].update(semantic_state(p['evidence']))
+  p['mapReview']=recover_map_aspect(im,p);p['v2MapActions']=inspect_map_actions(im,p)
+ p['v2OriginalMapReview']=original;packets.append(p)
+print(json.dumps(packets))
+`,source],{cwd:path.join(__dirname,'..'),maxBuffer:10*1024*1024});
+ const m=JSON.parse(fs.readFileSync(path.join(__dirname,'..',source))),c=m.cases[0],frames=loadReplayFrames(c).slice(1,3),packets=JSON.parse(raw);
+ const a=observe(frames[0],packets[0]),b=observe(frames[1],packets[1]);
+ assert.equal(a.anchorVerified,true);assert.equal(b.anchorVerified,true);
+ assert.equal(selectNode(a,b,c.intent,{nowMs:b.frame.atMs}).nodeId,'visible-3-1');
+ for(const kind of ['pixels','previous-box','model-score','mask','peer','missing-proof']){
+  const p=structuredClone(packets[1]),n=p.mapReview.nodes.find(n=>n.completedRefinement),e=n.completedRefinement;
+  assert.ok(e);assert.equal(n.score,e.originalModelScore);
+  if(kind==='pixels')e.pixelSha256='0'.repeat(64);
+  if(kind==='previous-box')e.previousSourceBox[0]+=50;
+  if(kind==='model-score')n.score=e.iconScore;
+  if(kind==='mask')e.checkMaskIoU=.7;
+  if(kind==='peer')e.peerNodeId='missing';
+  if(kind==='missing-proof')delete n.completedRefinement;
+  assert.equal(observe(frames[1],p).anchorVerified,false,kind);
+ }
+});
+
 test('completed peer binds the same physical node when adding a missing first row changes IDs',()=>{
  const {execFileSync}=require('node:child_process'),source='artifacts/p4c-reference-line-higher-post-analysis-01/manifest.json';
  const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`

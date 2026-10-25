@@ -12,6 +12,7 @@ import cv2
 import numpy as np
 from PIL import Image
 from reference_line_geometry import reference_geometry
+from completed_extent_geometry import completed_geometry
 
 
 def _qualified_aspect_groups(candidates):
@@ -339,6 +340,7 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
 
 
 @reference_geometry
+@completed_geometry
 def recover_map_aspect(image, packet):
     original = packet.get('mapReview')
     if not isinstance(original, dict):

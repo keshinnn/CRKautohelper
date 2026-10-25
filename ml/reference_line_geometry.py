@@ -39,6 +39,8 @@ def reference_geometry(fn):
         original=map_vision.line_evidence;records={}
         def measure(current,a,b):
             score,proof=reference_line(current,a,b,original)
+            if proof is not None and a.get('lineGeometryStage')==b.get('lineGeometryStage')=='final_verified_boxes':
+                proof['nodeGeometryStage']='final_verified_boxes'
             records[(a.get('id'),b.get('id'))]=(score,proof)
             return score
         map_vision.line_evidence=measure

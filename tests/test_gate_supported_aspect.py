@@ -55,6 +55,32 @@ class GateSupportedAspectTests(unittest.TestCase):
             self.assertGreaterEqual(links[0]['pixel_support'],.85)
             if 'lineReference' in links[0]:self.assertEqual(links[0]['lineReference']['referenceNodeSize'],58)
 
+    def test_actual_detected_completed_node_refines_extent_without_promoting_model_score(self):
+        from map_action_evidence import inspect_map_actions
+        m=json.loads((ROOT/'artifacts/p4c-random-development-60-run-14/dev-primary-zone3-floor3-col1-higher-random-pre-change/analysis/manifest.json').read_text(encoding='utf-8'))
+        for f in m['cases'][0]['frames'][1:3]:
+            p=json.loads(Path(f['packet']).read_text(encoding='utf-8'));old=next(n for n in p['mapReview']['nodes'] if n['id']=='visible-2-1')
+            with Image.open(f['image']) as image:
+                p['mapReview']=recover_map_aspect(image,p);actions=inspect_map_actions(image,p)
+            n=next(n for n in p['mapReview']['nodes'] if n['id']=='visible-2-1')
+            self.assertEqual(n['type'],old['type']);self.assertEqual(n['score'],old['score'])
+            self.assertEqual(actions['current']['nodeId'],'visible-2-1')
+            self.assertGreaterEqual(actions['nodes']['visible-2-1']['checkMaskIoU'],.8)
+            self.assertGreaterEqual(n['completedRefinement']['iconScore'],.9)
+
+    def test_erased_completed_check_cannot_use_its_old_model_flag(self):
+        import hashlib,io
+        from map_action_evidence import inspect_map_actions,_green
+        m=json.loads((ROOT/'artifacts/p4c-random-development-60-run-14/dev-primary-zone3-floor3-col1-higher-random-pre-change/analysis/manifest.json').read_text(encoding='utf-8'));f=m['cases'][0]['frames'][1];p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+        old=next(n for n in p['mapReview']['nodes'] if n['id']=='visible-2-1');x,y,w,h=old['box']
+        with Image.open(f['image']) as im:a=np.array(im.convert('RGB'))
+        region=a[int(y):int(y+h),int(x):int(x+w)];mask=_green(region).astype(bool);self.assertGreater(int(mask.sum()),100);region[mask]=[70,70,75]
+        image=Image.fromarray(a);raw=io.BytesIO();image.save(raw,format='PNG');digest=hashlib.sha256(image.tobytes()).hexdigest()
+        p['binding'].update(pixelSha256=digest,imageSha256=hashlib.sha256(raw.getvalue()).hexdigest(),frameId=digest[:32]);p['mapReview']['frameId']=digest[:20]
+        p['mapReview']=recover_map_aspect(image,p);actions=inspect_map_actions(image,p)
+        self.assertNotEqual((actions['current'] or {}).get('nodeId'),'visible-2-1')
+        self.assertFalse(any(n.get('completedRefinement') for n in p['mapReview']['nodes'] if n.get('id')=='visible-2-1'))
+
     def fixtures(self):
         return json.loads((ROOT/'artifacts/p4c-random-development-60-run-09/dev-primary-zone2-floor2-col3-higher-random-fixed/analysis/manifest.json').read_text(encoding='utf-8'))['cases'][0]['frames'][:2]
 
