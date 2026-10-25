@@ -23,6 +23,28 @@ class GateSupportedAspectTests(unittest.TestCase):
             self.assertGreaterEqual(gate['gateProposal']['geometryEvidence']['innerScore'],.9)
             self.assertEqual(actions['current']['completedPath'],['exit-0','visible-1-3'])
 
+    def test_near_native_map_recovers_actual_missing_completed_node_without_rectification(self):
+        from map_action_evidence import inspect_map_actions
+        m=json.loads((ROOT/'artifacts/p4c-random-negative-fresh-run-30-01/neg-native-completed-node-random-2/analysis/manifest.json').read_text(encoding='utf-8'))
+        for f in m['cases'][0]['frames']:
+            p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+            with Image.open(f['image']) as image:
+                p['mapReview']=recover_map_aspect(image,p);actions=inspect_map_actions(image,p)
+            self.assertNotIn('aspectRectification',p['mapReview'])
+            node=next((n for n in p['mapReview']['nodes'] if n.get('floor')==1 and n.get('column')==3),None)
+            self.assertIsNotNone(node)
+            self.assertTrue(node['completed'])
+            self.assertGreaterEqual(node['checkProposal']['checkMaskIoU'],.8)
+            self.assertEqual(actions['current']['completedPath'],['exit-0','visible-1-3'])
+
+    def test_orange_consensus_still_recovers_a_missing_verified_gate_candidate(self):
+        m=json.loads((ROOT/'artifacts/p4c-random-negative-fresh-run-30-02/neg-native-heal-not-battle-random-1/analysis/manifest.json').read_text(encoding='utf-8'))
+        for f in m['cases'][0]['frames']:
+            p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+            with Image.open(f['image']) as image:p['mapReview']=recover_map_aspect(image,p)
+            self.assertTrue(p['mapReview']['absoluteFloorKnown'])
+            self.assertEqual(next(n for n in p['mapReview']['nodes'] if n.get('floor')==1 and n.get('column')==2)['type'],'heal')
+
     def fixtures(self):
         return json.loads((ROOT/'artifacts/p4c-random-development-60-run-09/dev-primary-zone2-floor2-col3-higher-random-fixed/analysis/manifest.json').read_text(encoding='utf-8'))['cases'][0]['frames'][:2]
 

@@ -240,7 +240,7 @@ def _orange_node_pixel_geometry(image, box, root, digest, allow_icon_core=False)
     return result,proof
 
 
-def _supplement_orange_candidates(image, normalized, initial, calibration, binding, root, normal_pixel, normalized_sha):
+def _supplement_orange_candidates(image, normalized, initial, calibration, binding, root, normal_pixel, normalized_sha, *, completed_only=False):
     """Scoped candidate producer; the original lattice/line code still decides."""
     if re.fullmatch(r'[a-f0-9]{32}',binding.get('frameId','')) is None:return initial
     peers=[n for n in initial.get('nodes',[]) if n.get('type') not in ('exit','boss')]
@@ -250,7 +250,18 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
     analysis_size=[960,round(normalized.height*960/normalized.width)]
     fx,fy=960/normalized.width,analysis_size[1]/normalized.height
     analysis_pixel=hashlib.sha256(np.asarray(normalized.resize(tuple(analysis_size),Image.Resampling.LANCZOS)).tobytes()).hexdigest()
-    for index in calibration['consensus']:
+    indices=[] if completed_only else list(calibration['consensus'])
+    if not completed_only and not any(n.get('type')=='exit' for n in initial['nodes']) and not any(calibration['candidates'][i].get('circleKind')=='cyan_gate' for i in indices):
+        # The orange consensus may already suffice for aspect calibration,
+        # while the edge detector independently missed the visible gate.
+        ah=round(image.height*960/image.width)
+        analysis=cv2.resize(np.asarray(image),(960,ah),interpolation=cv2.INTER_LINEAR)
+        supported=_gate_supported_aspect_candidates(image,calibration['candidates'],analysis,960/image.width,ah/image.height,binding['pixelSha256'])
+        gates=[q for q in supported if q.get('circleKind')=='cyan_gate' and abs(q['ratio']/calibration['ratio']-1)<=.04]
+        if len(gates)==1:
+            index=len(calibration['candidates']);calibration['candidates'].append(gates[0]);indices.append(index)
+            calibration['supplementalGateCandidateIndex']=index
+    for index in indices:
         circle=calibration['candidates'][index];cx,cy=circle['center'][0]/inverse,circle['center'][1]
         if circle.get('circleKind')=='cyan_gate':
             if any(n.get('type')=='exit' for n in initial['nodes']):continue
@@ -333,7 +344,11 @@ def recover_map_aspect(image, packet):
         return original
     deviation=abs(calibration['ratio']-1)
     near_native=deviation<=.08
-    if deviation<=.03 or near_native and type(original.get('absoluteFloorKnown')) is not bool:
+    if deviation<=.03:
+        if original.get('absoluteFloorKnown') is not True or len(original.get('columns') or [])!=4:return original
+        root=Path(os.environ.get('CRK_V1_ROOT', 'F:/CRK helper'))
+        return _supplement_orange_candidates(rgb,rgb,original,calibration,binding,root,digest,binding['imageSha256'],completed_only=True)
+    if near_native and type(original.get('absoluteFloorKnown')) is not bool:
         return original
     normalized = rgb.resize((round(rgb.width / calibration['ratio']), rgb.height),
                             Image.Resampling.LANCZOS)

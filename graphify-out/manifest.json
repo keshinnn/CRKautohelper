@@ -126,9 +126,9 @@
     "semantic_hash": ""
   },
   "lib/observer-adapter.cjs": {
-    "mtime": 1792954432.2033007,
-    "seen": 1792954824.5460057,
-    "ast_hash": "8fd9a9b7d6551a8394e732e3f5fd753c",
+    "mtime": 1792955739.1551259,
+    "seen": 1792955904.2574544,
+    "ast_hash": "0c04c920804c66d9c5037dec4bfdd053",
     "semantic_hash": ""
   },
   "lib/preview-session.cjs": {
@@ -504,9 +504,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-24-crk-helper-v2-p4c-plan.md": {
-    "mtime": 1792941110.6825583,
-    "seen": 1792941205.5824165,
-    "ast_hash": "ec262685b56d2cb5bb438239907f9c44",
+    "mtime": 1792954945.1669965,
+    "seen": 1792955904.2576308,
+    "ast_hash": "a5102886cdb6f74292ae1a14fe1aac6f",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-10-24-crk-helper-v2-design.md": {
@@ -534,15 +534,15 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-10-24-p4c-progress.md": {
-    "mtime": 1792954638.721787,
-    "seen": 1792954824.5462039,
-    "ast_hash": "1d46245b605aba2eaf2b6ba6a8bf5312",
+    "mtime": 1792955842.806716,
+    "seen": 1792955904.2576387,
+    "ast_hash": "c48a03a56178980f606564961301430e",
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1792954638.7167692,
-    "seen": 1792954824.5462058,
-    "ast_hash": "674c5510883faf3cc80459c5dff31c50",
+    "mtime": 1792955842.8042183,
+    "seen": 1792955904.2576401,
+    "ast_hash": "8f8a0bac957c58bf12c3d90c82f2c614",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -642,15 +642,15 @@
     "semantic_hash": ""
   },
   "ml/map_aspect.py": {
-    "mtime": 1792942099.085335,
-    "seen": 1792954824.5460517,
-    "ast_hash": "5b605a7871adae95c3b71c1be2af7e95",
+    "mtime": 1792955680.6344063,
+    "seen": 1792955904.257494,
+    "ast_hash": "350425f9ca23286f08b251706d4f0e7e",
     "semantic_hash": ""
   },
   "tests/map-aspect-adapter.test.cjs": {
-    "mtime": 1792954384.638427,
-    "seen": 1792954824.546117,
-    "ast_hash": "87230f7413d06bc40e0ee5fee282c803",
+    "mtime": 1792955713.6686301,
+    "seen": 1792955904.2575424,
+    "ast_hash": "469af9da9bdd493df4983b313a3ba404",
     "semantic_hash": ""
   },
   "tests/test_aspect_preview.py": {
@@ -720,9 +720,9 @@
     "semantic_hash": ""
   },
   "tests/test_gate_supported_aspect.py": {
-    "mtime": 1792942013.8307917,
-    "seen": 1792954824.546156,
-    "ast_hash": "ddc04561d3a4279ee91fec9b4e212413",
+    "mtime": 1792955585.3433416,
+    "seen": 1792955904.2575843,
+    "ast_hash": "5fd6fe162519a2d3e545887d4fa9da5e",
     "semantic_hash": ""
   }
 }
