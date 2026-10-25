@@ -10,6 +10,16 @@ except ImportError:
     def recover_map_aspect(image,packet):return packet['mapReview']
 
 class MapAspectTests(unittest.TestCase):
+    def test_actual_unanchored_five_percent_aspect_recovers_gate_without_changing_native_maps(self):
+        m=json.loads((ROOT/'artifacts/p4c-time-locator-zone9-pre-analysis-01/manifest.json').read_text(encoding='utf-8'))
+        for f in m['cases'][0]['frames'][1:3]:
+            p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+            self.assertFalse(p['mapReview']['absoluteFloorKnown'])
+            with Image.open(f['image']) as image:result=recover_map_aspect(image,p)
+            self.assertTrue(result['absoluteFloorKnown'])
+            self.assertEqual(result['aspectRectification']['rectificationPurpose'],'unanchored_near_native_recovery')
+            self.assertEqual(len([n for n in result['nodes'] if n.get('floor')==1 and n.get('column')==4]),1)
+
     def test_actual_small_source_node_measures_outer_box_from_verified_icon_core(self):
         m=json.loads((ROOT/'artifacts/p4c-random-development-60-run-06/zone-9-first-battle-random-fixed/analysis/manifest.json').read_text(encoding='utf-8'))
         c=m['cases'][0]

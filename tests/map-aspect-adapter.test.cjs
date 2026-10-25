@@ -2,6 +2,58 @@ const {test}=require('node:test'),assert=require('node:assert/strict'),fs=requir
 const {adaptMap,adaptPreview}=require('../lib/observer-adapter.cjs'),{loadReplayFrames}=require('../lib/replay-case.cjs'),{selectNode}=require('../lib/node-selector.cjs');
 function fixture(){const m=JSON.parse(fs.readFileSync(path.join(__dirname,'../artifacts/p4c-aspect-map-bridge-02/manifest.json')));const c=m.cases[0];return {c,frames:loadReplayFrames(c)};}
 function observe(s,p=s.packet){return adaptMap({...s.frame,png:s.png},p);}
+test('anchored near-native preview still requires measured aspect and matching original anchor status',()=>{
+ const {execFileSync}=require('node:child_process'),source='artifacts/p4c-near-native-zone9-pre-analysis-01/manifest.json';
+ const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
+import json,sys,pathlib
+sys.path[:0]=['ml','F:/CRK helper/ml']
+from PIL import Image
+from map_aspect import recover_map_aspect
+from preview_identity import inspect_preview_identity
+from bounded_ocr import BoundedOCRRuntime
+m=json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'));f=next(f for f in m['cases'][0]['frames'] if f['frameIndex']==78308)
+p=json.loads(pathlib.Path(f['packet']).read_text(encoding='utf-8'));original=p['mapReview']
+with Image.open(f['image']) as im,BoundedOCRRuntime(960):
+ p['mapReview']=recover_map_aspect(im,p);p['v2Preview']=inspect_preview_identity(im,p)
+p['v2OriginalMapReview']=original
+print(json.dumps(p))
+`,source],{cwd:path.join(__dirname,'..'),maxBuffer:10*1024*1024});
+ const m=JSON.parse(fs.readFileSync(path.join(__dirname,'..',source))),c=m.cases[0],s=loadReplayFrames(c)[c.frames.findIndex(f=>f.frameIndex===78308)],packet=JSON.parse(raw);
+ assert.equal(adaptPreview({...s.frame,png:s.png},packet).state,'PREVIEW');
+ for(const kind of ['purpose','prior-anchor']){
+  const p=structuredClone(packet);
+  if(kind==='purpose')p.mapReview.aspectRectification.rectificationPurpose='unanchored_near_native_recovery';
+  else p.v2OriginalMapReview.absoluteFloorKnown=false;
+  assert.equal(adaptPreview({...s.frame,png:s.png},p).state,'UNKNOWN');
+ }
+});
+test('unanchored near-native source uses bound purpose without changing anchored maps',()=>{
+ const {execFileSync}=require('node:child_process'),source='artifacts/p4c-time-locator-zone9-pre-analysis-01/manifest.json';
+ const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
+import json,sys,pathlib
+sys.path[:0]=['ml','F:/CRK helper/ml']
+from PIL import Image
+from map_aspect import recover_map_aspect
+from map_action_evidence import inspect_map_actions
+m=json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'));packets=[]
+for f in m['cases'][0]['frames'][1:3]:
+ p=json.loads(pathlib.Path(f['packet']).read_text(encoding='utf-8'));original=p['mapReview']
+ with Image.open(f['image']) as im:p['mapReview']=recover_map_aspect(im,p);p['v2MapActions']=inspect_map_actions(im,p)
+ p['v2OriginalMapReview']=original;packets.append(p)
+print(json.dumps(packets))
+`,source],{cwd:path.join(__dirname,'..'),maxBuffer:10*1024*1024});
+ const m=JSON.parse(fs.readFileSync(path.join(__dirname,'..',source))),c=m.cases[0],frames=loadReplayFrames(c).slice(1,3),packets=JSON.parse(raw);
+ const a=observe(frames[0],packets[0]),b=observe(frames[1],packets[1]);
+ assert.equal(selectNode(a,b,c.intent,{nowMs:b.frame.atMs}).nodeId,'visible-1-4');
+ for(const kind of ['purpose','prior-anchor','prior-frame','missing-prior']){
+  const altered=structuredClone(packets[1]);
+  if(kind==='purpose')altered.mapReview.aspectRectification.rectificationPurpose='pixel_aspect_recovery';
+  if(kind==='prior-anchor')altered.v2OriginalMapReview.absoluteFloorKnown=true;
+  if(kind==='prior-frame')altered.v2OriginalMapReview.frameId='0'.repeat(20);
+  if(kind==='missing-prior')delete altered.v2OriginalMapReview;
+  assert.equal(observe(frames[1],altered).verified,false,kind);
+ }
+});
 test('small original node core refines physical extent while retaining detector score',()=>{
  const {execFileSync}=require('node:child_process'),source='artifacts/p4c-random-development-60-run-06/zone-9-first-battle-random-fixed/analysis/manifest.json';
  const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`

@@ -11,6 +11,21 @@ from preview_identity import inspect_preview_identity
 from map_aspect import recover_map_aspect
 
 class AspectPreviewTests(unittest.TestCase):
+    def test_actual_near_native_preview_corrects_pixels_even_with_existing_gate_anchor(self):
+        m=json.loads((ROOT/'artifacts/p4c-near-native-zone9-pre-analysis-01/manifest.json').read_text(encoding='utf-8'))
+        with BoundedOCRRuntime(960):
+            for index in [78306,78308,78318]:
+                with self.subTest(index=index):
+                    f=next(f for f in m['cases'][0]['frames'] if f['frameIndex']==index)
+                    p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+                    self.assertTrue(p['mapReview']['absoluteFloorKnown'])
+                    with Image.open(f['image']) as image:
+                        p['mapReview']=recover_map_aspect(image,p)
+                        result=inspect_preview_identity(image,p)
+                    self.assertTrue(result['verified'])
+                    self.assertEqual([result['selectedNode'][k] for k in ['zone','floor','column']],[9,1,4])
+                    self.assertEqual(p['mapReview']['aspectRectification']['rectificationPurpose'],'anchored_near_native_recovery')
+
     def fixture(self,case_index=0):
         m=json.loads((ROOT/'artifacts/p4c-random-pilot-analysis-02/manifest.json').read_text(encoding='utf-8'))
         f=m['cases'][case_index]['frames'][-1]

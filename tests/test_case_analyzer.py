@@ -8,6 +8,12 @@ class OfflineAnalyzerTests(unittest.TestCase):
         c['frames']=[{k:v for k,v in f.items() if k!='packet'} for f in c['frames'][:2]];m['cases']=[c]
         with tempfile.TemporaryDirectory(prefix='crk-aspect-batch-',dir=root/'artifacts') as folder:
             folder=Path(folder);source=folder/'source.json';source.write_text(json.dumps(m),encoding='utf-8');out=folder/'result'
+            # Build real cache packets with the active OCR implementation;
+            # historical OCR fingerprints must correctly remain invalid.
+            baseline=folder/'baseline'
+            fresh=subprocess.run([sys.executable,'-B',str(root/'ml/analyze_cases.py'),str(source),str(baseline),'--fast-map','--bounded-ocr','960'],capture_output=True,text=True,encoding='utf-8')
+            self.assertEqual(fresh.returncode,0,fresh.stderr)
+            cache=baseline/'manifest.json'
             r=subprocess.run([sys.executable,'-B',str(root/'ml/analyze_cases.py'),str(source),str(out),'--fast-map','--bounded-ocr','960','--cache',str(cache)],capture_output=True,text=True,encoding='utf-8')
             self.assertEqual(r.returncode,0,r.stderr)
             actual=json.loads((out/'manifest.json').read_text(encoding='utf-8'))

@@ -263,7 +263,11 @@ def recover_map_aspect(image, packet):
             or re.fullmatch(r'[a-f0-9]{64}', binding.get('imageSha256', '')) is None):
         return original
     calibration = estimate_pixel_aspect(rgb)
-    if calibration is None or abs(calibration['ratio'] - 1) <= .08:
+    if calibration is None:
+        return original
+    deviation=abs(calibration['ratio']-1)
+    near_native=deviation<=.08
+    if deviation<=.03 or near_native and type(original.get('absoluteFloorKnown')) is not bool:
         return original
     normalized = rgb.resize((round(rgb.width / calibration['ratio']), rgb.height),
                             Image.Resampling.LANCZOS)
@@ -364,6 +368,7 @@ def recover_map_aspect(image, packet):
     result['analysisScaleY'] = round(normalized.height * 960 / normalized.width) / rgb.height
     result['aspectRectification'] = {
         'verified': True, 'method': 'same_frame_circle_aspect_map_rectification',
+        'rectificationPurpose':('anchored_near_native_recovery' if original['absoluteFloorKnown'] else 'unanchored_near_native_recovery') if near_native else 'pixel_aspect_recovery',
         'sourceImageSha256': binding['imageSha256'], 'pixelSha256': digest,
         'sourceCaptureFrameId': binding.get('frameId'),
         'sourceSize': list(rgb.size), 'rectifiedInputSize': list(normalized.size),

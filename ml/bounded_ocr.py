@@ -107,7 +107,10 @@ class BoundedOCRRuntime:
                 precise.append(candidate)
             if len(precise)==1:seasons=precise
             elif len(precise)>1:return rows
-        timers=[r for r in rows if '剩餘時間' in r.get('text','') and .85<=r.get('score',0)<=1]
+        # A missing global glyph is only a crop locator. The fresh crop below
+        # must still read the complete original label and clock at >=.90.
+        timers=[r for r in rows if .85<=r.get('score',0)<=1 and
+            ('剩餘時間' in r.get('text','') or re.fullmatch(r'剩時間\d+天\d{2}:\d{2}:\d{2}',re.sub(r'\s+','',r.get('text',''))))]
         header=text_reader.map_header_from_evidence(rows)
         if len(seasons)!=1 or len(timers)!=1 or header['displayedZone'] is None or header['score']<.9 or header['conflictingEvidence']:return rows
         bounds=[]
