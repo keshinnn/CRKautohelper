@@ -169,3 +169,11 @@ First full-development randomrun01 stops on case4 zone2fixed1471x777 MAP_MOVING 
 實際case8zone3pre-change的20226/28/29/30/31影格包含弱讀值@03:00，圖示與數字合併使既有精確時間門檻拒絕，最短片段未累積200ms。新增限定裁切重讀：唯一弱圖示時間只作定位，需同張唯一鄰接限制時間／TimeLimit標籤與Enter及普通／Difficulty上下文；裁切範圍只有限移除左側圖示，對原數字實際OCR，只有同裁切三種讀法中無衝突的03:00>=.95才可用。保留原token／score、實際crop與analysis尺寸、鄰接標籤，不補字、不直接剝除前綴或提升舊信心。刪數字／重複／衝突／無標籤反例拒絕，非bounded模式不猜。
 
 當前第8組回放通過、前7組回歸通過，Node77／Python104全套通過。接續第9組前須保存當前程式並核對前8組相同sourcePNG／PTS／幾何／intent／真值與當前codeSHA；保留集及G4仍未完成。
+
+### Task2/4 missing gate candidate and independently measured row pitch
+
+Actual development case17 (2543x1050 pre-change pair14530/14540) has two original-RGB verified orange nodes and one verified cyan gate arrow, but normalized Canny omits the gate and only three map columns remain visible. Permit the already independently verified cyan gate to enter the scoped candidate producer using its actual source inner/template outer extent; keep original classifier, unique lattice and line-pixel checks. Bind full source PNG/RGB/frame and normalized raster/analysis coordinates, and require the arrow proof to equal the unique chosen cyan calibration candidate at the Node boundary. Missing/altered evidence must reject. When this establishes actual peer IDs, permit one bounded completed-candidate pass; no unbounded recovery loop or target-driven candidates.
+
+The same pair showed x-derived floors [1.02768,3.08693,3.07799,3.07799,2.05281,2.05618] despite valid <=4% pixel-aspect consensus. Do not widen the .08 row residual. With >=3 distinct observed rows, derive actual adjacent vertical pitch, require all gaps within4% of their median and that median within4% of measured horizontal pitch, then apply the unchanged floor residual, first-row=1 and original full detector/line-pixel rerun. Two-row path retains prior spacing. This separates measured x/y pitches and avoids accumulating calibration error down each row; annotations and evaluator transforms remain outside inference.
+
+Focused real33-frame case17 passed one virtual click followed by independent preview confirmation, native0; Node missing/tampered gate-proof RED->GREEN. Current first16 regression and full suites are required before continuing case18. This remains P4-C development evidence, not G4 or P5 approval.

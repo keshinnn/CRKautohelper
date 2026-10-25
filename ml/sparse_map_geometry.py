@@ -27,7 +27,19 @@ def recover_map_geometry(image,packet):
         if not radius*.85<spacing<radius*2.2:continue
         columns=[gx+(i-2.5)*spacing for i in range(1,5)]
         if columns[0]<0 or columns[-1]>=image.width or max(abs(centers-(gx+offsets*spacing)))>spacing*.04:continue
-        floors=[(n['center'][1]-gy)/spacing for n in normal]
+        # Measure vertical pitch independently: residual aspect-calibration
+        # error must not accumulate once per visible row. Require three
+        # adjacent, equally spaced observed rows and agreement with x pitch.
+        rows=[]
+        for y in sorted(n['center'][1] for n in normal):
+            if not rows or y-np.mean(rows[-1])>radius*.5:rows.append([y])
+            else:rows[-1].append(y)
+        vertical=spacing
+        if len(rows)>=3:
+            gaps=np.diff([np.mean(row) for row in rows]);measured=float(np.median(gaps))
+            if abs(measured/spacing-1)>.04 or max(abs(gaps/measured-1))>.04:continue
+            vertical=measured
+        floors=[(n['center'][1]-gy)/vertical for n in normal]
         if any(not 1<=round(f)<=31 or abs(f-round(f))>.08 for f in floors):continue
         if min(round(f) for f in floors)!=1 or len(set(round(f) for f in floors))<2:continue
         solutions.append(columns)

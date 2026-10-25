@@ -252,6 +252,18 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
     analysis_pixel=hashlib.sha256(np.asarray(normalized.resize(tuple(analysis_size),Image.Resampling.LANCZOS)).tobytes()).hexdigest()
     for index in calibration['consensus']:
         circle=calibration['candidates'][index];cx,cy=circle['center'][0]/inverse,circle['center'][1]
+        if circle.get('circleKind')=='cyan_gate':
+            if any(n.get('type')=='exit' for n in initial['nodes']):continue
+            evidence=circle['iconEvidence'];x,y,w,h=evidence['sourceInnerBox'];rx,ry,rw,rh=evidence['templateInnerBox'];tw,th=evidence['templateSize']
+            source=[x-rx*w/rw,y-ry*h/rh,tw*w/rw,th*h/rh];box=[source[0]/inverse,source[1],source[2]/inverse,source[3]];center=[box[0]+box[2]/2,box[1]+box[3]/2]
+            injected=[box[0]*fx,box[1]*fy,box[2]*fx,box[3]*fy]
+            proposals.append({'box':injected,'center':[center[0]*fx,center[1]*fy],'score':evidence['innerScore'],'template':'node-exit.png',
+                'scoreMethod':'original_source_gate_arrow_rgb','gateProposal':{
+                    'method':'same_frame_original_cyan_gate_candidate','sourceImageSha256':binding['imageSha256'],'pixelSha256':binding['pixelSha256'],
+                    'sourceCaptureFrameId':binding['frameId'],'sourceSize':list(image.size),'rectifiedInputSize':list(normalized.size),
+                    'rectifiedPixelSha256':normal_pixel,'analysisSize':analysis_size,'analysisPixelSha256':analysis_pixel,'injectedAnalysisBox':injected,
+                    'geometryEvidence':{**evidence,'candidateIndex':index,'originalAnalysisBox':box,'originalAnalysisCenter':center},'actionsExecuted':False}})
+            continue
         if any(math.hypot(cx-n['center'][0],cy-n['center'][1])<=min(nw,nh)*.25 for n in initial['nodes']):continue
         measured=_orange_node_pixel_geometry(image,[(cx-nw/2)*inverse,cy-nh/2,nw*inverse,nh],root,calibration['pixelSha256'],allow_icon_core=True)
         if measured is None:continue
@@ -283,14 +295,23 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
             if not any(math.hypot(px-n['center'][0],py-n['center'][1])<=size*.25 for n in result):result.append(copy.deepcopy(proposal))
         return result
     map_vision.node_candidates=candidates
-    try:
+    def inspect_and_recover():
         result=map_vision.inspect_map(normalized,root/'data/map',read_header=False)
         if len(result.get('columns') or [])!=4:
             relative=copy.deepcopy(result);gates=[n for n in relative['nodes'] if n.get('type')=='exit']
             if len(gates)==1:relative['nodes']=[n for n in relative['nodes'] if n.get('type')=='exit' or n['center'][1]>gates[0]['center'][1]]
             result=recover_map_geometry(normalized,{'binding':{'pixelSha256':normal_pixel,'imageSha256':normalized_sha},'mapReview':relative})
+        return result
+    try:
+        result=inspect_and_recover()
+        if len(initial.get('columns') or [])!=4 and len(result.get('columns') or [])==4 and result.get('absoluteFloorKnown') is True:
+            additional=completed_node_candidates(image,result,inverse,root,binding,list(normalized.size),normal_pixel,analysis_size,analysis_pixel)
+            if additional:
+                proposals+=additional
+                result=inspect_and_recover()
         if any(n.get('pixelProposal') and (n.get('type')!='battle' or n.get('completed') is not False) for n in result.get('nodes',[])):return initial
         if any(n.get('checkProposal') and (n.get('type') in ('exit','boss') or n.get('completed') is not True) for n in result.get('nodes',[])):return initial
+        if any(n.get('gateProposal') and n.get('type')!='exit' for n in result.get('nodes',[])):return initial
         return result
     finally:
         map_vision.node_candidates=original
@@ -365,7 +386,10 @@ def recover_map_aspect(image, packet):
         if node.get('checkProposal'):
             node['box']=list(node['checkProposal']['originalAnalysisBox'])
             node['center']=list(node['checkProposal']['originalAnalysisCenter'])
-        if node.get('type') == 'exit':
+        if node.get('gateProposal'):
+            node['box']=list(node['gateProposal']['geometryEvidence']['originalAnalysisBox'])
+            node['center']=list(node['gateProposal']['geometryEvidence']['originalAnalysisCenter'])
+        if node.get('type') == 'exit' and not node.get('gateProposal'):
             x,y,w,h=node['box']
             measured=_gate_pixel_geometry(rgb,[x*inverse_x,y,w*inverse_x,h],root,digest)
             if measured is not None:
