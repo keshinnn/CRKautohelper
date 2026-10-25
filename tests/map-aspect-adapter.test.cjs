@@ -2,6 +2,51 @@ const {test}=require('node:test'),assert=require('node:assert/strict'),fs=requir
 const {adaptMap,adaptPreview}=require('../lib/observer-adapter.cjs'),{loadReplayFrames}=require('../lib/replay-case.cjs'),{selectNode}=require('../lib/node-selector.cjs');
 function fixture(){const m=JSON.parse(fs.readFileSync(path.join(__dirname,'../artifacts/p4c-aspect-map-bridge-02/manifest.json')));const c=m.cases[0];return {c,frames:loadReplayFrames(c)};}
 function observe(s,p=s.packet){return adaptMap({...s.frame,png:s.png},p);}
+test('original inner-icon candidate supports glowing node and rejects corrupted producer proof',()=>{
+ const {execFileSync}=require('node:child_process');
+ const source='artifacts/p4c-random-development-60-run-05/zone-8-first-battle-random-fixed/analysis/manifest.json';
+ const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
+import json,sys,pathlib
+sys.path[:0]=['ml','F:/CRK helper/ml']
+from PIL import Image
+from map_aspect import recover_map_aspect
+from map_action_evidence import inspect_map_actions
+m=json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'));packets=[]
+for f in m['cases'][0]['frames'][:2]+[next(f for f in m['cases'][0]['frames'] if f['frameIndex']==64890)]:
+ p=json.loads(pathlib.Path(f['packet']).read_text(encoding='utf-8'))
+ with Image.open(f['image']) as im:
+  p['mapReview']=recover_map_aspect(im,p);p['v2MapActions']=inspect_map_actions(im,p)
+ packets.append(p)
+print(json.dumps(packets))
+`,source],{cwd:path.join(__dirname,'..'),maxBuffer:10*1024*1024});
+ const m=JSON.parse(fs.readFileSync(path.join(__dirname,'..',source))),c=m.cases[0],frames=loadReplayFrames(c),packets=JSON.parse(raw);
+ const a=observe(frames[0],packets[0]),b=observe(frames[1],packets[1]);
+ const proof=selectNode(a,b,c.intent,{nowMs:b.frame.atMs});assert.equal(proof.nodeId,'visible-1-4');
+ for(const kind of ['pixels','frame','candidate','score','injected-box','rectified-pixels','missing-proposal']){
+  const altered=structuredClone(packets[1]),n=altered.mapReview.nodes.find(n=>n.id===proof.nodeId),e=n.pixelProposal;
+  assert(e);
+  if(kind==='pixels')e.pixelSha256='0'.repeat(64);
+  if(kind==='frame')e.sourceCaptureFrameId='0'.repeat(32);
+  if(kind==='candidate')e.geometryEvidence.candidateIndex=999;
+  if(kind==='score')n.score=.99;
+  if(kind==='injected-box')e.injectedAnalysisBox[0]+=20;
+  if(kind==='rectified-pixels')e.rectifiedPixelSha256='0'.repeat(64);
+  if(kind==='missing-proposal')delete n.pixelProposal;
+  assert.equal(observe(frames[1],altered).verified,false,kind);
+ }
+ const early=packets[2],earlyFrame=frames[m.cases[0].frames.findIndex(f=>f.frameIndex===64890)];
+ // This bridge checks map authority; Python separately checks preview identity.
+ assert.equal(observe(earlyFrame,early).verified,true);
+ for(const kind of ['core-margin','core-crop','core-alignment','core-template','missing-core']){
+  const altered=structuredClone(early),n=altered.mapReview.nodes.find(n=>n.pixelProposal?.geometryEvidence.iconCoreEvidence),e=n.pixelProposal.geometryEvidence.iconCoreEvidence;
+  if(kind==='core-margin')e.runnerUpScore=e.score;
+  if(kind==='core-crop')e.sourceCropBox[0]+=10;
+  if(kind==='core-alignment')e.alignmentPx[0]=100;
+  if(kind==='core-template')e.template='node-gray';
+  if(kind==='missing-core')delete n.pixelProposal.geometryEvidence.iconCoreEvidence;
+  assert.equal(observe(earlyFrame,altered).verified,false,kind);
+ }
+});
 test('actual pixel-derived rectification supports one source-coordinate selection proof',()=>{
  const {c,frames}=fixture(),a=observe(frames[0]),b=observe(frames[1]);
  const proof=selectNode(a,b,c.intent,{nowMs:b.frame.atMs});const [x,y,w,h]=c.clientBox;

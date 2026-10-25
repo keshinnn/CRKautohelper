@@ -1,0 +1,303 @@
+{
+  "schema": 1,
+  "stage": "native_negative_source_review",
+  "sourceManifestSha256": "918b5bd7dc4cfc41e78d383f29447ef9760199d914072ab6ee97cb973e4e4e26",
+  "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+  "reviewer": "Assistant visual review of original native full PNGs; no project recognizer used for these labels",
+  "reviewMethod": "Four original first preframes independently viewed at full native1440x1080; globalcolumns use the visible full map lattice, not ordinal position among visible first-row nodes. Source-v3 qualified stable prepair retained. These are adversarial strategy requests over existing development interactions, not six additional human positive interactions.",
+  "positiveCountContribution": 0,
+  "thisReviewPerformedInference": false,
+  "holdoutTouched": false,
+  "nativeActions": 0,
+  "g4Complete": false,
+  "cases": [
+    {
+      "id": "neg-native-gray-node",
+      "positiveCompanionCaseId": "dev-primary-zone2-floor2-col3-higher",
+      "sourceVideoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        {
+          "frameIndex": 14530,
+          "sourcePtsMs": 484333.333333,
+          "atMs": 484333.333333,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\dev-primary-zone2-floor2-col3-higher\\0014530.png",
+          "sha256": "3ccdc8713fd81a2c91bd6aec8e682fd038fd82901b42cd1daee056bba2a46ef4",
+          "size": [
+            1440,
+            1080
+          ]
+        },
+        {
+          "frameIndex": 14540,
+          "sourcePtsMs": 484666.666667,
+          "atMs": 484666.666667,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\dev-primary-zone2-floor2-col3-higher\\0014540.png",
+          "sha256": "e7122d65dd16684b579e1927f8edc131ae242f0229fa3c9c302a3e331bfbe49f",
+          "size": [
+            1440,
+            1080
+          ]
+        }
+      ],
+      "reviewedFact": "gray unavailable ordinary-shaped node",
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedVirtualClicks": 0,
+      "expectedRecognizedMapContext": true,
+      "expectedRejectionReasons": [
+        "NODE_UNAVAILABLE",
+        "COORDINATE_INVALID"
+      ],
+      "reviewed": true
+    },
+    {
+      "id": "neg-native-completed-node",
+      "positiveCompanionCaseId": "dev-primary-zone2-floor2-col3-higher",
+      "sourceVideoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        {
+          "frameIndex": 14530,
+          "sourcePtsMs": 484333.333333,
+          "atMs": 484333.333333,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\dev-primary-zone2-floor2-col3-higher\\0014530.png",
+          "sha256": "3ccdc8713fd81a2c91bd6aec8e682fd038fd82901b42cd1daee056bba2a46ef4",
+          "size": [
+            1440,
+            1080
+          ]
+        },
+        {
+          "frameIndex": 14540,
+          "sourcePtsMs": 484666.666667,
+          "atMs": 484666.666667,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\dev-primary-zone2-floor2-col3-higher\\0014540.png",
+          "sha256": "e7122d65dd16684b579e1927f8edc131ae242f0229fa3c9c302a3e331bfbe49f",
+          "size": [
+            1440,
+            1080
+          ]
+        }
+      ],
+      "reviewedFact": "already completed node with visible green check",
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedVirtualClicks": 0,
+      "expectedRecognizedMapContext": true,
+      "expectedRejectionReasons": [
+        "COORDINATE_INVALID",
+        "NODE_UNAVAILABLE"
+      ],
+      "reviewed": true
+    },
+    {
+      "id": "neg-native-heal-not-battle",
+      "positiveCompanionCaseId": "zone-9-first-battle",
+      "sourceVideoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        {
+          "frameIndex": 78294,
+          "sourcePtsMs": 2609800.0,
+          "atMs": 2609800.0,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\zone-9-first-battle\\0078294.png",
+          "sha256": "79a87a651963181261c62f8bd4b2a81d56826d4f7c8a1ceb882a779cc11d33c8",
+          "size": [
+            1440,
+            1080
+          ]
+        },
+        {
+          "frameIndex": 78300,
+          "sourcePtsMs": 2610000.0,
+          "atMs": 2610000.0,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\zone-9-first-battle\\0078300.png",
+          "sha256": "63b17d79880cc323d9ede429dcbb48db362afa4f2f3a75a78a44be4cafdf5bba",
+          "size": [
+            1440,
+            1080
+          ]
+        }
+      ],
+      "reviewedFact": "green heal plus icon, requested as ordinary battle",
+      "intent": {
+        "zone": 9,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedVirtualClicks": 0,
+      "expectedRecognizedMapContext": true,
+      "expectedRejectionReasons": [
+        "COORDINATE_INVALID",
+        "NODE_UNAVAILABLE"
+      ],
+      "reviewed": true
+    },
+    {
+      "id": "neg-native-rift-not-battle",
+      "positiveCompanionCaseId": "zone-1-first-battle",
+      "sourceVideoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        {
+          "frameIndex": 2514,
+          "sourcePtsMs": 83800.0,
+          "atMs": 83800.0,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\zone-1-first-battle\\0002514.png",
+          "sha256": "63a4f71867d873b77b746c2c539c5c3b19aae36a03d6b3f2f94fef94f5b5ca4a",
+          "size": [
+            1440,
+            1080
+          ]
+        },
+        {
+          "frameIndex": 2520,
+          "sourcePtsMs": 84000.0,
+          "atMs": 84000.0,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\zone-1-first-battle\\0002520.png",
+          "sha256": "bb6f947177e0bd112be15f4cd32d012a0c89e7151d464c1bac8015ad9115cb0a",
+          "size": [
+            1440,
+            1080
+          ]
+        }
+      ],
+      "reviewedFact": "purple rift icon, requested as ordinary battle",
+      "intent": {
+        "zone": 1,
+        "floor": 2,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedVirtualClicks": 0,
+      "expectedRecognizedMapContext": true,
+      "expectedRejectionReasons": [
+        "COORDINATE_INVALID",
+        "NODE_UNAVAILABLE"
+      ],
+      "reviewed": true
+    },
+    {
+      "id": "neg-native-absent-cell",
+      "positiveCompanionCaseId": "zone-3-first-battle",
+      "sourceVideoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        {
+          "frameIndex": 20214,
+          "sourcePtsMs": 673800.0,
+          "atMs": 673800.0,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\zone-3-first-battle\\0020214.png",
+          "sha256": "8196e7cc6a8d10f829c74c45b9d0cbbbe371e8994aadf34e99d8b99e22e429a2",
+          "size": [
+            1440,
+            1080
+          ]
+        },
+        {
+          "frameIndex": 20220,
+          "sourcePtsMs": 674000.0,
+          "atMs": 674000.0,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\zone-3-first-battle\\0020220.png",
+          "sha256": "121a37e6ec6fe9e3c3c116e76058b41e970417208c477bf5dcf190cf6a3cdb9b",
+          "size": [
+            1440,
+            1080
+          ]
+        }
+      ],
+      "reviewedFact": "no first-floor node at globalcolumn1; first visible ordinary is globalcolumn2",
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedVirtualClicks": 0,
+      "expectedRecognizedMapContext": true,
+      "expectedRejectionReasons": [
+        "MAP_AMBIGUOUS"
+      ],
+      "reviewed": true
+    },
+    {
+      "id": "neg-native-elite-not-ordinary",
+      "positiveCompanionCaseId": "zone-1-first-battle",
+      "sourceVideoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+      "sourceSize": [
+        1440,
+        1080
+      ],
+      "preFrames": [
+        {
+          "frameIndex": 2514,
+          "sourcePtsMs": 83800.0,
+          "atMs": 83800.0,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\zone-1-first-battle\\0002514.png",
+          "sha256": "63a4f71867d873b77b746c2c539c5c3b19aae36a03d6b3f2f94fef94f5b5ca4a",
+          "size": [
+            1440,
+            1080
+          ]
+        },
+        {
+          "frameIndex": 2520,
+          "sourcePtsMs": 84000.0,
+          "atMs": 84000.0,
+          "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-frozen-native-30-v3\\zone-1-first-battle\\0002520.png",
+          "sha256": "bb6f947177e0bd112be15f4cd32d012a0c89e7151d464c1bac8015ad9115cb0a",
+          "size": [
+            1440,
+            1080
+          ]
+        }
+      ],
+      "reviewedFact": "pink elite node and original creature overlay, requested as ordinary orange battle",
+      "intent": {
+        "zone": 1,
+        "floor": 2,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "expectedVirtualClicks": 0,
+      "expectedRecognizedMapContext": true,
+      "expectedRejectionReasons": [
+        "COORDINATE_INVALID",
+        "NODE_UNAVAILABLE",
+        "MAP_AMBIGUOUS"
+      ],
+      "reviewed": true
+    }
+  ]
+}

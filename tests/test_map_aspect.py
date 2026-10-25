@@ -10,6 +10,22 @@ except ImportError:
     def recover_map_aspect(image,packet):return packet['mapReview']
 
 class MapAspectTests(unittest.TestCase):
+    def test_actual_early_preview_uses_original_icon_core_without_relaxing_score(self):
+        from bounded_ocr import BoundedOCRRuntime
+        from preview_identity import inspect_preview_identity
+        manifest=json.loads((ROOT/'artifacts/p4c-proposal-zone8-analysis-01/manifest.json').read_text(encoding='utf-8'))
+        f=next(f for f in manifest['cases'][0]['frames'] if f['frameIndex']==64890)
+        p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+        with Image.open(f['image']) as image:
+            p['mapReview']=recover_map_aspect(image,p)
+            with BoundedOCRRuntime(960):result=inspect_preview_identity(image,p)
+        self.assertTrue(result['verified'])
+        self.assertEqual([result['selectedNode'][k] for k in ['zone','floor','column']],[8,1,4])
+        node=next(n for n in p['mapReview']['nodes'] if n.get('floor')==1 and n.get('column')==4)
+        core=node['pixelProposal']['geometryEvidence']['iconCoreEvidence']
+        self.assertGreaterEqual(core['score'],.9)
+        self.assertGreaterEqual(core['score']-core['runnerUpScore'],.08)
+
     def cases(self):return json.loads((ROOT/'artifacts/p4c-random-pilot-pixels-01/manifest.json').read_text(encoding='utf-8'))['cases']
     def image(self,c):
         f=next(f for f in c['frames'] if f['frameIndex']==2514)
@@ -124,5 +140,19 @@ class MapAspectTests(unittest.TestCase):
         a=np.array(image);x,y,w,h=node['box'];region=a[int(y):int(y+h+1),int(x):int(x+w+1)]
         white=(region.min(2)>140)&(region.max(2).astype(float)-region.min(2)<80);region[white]=[255,160,0]
         self.assertIsNone(_orange_node_pixel_geometry(Image.fromarray(a),node['box'],Path('F:/CRK helper'),hashlib.sha256(a.tobytes()).hexdigest()))
+        self.assertIsNone(_orange_node_pixel_geometry(Image.fromarray(a),node['box'],Path('F:/CRK helper'),hashlib.sha256(a.tobytes()).hexdigest(),allow_icon_core=True))
+
+    def test_actual_glowing_outer_edge_can_use_independent_inner_icon_candidate(self):
+        import map_vision
+        m=json.loads((ROOT/'artifacts/p4c-random-development-60-run-05/zone-8-first-battle-random-fixed/analysis/manifest.json').read_text(encoding='utf-8'))
+        before=map_vision.node_candidates
+        for f in m['cases'][0]['frames'][:2]:
+            p=json.loads(Path(f['packet']).read_text(encoding='utf-8'));image=Image.open(f['image']).convert('RGB')
+            result=recover_map_aspect(image,p)
+            self.assertTrue(result['absoluteFloorKnown'])
+            target=next(n for n in result['nodes'] if n.get('floor')==1 and n.get('column')==4)
+            self.assertGreaterEqual(target['pixelProposal']['geometryEvidence']['innerScore'],.9)
+            self.assertEqual(target['type'],'battle');self.assertFalse(target['completed'])
+        self.assertIs(map_vision.node_candidates,before)
 
 if __name__=='__main__':unittest.main()

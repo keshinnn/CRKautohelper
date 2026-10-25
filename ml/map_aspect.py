@@ -125,7 +125,7 @@ def _gate_pixel_geometry(image, box, root, digest):
     }
 
 
-def _orange_node_pixel_geometry(image, box, root, digest):
+def _orange_node_pixel_geometry(image, box, root, digest, allow_icon_core=False):
     x,y,w,h=box;left,top=int(x),int(y);right,bottom=math.ceil(x+w),math.ceil(y+h)
     if min(left,top)<0 or right>image.width or bottom>image.height:return None
     rgb=np.asarray(image.crop((left,top,right,bottom)))
@@ -158,17 +158,97 @@ def _orange_node_pixel_geometry(image, box, root, digest):
     actual=cv2.resize(np.asarray(image.crop(crop)),(rw,rh),interpolation=cv2.INTER_AREA)
     expected=ref_rgb[ry:ry+rh,rx:rx+rw]
     score=.7*float(cv2.matchTemplate(cv2.cvtColor(actual,cv2.COLOR_RGB2GRAY),cv2.cvtColor(expected,cv2.COLOR_RGB2GRAY),cv2.TM_CCOEFF_NORMED)[0,0])+.3*(1-np.abs(actual.astype(float)-expected).mean()/255)
-    if not .9<=score<=1:return None
     sx,sy=ex/rw,ey/rh;result=[bx-rx*sx,by-ry*sy,reference.width*sx,reference.height*sy]
     if (min(result[:2])<0 or result[0]+result[2]>image.width or result[1]+result[3]>image.height
             or not .85*w<=result[2]<=1.15*w or not .85*h<=result[3]<=1.15*h):return None
-    return result,{
+    core=None;circle_score=float(score)
+    if not .9<=score<=1:
+        if not allow_icon_core:return None
+        # Reuse the preview recognizer's original 34x34 icon comparison and
+        # bounded alignment. The ellipse still fixes the physical outer box.
+        from map_vision import map_templates
+        templates=map_templates(root/'data/map');best=None
+        radius=max(1,round(min(result[2:])*.02))
+        for dx in range(-radius,radius+1):
+            for dy in range(-radius,radius+1):
+                x0,y0,ow,oh=result
+                if min(x0+dx,y0+dy)<0 or x0+ow+dx>image.width or y0+oh+dy>image.height:continue
+                actual=np.asarray(image.crop((x0+dx,y0+dy,x0+ow+dx,y0+oh+dy)).resize((58,58)))[12:46,12:46]
+                gray=cv2.cvtColor(actual,cv2.COLOR_RGB2GRAY);scores=[]
+                for name,_,_,ref,refg in templates:
+                    value=.7*float(cv2.matchTemplate(gray,refg,cv2.TM_CCOEFF_NORMED)[0,0])+.3*(1-np.abs(actual.astype(float)-ref).mean()/255)
+                    scores.append((float(value),name))
+                scores.sort(reverse=True)
+                if scores[0][1]!='node-orange' or scores[0][0]<.9 or scores[0][0]-scores[1][0]<.08:continue
+                if best is None or scores[0][0]>best['score']:
+                    best={'method':'original_outer58_inner12_46_rgb_bounded_alignment','score':scores[0][0],
+                        'template':'node-orange','runnerUpScore':scores[1][0],'runnerUpTemplate':scores[1][1],
+                        'alignmentPx':[dx,dy],'alignmentRadius':radius,
+                        'sourceCropBox':[x0+dx,y0+dy,ow,oh],'analysisSize':[58,58],'innerBox':[12,12,34,34]}
+        if best is None:return None
+        core=best;score=best['score']
+    proof={
         'method':'same_frame_orange_ellipse_and_original_template_extent',
         'pixelSha256':digest,'sourceInnerBox':[bx,by,ex,ey],'ellipseCenter':[cx,cy],
         'actualCropBox':[crop[0],crop[1],crop[2]-crop[0],crop[3]-crop[1]],
         'templateInnerBox':extents[0],'templateSize':list(reference.size),
         'templateImageSha256':hashlib.sha256(raw).hexdigest(),'innerScore':float(score),'actionsExecuted':False,
     }
+    if core:proof.update(iconCoreEvidence=core,circleInnerScore=circle_score)
+    return result,proof
+
+
+def _supplement_orange_candidates(image, normalized, initial, calibration, binding, root, normal_pixel, normalized_sha):
+    """Scoped candidate producer; the original lattice/line code still decides."""
+    if re.fullmatch(r'[a-f0-9]{32}',binding.get('frameId','')) is None:return initial
+    peers=[n for n in initial.get('nodes',[]) if n.get('type') not in ('exit','boss')]
+    if len(peers)<4:return initial
+    inverse=image.width/normalized.width;nw=float(np.median([n['box'][2] for n in peers]));nh=float(np.median([n['box'][3] for n in peers]))
+    proposals=[]
+    analysis_size=[960,round(normalized.height*960/normalized.width)]
+    fx,fy=960/normalized.width,analysis_size[1]/normalized.height
+    analysis_pixel=hashlib.sha256(np.asarray(normalized.resize(tuple(analysis_size),Image.Resampling.LANCZOS)).tobytes()).hexdigest()
+    for index in calibration['consensus']:
+        circle=calibration['candidates'][index];cx,cy=circle['center'][0]/inverse,circle['center'][1]
+        if any(math.hypot(cx-n['center'][0],cy-n['center'][1])<=min(nw,nh)*.25 for n in initial['nodes']):continue
+        measured=_orange_node_pixel_geometry(image,[(cx-nw/2)*inverse,cy-nh/2,nw*inverse,nh],root,calibration['pixelSha256'],allow_icon_core=True)
+        if measured is None:continue
+        (x,y,w,h),evidence=measured;box=[x/inverse,y,w/inverse,h];center=[(x+w/2)/inverse,y+h/2]
+        geometry={**evidence,'candidateIndex':index,'originalAnalysisBox':box,'originalAnalysisCenter':center}
+        proposals.append({'box':[box[0]*fx,box[1]*fy,box[2]*fx,box[3]*fy],
+            'center':[center[0]*fx,center[1]*fy],'score':evidence['innerScore'],'template':'node-orange.png',
+            'scoreMethod':'original_source_inner_template_rgb','pixelProposal':{
+                'method':'same_frame_original_orange_inner_candidate','sourceImageSha256':binding['imageSha256'],
+                'pixelSha256':calibration['pixelSha256'],'sourceCaptureFrameId':binding['frameId'],
+                'sourceSize':list(image.size),'rectifiedInputSize':list(normalized.size),
+                'rectifiedPixelSha256':normal_pixel,'analysisSize':analysis_size,'analysisPixelSha256':analysis_pixel,
+                'injectedAnalysisBox':[box[0]*fx,box[1]*fy,box[2]*fx,box[3]*fy],
+                'geometryEvidence':geometry,'actionsExecuted':False}})
+    if not proposals:return initial
+    import map_vision
+    from sparse_map_geometry import recover_map_geometry
+    original=map_vision.node_candidates;cached=None
+    def candidates(current,folder):
+        nonlocal cached
+        if list(current.size)!=analysis_size or hashlib.sha256(np.asarray(current.convert('RGB')).tobytes()).hexdigest()!=analysis_pixel:
+            return original(current,folder)
+        if cached is None:cached=copy.deepcopy(original(current,folder))
+        result=copy.deepcopy(cached)
+        for proposal in proposals:
+            px,py=proposal['center'];size=min(proposal['box'][2:])
+            if not any(math.hypot(px-n['center'][0],py-n['center'][1])<=size*.25 for n in result):result.append(copy.deepcopy(proposal))
+        return result
+    map_vision.node_candidates=candidates
+    try:
+        result=map_vision.inspect_map(normalized,root/'data/map',read_header=False)
+        if len(result.get('columns') or [])!=4:
+            relative=copy.deepcopy(result);gates=[n for n in relative['nodes'] if n.get('type')=='exit']
+            if len(gates)==1:relative['nodes']=[n for n in relative['nodes'] if n.get('type')=='exit' or n['center'][1]>gates[0]['center'][1]]
+            result=recover_map_geometry(normalized,{'binding':{'pixelSha256':normal_pixel,'imageSha256':normalized_sha},'mapReview':relative})
+        if any(n.get('pixelProposal') and (n.get('type')!='battle' or n.get('completed') is not False) for n in result.get('nodes',[])):return initial
+        return result
+    finally:
+        map_vision.node_candidates=original
 
 
 def recover_map_aspect(image, packet):
@@ -194,6 +274,7 @@ def recover_map_aspect(image, packet):
     raw = io.BytesIO()
     normalized.save(raw, format='PNG')
     normalized_sha = hashlib.sha256(raw.getvalue()).hexdigest()
+    result = _supplement_orange_candidates(rgb,normalized,result,calibration,binding,root,normal_pixel,normalized_sha)
     candidate_scope = None
     if len(result.get('columns') or []) != 4:
         # A visible top gate places every ordinary row below that gate.
@@ -235,7 +316,7 @@ def recover_map_aspect(image, packet):
                     'originalAnalysisCenter':list(node['center'])}
                 node['box']=[x/inverse_x,y,w/inverse_x,h]
                 node['center']=[(x+w/2)/inverse_x,y+h/2]
-        if node.get('type') == 'battle' and node.get('completed') is False:
+        if node.get('type') == 'battle' and node.get('completed') is False and not node.get('pixelProposal'):
             x, y, w, h = node['box']
             matches = []
             for index in calibration['consensus']:
