@@ -43,6 +43,40 @@ def _english_ordinary_crop(image,evidence):
         'boxSource':'original_line_crop_extent','source':'difficulty_adjacent_english_normal_original_crop','cropBox':[left,top,right-left,bottom-top],'analysisSize':list(analysis_size)}]
 
 
+def _timer_original_crop(image,evidence):
+    # A clock icon sometimes becomes '@' in the same OCR row as the digits.
+    # That weak token locates pixels only; it is never accepted as a timer.
+    rows=[r for r in evidence if r.get('score',0)>=.75 and _box(r) and _box(r)[0]>image.width*.5
+        and re.fullmatch(r'[@◎○〇]?\d{2}:\d{2}',r.get('text','').strip())]
+    if len(rows)!=1 or not re.fullmatch(r'[@◎○〇]03:00',rows[0]['text'].strip()):return []
+    import text_reader
+    runtime=getattr(text_reader,'_v2_bounded_ocr_runtime',None)
+    if not runtime or not runtime.enabled:return []
+    row=rows[0];x,y,w,h=_box(row)
+    if not 0<h<image.height*.1 or x+w>image.width or y<0 or y+h>image.height:return []
+    labels=[]
+    for label in evidence:
+        text=re.sub(r'\s+','',label.get('text',''));bounds=_box(label)
+        if label.get('score',0)<.75 or not bounds:continue
+        if not (re.fullmatch(r'.{0,3}限制時[間间]',text) or text.casefold() in ('timelimit','battletimelimit')):continue
+        lx,ly,lw,lh=bounds
+        if (lx>image.width*.5 and lx+lw<=x+h*.25 and x-lx-lw<=image.width*.25
+                and abs(ly+lh/2-y-h/2)<=max(lh,h)*.6):labels.append(label)
+    if len(labels)!=1:return []
+    for fraction in [0,.2,.4,.6,.8,1.0]:
+        left,top=max(0,int(x+h*fraction)),max(0,int(y-2))
+        right,bottom=min(image.width,int(x+w+2)),min(image.height,int(y+h+2))
+        if right<=left or bottom<=top:continue
+        readings=runtime.read_line_variants(image.crop((left,top,right,bottom)),5)
+        timed=[r for r in readings if r.get('score',0)>=.95 and re.fullmatch(r'\d{2}:\d{2}',r.get('text','').strip())]
+        if {r['text'].strip() for r in timed}!={'03:00'}:continue
+        best=max(timed,key=lambda r:r['score'])
+        return [{**best,'box':[[left,top],[right,top],[right,bottom],[left,bottom]],
+            'source':'timer_digits_original_crop','cropBox':[left,top,right-left,bottom-top],
+            'originalText':row['text'],'originalScore':row['score'],'timeLimitEvidence':labels[0]}]
+    return []
+
+
 def _orange_reference_extent(root):
     raw=(root/'data/map/node-orange.png').read_bytes()
     image=Image.open(io.BytesIO(raw)).convert('RGB');hsv=cv2.cvtColor(np.asarray(image),cv2.COLOR_RGB2HSV)
@@ -82,6 +116,9 @@ def inspect_preview_identity(image,packet):
     enters=[r for r in evidence if re.sub(r'\s+','',r.get('text','')).casefold() in ('進入','enter') and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>width*.5]
     timers=[r for r in evidence if r.get('text')=='03:00' and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>width*.5]
     ordinary=[r for r in evidence if '普通' in r.get('text','') and r.get('score',0)>=.65 and _box(r) and _box(r)[0]>width*.5]
+    english_difficulty=[r for r in evidence if r.get('text','').strip().casefold()=='difficulty' and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>width*.5]
+    if not timers and len(enters)==1 and (len(ordinary)==1 or len(english_difficulty)==1):
+        timers=_timer_original_crop(image,evidence)
     if not ordinary and len(enters)==1 and len(timers)==1 and enters[0].get('text','').strip().casefold()=='enter':
         ordinary=_english_ordinary_crop(image,evidence)
     if len(enters)!=1 or len(timers)!=1 or len(ordinary)!=1:return unknown
@@ -239,4 +276,5 @@ def inspect_preview_identity(image,packet):
     return {'verified':True,'method':'unique_uncompleted_battle_green_outline_and_ordinary_timer_enter',
         'pixelSha256':digest,'selectedNode':{'verified':True,'zone':progress['displayedZone'],'floor':node['floor'],'column':node['column'],
           'nodeId':node['id'],'box':node['box'],'ringCoverage':node['ringCoverage'],'quadrants':node['quadrants']},
-        'controlsVerified':True,'enterBox':buttons[0],'timerBox':tb,'ordinaryBox':ob,'ordinaryEvidence':ordinary_evidence,'recoveredNodes':recovered,'recoveredMapReview':recovered_map,'actionsExecuted':False}
+        'controlsVerified':True,'enterBox':buttons[0],'timerBox':tb,'timerEvidence':timers[0],
+        'ordinaryBox':ob,'ordinaryEvidence':ordinary_evidence,'recoveredNodes':recovered,'recoveredMapReview':recovered_map,'actionsExecuted':False}

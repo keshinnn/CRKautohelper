@@ -1,17 +1,17 @@
 # Graph Report - CRK-Helper-V2  (2026-10-25)
 
 ## Corpus Check
-- 112 files · ~48,665 words
+- 113 files · ~49,030 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 1 file(s) not represented in the graph (top: (none) 1)
 
 ## Summary
-- 715 nodes · 1633 edges · 47 communities (36 shown, 11 thin omitted)
-- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 121 edges (avg confidence: 0.87)
+- 725 nodes · 1663 edges · 45 communities (35 shown, 10 thin omitted)
+- Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 128 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `24362089`
+- Built from commit: `c55174bb`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -27,12 +27,12 @@
 - evidence.test.cjs
 - CRK Helper V2 P4-C 正式集合與隨機壓力測試
 - replay-development.cjs
-- PreviewAnchorTracker
+- analyze_cases.py
 - RandomReplayPlanTests
 - CRK Helper V2 P0–P3 Implementation Plan
 - P4-C 開發進度：尚未正式驗收
 - preview-session.cjs
-- random_replay_plan.py
+- RandomClientTransformTests
 - observe-image.cjs
 - ref_node_fs
 - observer-adapter.test.cjs
@@ -57,18 +57,16 @@
 - node-selector.cjs
 - MapAspectTests
 - PreviewSession
-- OfflineAnalyzerTests
-- preview-session.test.cjs
+- replay-saved.cjs
 - higher-floor-replay.test.cjs
-- review-regressions.test.cjs
 - replay-runner.cjs
 
 ## God Nodes (most connected - your core abstractions)
-1. `BoundedOCRRuntime` - 28 edges
-2. `main()` - 20 edges
-3. `BoundedOCRRuntime` - 20 edges
-4. `inspect_preview_identity()` - 20 edges
-5. `P4-C 開發進度：尚未正式驗收` - 19 edges
+1. `BoundedOCRRuntime` - 31 edges
+2. `BoundedOCRRuntime` - 21 edges
+3. `inspect_preview_identity()` - 21 edges
+4. `main()` - 20 edges
+5. `P4-C 開發進度：尚未正式驗收` - 20 edges
 6. `adaptMap()` - 17 edges
 7. `adaptPreview()` - 16 edges
 8. `MapAspectTests` - 16 edges
@@ -76,6 +74,8 @@
 10. `inspect_map_actions()` - 15 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `observe()` --calls--> `adaptMap()`  [EXTRACTED]
+  tests/map-aspect-adapter.test.cjs → lib/observer-adapter.cjs
 - `AspectPreviewTests` --uses--> `BoundedOCRRuntime`  [INFERRED]
   tests/test_aspect_preview.py → ml/bounded_ocr.py
 - `BoundedOCRRuntime` --uses--> `BoundedOCRRuntime`  [INFERRED]
@@ -84,21 +84,19 @@
   tests/test_bounded_ocr.py → ml/bounded_ocr.py
 - `EnglishPreviewTests` --uses--> `BoundedOCRRuntime`  [INFERRED]
   tests/test_english_preview.py → ml/bounded_ocr.py
-- `EnglishProgressTests` --uses--> `BoundedOCRRuntime`  [INFERRED]
-  tests/test_english_progress.py → ml/bounded_ocr.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (47 total, 11 thin omitted)
+## Communities (45 total, 10 thin omitted)
 
 ### Community 0 - "hashlib"
 Cohesion: 0.06
-Nodes (38): case_source_sha(), main(), source_frame_id(), inspect_in_progress(), _groups(), _match_group(), node_candidates(), _box() (+30 more)
+Nodes (44): inspect_in_progress(), _groups(), _match_group(), node_candidates(), _box(), freeze_corpus(), main(), validate_corpus() (+36 more)
 
 ### Community 1 - "ref_node_assert"
-Cohesion: 0.13
-Nodes (19): clone(), frame(), intent, map(), preview(), assert, {map,intent,clone}, {selectNode,validateProof} (+11 more)
+Cohesion: 0.11
+Nodes (24): clone(), frame(), intent, map(), preview(), assert, {map,intent,clone}, {selectNode,validateProof} (+16 more)
 
 ### Community 2 - "BoundedOCRRuntime"
 Cohesion: 0.19
@@ -118,11 +116,11 @@ Nodes (25): 10. 本次有條件批准與執行順序, 11. P0–P3 核心實作�
 
 ### Community 6 - "accept-replay.cjs"
 Cohesion: 0.15
-Nodes (15): evaluateDevelopmentReplay(), evaluateReplay(), gradeReplay(), {adaptMap,adaptPreview}, {captureCodeVersion}, {compareSnapshot}, crypto, {evaluateReplay} (+7 more)
+Nodes (16): writeCaseArtifacts(), evaluateDevelopmentReplay(), evaluateReplay(), gradeReplay(), {adaptMap,adaptPreview}, {captureCodeVersion}, {compareSnapshot}, crypto (+8 more)
 
 ### Community 7 - "observer-adapter.cjs"
-Cohesion: 0.14
-Nodes (21): writeCaseArtifacts(), adaptMap(), adaptPreview(), aspectGeometry(), bind(), crypto, {isDeepStrictEqual}, mapActions() (+13 more)
+Cohesion: 0.26
+Nodes (13): boxValid(), adaptMap(), adaptPreview(), aspectGeometry(), bind(), crypto, {isDeepStrictEqual}, mapActions() (+5 more)
 
 ### Community 8 - "evidence.test.cjs"
 Cohesion: 0.10
@@ -130,15 +128,15 @@ Nodes (22): compareSnapshot(), crypto, digest(), fs, locate(), milestoneResult()
 
 ### Community 9 - "CRK Helper V2 P4-C 正式集合與隨機壓力測試"
 Cohesion: 0.08
-Nodes (23): Actual native map-title OCR truncation repair brief, Actual watermarked Chinese title context repair brief, CRK Helper V2 P4-C 正式集合與隨機壓力測試, Current evidence, English source development repair brief (2026-10-25), G0多來源影格與快取隔離 brief, G0追加實作 brief：實際OCR資產與runtime可追溯, G2評分器校正與開發報告 (+15 more)
+Nodes (24): Actual native map-title OCR truncation repair brief, Actual watermarked Chinese title context repair brief, CRK Helper V2 P4-C 正式集合與隨機壓力測試, Current evidence, English source development repair brief (2026-10-25), G0多來源影格與快取隔離 brief, G0追加實作 brief：實際OCR資產與runtime可追溯, G2評分器校正與開發報告 (+16 more)
 
 ### Community 10 - "replay-development.cjs"
-Cohesion: 0.15
-Nodes (14): buildReplayGate(), crypto, fs, invalid(), loadReplayFrames(), sha(), {adaptMap,adaptPreview}, assert (+6 more)
+Cohesion: 0.13
+Nodes (15): buildReplayGate(), crypto, fs, invalid(), loadReplayFrames(), sha(), {adaptMap,adaptPreview}, assert (+7 more)
 
-### Community 11 - "PreviewAnchorTracker"
-Cohesion: 0.24
-Nodes (4): PreviewAnchorTracker, PreviewAnchorTracker, PreviewRegistrationTests, recover_preview_anchor()
+### Community 11 - "analyze_cases.py"
+Cohesion: 0.07
+Nodes (9): case_source_sha(), main(), source_frame_id(), PreviewAnchorTracker, capture_runtime_evidence(), OfflineAnalyzerTests, PreviewAnchorTracker, PreviewRegistrationTests (+1 more)
 
 ### Community 12 - "RandomReplayPlanTests"
 Cohesion: 0.38
@@ -150,35 +148,35 @@ Nodes (12): CRK Helper V2 P0–P3 Implementation Plan, Global Constraints, Revie
 
 ### Community 14 - "P4-C 開發進度：尚未正式驗收"
 Cohesion: 0.10
-Nodes (19): 2026-10-25：區域10、人工標註及多來源隔離, 2026-10-25 延續驗證, LX46 英文與浮水印開發驗證（2026-10-25）, P4-C 開發進度：尚未正式驗收, 三種尺寸流程試跑通過, 來源修訂與浮水印場景（最新）, 原生960×720的三段新閉環, 尚待完成 (+11 more)
+Nodes (20): 2026-10-25：區域10、人工標註及多來源隔離, 2026-10-25 延續驗證, LX46 英文與浮水印開發驗證（2026-10-25）, P4-C 開發進度：尚未正式驗收, 三種尺寸流程試跑通過, 來源修訂與浮水印場景（最新）, 原生960×720的三段新閉環, 尚待完成 (+12 more)
 
 ### Community 15 - "preview-session.cjs"
 Cohesion: 0.16
 Nodes (11): active, { createGeometry, clientToScreen }, crypto, { validateProof, validateFrame }, { verifyPreview }, verifyPreview(), assert, {map,intent,preview} (+3 more)
 
-### Community 16 - "random_replay_plan.py"
-Cohesion: 0.15
-Nodes (12): inverse_point(), sample_layout(), transform_box(), transform_png(), _box(), _frame(), plan_sequences(), render_sequences() (+4 more)
+### Community 16 - "RandomClientTransformTests"
+Cohesion: 0.33
+Nodes (3): inverse_point(), RandomClientTransformTests, sample_layout()
 
 ### Community 17 - "observe-image.cjs"
 Cohesion: 0.15
 Nodes (12): {adaptMap,adaptPreview}, bundle, crypto, frame, fs, id, packet, path (+4 more)
 
 ### Community 18 - "ref_node_fs"
-Cohesion: 0.08
-Nodes (19): crypto, fs, path, {spawnSync}, assert, fs, os, path (+11 more)
+Cohesion: 0.10
+Nodes (15): assert, fs, os, path, {test}, {writeCaseArtifacts}, assert, fs (+7 more)
 
 ### Community 19 - "observer-adapter.test.cjs"
 Cohesion: 0.20
 Nodes (6): {adaptMap,adaptPreview}, assert, crypto, fs, path, {test}
 
 ### Community 20 - "ref_node_crypto"
-Cohesion: 0.15
-Nodes (10): crypto, {execFileSync}, fs, path, assert, crypto, fs, path (+2 more)
+Cohesion: 0.12
+Nodes (14): crypto, fs, path, {spawnSync}, crypto, {execFileSync}, fs, path (+6 more)
 
 ### Community 21 - "replay-development.cjs"
 Cohesion: 0.16
-Nodes (13): captureCodeVersion(), walk(), {adaptMap,adaptPreview}, {buildReplayGate,loadReplayFrames}, {captureCodeVersion}, crypto, {evaluateDevelopmentReplay}, fs (+5 more)
+Nodes (14): runReplay(), captureCodeVersion(), walk(), {adaptMap,adaptPreview}, {buildReplayGate,loadReplayFrames}, {captureCodeVersion}, crypto, {evaluateDevelopmentReplay} (+6 more)
 
 ### Community 22 - "ProgressRuntime"
 Cohesion: 0.23
@@ -197,8 +195,8 @@ Cohesion: 0.50
 Nodes (3): P4-B 固定縮放閉環結果, 失敗導向修正, 重現
 
 ### Community 32 - "BoundedOCRRuntime"
-Cohesion: 0.22
-Nodes (3): BoundedOCRRuntime, BoundedOCRTests, normalize_evidence()
+Cohesion: 0.18
+Nodes (4): BoundedOCRRuntime, BoundedOCRTests, normalize_evidence(), PreviewTimerTests
 
 ### Community 34 - "ProgressRuntime"
 Cohesion: 0.31
@@ -213,46 +211,42 @@ Cohesion: 0.31
 Nodes (3): EnglishSceneRuntime, semantic_state(), EnglishSceneTests
 
 ### Community 39 - "node-selector.cjs"
-Cohesion: 0.40
-Nodes (9): boxValid(), fail(), freeze(), iou(), issued, numbers(), selectNode(), validateFrame() (+1 more)
+Cohesion: 0.18
+Nodes (15): fail(), freeze(), iou(), issued, numbers(), selectNode(), validateFrame(), validateProof() (+7 more)
 
 ### Community 40 - "MapAspectTests"
 Cohesion: 0.22
 Nodes (3): estimate_pixel_aspect(), MapAspectTests, recover_map_aspect()
 
-### Community 43 - "preview-session.test.cjs"
+### Community 42 - "replay-saved.cjs"
 Cohesion: 0.29
-Nodes (6): assert, {map,intent,preview,clone}, {PreviewSession}, {selectNode}, setup(), {test}
+Nodes (6): {adaptMap,adaptPreview}, crypto, fs, path, {runReplay}, {writeCaseArtifacts}
 
 ### Community 44 - "higher-floor-replay.test.cjs"
 Cohesion: 0.22
 Nodes (7): {adaptMap,adaptPreview}, assert, crypto, fs, path, {runReplay}, {test}
-
-### Community 45 - "review-regressions.test.cjs"
-Cohesion: 0.29
-Nodes (6): assert, {map,intent,preview}, {PreviewSession}, {selectNode}, setup(), {test}
 
 ### Community 46 - "replay-runner.cjs"
 Cohesion: 0.40
 Nodes (3): {performance}, {PreviewSession}, {selectNode}
 
 ## Knowledge Gaps
-- **11 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `BoundedOCRRuntime` connect `BoundedOCRRuntime` to `hashlib`, `EnglishPreviewTests`, `BoundedOCRRuntime`, `inspect_preview_identity`, `EnglishSceneRuntime`, `ProgressRuntime`, `MapTitleRereadTests`, `ProgressRuntime`?**
-  _High betweenness centrality (0.019) - this node is a cross-community bridge._
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
+- **Are the 21 inferred relationships involving `BoundedOCRRuntime` (e.g. with `.test_actual_anisotropic_preview_recovers_selected_node_using_vertical_spacing()` and `.test_actual_post_resize_preview_sizes_icon_from_same_frame_orange_circle()`) actually correct?**
+  _`BoundedOCRRuntime` has 21 INFERRED edges - model-reasoned connections that need verification._
 - **Should `hashlib` be split into smaller, more focused modules?**
-  _Cohesion score 0.056495301271420675 - nodes in this community are weakly interconnected._
-- **Why does `BoundedOCRRuntime` connect `BoundedOCRRuntime` to `hashlib`, `EnglishPreviewTests`, `BoundedOCRRuntime`, `inspect_preview_identity`, `EnglishSceneRuntime`, `ProgressRuntime`, `MapTitleRereadTests`, `ProgressRuntime`?**
+  _Cohesion score 0.05651131268897925 - nodes in this community are weakly interconnected._
+- **Why does `BoundedOCRRuntime` connect `BoundedOCRRuntime` to `hashlib`, `BoundedOCRRuntime`, `EnglishPreviewTests`, `inspect_preview_identity`, `EnglishSceneRuntime`, `ProgressRuntime`, `MapTitleRereadTests`, `analyze_cases.py`, `ProgressRuntime`?**
   _High betweenness centrality (0.017) - this node is a cross-community bridge._
 - **Should `ref_node_assert` be split into smaller, more focused modules?**
-  _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
-- **Why does `OfflineAnalyzerTests` connect `OfflineAnalyzerTests` to `hashlib`?**
+  _Cohesion score 0.10837438423645321 - nodes in this community are weakly interconnected._
+- **Why does `OfflineAnalyzerTests` connect `analyze_cases.py` to `hashlib`?**
   _High betweenness centrality (0.012) - this node is a cross-community bridge._
 - **Should `inspect_map_actions` be split into smaller, more focused modules?**
   _Cohesion score 0.12807881773399016 - nodes in this community are weakly interconnected._
-- **Should `CRK Helper V2：失敗導向重構設計與分階段驗收` be split into smaller, more focused modules?**
-  _Cohesion score 0.07692307692307693 - nodes in this community are weakly interconnected._
