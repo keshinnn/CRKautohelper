@@ -10,6 +10,19 @@ except ImportError:
     def recover_map_aspect(image,packet):return packet['mapReview']
 
 class MapAspectTests(unittest.TestCase):
+    def test_actual_small_source_node_measures_outer_box_from_verified_icon_core(self):
+        m=json.loads((ROOT/'artifacts/p4c-random-development-60-run-06/zone-9-first-battle-random-fixed/analysis/manifest.json').read_text(encoding='utf-8'))
+        c=m['cases'][0]
+        for f in c['frames'][:2]:
+            p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+            with Image.open(f['image']) as image:result=recover_map_aspect(image,p)
+            n=next(n for n in result['nodes'] if n.get('floor')==1 and n.get('column')==4)
+            a,b=n['box'],c['expectedBox']
+            intersection=max(0,min(a[0]+a[2],b[0]+b[2])-max(a[0],b[0]))*max(0,min(a[1]+a[3],b[1]+b[3])-max(a[1],b[1]))
+            self.assertGreaterEqual(intersection/(a[2]*a[3]+b[2]*b[3]-intersection),.9)
+            self.assertEqual(n['score'],next(n for n in p['mapReview']['nodes'] if n.get('floor')==1 and n.get('column')==4)['score'])
+            self.assertGreaterEqual(n['orangeRefinement']['iconCoreEvidence']['score'],.9)
+
     def test_actual_early_preview_uses_original_icon_core_without_relaxing_score(self):
         from bounded_ocr import BoundedOCRRuntime
         from preview_identity import inspect_preview_identity

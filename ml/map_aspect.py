@@ -337,7 +337,7 @@ def recover_map_aspect(image, packet):
                     matches.append((index, cx, cy))
             if len(matches) == 1:
                 index, cx, cy = matches[0]
-                measured=_orange_node_pixel_geometry(rgb,[x*inverse_x,y,w*inverse_x,h],root,digest)
+                measured=_orange_node_pixel_geometry(rgb,[x*inverse_x,y,w*inverse_x,h],root,digest,allow_icon_core=True)
                 if measured is not None:
                     (bx,by,bw,bh),proof=measured
                     node['orangeRefinement']={**proof,'candidateIndex':index,
