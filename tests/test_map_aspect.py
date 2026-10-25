@@ -74,4 +74,34 @@ class MapAspectTests(unittest.TestCase):
         self.assertGreaterEqual(area/(a[2]*a[3]+b[2]*b[3]-area),.95)
         self.assertLessEqual(__import__('math').hypot(a[0]+a[2]/2-b[0]-b[2]/2,a[1]+a[3]/2-b[1]-b[3]/2),min(b[2:])*.02)
 
+    def test_actual_static_gate_keeps_geometry_when_outer_template_variant_changes(self):
+        manifest=json.loads((ROOT/'artifacts/p4c-random-development-60-run-01/zone-2-first-battle-random-fixed/analysis/manifest.json').read_text(encoding='utf-8'))
+        gates=[]
+        for f in manifest['cases'][0]['frames'][:2]:
+            image=Image.open(f['image']).convert('RGB');p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+            result=recover_map_aspect(image,p);gate=next(n for n in result['nodes'] if n['type']=='exit');gates.append(gate['box'])
+        a,b=gates;area=max(0,min(a[0]+a[2],b[0]+b[2])-max(a[0],b[0]))*max(0,min(a[1]+a[3],b[1]+b[3])-max(a[1],b[1]))
+        self.assertGreaterEqual(area/(a[2]*a[3]+b[2]*b[3]-area),.95)
+
+    def test_gate_geometry_cannot_use_a_cyan_blob_without_actual_arrow_pixels(self):
+        import numpy as np
+        from map_aspect import _gate_pixel_geometry
+        manifest=json.loads((ROOT/'artifacts/p4c-random-development-60-run-01/zone-2-first-battle-random-fixed/analysis/manifest.json').read_text(encoding='utf-8'))
+        f=manifest['cases'][0]['frames'][0];image=Image.open(f['image']).convert('RGB')
+        p=json.loads(Path(f['packet']).read_text(encoding='utf-8'));gate=next(n for n in p['mapReview']['nodes'] if n['type']=='exit')
+        self.assertIsNotNone(_gate_pixel_geometry(image,gate['box'],Path('F:/CRK helper'),hashlib.sha256(image.tobytes()).hexdigest()))
+        a=np.array(image);x,y,w,h=gate['box'];region=a[int(y):int(y+h+1),int(x):int(x+w+1)]
+        white=(region.min(2)>140)&(region.max(2).astype(float)-region.min(2)<80)
+        region[white]=[30,130,170];image=Image.fromarray(a)
+        self.assertIsNone(_gate_pixel_geometry(image,gate['box'],Path('F:/CRK helper'),hashlib.sha256(a.tobytes()).hexdigest()))
+
+    def test_partial_bottom_node_is_not_refined_outside_actual_image(self):
+        manifest=json.loads((ROOT/'artifacts/p4c-aspect-zone2-fixed-analysis-01/manifest.json').read_text(encoding='utf-8'))
+        f=manifest['cases'][0]['frames'][9];image=Image.open(f['image']).convert('RGB')
+        p=json.loads(Path(f['packet']).read_text(encoding='utf-8'));result=recover_map_aspect(image,p)
+        w,h=result['aspectRectification']['rectifiedInputSize']
+        for n in result['nodes']:
+            x,y,nw,nh=n['analysisBox'];self.assertGreaterEqual(min(x,y),0)
+            self.assertLessEqual(x+nw,w);self.assertLessEqual(y+nh,h)
+
 if __name__=='__main__':unittest.main()

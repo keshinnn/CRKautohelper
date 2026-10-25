@@ -16,12 +16,12 @@
 
 ## Current evidence
 
-- P4-A：`artifacts/p4a-acceptance-03-versioned/report.json`，5/5。
-- P4-B：`artifacts/p4b-acceptance-02/report.json`，15/15。
-- 目前所有已驗收來源僅第一層；不能假裝已涵蓋更高層。
-- `artifacts/p4c-*-navigation*`是未核對導航候選，不是30個合格互動。
-- `artifacts/p4c-observer-profile.txt`為診斷，不是G4效能報告。
-- P5沒有批准；不啟動任何原生點擊、技能輸入或正式遠征。
+- P4-A歷史原生里程碑5/5；P4-B最新比例回歸`artifacts/p4c-aspect-fixed-15-acceptance-01/report.json`15/15，保留實際分析版本。
+- `artifacts/p4c-aspect-native-20-replay-01/report.json`原生開發20/20，含更高樓層及四部影片；1551張地圖與原本新鮮核心結果完全一致，重用核心證據不算新鮮效能。
+- `artifacts/p4c-random-pilot-replay-08/report.json`首段三種變換3/3；仍只有一個原始互動。
+- 完整90組／9042張來源PNG正在產生。開發60組先逐組辨識並立即回放，遇第一失敗停該輪；保留30組尚未推論。
+- 第一輪60組已在第4組`zone-2-first-battle-random-fixed`因入口外框模板切換而停止，0點擊；前3組通過不構成60組完成。入口像素修正的實作／回歸正在驗證。
+- 正式負例與最新隔離暖機p95尚未驗收，G4false。V1正式流程不變，P5未批准。
 
 ## Task 2追加實作 brief：預覽自動捲動後的身份
 
@@ -124,3 +124,8 @@ Actual115PNGpilot exposed three distinct failures; retain all prior outputs. Fir
 Second pre-change actual2541 shows nonexit panelheadericon above unique visible topgate, causing spurious extra column. In aspect normalization only, retain excluded candidates at/above measuredgate, then run unchanged existing sparse-lattice solver and actual connecting-line checks on same normalizedimage. No map history/intent/annotation, no OCRconfidence promotion. Record candidateScope and originalnormalizedpixelSHA.
 
 Third post-old pair2514/2520 has identical measured orange inner ellipse while exhaustive outer-template boxes jitter (IoU.92282358). Do not lower selector .95IoU/2%center tolerance. For a battle candidate, permit center refinement only from one enclosed orange-circle consensus member in that same frame, within5%shortside of original model center; preserve original width/height, original analysisbox/center, candidateindex. No temporal smoothing or copiedpriorcoords. Node validates consensusmembership/sourcecirclecenter/enclosure/originalsize/displacement plus existing sourcebinding/inverseprojection. Actualpixelstablepair RED->GREEN, corruptedcircleindex rejects. Originalnative near1 unchanged. Full current115framepilot andfullsuites must be rerun; neither thispilot nor anysubset equalsG4.
+
+
+### Task2/4 actual gate variant failure
+
+First full-development randomrun01 stops on case4 zone2fixed1471x777 MAP_MOVING withzero clicks. Actual12318/12324 target orange geometry is stable, but exit template switches node-live-exit (119.52x91.10) to node-b-exit (113.40x79.42); gateIoU.82715. Do not relax selector or change frozen prepair. A unique cyan inner component of the measured same-frame exit candidate has identical actualsourcebox[732,262,83,59]. Original node-exit template innerextent[9,9,40,41] over58x58 yields canonical sourceouterbox[713.325,249.04878,120.35,83.46341]; actualindependent innerRGB scores.96948/.96961. New aspect-only refinement requires unique centered cyancomponent, candidate-size limits, actualoriginaltemplate arrow match>=.9 and outerdimension within15%originalmodel box. Store originalmodel analysisbox/center, sourceinnerpixelbox, templateSHA/size/innerextent and actualscore. Node must recompute geometry and reject wrongpixelproof. Actual stablegate RED->GREEN and erased-arrow cyanblob negative; targetIoU/line/scene/current gates unchanged. Re-run failedcase and previous3pilot cases, fullsuites before continuing60. Native near1 remainsno-op. Never count source rendering as inference or G4.

@@ -204,7 +204,13 @@ def inspect_preview_identity(image,packet):
                             corr=float(cv2.matchTemplate(qg,refg,cv2.TM_CCOEFF_NORMED)[0,0]);score=.7*corr+.3*(1-np.abs(q.astype(float)-ref).mean()/255)
                             scores.append((float(score),name))
                         scores.sort(reverse=True)
+                        # Each measured size is a separate crop hypothesis.
+                        # A stronger match to another template at another size
+                        # must not discard a crop that independently clears
+                        # both unchanged ordinary-icon thresholds.
+                        if aspect and (scores[0][1]!='node-orange' or scores[0][0]<.9 or scores[0][0]-scores[1][0]<.08):continue
                         if best is None or scores[0][0]>best[0][0][0]:best=(scores,dx,dy,candidate_box,measured_sizes.get((candidate_w,candidate_h)))
+            if best is None:continue
             ranks,dx,dy,box,size_evidence=best
             if ranks[0][0]<.9 or ranks[0][0]-ranks[1][0]<.08 or ranks[0][1]!='node-orange':continue
             candidate['box']=box

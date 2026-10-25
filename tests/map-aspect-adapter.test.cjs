@@ -78,3 +78,27 @@ print(json.dumps(packets))
  altered.mapReview.nodes.find(n=>n.id===proof.nodeId).centerRefinement.candidateIndex=999;
  assert.equal(observe(frames[1],altered).verified,false);
 });
+
+test('static gate arrow pixels support actual second-source selection and require bound proof',()=>{
+ const {execFileSync}=require('node:child_process');
+ const source='artifacts/p4c-random-development-60-run-01/zone-2-first-battle-random-fixed/analysis/manifest.json';
+ const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
+import json,sys,pathlib
+sys.path[:0]=['ml','F:/CRK helper/ml']
+from PIL import Image
+from map_aspect import recover_map_aspect
+from map_action_evidence import inspect_map_actions
+m=json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'));packets=[]
+for f in m['cases'][0]['frames'][:2]:
+ p=json.loads(pathlib.Path(f['packet']).read_text(encoding='utf-8'))
+ with Image.open(f['image']) as im:
+  p['mapReview']=recover_map_aspect(im,p);p['v2MapActions']=inspect_map_actions(im,p)
+ packets.append(p)
+print(json.dumps(packets))
+`,source],{cwd:path.join(__dirname,'..'),maxBuffer:10*1024*1024});
+ const m=JSON.parse(fs.readFileSync(path.join(__dirname,'..',source))),c=m.cases[0],frames=loadReplayFrames(c),packets=JSON.parse(raw);
+ const a=observe(frames[0],packets[0]),b=observe(frames[1],packets[1]);
+ assert.equal(selectNode(a,b,c.intent,{nowMs:b.frame.atMs}).nodeId,'visible-1-2');
+ const altered=structuredClone(packets[1]);altered.mapReview.nodes.find(n=>n.type==='exit').gateRefinement.pixelSha256='0'.repeat(64);
+ assert.equal(observe(frames[1],altered).verified,false);
+});

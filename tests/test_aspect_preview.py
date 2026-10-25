@@ -32,6 +32,18 @@ class AspectPreviewTests(unittest.TestCase):
         self.assertGreaterEqual(result['recoveredNodes'][0]['iconScore'],.9)
         self.assertEqual(result['recoveredNodes'][0]['iconSizeEvidence']['method'],'same_frame_orange_circle_and_original_template_extent')
 
+    def test_actual_preview_keeps_valid_orange_match_when_another_size_matches_other_template(self):
+        m=json.loads((ROOT/'artifacts/p4c-aspect-zone2-fixed-analysis-02/manifest.json').read_text(encoding='utf-8'))
+        with BoundedOCRRuntime(960):
+            for index in [12347,12348,12358]:
+                with self.subTest(index=index):
+                    f=next(f for f in m['cases'][0]['frames'] if f['frameIndex']==index)
+                    p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+                    with Image.open(f['image']) as image:result=inspect_preview_identity(image,p)
+                    self.assertTrue(result['verified'])
+                    self.assertEqual([result['selectedNode'][k] for k in ['zone','floor','column']],[2,1,2])
+                    self.assertGreaterEqual(result['recoveredNodes'][0]['iconScore'],.9)
+
     def test_erased_selected_green_pixels_with_fresh_geometry_cannot_confirm(self):
         image,p=self.fixture();a=np.array(image);hsv=cv2.cvtColor(a,cv2.COLOR_RGB2HSV)
         # Erase all selected-outline green, including unrelated green controls;

@@ -85,6 +85,46 @@ def estimate_pixel_aspect(image):
     }
 
 
+def _cyan_component(image, box):
+    x,y,w,h=box
+    left,top,right,bottom=int(x),int(y),math.ceil(x+w),math.ceil(y+h)
+    if min(left,top)<0 or right>image.width or bottom>image.height:return None
+    rgb=np.asarray(image.crop((left,top,right,bottom)))
+    mask=cv2.inRange(cv2.cvtColor(rgb,cv2.COLOR_RGB2HSV),(75,110,130),(105,255,255))
+    contours,_=cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE);matches=[]
+    for contour in contours:
+        bx,by,bw,bh=cv2.boundingRect(contour);area=cv2.contourArea(contour)
+        if (not w*.5<bw<w*.9 or not h*.5<bh<h*.9 or area/(bw*bh)<.65
+                or math.hypot(left+bx+bw/2-x-w/2,top+by+bh/2-y-h/2)>min(w,h)*.08):continue
+        matches.append([left+bx,top+by,bw,bh])
+    return matches[0] if len(matches)==1 else None
+
+
+def _gate_pixel_geometry(image, box, root, digest):
+    measured=_cyan_component(image,box)
+    if measured is None:return None
+    raw=(root/'data/map/node-exit.png').read_bytes()
+    reference=Image.open(io.BytesIO(raw)).convert('RGB')
+    extent=_cyan_component(reference,[0,0,*reference.size])
+    if extent is None:return None
+    x,y,w,h=measured;rx,ry,rw,rh=extent
+    actual=cv2.resize(np.asarray(image.crop((x,y,x+w,y+h))),(rw,rh),interpolation=cv2.INTER_AREA)
+    expected=np.asarray(reference.crop((rx,ry,rx+rw,ry+rh)))
+    correlation=float(cv2.matchTemplate(cv2.cvtColor(actual,cv2.COLOR_RGB2GRAY),cv2.cvtColor(expected,cv2.COLOR_RGB2GRAY),cv2.TM_CCOEFF_NORMED)[0,0])
+    score=.7*correlation+.3*(1-np.abs(actual.astype(float)-expected).mean()/255)
+    if not .9<=score<=1:return None
+    sx,sy=w/rw,h/rh
+    result=[x-rx*sx,y-ry*sy,reference.width*sx,reference.height*sy]
+    if (min(result[:2])<0 or result[0]+result[2]>image.width or result[1]+result[3]>image.height
+            or not .85*box[2]<=result[2]<=1.15*box[2] or not .85*box[3]<=result[3]<=1.15*box[3]):return None
+    return result,{
+        'method':'same_frame_cyan_gate_arrow_and_original_template_extent',
+        'pixelSha256':digest,'sourceInnerBox':measured,'templateInnerBox':extent,
+        'templateSize':list(reference.size),'templateImageSha256':hashlib.sha256(raw).hexdigest(),
+        'innerScore':float(score),'actionsExecuted':False,
+    }
+
+
 def recover_map_aspect(image, packet):
     original = packet.get('mapReview')
     if not isinstance(original, dict):
@@ -140,6 +180,15 @@ def recover_map_aspect(image, packet):
     result = copy.deepcopy(result)
     inverse_x = rgb.width / normalized.width
     for node in result['nodes']:
+        if node.get('type') == 'exit':
+            x,y,w,h=node['box']
+            measured=_gate_pixel_geometry(rgb,[x*inverse_x,y,w*inverse_x,h],root,digest)
+            if measured is not None:
+                (x,y,w,h),proof=measured
+                node['gateRefinement']={**proof,'originalAnalysisBox':list(node['box']),
+                    'originalAnalysisCenter':list(node['center'])}
+                node['box']=[x/inverse_x,y,w/inverse_x,h]
+                node['center']=[(x+w/2)/inverse_x,y+h/2]
         if node.get('type') == 'battle' and node.get('completed') is False:
             x, y, w, h = node['box']
             matches = []
@@ -149,6 +198,8 @@ def recover_map_aspect(image, packet):
                 bx, by, bw, bh = circle['box']
                 if (x <= bx / inverse_x and bx / inverse_x + bw / inverse_x <= x + w
                         and y <= by and by + bh <= y + h
+                        and 0 <= cx-w/2 and cx+w/2 <= normalized.width
+                        and 0 <= cy-h/2 and cy+h/2 <= normalized.height
                         and math.hypot(cx - node['center'][0], cy - node['center'][1]) <= min(w, h) * .05):
                     matches.append((index, cx, cy))
             if len(matches) == 1:
