@@ -125,7 +125,16 @@ class BoundedOCRRuntime:
         # though the two original text baselines are clearly separate.
         minimum_height=min(a[4],b[4])
         separation=(b[1]+b[3]-a[1]-a[3])/2
-        if separation<minimum_height*.75 or a[3]-b[1]>minimum_height*.15 or abs(a[0]-b[0])>max(a[4],b[4]):
+        horizontal_limit=max(a[4],b[4]);position_evidence=None
+        if abs(a[0]-b[0])>horizontal_limit:
+            from map_aspect import estimate_pixel_aspect
+            calibration=estimate_pixel_aspect(image)
+            if calibration is not None and calibration['ratio']>1:
+                horizontal_limit*=calibration['ratio']
+                position_evidence={'method':'same_frame_pixel_aspect_horizontal_indent',
+                    'pixelAspect':calibration['ratio'],'pixelSha256':calibration['pixelSha256'],
+                    'sourceSize':calibration['sourceSize'],'calibrationMethod':calibration['method']}
+        if separation<minimum_height*.75 or a[3]-b[1]>minimum_height*.15 or abs(a[0]-b[0])>horizontal_limit:
             if not any(r.get('source')=='bounded_map_title_crop_ocr' for r in season_candidates):
                 # Reuse the existing bounded original-pixel detector retry to
                 # obtain a tighter quadrilateral; never relax the line gate.
@@ -157,6 +166,7 @@ class BoundedOCRRuntime:
             if len(keys)!=1:return rows
             best=max(matches,key=lambda r:r['score']);left,top,endx,endy=best.pop('actualCropBox')
             fresh.append({**best,'box':[[left,top],[endx,top],[endx,endy],[left,endy]],'source':'map_context_original_crop','contextKind':kind,'cropBox':[left,top,endx-left,endy-top],'originalText':row['text'],'originalScore':row['score']})
+            if position_evidence:fresh[-1]['positionEvidence']=position_evidence
         return [*rows,*fresh]
 
     def take_metadata(self):

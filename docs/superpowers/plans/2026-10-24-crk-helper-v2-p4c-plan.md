@@ -52,6 +52,14 @@ The same pre-change sequence has1366x1074 preframes and measured pixel-aspect.94
 
 Exact equality with old native V2 map output is a diagnostic, not a user requirement to freeze V2 predictions. The new near-native path changes relative candidates in actual native0Q46047 (old and new absolute anchors bothfalse); preserve that difference and audit it, do not silently call all1551maps unchanged or alter thresholds merely to pass an equivalence check. Any lost previously valid absolute anchor stops the audit; current full native replay must pass before G4. V1 files/assets and formal expedition remain untouched.
 
+## Actual second-floor case16 pixel evidence brief
+
+The1342x552 source14530/14540 has only two orange battle circles. Keep minimumthree, originalellipse/statistical/spatial gates and existingambiguity refusal. Only when no original qualified group exists, verify orange circles against original battle icon>=.9 and add exactlyone cyan gate validated by existing original arrow RGB>=.9. Atleasttwo verifiedbattlecircles plusone verifiedgate must form one median-closed consensus. OriginalHUDcoin fails the battleicon; erasedarrow fails the gate. Bind each additionalcircle's sourcepixel/template/innergeometry/score proof in Node before normalization grantsauthority. Existing three-orange path and genuine conflictingaspect groups remainunchanged.
+
+Actualheader sourcexindent33.5px versusrowheight24.5px is physically explained by measuredpixelaspect1.83, so the old isotropic horizontal-spacing check falsely blocks originalseason/time reread. Scale only that failing horizontal limit using independently validated same-frame pixelaspect>1, preserveall verticalseparation/overlap/uniqueness/crop/score rules andrecordposition evidence. Requireactualfreshfullseason/time labels>=.9; erasedtimer stillrejects. No sceneconfidence promotion.
+
+The completedfirst-row predecessor is missing from originaledgeproposals. A separate sourcepixel candidate may use actual greencheckcomponent, originaldone templates and onlysame-frame measuredpeer sizes; require doneRGB>=.9, gapagainstotherfamilies>=.08 and unchangedcheckmaskIoU>=.8. Recordsource/component/template/crop/alignment/peer/source-normalized-analysis geometry. Originalclassifier/lattice/connectingpixels assignIDs andfloors; independently rerun existing availability/completedpath masks afterward. Node validatesallbindings/peer geometry/scores, missingorcorruptedproof rejects. Do notinfercompletionfromstrategy, currentzone, intendedtarget or weakV1completedflag. Erasedoriginalcheck mustnotbereplacedbyrewardpanelcheck. Onlyminimumloop higherfloorcurrentproof is added; noexpedition orP5input.
+
 ## Task 3追加實作 brief：有尺寸證據的OCR前處理
 
 完整暖機診斷144樣本p95=4433.98ms，不能宣稱效能合格。實驗發現現有OCR的min模式不縮小大型輸入，而max模式會自動覆寫設定的上限；必須檢查實際送入模型的tensor，而非只記設定值。只改執行緒沒有解決問題。

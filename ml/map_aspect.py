@@ -13,6 +13,57 @@ import numpy as np
 from PIL import Image
 
 
+def _qualified_aspect_groups(candidates):
+    groups={tuple(i for i,q in enumerate(candidates) if abs(q['ratio']/p['ratio']-1)<.04) for p in candidates}
+    closed=set()
+    for group in groups:
+        seen=set()
+        while group and group not in seen:
+            seen.add(group);median=float(np.median([candidates[i]['ratio'] for i in group]))
+            next_group=tuple(i for i,q in enumerate(candidates) if abs(q['ratio']/median-1)<.04)
+            if next_group==group:
+                closed.add(group)
+                break
+            group=next_group
+    qualified=[]
+    for group in closed:
+        if len(group)<3:continue
+        members=[candidates[i] for i in group];ratios=[p['ratio'] for p in members];ratio=float(np.median(ratios))
+        if max(abs(v/ratio-1) for v in ratios)>.04 or np.std(ratios)/ratio>.025:continue
+        xs,ys=([p['center'][axis] for p in members] for axis in (0,1))
+        if max(xs)-min(xs)<np.median([p['box'][2] for p in members])*1.5 or max(ys)-min(ys)<np.median([p['box'][3] for p in members])*1.5:continue
+        qualified.append(group)
+    return [g for g in qualified if not any(set(g)<set(other) for other in qualified)]
+
+
+def _gate_supported_aspect_candidates(image,candidates,analysis,sx,sy,digest):
+    root=Path(os.environ.get('CRK_V1_ROOT','F:/CRK helper'));orange=[]
+    for q in candidates:
+        cx,cy=q['center'];w,h=q['box'][2]*58/37,q['box'][3]*58/37
+        measured=_orange_node_pixel_geometry(image,[cx-w/2,cy-h/2,w,h],root,digest,allow_icon_core=True)
+        if measured is not None:orange.append({**q,'circleKind':'orange_battle','iconEvidence':measured[1]})
+    if len(orange)<2:return []
+    mask=cv2.inRange(cv2.cvtColor(analysis,cv2.COLOR_RGB2HSV),(75,110,130),(105,255,255))
+    mask=cv2.morphologyEx(mask,cv2.MORPH_CLOSE,np.ones((3,3),np.uint8));gates=[]
+    for contour in cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)[0]:
+        x,y,w,h=cv2.boundingRect(contour);area=cv2.contourArea(contour);hull=cv2.contourArea(cv2.convexHull(contour))
+        if len(contour)<5 or min(w,h)<18 or max(w,h)>130 or area<200 or hull<=0 or area/hull<=.9:continue
+        (cx,cy),(ew,eh),angle=cv2.fitEllipse(contour)
+        if min(ew,eh)<=0 or not .9<area/(math.pi*ew*eh/4)<1.1:continue
+        theta=math.radians(angle);ex=math.hypot(ew*math.cos(theta),eh*math.sin(theta))/sx;ey=math.hypot(ew*math.sin(theta),eh*math.cos(theta))/sy;cx/=sx;cy/=sy
+        rough_ratio=ex/ey*41/40
+        if not .55<=rough_ratio<=2.5 or abs(rough_ratio-1)>.1 and abs(math.sin(theta*2))>.2:continue
+        rough=[cx-ex/2-9*ex/40,cy-ey/2-9*ey/41,58*ex/40,58*ey/41]
+        measured=_gate_pixel_geometry(image,rough,root,digest)
+        if measured is None:continue
+        _,proof=measured;bx,by,bw,bh=proof['sourceInnerBox'];rw,rh=proof['templateInnerBox'][2:];ratio=bw/bh*rh/rw
+        if not .55<=ratio<=2.5:continue
+        gates.append({'analysisBox':[x,y,w,h],'box':[bx,by,bw,bh],'center':[bx+bw/2,by+bh/2],
+            'ratio':ratio,'solidity':area/hull,'ellipseFill':area/(math.pi*ew*eh/4),'angleDegrees':angle,
+            'circleKind':'cyan_gate','iconEvidence':proof})
+    return [*orange,*gates] if len(gates)==1 else []
+
+
 def estimate_pixel_aspect(image):
     rgb = np.asarray(image.convert('RGB'))
     height, width = rgb.shape[:2]
@@ -52,45 +103,21 @@ def estimate_pixel_aspect(image):
             'center': [cx / sx, cy / sy], 'ratio': ratio,
             'solidity': solidity, 'ellipseFill': fill, 'angleDegrees': angle,
         })
-    groups = {
-        tuple(i for i, q in enumerate(candidates) if abs(q['ratio'] / p['ratio'] - 1) < .04)
-        for p in candidates
-    }
-    # A seed's neighbors need not be a consensus around their own median.
-    # Close each set against all measured candidates until its median agrees
-    # with its membership. Genuine separated aspect groups remain ambiguous.
-    closed=set()
-    for group in groups:
-        seen=set()
-        while group and group not in seen:
-            seen.add(group)
-            median=float(np.median([candidates[i]['ratio'] for i in group]))
-            next_group=tuple(i for i,q in enumerate(candidates) if abs(q['ratio']/median-1)<.04)
-            if next_group==group:
-                closed.add(group)
-                break
-            group=next_group
-    groups=closed
-    qualified = []
-    for group in groups:
-        if len(group) < 3:
-            continue
-        members = [candidates[i] for i in group]
-        ratios = [p['ratio'] for p in members]
-        ratio = float(np.median(ratios))
-        if max(abs(v / ratio - 1) for v in ratios) > .04 or np.std(ratios) / ratio > .025:
-            continue
-        xs, ys = ([p['center'][axis] for p in members] for axis in (0, 1))
-        if (max(xs) - min(xs) < np.median([p['box'][2] for p in members]) * 1.5
-                or max(ys) - min(ys) < np.median([p['box'][3] for p in members]) * 1.5):
-            continue
-        qualified.append(group)
-    qualified = [g for g in qualified if not any(set(g) < set(other) for other in qualified)]
+    qualified=_qualified_aspect_groups(candidates)
+    method='original_pixel_orange_circle_unique_aspect_consensus'
+    if not qualified:
+        supported=_gate_supported_aspect_candidates(image.convert('RGB'),candidates,analysis,sx,sy,hashlib.sha256(rgb.tobytes()).hexdigest())
+        supported_groups=_qualified_aspect_groups(supported)
+        if len(supported_groups)==1:
+            kinds=[supported[i]['circleKind'] for i in supported_groups[0]]
+            if kinds.count('orange_battle')>=2 and kinds.count('cyan_gate')==1:
+                candidates,qualified=supported,supported_groups
+                method='original_pixel_orange_and_gate_unique_aspect_consensus'
     if len(qualified) != 1:
         return None
     consensus = qualified[0]
     return {
-        'method': 'original_pixel_orange_circle_unique_aspect_consensus',
+        'method': method,
         'ratio': float(np.median([candidates[i]['ratio'] for i in consensus])),
         'pixelSha256': hashlib.sha256(rgb.tobytes()).hexdigest(),
         'sourceSize': [width, height], 'analysisSize': [960, ah],
@@ -239,6 +266,8 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
                 'rectifiedPixelSha256':normal_pixel,'analysisSize':analysis_size,'analysisPixelSha256':analysis_pixel,
                 'injectedAnalysisBox':[box[0]*fx,box[1]*fy,box[2]*fx,box[3]*fy],
                 'geometryEvidence':geometry,'actionsExecuted':False}})
+    from completed_node_candidates import completed_node_candidates
+    proposals+=completed_node_candidates(image,initial,inverse,root,binding,list(normalized.size),normal_pixel,analysis_size,analysis_pixel)
     if not proposals:return initial
     import map_vision
     from sparse_map_geometry import recover_map_geometry
@@ -261,6 +290,7 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
             if len(gates)==1:relative['nodes']=[n for n in relative['nodes'] if n.get('type')=='exit' or n['center'][1]>gates[0]['center'][1]]
             result=recover_map_geometry(normalized,{'binding':{'pixelSha256':normal_pixel,'imageSha256':normalized_sha},'mapReview':relative})
         if any(n.get('pixelProposal') and (n.get('type')!='battle' or n.get('completed') is not False) for n in result.get('nodes',[])):return initial
+        if any(n.get('checkProposal') and (n.get('type') in ('exit','boss') or n.get('completed') is not True) for n in result.get('nodes',[])):return initial
         return result
     finally:
         map_vision.node_candidates=original
@@ -332,6 +362,9 @@ def recover_map_aspect(image, packet):
             geometry=node['pixelProposal']['geometryEvidence']
             node['box']=list(geometry['originalAnalysisBox'])
             node['center']=list(geometry['originalAnalysisCenter'])
+        if node.get('checkProposal'):
+            node['box']=list(node['checkProposal']['originalAnalysisBox'])
+            node['center']=list(node['checkProposal']['originalAnalysisCenter'])
         if node.get('type') == 'exit':
             x,y,w,h=node['box']
             measured=_gate_pixel_geometry(rgb,[x*inverse_x,y,w*inverse_x,h],root,digest)

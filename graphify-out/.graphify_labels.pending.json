@@ -14,12 +14,11 @@
   "12": "RandomReplayPlanTests",
   "13": "CRK Helper V2 P0–P3 Implementation Plan",
   "14": "P4-C 開發進度：尚未正式驗收",
-  "15": "artifact-writer.cjs",
+  "15": "review-regressions.test.cjs",
   "16": "RandomClientTransformTests",
   "17": "observe-image.cjs",
-  "18": "ref_node_fs",
+  "18": "ref_node_path",
   "19": "observer-adapter.cjs",
-  "20": "ref_node_assert",
   "21": "replay-development.cjs",
   "22": "ProgressRuntime",
   "23": "CRK Helper V2：P0–P3核心與審閱修正紀錄",
@@ -44,6 +43,5 @@
   "42": "node-selector.cjs",
   "43": "analyze_cases.py",
   "44": "observer-adapter.test.cjs",
-  "45": "PreviewSession",
-  "46": "freeze-baseline.cjs"
+  "45": "PreviewSession"
 }

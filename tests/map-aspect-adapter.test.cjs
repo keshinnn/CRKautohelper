@@ -2,6 +2,49 @@ const {test}=require('node:test'),assert=require('node:assert/strict'),fs=requir
 const {adaptMap,adaptPreview}=require('../lib/observer-adapter.cjs'),{loadReplayFrames}=require('../lib/replay-case.cjs'),{selectNode}=require('../lib/node-selector.cjs');
 function fixture(){const m=JSON.parse(fs.readFileSync(path.join(__dirname,'../artifacts/p4c-aspect-map-bridge-02/manifest.json')));const c=m.cases[0];return {c,frames:loadReplayFrames(c)};}
 function observe(s,p=s.packet){return adaptMap({...s.frame,png:s.png},p);}
+test('two battle circles and original cyan arrow support a freshly confirmed higher-floor selection',()=>{
+ const {execFileSync}=require('node:child_process'),source='artifacts/p4c-random-development-60-run-09/dev-primary-zone2-floor2-col3-higher-random-fixed/analysis/manifest.json';
+ const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
+import json,sys,pathlib
+sys.path[:0]=['ml','F:/CRK helper/ml']
+from PIL import Image
+from map_aspect import recover_map_aspect
+from map_action_evidence import inspect_map_actions
+from bounded_ocr import BoundedOCRRuntime
+from progress_evidence import ProgressRuntime
+from english_scene import EnglishSceneRuntime,semantic_state
+m=json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'));packets=[]
+for f in m['cases'][0]['frames'][:2]:
+ p=json.loads(pathlib.Path(f['packet']).read_text(encoding='utf-8'));original=p['mapReview']
+ with Image.open(f['image']) as im,ProgressRuntime(),BoundedOCRRuntime(960) as runtime,EnglishSceneRuntime():
+  p['evidence']=runtime._reread_map_context(im,p['evidence']);p['flow'].update(semantic_state(p['evidence']))
+  p['mapReview']=recover_map_aspect(im,p);p['v2MapActions']=inspect_map_actions(im,p)
+ p['v2OriginalMapReview']=original;packets.append(p)
+print(json.dumps(packets))
+`,source],{cwd:path.join(__dirname,'..'),maxBuffer:10*1024*1024});
+ const m=JSON.parse(fs.readFileSync(path.join(__dirname,'..',source))),c=m.cases[0],frames=loadReplayFrames(c),packets=JSON.parse(raw);
+ const a=observe(frames[0],packets[0]),b=observe(frames[1],packets[1]);
+ assert.equal(a.anchorVerified,true);assert.equal(b.anchorVerified,true);
+ assert.equal(selectNode(a,b,c.intent,{nowMs:b.frame.atMs}).nodeId,'visible-2-3');
+ for(const kind of ['pixels','score','inner-box','kind','missing-proof']){
+  const p=structuredClone(packets[1]),q=p.mapReview.aspectRectification.calibration.candidates.find(q=>q.circleKind==='cyan_gate');
+  if(kind==='pixels')q.iconEvidence.pixelSha256='0'.repeat(64);
+  if(kind==='score')q.iconEvidence.innerScore=.1;
+  if(kind==='inner-box')q.iconEvidence.sourceInnerBox[0]+=10;
+  if(kind==='kind')q.circleKind='orange_battle';
+  if(kind==='missing-proof')delete q.iconEvidence;
+  assert.equal(observe(frames[1],p).anchorVerified,false,kind);
+ }
+ for(const kind of ['check-pixels','check-box','check-score','check-kind','missing-check-proof']){
+  const p=structuredClone(packets[1]),n=p.mapReview.nodes.find(n=>n.checkProposal),e=n.checkProposal;
+  if(kind==='check-pixels')e.pixelSha256='0'.repeat(64);
+  if(kind==='check-box')e.sourceCheckBox[0]+=10;
+  if(kind==='check-score')e.checkMaskIoU=.7;
+  if(kind==='check-kind')e.matchedTemplate='node-orange';
+  if(kind==='missing-check-proof')delete n.checkProposal;
+  assert.equal(observe(frames[1],p).anchorVerified,false,kind);
+ }
+});
 test('anchored near-native preview still requires measured aspect and matching original anchor status',()=>{
  const {execFileSync}=require('node:child_process'),source='artifacts/p4c-near-native-zone9-pre-analysis-01/manifest.json';
  const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`

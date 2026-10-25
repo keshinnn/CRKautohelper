@@ -126,9 +126,9 @@
     "semantic_hash": ""
   },
   "lib/observer-adapter.cjs": {
-    "mtime": 1792936524.9358168,
-    "seen": 1792937054.4833198,
-    "ast_hash": "25fe2e621a702ce2538352e3220b765f",
+    "mtime": 1792940429.948795,
+    "seen": 1792941205.5823348,
+    "ast_hash": "b18fc003368c13a5b9e071260d2190ef",
     "semantic_hash": ""
   },
   "lib/preview-session.cjs": {
@@ -168,9 +168,9 @@
     "semantic_hash": ""
   },
   "ml/bounded_ocr.py": {
-    "mtime": 1792935789.8059921,
-    "seen": 1792937054.4833288,
-    "ast_hash": "01248a2ce4740afdef5a5bc9a09050a9",
+    "mtime": 1792939507.6064146,
+    "seen": 1792941205.5823433,
+    "ast_hash": "212fed2a97aa7bd89d379ffd91015998",
     "semantic_hash": ""
   },
   "ml/current_position_evidence.py": {
@@ -504,9 +504,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-24-crk-helper-v2-p4c-plan.md": {
-    "mtime": 1792936965.7553275,
-    "seen": 1792937054.4834123,
-    "ast_hash": "2a9cbf122b10de50c7798aeb58ff1ea5",
+    "mtime": 1792941110.6825583,
+    "seen": 1792941205.5824165,
+    "ast_hash": "ec262685b56d2cb5bb438239907f9c44",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-10-24-crk-helper-v2-design.md": {
@@ -534,15 +534,15 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-10-24-p4c-progress.md": {
-    "mtime": 1792938156.0498352,
-    "seen": 1792938163.2961354,
-    "ast_hash": "daa93539d6722eddbbc74fb33bf69fa0",
+    "mtime": 1792941197.3451056,
+    "seen": 1792941205.582421,
+    "ast_hash": "f86aef544ed078f0abb1a975aff1db4d",
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1792938149.7000115,
-    "seen": 1792938163.2961366,
-    "ast_hash": "6950fbf331cf6a3015dc25b9590711b4",
+    "mtime": 1792941112.9683998,
+    "seen": 1792941205.5824218,
+    "ast_hash": "585c3f63cf6220fe8eef4b19e714dd81",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -642,15 +642,15 @@
     "semantic_hash": ""
   },
   "ml/map_aspect.py": {
-    "mtime": 1792937635.3264062,
-    "seen": 1792938163.2960303,
-    "ast_hash": "e85dd30db5c9f4be8b223c73bd9f318c",
+    "mtime": 1792940301.0568092,
+    "seen": 1792941205.582353,
+    "ast_hash": "1af04f1de18d5abad93e06bfc1ea67e6",
     "semantic_hash": ""
   },
   "tests/map-aspect-adapter.test.cjs": {
-    "mtime": 1792936493.700539,
-    "seen": 1792937054.4833584,
-    "ast_hash": "790067e402fc104c221cdeafdd06a098",
+    "mtime": 1792940343.1455438,
+    "seen": 1792941205.5823743,
+    "ast_hash": "f35a15e373e9c512075592d96a511403",
     "semantic_hash": ""
   },
   "tests/test_aspect_preview.py": {
@@ -705,6 +705,24 @@
     "mtime": 1792938046.8453689,
     "seen": 1792938163.2959847,
     "ast_hash": "cb37f0a5d625b3b7f403d2e18a697c5c",
+    "semantic_hash": ""
+  },
+  "ml/completed_node_candidates.py": {
+    "mtime": 1792940301.0563045,
+    "seen": 1792941205.582345,
+    "ast_hash": "b66d4f44da9bb2ba51e1ebcb311260b1",
+    "semantic_hash": ""
+  },
+  "tests/test_completed_node_candidates.py": {
+    "mtime": 1792940147.9547994,
+    "seen": 1792941205.5823872,
+    "ast_hash": "1ae72a6e23f73728d93d185e1f279d5e",
+    "semantic_hash": ""
+  },
+  "tests/test_gate_supported_aspect.py": {
+    "mtime": 1792939466.6208074,
+    "seen": 1792941205.5823953,
+    "ast_hash": "5ae48c65e22576a492428b995199192c",
     "semantic_hash": ""
   }
 }
