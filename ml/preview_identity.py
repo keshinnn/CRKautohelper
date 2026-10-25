@@ -3,6 +3,7 @@
 No route, pending transaction, annotated coordinates or intent are accepted.
 """
 import hashlib
+import io
 import re
 import os
 import sys
@@ -40,6 +41,22 @@ def _english_ordinary_crop(image,evidence):
     text,score,analysis_size=max(matches,key=lambda row:row[1])
     return [{'text':text,'score':score,'box':[[left,top],[right,top],[right,bottom],[left,bottom]],
         'boxSource':'original_line_crop_extent','source':'difficulty_adjacent_english_normal_original_crop','cropBox':[left,top,right-left,bottom-top],'analysisSize':list(analysis_size)}]
+
+
+def _orange_reference_extent(root):
+    raw=(root/'data/map/node-orange.png').read_bytes()
+    image=Image.open(io.BytesIO(raw)).convert('RGB');hsv=cv2.cvtColor(np.asarray(image),cv2.COLOR_RGB2HSV)
+    mask=cv2.inRange(hsv,(5,130,130),(35,255,255))
+    mask=cv2.morphologyEx(mask,cv2.MORPH_CLOSE,np.ones((3,3),np.uint8))
+    contours,_=cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE);matches=[]
+    for contour in contours:
+        area=cv2.contourArea(contour);hull=cv2.contourArea(cv2.convexHull(contour))
+        if area<=20 or hull<=0 or area/hull<=.9:continue
+        x,y,w,h=cv2.boundingRect(contour)
+        if abs(x+w/2-image.width/2)>image.width*.1 or abs(y+h/2-image.height/2)>image.height*.1:continue
+        matches.append([x,y,w,h])
+    if len(matches)!=1:return None
+    return {'templateImageSha256':hashlib.sha256(raw).hexdigest(),'templateSize':list(image.size),'circleBox':matches[0]}
 
 
 
@@ -131,11 +148,21 @@ def inspect_preview_identity(image,packet):
     normal=[n for n in nodes if n.get('type')!='exit' and len(n.get('box',[]))==4]
     if len(columns)==4 and len(gates)==1 and normal:
         spacing=float(np.median(np.diff(columns)));nw=float(np.median([n['box'][2] for n in normal]));nh=float(np.median([n['box'][3] for n in normal]))
+        # Rectification changes X only. Source-space column spacing therefore
+        # differs from vertical row spacing; derive Y from the same-frame proof.
+        aspect=m.get('aspectRectification');vertical_spacing=spacing
+        if aspect:
+            if (aspect.get('verified') is not True or aspect.get('pixelSha256')!=digest
+                    or aspect.get('sourceImageSha256')!=packet['binding'].get('imageSha256')
+                    or aspect.get('sourceSize')!=[width,height]):return unknown
+            rectified=aspect.get('rectifiedInputSize',[])
+            if len(rectified)!=2 or rectified[1]!=height or not 0<rectified[0]:return unknown
+            vertical_spacing=spacing*rectified[0]/width
         gate=gates[0]['box'];gate_y=gate[1]+gate[3]/2
         for bx,by,bw,bh,area in cv2.connectedComponentsWithStats(green.astype('uint8'))[2][1:]:
             if not nw*.7<bw<nw*1.3 or not nh*.7<bh<nh*1.3:continue
-            cx,cy=float(bx+bw/2),float(by+bh/2);column=int(np.argmin(abs(np.asarray(columns)-cx)))+1;floor=round((cy-gate_y)/spacing)
-            if not 1<=floor<=31 or abs(columns[column-1]-cx)>spacing*.08 or abs(cy-gate_y-floor*spacing)>spacing*.08:continue
+            cx,cy=float(bx+bw/2),float(by+bh/2);column=int(np.argmin(abs(np.asarray(columns)-cx)))+1;floor=round((cy-gate_y)/vertical_spacing)
+            if not 1<=floor<=31 or abs(columns[column-1]-cx)>spacing*.08 or abs(cy-gate_y-floor*vertical_spacing)>vertical_spacing*.08:continue
             if any(n.get('floor')==floor and n.get('column')==column for n in nodes):continue
             box=[cx-nw/2,cy-nh/2,nw,nh]
             if min(box[:2])<0 or box[0]+nw>width or box[1]+nh>height:continue
@@ -145,16 +172,43 @@ def inspect_preview_identity(image,packet):
             candidate={'box':box};types=classify_node(image,candidate,root/'data/map')
             if types['type']!='battle' or types['completed']:continue
             templates=map_templates(root/'data/map');best=None;radius=max(1,round(min(nw,nh)*.02))
-            for dx in range(-radius,radius+1):
-                for dy in range(-radius,radius+1):
-                    q=np.asarray(image.crop((box[0]+dx,box[1]+dy,box[0]+nw+dx,box[1]+nh+dy)).resize((58,58)))[12:46,12:46];qg=cv2.cvtColor(q,cv2.COLOR_RGB2GRAY);scores=[]
-                    for name,_,_,ref,refg in templates:
-                        corr=float(cv2.matchTemplate(qg,refg,cv2.TM_CCOEFF_NORMED)[0,0]);score=.7*corr+.3*(1-np.abs(q.astype(float)-ref).mean()/255)
-                        scores.append((float(score),name))
-                    scores.sort(reverse=True)
-                    if best is None or scores[0][0]>best[0][0][0]:best=(scores,dx,dy)
-            ranks,dx,dy=best
+            sizes=[(nw,nh)]
+            if aspect:
+                # Rectified template scales can yield two slightly different
+                # outer sizes in one map. Search only sizes actually detected
+                # in this frame, retaining the existing icon thresholds.
+                sizes+=sorted({tuple(n['box'][2:]) for n in normal
+                    if .9*nw<=n['box'][2]<=1.1*nw and .9*nh<=n['box'][3]<=1.1*nh})
+            measured_sizes={}
+            if aspect:
+                calibration=aspect.get('calibration') or {}
+                circles=[(i,calibration['candidates'][i]) for i in calibration.get('consensus',[])
+                    if 0<=i<len(calibration.get('candidates',[])) and
+                    np.hypot(calibration['candidates'][i]['center'][0]-cx,calibration['candidates'][i]['center'][1]-cy)<=min(nw,nh)*.05]
+                reference=_orange_reference_extent(root) if len(circles)==1 else None
+                if reference:
+                    index,circle=circles[0];rw,rh=reference['circleBox'][2:]
+                    measured=(circle['box'][2]/rw*reference['templateSize'][0],circle['box'][3]/rh*reference['templateSize'][1])
+                    if .9*nw<=measured[0]<=1.1*nw and .9*nh<=measured[1]<=1.1*nh:
+                        sizes.append(measured);measured_sizes[measured]={
+                            'method':'same_frame_orange_circle_and_original_template_extent',
+                            'pixelSha256':digest,'candidateIndex':index,'sourceCircleBox':circle['box'],
+                            **reference,'actionsExecuted':False}
+            for candidate_w,candidate_h in sizes:
+                candidate_box=[cx-candidate_w/2,cy-candidate_h/2,candidate_w,candidate_h]
+                if min(candidate_box[:2])<0 or candidate_box[0]+candidate_w>width or candidate_box[1]+candidate_h>height:continue
+                for dx in range(-radius,radius+1):
+                    for dy in range(-radius,radius+1):
+                        q=np.asarray(image.crop((candidate_box[0]+dx,candidate_box[1]+dy,candidate_box[0]+candidate_w+dx,candidate_box[1]+candidate_h+dy)).resize((58,58)))[12:46,12:46];qg=cv2.cvtColor(q,cv2.COLOR_RGB2GRAY);scores=[]
+                        for name,_,_,ref,refg in templates:
+                            corr=float(cv2.matchTemplate(qg,refg,cv2.TM_CCOEFF_NORMED)[0,0]);score=.7*corr+.3*(1-np.abs(q.astype(float)-ref).mean()/255)
+                            scores.append((float(score),name))
+                        scores.sort(reverse=True)
+                        if best is None or scores[0][0]>best[0][0][0]:best=(scores,dx,dy,candidate_box,measured_sizes.get((candidate_w,candidate_h)))
+            ranks,dx,dy,box,size_evidence=best
             if ranks[0][0]<.9 or ranks[0][0]-ranks[1][0]<.08 or ranks[0][1]!='node-orange':continue
+            candidate['box']=box
+            if size_evidence:candidate['iconSizeEvidence']=size_evidence
             candidate.update(types);candidate.update({'id':f'outline-{floor}-{column}','floor':floor,'column':column,'score':ranks[0][0],'recovered':True,'iconScore':ranks[0][0],'iconAlignmentPx':[dx,dy]})
             nodes.append(candidate);recovered.append(candidate)
     for n in nodes:

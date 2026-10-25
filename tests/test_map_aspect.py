@@ -1,0 +1,77 @@
+import copy,hashlib,io,json,sys,unittest
+from pathlib import Path
+from PIL import Image,ImageDraw
+ROOT=Path(__file__).resolve().parents[1]
+sys.path[:0]=[str(ROOT/'ml'),'F:/CRK helper/ml']
+try:
+    from map_aspect import estimate_pixel_aspect,recover_map_aspect
+except ImportError:
+    def estimate_pixel_aspect(*a):return None
+    def recover_map_aspect(image,packet):return packet['mapReview']
+
+class MapAspectTests(unittest.TestCase):
+    def cases(self):return json.loads((ROOT/'artifacts/p4c-random-pilot-pixels-01/manifest.json').read_text(encoding='utf-8'))['cases']
+    def image(self,c):
+        f=next(f for f in c['frames'] if f['frameIndex']==2514)
+        return Image.open(f['image']).convert('RGB'),f
+    def packet(self,image,image_sha=None):
+        pixel=hashlib.sha256(image.tobytes()).hexdigest();raw=io.BytesIO();image.save(raw,format='PNG')
+        return {'binding':{'pixelSha256':pixel,'imageSha256':image_sha or hashlib.sha256(raw.getvalue()).hexdigest(),'width':image.width,'height':image.height},'mapReview':{'frameId':pixel[:20],'nodes':[],'edges':[],'columns':None,'absoluteFloorKnown':False,'header':None}}
+    def test_actual_pixels_estimate_three_different_aspects_without_layout_input(self):
+        for c in self.cases():
+            image,f=self.image(c);estimate=estimate_pixel_aspect(image)
+            self.assertIsNotNone(estimate);truth=f['transform']['sx']/f['transform']['sy']
+            self.assertLess(abs(estimate['ratio']/truth-1),.03)
+            self.assertGreaterEqual(len(estimate['consensus']),3)
+    def test_actual_zero_candidate_map_recovers_source_pixel_boxes_and_unique_gate(self):
+        c=self.cases()[0];image,f=self.image(c);p=self.packet(image,f['sha256']);before=copy.deepcopy(p)
+        result=recover_map_aspect(image,p);self.assertIsNot(result,p['mapReview']);self.assertEqual(p,before)
+        self.assertTrue(result['absoluteFloorKnown']);self.assertEqual(result['floorAnchorSource'],'visible_top_gate')
+        self.assertEqual(result['frameId'],p['binding']['pixelSha256'][:20])
+        n=next(n for n in result['nodes'] if n.get('floor')==1 and n.get('column')==2);a=n['box'];b=c['expectedBox']
+        area=max(0,min(a[0]+a[2],b[0]+b[2])-max(a[0],b[0]))*max(0,min(a[1]+a[3],b[1]+b[3])-max(a[1],b[1]))
+        self.assertGreaterEqual(area/(a[2]*a[3]+b[2]*b[3]-area),.9)
+        proof=result['aspectRectification'];self.assertEqual(proof['sourceSize'],list(image.size));self.assertEqual(proof['pixelSha256'],p['binding']['pixelSha256']);self.assertIn('inverseMatrix',proof)
+    def test_native_chinese_and_english_frames_keep_original_geometry(self):
+        for case,index in [('zone-1-first-battle',2514),('dev-LX46-zone1-floor1-col1-resume',2194)]:
+            image=Image.open(ROOT/f'artifacts/p4c-frozen-native-30-v3/{case}/{index:07}.png').convert('RGB')
+            packet=json.loads((ROOT/f'artifacts/p4c-development-20-v3-analysis-01/{case}/{index:07}.packet.json').read_text(encoding='utf-8'))
+            self.assertIs(recover_map_aspect(image,packet),packet['mapReview'])
+    def test_wrong_pixels_missing_gate_and_ellipse_noise_never_grant_absolute_map(self):
+        c=self.cases()[0];image,f=self.image(c);p=self.packet(image,f['sha256']);p['binding']['pixelSha256']='0'*64
+        self.assertIs(recover_map_aspect(image,p),p['mapReview'])
+        erased=image.copy();ImageDraw.Draw(erased).rectangle((1100,390,1330,580),fill=(240,30,20))
+        self.assertFalse(recover_map_aspect(erased,self.packet(erased))['absoluteFloorKnown'])
+        noise=Image.new('RGB',(960,720),(20,20,20));d=ImageDraw.Draw(noise)
+        for x,y in [(100,100),(300,300),(600,500)]:d.ellipse((x,y,x+100,y+60),fill=(255,160,0))
+        self.assertFalse(recover_map_aspect(noise,self.packet(noise))['absoluteFloorKnown'])
+    def test_two_distinct_pixel_aspect_consensuses_are_ambiguous(self):
+        image=Image.new('RGB',(960,720),(20,20,20));d=ImageDraw.Draw(image)
+        for x,y in [(100,100),(300,250),(500,400)]:d.ellipse((x,y,x+84,y+60),fill=(255,160,0))
+        for x,y in [(100,550),(700,100),(700,500)]:d.ellipse((x,y,x+114,y+60),fill=(255,160,0))
+        self.assertIsNone(estimate_pixel_aspect(image))
+
+    def test_actual_preview_panel_icon_above_visible_gate_cannot_break_sparse_map_lattice(self):
+        manifest=json.loads((ROOT/'artifacts/p4c-random-pilot-analysis-03/manifest.json').read_text(encoding='utf-8'))
+        f=next(f for f in manifest['cases'][1]['frames'] if f['frameIndex']==2541)
+        p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+        image=Image.open(f['image']).convert('RGB');result=recover_map_aspect(image,p)
+        self.assertTrue(result['absoluteFloorKnown'])
+        self.assertEqual(len(result['columns']),4)
+        self.assertTrue(result['aspectRectification']['candidateScope']['excluded'])
+        self.assertTrue(all(n.get('floor',1)>=1 for n in result['nodes'] if n['type']!='exit'))
+
+    def test_actual_unchanged_orange_circle_keeps_two_frame_selection_geometry_stable(self):
+        manifest=json.loads((ROOT/'artifacts/p4c-random-pilot-analysis-04/manifest.json').read_text(encoding='utf-8'))
+        boxes=[]
+        for f in manifest['cases'][2]['frames'][:2]:
+            image=Image.open(f['image']).convert('RGB');p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+            result=recover_map_aspect(image,p)
+            node=next(n for n in result['nodes'] if n.get('floor')==1 and n.get('column')==2)
+            boxes.append(node['box'])
+        a,b=boxes
+        area=max(0,min(a[0]+a[2],b[0]+b[2])-max(a[0],b[0]))*max(0,min(a[1]+a[3],b[1]+b[3])-max(a[1],b[1]))
+        self.assertGreaterEqual(area/(a[2]*a[3]+b[2]*b[3]-area),.95)
+        self.assertLessEqual(__import__('math').hypot(a[0]+a[2]/2-b[0]-b[2]/2,a[1]+a[3]/2-b[1]-b[3]/2),min(b[2:])*.02)
+
+if __name__=='__main__':unittest.main()

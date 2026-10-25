@@ -1,0 +1,820 @@
+{
+  "schema": 1,
+  "reviewer": "Assistant independent visual review; project recognizer not used",
+  "sourceManifestSha256": "918b5bd7dc4cfc41e78d383f29447ef9760199d914072ab6ee97cb973e4e4e26",
+  "prefixManifestSha256": "1253f18023c3c8a604569ef07f0baa0e5e2233a373abe5f39bfbeaad49f51fc7",
+  "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+  "reviewMethod": "Five SHA-bound contact pages visually checked for closed-map context, visible gate/target relationship, absence of an open preview. Existing source-v3 manual prepair and matching-preview qualification retained. Original watermarks and fading entry banners remain. This review does not claim model recognition or unoccluded pixels.",
+  "contactPages": [
+    {
+      "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-prefix-native-30-contact-01\\page-0.png",
+      "sha256": "a80cb65d8addce4d8c4b580e5eb5aa98ce7b44406b960486d18273dad7882820"
+    },
+    {
+      "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-prefix-native-30-contact-01\\page-1.png",
+      "sha256": "3d3fbfbb319769ed88ad49afe14904992576b2ddb9ec66f62b28c9ce56763423"
+    },
+    {
+      "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-prefix-native-30-contact-01\\page-2.png",
+      "sha256": "e4e1cc74f09d9d3074f8cf6d642087fd9c1e6458b0fa516ef0b4d0a46c5f9574"
+    },
+    {
+      "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-prefix-native-30-contact-01\\page-3.png",
+      "sha256": "5061adcbecac62602fc77459284b13d2573a25f4324d6a4b4175cff9e828565c"
+    },
+    {
+      "image": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-prefix-native-30-contact-01\\page-4.png",
+      "sha256": "46bb8b661a9b7de81e60adb13d6706ac5b60238c4977fe006496c7f4df07911f"
+    }
+  ],
+  "positiveCropScope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives.",
+  "cases": [
+    {
+      "caseId": "zone-1-first-battle",
+      "prefixImageSha256": "d1eb16065d9d270e956f8bd423e1d26f3cbed9490b404357faf79011ec0cbb73",
+      "prefixFrameIndex": 2513,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "zone-1-first-battle",
+        "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1440,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1416,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "zone-2-first-battle",
+      "prefixImageSha256": "958be8d10bcf66cdb412972605c29d72e0e7ef38f48f7c50a42a54c356651583",
+      "prefixFrameIndex": 12317,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "zone-2-first-battle",
+        "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1440,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1416,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "zone-3-first-battle",
+      "prefixImageSha256": "90a5a85dd72aaa9c0f24af4fd6e9af75d4eace99c7c2e537aa73269450ab59a5",
+      "prefixFrameIndex": 20213,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "zone-3-first-battle",
+        "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1440,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1416,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "zone-8-first-battle",
+      "prefixImageSha256": "7e194057f5a4b87cee720cdd36bdc21ace0d32f49d24815dc6ae4caa0e06c3c8",
+      "prefixFrameIndex": 64877,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "zone-8-first-battle",
+        "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1440,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1416,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "zone-9-first-battle",
+      "prefixImageSha256": "a3127a10aeff3754f1530e5ec115e18de391b83b4aeb119cc957c4235b66c841",
+      "prefixFrameIndex": 78293,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "zone-9-first-battle",
+        "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1440,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1416,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-primary-zone2-floor2-col3-higher",
+      "prefixImageSha256": "2bd64691662c1ea34b06c033c9caa6ae69fbb6cff812ae9a18f14b87ea6d20a4",
+      "prefixFrameIndex": 14529,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-primary-zone2-floor2-col3-higher",
+        "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1440,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1416,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-primary-zone3-floor3-col1-higher",
+      "prefixImageSha256": "3fe0b3625cfbdf96ddf86ac75015e2f9448ae063f52d2f193651beded6086a69",
+      "prefixFrameIndex": 23723,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-primary-zone3-floor3-col1-higher",
+        "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1440,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1416,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-primary-zone4-floor2-col3",
+      "prefixImageSha256": "486b203d7b4f841b9a04d0eab0f5987248ee82df23c996d89be38c7c46ac7d0a",
+      "prefixFrameIndex": 30086,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-primary-zone4-floor2-col3",
+        "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1440,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1416,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-primary-zone6-floor1-col2",
+      "prefixImageSha256": "752660c66b92b6655148e630734953d74f1d2bea73d3f72f49fd0f3a7e2e333e",
+      "prefixFrameIndex": 46292,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-primary-zone6-floor1-col2",
+        "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1440,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1416,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-primary-zone10-floor1-col2",
+      "prefixImageSha256": "98034a4b4ade27d3135a710ec7f11c83a0b387ba471192c7bf9e8c4198c0d046",
+      "prefixFrameIndex": 95306,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-primary-zone10-floor1-col2",
+        "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1440,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1416,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-L0-zone6-floor1-col2-select-1773",
+      "prefixImageSha256": "e3b7faa31b6c11eb53e7d546285c4f7f3d39013993492bb7f3ab7eced1902235",
+      "prefixFrameIndex": 53162,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-L0-zone6-floor1-col2-select-1773",
+        "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          960,
+          720
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            936,
+            696
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-L0-zone6-floor1-col2-resume-1781",
+      "prefixImageSha256": "b7e1efb66d09719d98a36bd8f57cfd05c0af0fdd88b0d0bff31fe45eb9797a34",
+      "prefixFrameIndex": 53399,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-L0-zone6-floor1-col2-resume-1781",
+        "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          960,
+          720
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            936,
+            696
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-L0-zone6-floor3-col3-select-1932",
+      "prefixImageSha256": "88f51b0369dc2d2b247e6fd16d360ca2aeb09079509ed0c59b518115f76f120c",
+      "prefixFrameIndex": 57922,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-L0-zone6-floor3-col3-select-1932",
+        "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          960,
+          720
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            936,
+            696
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-earlier-L0-zone5-floor1-col1",
+      "prefixImageSha256": "89e3da35f84e7f2111f88ee6c1c12aabee8993a6a43c419de764846cc8a5cb91",
+      "prefixFrameIndex": 35928,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-earlier-L0-zone5-floor1-col1",
+        "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          960,
+          720
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            936,
+            696
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-earlier-L0-zone8-floor1-col4",
+      "prefixImageSha256": "af9856d5d43d9d8cf556e0d50894eb3695a26befaba249dc5488d1b2265b1205",
+      "prefixFrameIndex": 77034,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-earlier-L0-zone8-floor1-col4",
+        "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          960,
+          720
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            936,
+            696
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-earlier-0Q-zone4-floor1-col4",
+      "prefixImageSha256": "9e658963bbc8b2bd9d2cbc980d9350c9145e5c24c1d70e1990b737fb04bca812",
+      "prefixFrameIndex": 46020,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-earlier-0Q-zone4-floor1-col4",
+        "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1280,
+          720
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1256,
+            696
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-LX46-zone1-floor1-col1-resume",
+      "prefixImageSha256": "1611d0305acd70280687ace3ae508cd973933c8a6df46fa8f09f1017d1b2cabb",
+      "prefixFrameIndex": 2193,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-LX46-zone1-floor1-col1-resume",
+        "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1920,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1896,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-LX46-zone2-floor1-col2-select",
+      "prefixImageSha256": "0678b8263819d07d9699e4e60f85c1c9849746ea8989558d9eb14e2bcc361f03",
+      "prefixFrameIndex": 12000,
+      "prefixReviewed": true,
+      "notes": [
+        "Original fading zone-entry banner retained; not declared unoccluded."
+      ],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-LX46-zone2-floor1-col2-select",
+        "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1920,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1896,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-LX46-zone3-floor1-col4-select",
+      "prefixImageSha256": "5306cbb985aa198438291c1f1e4cbd2e7fac79efd72789879b636b4ed2b7d1f4",
+      "prefixFrameIndex": 19577,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-LX46-zone3-floor1-col4-select",
+        "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1920,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1896,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "dev-LX46-zone4-floor2-col1-select",
+      "prefixImageSha256": "22eb58f00e6b5f5c91e0541d8a71b32242d47e2006d009a4063ba66e180bfb06",
+      "prefixFrameIndex": 30089,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "dev-LX46-zone4-floor2-col1-select",
+        "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1920,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1896,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "held-L0ktY5qUppI-zone9-floor1-col4-select",
+      "prefixImageSha256": "0aace573204c00d791585c0307bf5c09db38d50d0930b89192a1bda8a9eddaa8",
+      "prefixFrameIndex": 88190,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "held-L0ktY5qUppI-zone9-floor1-col4-select",
+        "videoSha256": "a2a6efb31d39dddace649a1d4c7b4819f6820eeaf7756c5f08d52fe47eb88ab6",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          960,
+          720
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            936,
+            696
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "held-0QxozULx_SQ-zone2-floor1-col3-resume",
+      "prefixImageSha256": "a35a6902346645a7da7ab86eae515478482dcee70a8c297cb3458dc1dee4a0bf",
+      "prefixFrameIndex": 13614,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "held-0QxozULx_SQ-zone2-floor1-col3-resume",
+        "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1280,
+          720
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1256,
+            696
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "held-0QxozULx_SQ-zone2-floor2-col4-select",
+      "prefixImageSha256": "a832054cc1b42736c658a13853824a97db8d41aca1feb14da4c2763a45e2fedb",
+      "prefixFrameIndex": 16769,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "held-0QxozULx_SQ-zone2-floor2-col4-select",
+        "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1280,
+          720
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1256,
+            696
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "held-0QxozULx_SQ-zone3-floor1-col2-select",
+      "prefixImageSha256": "70c2f3a70bd9b5f1d5089116cde130723570efd00b84420ddeace569f960007c",
+      "prefixFrameIndex": 30029,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "held-0QxozULx_SQ-zone3-floor1-col2-select",
+        "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1280,
+          720
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1256,
+            696
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "held-0QxozULx_SQ-zone9-floor1-col1-select",
+      "prefixImageSha256": "e334b28e0e0b9c35970e1b93d9ff5a79728b041ce1676cd08e657a62478471af",
+      "prefixFrameIndex": 152443,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "held-0QxozULx_SQ-zone9-floor1-col1-select",
+        "videoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1280,
+          720
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1256,
+            696
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "held-LX46-zone4-floor1-col2-select",
+      "prefixImageSha256": "3fb9e18430201f400167b2e9366585ca7e10886780ab897a1c66afb8ba2c10da",
+      "prefixFrameIndex": 28175,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "held-LX46-zone4-floor1-col2-select",
+        "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1920,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1896,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "held-LX46-zone5-floor1-col4-select",
+      "prefixImageSha256": "e5b32e04ae38725040fa5404f96e8aca6e0e6ce09ef2beef7fc98b2e10c449fe",
+      "prefixFrameIndex": 41757,
+      "prefixReviewed": true,
+      "notes": [
+        "Original fading zone-entry banner retained; not declared unoccluded."
+      ],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "held-LX46-zone5-floor1-col4-select",
+        "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1920,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1896,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "held-LX46-zone6-floor1-col2-select",
+      "prefixImageSha256": "6843b51446ae94fbca7b7357357a2ce65719332ae66f6763a91a546eb0133e33",
+      "prefixFrameIndex": 58751,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "held-LX46-zone6-floor1-col2-select",
+        "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1920,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1896,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "held-LX46-zone7-floor1-col2-select",
+      "prefixImageSha256": "219050ced8ceba91fd3e6e387af92f6e8c34dd5f063c25dc4023898b41e8e72d",
+      "prefixFrameIndex": 75050,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "held-LX46-zone7-floor1-col2-select",
+        "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1920,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1896,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    },
+    {
+      "caseId": "held-LX46-zone7-floor2-col2-select",
+      "prefixImageSha256": "1301a01153ec4fa693395b9d1ee197300ed87b429857c02e542eafd357ecdd37",
+      "prefixFrameIndex": 77765,
+      "prefixReviewed": true,
+      "notes": [],
+      "anchorReview": {
+        "reviewed": true,
+        "caseId": "held-LX46-zone7-floor2-col2-select",
+        "videoSha256": "3bfbf01b59055c3c01ff3309be3ffa7846e488938eff69adb6126f70c2ada712",
+        "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+        "sourceSize": [
+          1920,
+          1080
+        ],
+        "boxes": [
+          [
+            12,
+            12,
+            1896,
+            1056
+          ]
+        ],
+        "scope": "Conservative inner full-client envelope; each side random1..12px. Large evidence-removing crops remain separate negatives."
+      }
+    }
+  ],
+  "modelInferenceRun": false,
+  "nativeActions": 0,
+  "g4Complete": false
+}

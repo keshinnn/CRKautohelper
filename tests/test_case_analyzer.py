@@ -2,6 +2,24 @@ import hashlib,json,os,subprocess,sys,tempfile,unittest
 from pathlib import Path
 
 class OfflineAnalyzerTests(unittest.TestCase):
+    def test_aspect_postprocessor_recomputes_source_bound_geometry_from_same_core_cache(self):
+        root=Path(__file__).resolve().parents[1]
+        cache=root/'artifacts/p4c-random-pilot-first-case-01.json';m=json.loads(cache.read_text(encoding='utf-8'));c=m['cases'][0]
+        c['frames']=[{k:v for k,v in f.items() if k!='packet'} for f in c['frames'][:2]];m['cases']=[c]
+        with tempfile.TemporaryDirectory(prefix='crk-aspect-batch-',dir=root/'artifacts') as folder:
+            folder=Path(folder);source=folder/'source.json';source.write_text(json.dumps(m),encoding='utf-8');out=folder/'result'
+            r=subprocess.run([sys.executable,'-B',str(root/'ml/analyze_cases.py'),str(source),str(out),'--fast-map','--bounded-ocr','960','--cache',str(cache)],capture_output=True,text=True,encoding='utf-8')
+            self.assertEqual(r.returncode,0,r.stderr)
+            actual=json.loads((out/'manifest.json').read_text(encoding='utf-8'))
+            for f in actual['cases'][0]['frames']:
+                p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+                self.assertTrue(p['mapReview']['absoluteFloorKnown'])
+                self.assertEqual(p['v2OriginalMapReview']['nodes'],[])
+                self.assertFalse(p['analysisTiming']['freshFullPipeline'])
+                self.assertEqual(p['mapReview']['aspectRectification']['sourceCaptureFrameId'],p['binding']['frameId'])
+                self.assertTrue(p['v2MapActions']['verified'])
+            self.assertEqual(actual['analysis']['mapAspectCodeSha256'],hashlib.sha256((root/'ml/map_aspect.py').read_bytes()).hexdigest())
+
     def test_changed_language_or_progress_code_invalidates_cached_legacy_semantics(self):
         root=Path(__file__).resolve().parents[1]
         original=json.loads((root/'artifacts/p4c-LX46-dev-analysis-02/manifest.json').read_text(encoding='utf-8'))

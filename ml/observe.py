@@ -20,10 +20,15 @@ packet = inspect_capture('data:image/png;base64,'+base64.b64encode(raw).decode()
 from preview_identity import inspect_preview_identity
 from map_action_evidence import inspect_map_actions
 from sparse_map_geometry import recover_map_geometry
+from map_aspect import recover_map_aspect
 with Image.open(filename) as image:
     repaired_map=recover_map_geometry(image,packet)
     if repaired_map is not packet.get('mapReview'):
         packet['v2OriginalMapReview']=packet.get('mapReview');packet['mapReview']=repaired_map
+    aspect_map=recover_map_aspect(image,packet)
+    if aspect_map is not packet.get('mapReview'):
+        if 'v2OriginalMapReview' not in packet:packet['v2OriginalMapReview']=packet.get('mapReview')
+        packet['mapReview']=aspect_map
     packet['v2Preview'] = inspect_preview_identity(image, packet)
     packet['v2MapActions'] = inspect_map_actions(image, packet)
 sys.stdout.reconfigure(encoding='utf-8')

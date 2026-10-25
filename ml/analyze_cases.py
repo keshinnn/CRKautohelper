@@ -60,6 +60,7 @@ def main():
       'progressCodeSha256':hashlib.sha256((Path(__file__).parent/'progress_evidence.py').read_bytes()).hexdigest(),
       'identityCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_identity.py').read_bytes()).hexdigest(),
       'mapGeometryCodeSha256':hashlib.sha256((Path(__file__).parent/'sparse_map_geometry.py').read_bytes()).hexdigest(),
+      'mapAspectCodeSha256':hashlib.sha256((Path(__file__).parent/'map_aspect.py').read_bytes()).hexdigest(),
       'mapActionCodeSha256':hashlib.sha256((Path(__file__).parent/'map_action_evidence.py').read_bytes()).hexdigest(),
       'currentPositionCodeSha256':hashlib.sha256((Path(__file__).parent/'current_position_evidence.py').read_bytes()).hexdigest(),
       'previewRegistrationCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_registration.py').read_bytes()).hexdigest(),
@@ -98,6 +99,11 @@ def main():
             repaired_map=recover_map_geometry(rgb,p)
             if repaired_map is not p.get('mapReview'):
                 p['v2OriginalMapReview']=p.get('mapReview');p['mapReview']=repaired_map
+            from map_aspect import recover_map_aspect
+            aspect_map=recover_map_aspect(rgb,p)
+            if aspect_map is not p.get('mapReview'):
+                if 'v2OriginalMapReview' not in p:p['v2OriginalMapReview']=p.get('mapReview')
+                p['mapReview']=aspect_map
             p.pop('v2TrackedMap',None)
             p['v2TrackedMap']=tracker.observe({'png':raw,'packet':p,'atMs':f.get('atMs'),'sourcePtsMs':f.get('sourcePtsMs'),'windowKey':'offline:original-video','geometryVersion':f.get('geometryVersion','original')})
             p['v2Preview']=inspect_preview_identity(rgb,p)
