@@ -54,7 +54,9 @@ def recover_completed_extents(image,m,binding):
             'previousCheckMaskIoU':actions['nodes'][old['id']]['checkMaskIoU']}
         n['geometryMethod']='original_source_done_template_extent'
         x,y,w,h=proof['sourceBox'];n['box']=[round(x,2),y,round(w,2),h];n['center']=[round(x+w/2,2),y+h/2]
-        n['analysisBox']=list(proof['originalAnalysisBox']);n['analysisCenter']=list(proof['originalAnalysisCenter']);changed.add(n['id'])
+        if rect:
+            n['analysisBox']=list(proof['originalAnalysisBox']);n['analysisCenter']=list(proof['originalAnalysisCenter'])
+        changed.add(n['id'])
     if not changed:return m
     # Re-read actual connecting pixels after changing endpoint geometry.
     import map_vision

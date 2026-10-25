@@ -534,15 +534,15 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-10-24-p4c-progress.md": {
-    "mtime": 1792960637.352041,
-    "seen": 1792960652.4753764,
-    "ast_hash": "bd0bcf0ef9729afb06b26f5671c46e1b",
+    "mtime": 1792961348.120927,
+    "seen": 1792962532.4045296,
+    "ast_hash": "91db5a5fc0d585ba1b6063037f5d42d7",
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1792960637.3475199,
-    "seen": 1792960652.4753785,
-    "ast_hash": "6d979e07c745dded3ba8299084837922",
+    "mtime": 1792961348.109421,
+    "seen": 1792962532.4045315,
+    "ast_hash": "478b082c14f47b39d5f35b613d5d41e8",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -648,9 +648,9 @@
     "semantic_hash": ""
   },
   "tests/map-aspect-adapter.test.cjs": {
-    "mtime": 1792960102.3723767,
-    "seen": 1792960652.4752376,
-    "ast_hash": "db3dfeb0160fecbbd6f116894c40cad7",
+    "mtime": 1792961693.3193445,
+    "seen": 1792962532.4044404,
+    "ast_hash": "cdcbcf2727cf769c052330491a5ba1f3",
     "semantic_hash": ""
   },
   "tests/test_aspect_preview.py": {
@@ -750,9 +750,21 @@
     "semantic_hash": ""
   },
   "ml/completed_extent_geometry.py": {
-    "mtime": 1792960100.3543992,
-    "seen": 1792960652.4751406,
-    "ast_hash": "cefdf11fad9b819bde25451cb75068fc",
+    "mtime": 1792961710.7223282,
+    "seen": 1792962532.4043572,
+    "ast_hash": "6ebf9388723fe7564f57b407e624917e",
+    "semantic_hash": ""
+  },
+  "data/p4c/negative-random-evidence-v3.json": {
+    "mtime": 1792961196.396811,
+    "seen": 1792962532.4043021,
+    "ast_hash": "643dc68af033406892ad4b7365dba745",
+    "semantic_hash": ""
+  },
+  "data/p4c/negative-random-evidence-v4.json": {
+    "mtime": 1792962505.528216,
+    "seen": 1792962532.4043055,
+    "ast_hash": "9e1daa8d5645d6717bc58ac5eff48979",
     "semantic_hash": ""
   }
 }

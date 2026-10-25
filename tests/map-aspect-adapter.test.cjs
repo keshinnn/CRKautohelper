@@ -254,6 +254,27 @@ print(json.dumps(p))
  assert.equal(adaptMap({...s.frame,png:s.png},altered).verified,false);
 });
 
+test('native completed refinement keeps physical coordinates without unbound aspect markers',()=>{
+ const {execFileSync}=require('node:child_process'),source='artifacts/p4c-completed-extent-controls-twenty-analysis-01/manifest.json';
+ const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
+import json,sys,pathlib
+sys.path[:0]=['ml','F:/CRK helper/ml']
+from PIL import Image
+from map_aspect import recover_map_aspect
+from map_action_evidence import inspect_map_actions
+m=json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'));c=m['cases'][18];f=c['frames'][7];p=json.loads(pathlib.Path(f['packet']).read_text(encoding='utf-8'))
+p['mapReview']=p.pop('v2OriginalMapReview')
+with Image.open(f['image']) as im:
+ p['mapReview']=recover_map_aspect(im,p);p['v2MapActions']=inspect_map_actions(im,p)
+print(json.dumps(p))
+`,source],{cwd:path.join(__dirname,'..'),maxBuffer:10*1024*1024});
+ const m=JSON.parse(fs.readFileSync(path.join(__dirname,'..',source))),s=loadReplayFrames(m.cases[18])[7],p=JSON.parse(raw),n=p.mapReview.nodes.find(n=>n.completedRefinement);
+ assert.ok(n);assert.equal(p.mapReview.aspectRectification,undefined);assert.equal(p.mapReview.nodes.some(n=>n.analysisBox||n.analysisCenter),false);
+ assert.equal(adaptMap({...s.frame,png:s.png},p).verified,true);
+ const altered=structuredClone(p);altered.mapReview.nodes.find(n=>n.completedRefinement).analysisBox=n.box;
+ assert.equal(adaptMap({...s.frame,png:s.png},altered).verified,false);
+});
+
 test('anchored near-native preview still requires measured aspect and matching original anchor status',()=>{
  const {execFileSync}=require('node:child_process'),source='artifacts/p4c-near-native-zone9-pre-analysis-01/manifest.json';
  const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
