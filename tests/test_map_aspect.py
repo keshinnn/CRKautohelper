@@ -104,4 +104,25 @@ class MapAspectTests(unittest.TestCase):
             x,y,nw,nh=n['analysisBox'];self.assertGreaterEqual(min(x,y),0)
             self.assertLessEqual(x+nw,w);self.assertLessEqual(y+nh,h)
 
+    def test_actual_new_client_size_measures_outer_node_from_original_inner_ellipse(self):
+        manifest=json.loads((ROOT/'artifacts/p4c-random-development-60-run-03/zone-2-first-battle-random-pre-change/analysis/manifest.json').read_text(encoding='utf-8'))
+        c=manifest['cases'][0]
+        for f in c['frames'][1:3]:
+            image=Image.open(f['image']).convert('RGB');p=json.loads(Path(f['packet']).read_text(encoding='utf-8'));before=copy.deepcopy(p)
+            result=recover_map_aspect(image,p);self.assertEqual(p,before)
+            a=next(n['box'] for n in result['nodes'] if n.get('floor')==1 and n.get('column')==2);b=c['expectedBox']
+            area=max(0,min(a[0]+a[2],b[0]+b[2])-max(a[0],b[0]))*max(0,min(a[1]+a[3],b[1]+b[3])-max(a[1],b[1]))
+            self.assertGreaterEqual(area/(a[2]*a[3]+b[2]*b[3]-area),.9)
+
+    def test_plain_orange_ellipse_without_battle_icon_cannot_supply_outer_geometry(self):
+        import numpy as np
+        from map_aspect import _orange_node_pixel_geometry
+        m=json.loads((ROOT/'artifacts/p4c-random-development-60-run-03/zone-2-first-battle-random-pre-change/analysis/manifest.json').read_text(encoding='utf-8'))
+        f=m['cases'][0]['frames'][1];image=Image.open(f['image']).convert('RGB');p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+        node=next(n for n in p['mapReview']['nodes'] if n.get('floor')==1 and n.get('column')==2)
+        self.assertIsNotNone(_orange_node_pixel_geometry(image,node['box'],Path('F:/CRK helper'),hashlib.sha256(image.tobytes()).hexdigest()))
+        a=np.array(image);x,y,w,h=node['box'];region=a[int(y):int(y+h+1),int(x):int(x+w+1)]
+        white=(region.min(2)>140)&(region.max(2).astype(float)-region.min(2)<80);region[white]=[255,160,0]
+        self.assertIsNone(_orange_node_pixel_geometry(Image.fromarray(a),node['box'],Path('F:/CRK helper'),hashlib.sha256(a.tobytes()).hexdigest()))
+
 if __name__=='__main__':unittest.main()

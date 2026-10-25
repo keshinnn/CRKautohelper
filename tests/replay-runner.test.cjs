@@ -58,3 +58,22 @@ test('motion waiting cannot read the human post-click branch or dispatch late',a
  assert.equal(r.state,'MAP_MOVING');assert.equal(r.actions.length,0);assert.deepEqual(read,['a','b']);
  assert(r.selectionAttempts.some(a=>a.code==='HUMAN_BRANCH_NOT_RELEASED'));
 });
+
+test('pre-click resize discards old unanchored map before acquiring two new valid frames',async()=>{
+ const frames=[map('old',600),map('new1',800),map('new2',1000),preview('p1',1200),preview('p2',1400)];
+ frames[0].anchorVerified=false;frames[0].frame.geometryVersion='old';frames[0].frame.width=960;
+ frames.forEach(o=>o.frame.sourcePtsMs=o.frame.atMs);
+ const r=await runReplay({frames,intent,gate,observe:async f=>f});
+ assert.equal(r.state,'PREVIEW_CONFIRMED');assert.equal(r.actions.length,1);
+ assert.equal(r.transaction.proof.previousFrameId,'new1');assert.equal(r.actions[0].frameId,'new2');
+ assert(r.selectionAttempts.some(a=>a.code==='STALE_GEOMETRY'));
+});
+
+test('pre-click resize cannot waive missing anchor in the newly acquired pair',async()=>{
+ const frames=[map('old',600),map('new1',800),map('new2',1000),preview('p1',1200),preview('p2',1400)];
+ frames[0].frame.geometryVersion='old';frames[0].frame.width=960;frames[0].anchorVerified=false;frames[1].anchorVerified=false;
+ frames.forEach(o=>o.frame.sourcePtsMs=o.frame.atMs);
+ const r=await runReplay({frames,intent,gate,observe:async f=>f});
+ assert.equal(r.actions.length,0);assert.equal(r.state,'ANCHOR_MISSING');
+ assert.deepEqual(r.observations.map(o=>o.frame.id),['old','new1','new2']);
+});

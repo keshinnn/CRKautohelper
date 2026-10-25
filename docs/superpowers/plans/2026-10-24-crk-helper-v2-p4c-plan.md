@@ -19,8 +19,8 @@
 - P4-A歷史原生里程碑5/5；P4-B最新比例回歸`artifacts/p4c-aspect-fixed-15-acceptance-01/report.json`15/15，保留實際分析版本。
 - `artifacts/p4c-aspect-native-20-replay-01/report.json`原生開發20/20，含更高樓層及四部影片；1551張地圖與原本新鮮核心結果完全一致，重用核心證據不算新鮮效能。
 - `artifacts/p4c-random-pilot-replay-08/report.json`首段三種變換3/3；仍只有一個原始互動。
-- 完整90組／9042張來源PNG正在產生。開發60組先逐組辨識並立即回放，遇第一失敗停該輪；保留30組尚未推論。
-- 第一輪60組已在第4組`zone-2-first-battle-random-fixed`因入口外框模板切換而停止，0點擊；前3組通過不構成60組完成。入口像素修正的實作／回歸正在驗證。
+- 完整90組／9042張來源PNG已產生，雜湊／尺寸／來源／座標變換獨立核對通過（`data/p4c/random-source-v1.json`）。開發60組逐組辨識並立即回放，遇第一失敗停該輪；保留30組尚未推論。
+- 第一輪60組已在第4組`zone-2-first-battle-random-fixed`因入口外框模板切換而停止，0點擊；前3組通過不構成60組完成。入口像素與預覽假設修正後，該組目前已通過；最新首段3組回歸亦通過。第3輪開發回放核對相同圖片與當前程式雜湊後沿用這4組證據，從第5組接續，分母仍為60。
 - 正式負例與最新隔離暖機p95尚未驗收，G4false。V1正式流程不變，P5未批准。
 
 ## Task 2追加實作 brief：預覽自動捲動後的身份
@@ -129,3 +129,12 @@ Third post-old pair2514/2520 has identical measured orange inner ellipse while e
 ### Task2/4 actual gate variant failure
 
 First full-development randomrun01 stops on case4 zone2fixed1471x777 MAP_MOVING withzero clicks. Actual12318/12324 target orange geometry is stable, but exit template switches node-live-exit (119.52x91.10) to node-b-exit (113.40x79.42); gateIoU.82715. Do not relax selector or change frozen prepair. A unique cyan inner component of the measured same-frame exit candidate has identical actualsourcebox[732,262,83,59]. Original node-exit template innerextent[9,9,40,41] over58x58 yields canonical sourceouterbox[713.325,249.04878,120.35,83.46341]; actualindependent innerRGB scores.96948/.96961. New aspect-only refinement requires unique centered cyancomponent, candidate-size limits, actualoriginaltemplate arrow match>=.9 and outerdimension within15%originalmodel box. Store originalmodel analysisbox/center, sourceinnerpixelbox, templateSHA/size/innerextent and actualscore. Node must recompute geometry and reject wrongpixelproof. Actual stablegate RED->GREEN and erased-arrow cyanblob negative; targetIoU/line/scene/current gates unchanged. Re-run failedcase and previous3pilot cases, fullsuites before continuing60. Native near1 remainsno-op. Never count source rendering as inference or G4.
+
+
+### Task4點前換尺寸順序與G2外框修正
+
+實際case5舊前綴2094x948只有MAP場景／無入口，新1568x1008地圖有入口。runner在檢查幾何前先驗舊錨點而拒絕；同視窗幾何變更須先作廢舊候選、記STALE_GEOMETRY，再從新圖取得完整兩張有效錨點與200ms。selector、不同視窗、UNKNOWN及人工分支屏障不放寬。兩個RED->GREEN測試覆蓋重新取得與新畫面仍缺錨點必須拒絕。
+
+順序修正後已確認預覽，但G2實際IoU.896281<.9，仍判失敗。新增aspect-only普通節點外框量測：由當張唯一共識圈對應的原始高解析度橙色凸輪廓擬合橢圓，用同張實際內圖RGB匹配原node-orange模板>=.9，再依原模板實際內框／尺寸換算外框，僅接納原模型尺寸±15%內且完整在圖內的解。保留原模型score與box，記來源橢圓／整數實際裁切／參考PNG SHA／尺寸／匹配分數；Node重新核對綁定、幾何與共識。純橙色無戰鬥圖示反例拒絕，沒有新增模板、修改真值或降低門檻。
+
+當前case5IoU.954465、margin31.999px閉環通過；前4組當前程式回歸亦全過。最新Node77／Python101全過。僅5/60開發變換案例通過，仍非G4。後續沿用證據必須逐一核對相同PNG／PTS／幾何／intent／真值與全部當前ML/lib/scripts雜湊；不作效能證據，分母仍60。

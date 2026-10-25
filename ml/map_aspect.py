@@ -125,6 +125,52 @@ def _gate_pixel_geometry(image, box, root, digest):
     }
 
 
+def _orange_node_pixel_geometry(image, box, root, digest):
+    x,y,w,h=box;left,top=int(x),int(y);right,bottom=math.ceil(x+w),math.ceil(y+h)
+    if min(left,top)<0 or right>image.width or bottom>image.height:return None
+    rgb=np.asarray(image.crop((left,top,right,bottom)))
+    mask=cv2.inRange(cv2.cvtColor(rgb,cv2.COLOR_RGB2HSV),(5,130,130),(35,255,255))
+    mask=cv2.morphologyEx(mask,cv2.MORPH_CLOSE,np.ones((3,3),np.uint8))
+    contours,_=cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE);ellipses=[]
+    for contour in contours:
+        area=cv2.contourArea(contour);hull=cv2.contourArea(cv2.convexHull(contour))
+        if len(contour)<5 or area<200 or hull<=0 or area/hull<=.9:continue
+        (cx,cy),(ew,eh),angle=cv2.fitEllipse(contour)
+        if min(ew,eh)<=0 or not .9<area/(math.pi*ew*eh/4)<1.1:continue
+        theta=math.radians(angle);ex=math.hypot(ew*math.cos(theta),eh*math.sin(theta));ey=math.hypot(ew*math.sin(theta),eh*math.cos(theta))
+        cx+=left;cy+=top
+        if math.hypot(cx-x-w/2,cy-y-h/2)>min(w,h)*.05:continue
+        if cx-ex/2<x or cy-ey/2<y or cx+ex/2>x+w or cy+ey/2>y+h:continue
+        ellipses.append((cx,cy,ex,ey))
+    if len(ellipses)!=1:return None
+    raw=(root/'data/map/node-orange.png').read_bytes();reference=Image.open(io.BytesIO(raw)).convert('RGB')
+    ref_rgb=np.asarray(reference);ref_mask=cv2.inRange(cv2.cvtColor(ref_rgb,cv2.COLOR_RGB2HSV),(5,130,130),(35,255,255))
+    ref_mask=cv2.morphologyEx(ref_mask,cv2.MORPH_CLOSE,np.ones((3,3),np.uint8))
+    refs,_=cv2.findContours(ref_mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE);extents=[]
+    for contour in refs:
+        if cv2.contourArea(contour)<=20:continue
+        rx,ry,rw,rh=cv2.boundingRect(contour)
+        if abs(rx+rw/2-reference.width/2)<=reference.width*.1 and abs(ry+rh/2-reference.height/2)<=reference.height*.1:extents.append([rx,ry,rw,rh])
+    if len(extents)!=1:return None
+    rx,ry,rw,rh=extents[0];cx,cy,ex,ey=ellipses[0];bx,by=cx-ex/2,cy-ey/2
+    crop=[round(bx),round(by),round(bx+ex),round(by+ey)]
+    if crop[2]<=crop[0] or crop[3]<=crop[1]:return None
+    actual=cv2.resize(np.asarray(image.crop(crop)),(rw,rh),interpolation=cv2.INTER_AREA)
+    expected=ref_rgb[ry:ry+rh,rx:rx+rw]
+    score=.7*float(cv2.matchTemplate(cv2.cvtColor(actual,cv2.COLOR_RGB2GRAY),cv2.cvtColor(expected,cv2.COLOR_RGB2GRAY),cv2.TM_CCOEFF_NORMED)[0,0])+.3*(1-np.abs(actual.astype(float)-expected).mean()/255)
+    if not .9<=score<=1:return None
+    sx,sy=ex/rw,ey/rh;result=[bx-rx*sx,by-ry*sy,reference.width*sx,reference.height*sy]
+    if (min(result[:2])<0 or result[0]+result[2]>image.width or result[1]+result[3]>image.height
+            or not .85*w<=result[2]<=1.15*w or not .85*h<=result[3]<=1.15*h):return None
+    return result,{
+        'method':'same_frame_orange_ellipse_and_original_template_extent',
+        'pixelSha256':digest,'sourceInnerBox':[bx,by,ex,ey],'ellipseCenter':[cx,cy],
+        'actualCropBox':[crop[0],crop[1],crop[2]-crop[0],crop[3]-crop[1]],
+        'templateInnerBox':extents[0],'templateSize':list(reference.size),
+        'templateImageSha256':hashlib.sha256(raw).hexdigest(),'innerScore':float(score),'actionsExecuted':False,
+    }
+
+
 def recover_map_aspect(image, packet):
     original = packet.get('mapReview')
     if not isinstance(original, dict):
@@ -204,13 +250,21 @@ def recover_map_aspect(image, packet):
                     matches.append((index, cx, cy))
             if len(matches) == 1:
                 index, cx, cy = matches[0]
-                node['centerRefinement'] = {
-                    'method': 'same_frame_unique_enclosed_orange_circle_center',
-                    'candidateIndex': index, 'originalAnalysisBox': list(node['box']),
-                    'originalAnalysisCenter': list(node['center']), 'actionsExecuted': False,
-                }
-                node['center'] = [cx, cy]
-                node['box'] = [cx - w / 2, cy - h / 2, w, h]
+                measured=_orange_node_pixel_geometry(rgb,[x*inverse_x,y,w*inverse_x,h],root,digest)
+                if measured is not None:
+                    (bx,by,bw,bh),proof=measured
+                    node['orangeRefinement']={**proof,'candidateIndex':index,
+                        'originalAnalysisBox':list(node['box']),'originalAnalysisCenter':list(node['center'])}
+                    node['box']=[bx/inverse_x,by,bw/inverse_x,bh]
+                    node['center']=[(bx+bw/2)/inverse_x,by+bh/2]
+                else:
+                    node['centerRefinement'] = {
+                        'method': 'same_frame_unique_enclosed_orange_circle_center',
+                        'candidateIndex': index, 'originalAnalysisBox': list(node['box']),
+                        'originalAnalysisCenter': list(node['center']), 'actionsExecuted': False,
+                    }
+                    node['center'] = [cx, cy]
+                    node['box'] = [cx - w / 2, cy - h / 2, w, h]
         node['analysisBox'] = list(node['box'])
         node['analysisCenter'] = list(node['center'])
         x, y, w, h = node['box']

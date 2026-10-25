@@ -75,7 +75,8 @@ print(json.dumps(packets))
  const a=observe(frames[0],packets[0]),b=observe(frames[1],packets[1]);
  const proof=selectNode(a,b,c.intent,{nowMs:b.frame.atMs});assert.equal(proof.nodeId,'visible-1-2');
  const altered=structuredClone(packets[1]);
- altered.mapReview.nodes.find(n=>n.id===proof.nodeId).centerRefinement.candidateIndex=999;
+ const selected=altered.mapReview.nodes.find(n=>n.id===proof.nodeId);
+ (selected.orangeRefinement||selected.centerRefinement).candidateIndex=999;
  assert.equal(observe(frames[1],altered).verified,false);
 });
 
