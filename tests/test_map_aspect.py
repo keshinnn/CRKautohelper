@@ -10,6 +10,16 @@ except ImportError:
     def recover_map_aspect(image,packet):return packet['mapReview']
 
 class MapAspectTests(unittest.TestCase):
+    def test_actual_hud_overlap_does_not_create_a_second_nonclosed_consensus(self):
+        m=json.loads((ROOT/'artifacts/p4c-random-development-60-run-08/zone-9-first-battle-random-post-change/analysis/manifest.json').read_text(encoding='utf-8'))
+        for f in m['cases'][0]['frames'][:2]:
+            with Image.open(f['image']) as image:calibration=estimate_pixel_aspect(image)
+            self.assertIsNotNone(calibration)
+            self.assertEqual(len(calibration['consensus']),6)
+            chosen=[i for i,q in enumerate(calibration['candidates']) if abs(q['ratio']/calibration['ratio']-1)<.04]
+            self.assertEqual(calibration['consensus'],chosen)
+            self.assertTrue(all(calibration['candidates'][i]['center'][1]>600 for i in chosen))
+
     def test_actual_unanchored_five_percent_aspect_recovers_gate_without_changing_native_maps(self):
         m=json.loads((ROOT/'artifacts/p4c-time-locator-zone9-pre-analysis-01/manifest.json').read_text(encoding='utf-8'))
         for f in m['cases'][0]['frames'][1:3]:

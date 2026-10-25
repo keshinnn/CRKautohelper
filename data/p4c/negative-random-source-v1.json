@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "sourceManifest": "artifacts/p4c-random-negative-pixels-30-01/manifest.json",
+  "sourceManifestSha256": "0c2d28658beab260056f13c748fa6b4c3d83b597cd6ee2faf5eff26efeeeefe4",
+  "cases": 30,
+  "renderedFrames": 60,
+  "eachSourceFrameHasThreeDistinctSizes": true,
+  "pixelHashAndDimensionChecksPassed": true,
+  "independentCropAndMatrixChecksPassed": true,
+  "sourceReviews": [
+    {
+      "path": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\data\\p4c\\negative-native-review-v1.json",
+      "sha256": "4fa1537770f498a1bb80fa7a0a45c83d9c8f5c2a4927ec0dd08c5441fe2e7f86"
+    },
+    {
+      "path": "C:\\Users\\User\\Documents\\Codex\\CRK-Helper-V2\\artifacts\\p4c-crop-negative-review-01\\reviewed-manifest.json",
+      "sha256": "370d845360ac6f962e9c6bf61264bc9e7fd773730efc39a84bb0a83348ed3fd6"
+    }
+  ],
+  "contactSheet": {
+    "path": "artifacts/p4c-random-negative-pixels-30-01/contact.png",
+    "sha256": "4d44f6c03d40c7049af4424fc575e414b1555797446649e5a781f237bf5c5da5",
+    "manuallyViewed": true,
+    "review": "Inherited native facts preserved; further crops cannot restore removed identity/target/gate pixels."
+  },
+  "modelInferenceRun": false,
+  "holdoutTouched": false,
+  "positiveCountContribution": 0,
+  "randomTripleNegativeCoverageComplete": false,
+  "formalNegativeGateComplete": false,
+  "g4Complete": false,
+  "nativeActions": 0
+}

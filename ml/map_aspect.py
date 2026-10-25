@@ -56,6 +56,21 @@ def estimate_pixel_aspect(image):
         tuple(i for i, q in enumerate(candidates) if abs(q['ratio'] / p['ratio'] - 1) < .04)
         for p in candidates
     }
+    # A seed's neighbors need not be a consensus around their own median.
+    # Close each set against all measured candidates until its median agrees
+    # with its membership. Genuine separated aspect groups remain ambiguous.
+    closed=set()
+    for group in groups:
+        seen=set()
+        while group and group not in seen:
+            seen.add(group)
+            median=float(np.median([candidates[i]['ratio'] for i in group]))
+            next_group=tuple(i for i,q in enumerate(candidates) if abs(q['ratio']/median-1)<.04)
+            if next_group==group:
+                closed.add(group)
+                break
+            group=next_group
+    groups=closed
     qualified = []
     for group in groups:
         if len(group) < 3:
