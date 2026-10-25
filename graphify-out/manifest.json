@@ -504,9 +504,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-24-crk-helper-v2-p4c-plan.md": {
-    "mtime": 1792921294.1758444,
-    "seen": 1792921301.049338,
-    "ast_hash": "474a36f32937d876edd5f106ba4918c5",
+    "mtime": 1792934510.4157102,
+    "seen": 1792934519.1488466,
+    "ast_hash": "37ff966e36a7a0ce0879750685e31cb0",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-10-24-crk-helper-v2-design.md": {
@@ -534,15 +534,15 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-10-24-p4c-progress.md": {
-    "mtime": 1792921294.1688225,
-    "seen": 1792921301.0493426,
-    "ast_hash": "3ef320682c1e56779db03dda544a68db",
+    "mtime": 1792934668.8048694,
+    "seen": 1792934675.8296769,
+    "ast_hash": "914c3f448c1c26d1816e63a519359977",
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1792933226.082916,
-    "seen": 1792933247.7229917,
-    "ast_hash": "531f272d98b77e20bb25997f9f8ee267",
+    "mtime": 1792934665.8108368,
+    "seen": 1792934675.8296785,
+    "ast_hash": "cb32181cbb774ebb481567dcb39d6e33",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -642,15 +642,15 @@
     "semantic_hash": ""
   },
   "ml/map_aspect.py": {
-    "mtime": 1792933055.2807317,
-    "seen": 1792933247.72284,
-    "ast_hash": "94b5402af41d6f93a2fd889b3792aafa",
+    "mtime": 1792934351.9277568,
+    "seen": 1792934519.1487339,
+    "ast_hash": "f47266d85e14d6a2a2e75ceed344a7e0",
     "semantic_hash": ""
   },
   "tests/map-aspect-adapter.test.cjs": {
-    "mtime": 1792933499.6324997,
-    "seen": 1792933580.6499953,
-    "ast_hash": "6d309918da6bb6c853ae90fb0f99165b",
+    "mtime": 1792934322.3636484,
+    "seen": 1792934519.1487803,
+    "ast_hash": "c45c0be39a6e840e68b81d478ef2aba4",
     "semantic_hash": ""
   },
   "tests/test_aspect_preview.py": {
@@ -660,9 +660,9 @@
     "semantic_hash": ""
   },
   "tests/test_map_aspect.py": {
-    "mtime": 1792932901.5409176,
-    "seen": 1792933247.7229187,
-    "ast_hash": "5e1d555152977705e0ba7a2524642626",
+    "mtime": 1792933620.2949564,
+    "seen": 1792934519.1488202,
+    "ast_hash": "30a401ec8b839ce893f089deec784a9a",
     "semantic_hash": ""
   },
   "data/p4c/random-prefix-anchor-review-v1.json": {

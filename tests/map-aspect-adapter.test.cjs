@@ -2,6 +2,26 @@ const {test}=require('node:test'),assert=require('node:assert/strict'),fs=requir
 const {adaptMap,adaptPreview}=require('../lib/observer-adapter.cjs'),{loadReplayFrames}=require('../lib/replay-case.cjs'),{selectNode}=require('../lib/node-selector.cjs');
 function fixture(){const m=JSON.parse(fs.readFileSync(path.join(__dirname,'../artifacts/p4c-aspect-map-bridge-02/manifest.json')));const c=m.cases[0];return {c,frames:loadReplayFrames(c)};}
 function observe(s,p=s.packet){return adaptMap({...s.frame,png:s.png},p);}
+test('original candidate precision survives rounded legacy analysis geometry',()=>{
+ const {execFileSync}=require('node:child_process');
+ const source='artifacts/p4c-proposal-controls-nine-analysis-02/manifest.json';
+ const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
+import json,sys,pathlib
+sys.path[:0]=['ml','F:/CRK helper/ml']
+from PIL import Image
+from map_aspect import recover_map_aspect
+from preview_identity import inspect_preview_identity
+from bounded_ocr import BoundedOCRRuntime
+m=json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'))
+f=next(f for f in m['cases'][7]['frames'] if f['frameIndex']==20224)
+p=json.loads(pathlib.Path(f['packet']).read_text(encoding='utf-8'))
+with Image.open(f['image']) as im,BoundedOCRRuntime(960):
+ p['mapReview']=recover_map_aspect(im,p);p['v2Preview']=inspect_preview_identity(im,p)
+print(json.dumps(p))
+`,source],{cwd:path.join(__dirname,'..'),maxBuffer:10*1024*1024});
+ const m=JSON.parse(fs.readFileSync(path.join(__dirname,'..',source))),c=m.cases[7],frames=loadReplayFrames(c),s=frames[c.frames.findIndex(f=>f.frameIndex===20224)];
+ assert.equal(adaptPreview({...s.frame,png:s.png},JSON.parse(raw)).state,'PREVIEW');
+});
 test('original inner-icon candidate supports glowing node and rejects corrupted producer proof',()=>{
  const {execFileSync}=require('node:child_process');
  const source='artifacts/p4c-random-development-60-run-05/zone-8-first-battle-random-fixed/analysis/manifest.json';

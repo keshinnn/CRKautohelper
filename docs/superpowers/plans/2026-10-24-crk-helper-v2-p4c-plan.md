@@ -36,6 +36,14 @@
 
 第一版配準只接納相同客戶區幾何；隨機點後改比例仍須另證，不能因單一捲動測試通過而宣稱跨比例完成。
 
+## Actual glowing-edge candidate and precision repair brief
+
+Run05 actual zone8fixed source64878/64884 loses outer-edge proposals while the source orange ellipse and ordinary icon remain visible. Supplement only missing centers using same-frame aspect-consensus ellipses, median measured peer sizes and original node-orange RGB evidence. Preserve original detector, unique visible-gate lattice and connecting pixels as the authority for IDs, columns and floors. The source PNG/RGB/frame, actual analysis image/size, injection coordinates, ellipse, original template SHA and actual icon scores must accompany every supplement. Scoped hooks restore on success or exception; near-native aspect remains an unchanged no-op.
+
+Actual64890 may use the existing preview core comparison (58x58 normalized crop, inner[12,12,34,34], original .90 score and .08 winner margin, bounded2% alignment). Ellipse-derived physical geometry remains independent of that alignment. Store original circle score and core ranking/crop separately; erased icon, unbound source, missing proof, modified crop/alignment/margin/template must reject. Do not change source intervals, seeds, stable duration or score thresholds.
+
+Actual development control20224 exposed .0111947px disagreement after the legacy lattice rounds normalized candidate coordinates and source projection rounds them again. Retain original measured candidate precision through lattice assignment and round only at final source output; do not widen adapter tolerance. Add the actual Node preview bridge RED->GREEN, rerun all ten current controls and complete suites before resuming the unchanged60-case denominator. Prior failed replays remain preserved and cannot seed current-code reuse.
+
 ## Task 3追加實作 brief：有尺寸證據的OCR前處理
 
 完整暖機診斷144樣本p95=4433.98ms，不能宣稱效能合格。實驗發現現有OCR的min模式不縮小大型輸入，而max模式會自動覆寫設定的上限；必須檢查實際送入模型的tensor，而非只記設定值。只改執行緒沒有解決問題。

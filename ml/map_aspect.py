@@ -307,6 +307,12 @@ def recover_map_aspect(image, packet):
     result = copy.deepcopy(result)
     inverse_x = rgb.width / normalized.width
     for node in result['nodes']:
+        if node.get('pixelProposal'):
+            # Legacy lattice assignment rounds its analysis boxes to .01px.
+            # Retain the producer's measured precision until source projection.
+            geometry=node['pixelProposal']['geometryEvidence']
+            node['box']=list(geometry['originalAnalysisBox'])
+            node['center']=list(geometry['originalAnalysisCenter'])
         if node.get('type') == 'exit':
             x,y,w,h=node['box']
             measured=_gate_pixel_geometry(rgb,[x*inverse_x,y,w*inverse_x,h],root,digest)
