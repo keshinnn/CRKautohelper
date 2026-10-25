@@ -45,6 +45,16 @@ class GateSupportedAspectTests(unittest.TestCase):
             self.assertTrue(p['mapReview']['absoluteFloorKnown'])
             self.assertEqual(next(n for n in p['mapReview']['nodes'] if n.get('floor')==1 and n.get('column')==2)['type'],'heal')
 
+    def test_actual_large_node_connection_uses_reference_geometry_without_lowering_support(self):
+        m=json.loads((ROOT/'artifacts/p4c-random-development-60-run-12/dev-primary-zone2-floor2-col3-higher-random-post-change/analysis/manifest.json').read_text(encoding='utf-8'))
+        for f in m['cases'][0]['frames'][:2]:
+            p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+            with Image.open(f['image']) as image:r=recover_map_aspect(image,p)
+            links=[e for e in r['edges'] if e['from']=='visible-1-3' and e['to']=='visible-2-3']
+            self.assertEqual(len(links),1)
+            self.assertGreaterEqual(links[0]['pixel_support'],.85)
+            if 'lineReference' in links[0]:self.assertEqual(links[0]['lineReference']['referenceNodeSize'],58)
+
     def fixtures(self):
         return json.loads((ROOT/'artifacts/p4c-random-development-60-run-09/dev-primary-zone2-floor2-col3-higher-random-fixed/analysis/manifest.json').read_text(encoding='utf-8'))['cases'][0]['frames'][:2]
 

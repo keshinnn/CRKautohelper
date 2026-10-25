@@ -11,6 +11,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 from PIL import Image
+from reference_line_geometry import reference_geometry
 
 
 def _qualified_aspect_groups(candidates):
@@ -323,11 +324,21 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
         if any(n.get('pixelProposal') and (n.get('type')!='battle' or n.get('completed') is not False) for n in result.get('nodes',[])):return initial
         if any(n.get('checkProposal') and (n.get('type') in ('exit','boss') or n.get('completed') is not True) for n in result.get('nodes',[])):return initial
         if any(n.get('gateProposal') and n.get('type')!='exit' for n in result.get('nodes',[])):return initial
+        # Adding a missing first row can renumber existing relative row IDs.
+        # Bind the peer by its unchanged measured pixels, then its final ID.
+        for node in result.get('nodes',[]):
+            check=node.get('checkProposal')
+            if check is None:continue
+            matches=[peer for peer in result['nodes'] if peer is not node and peer.get('type') not in ('exit','boss')
+                and all(abs(v*(inverse if i%2==0 else 1)-check['peerSourceBox'][i])<=.011 for i,v in enumerate(peer['box']))]
+            if len(matches)!=1:return initial
+            check['peerNodeId']=matches[0]['id']
         return result
     finally:
         map_vision.node_candidates=original
 
 
+@reference_geometry
 def recover_map_aspect(image, packet):
     original = packet.get('mapReview')
     if not isinstance(original, dict):

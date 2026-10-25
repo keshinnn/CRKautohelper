@@ -162,6 +162,61 @@ print(json.dumps(packets))
  }
 });
 
+test('reference-size line proof binds pixels geometry and unchanged support threshold',()=>{
+ const {execFileSync}=require('node:child_process'),source='artifacts/p4c-random-development-60-run-12/dev-primary-zone2-floor2-col3-higher-random-post-change/analysis/manifest.json';
+ const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
+import json,sys,pathlib
+sys.path[:0]=['ml','F:/CRK helper/ml']
+from PIL import Image
+from map_aspect import recover_map_aspect
+from map_action_evidence import inspect_map_actions
+from bounded_ocr import BoundedOCRRuntime
+from progress_evidence import ProgressRuntime
+from english_scene import EnglishSceneRuntime,semantic_state
+m=json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'));packets=[]
+for f in m['cases'][0]['frames'][:2]:
+ p=json.loads(pathlib.Path(f['packet']).read_text(encoding='utf-8'));original=p['mapReview']
+ with Image.open(f['image']) as im,ProgressRuntime(),BoundedOCRRuntime(960) as runtime,EnglishSceneRuntime():
+  p['evidence']=runtime._reread_map_context(im,p['evidence']);p['flow'].update(semantic_state(p['evidence']))
+  p['mapReview']=recover_map_aspect(im,p);p['v2MapActions']=inspect_map_actions(im,p)
+ p['v2OriginalMapReview']=original;packets.append(p)
+print(json.dumps(packets))
+`,source],{cwd:path.join(__dirname,'..'),maxBuffer:10*1024*1024});
+ const m=JSON.parse(fs.readFileSync(path.join(__dirname,'..',source))),c=m.cases[0],frames=loadReplayFrames(c),packets=JSON.parse(raw);
+ const a=observe(frames[0],packets[0]),b=observe(frames[1],packets[1]);
+ assert.equal(a.anchorVerified,true);assert.equal(b.anchorVerified,true);
+ assert.equal(selectNode(a,b,c.intent,{nowMs:b.frame.atMs}).nodeId,'visible-2-3');
+ for(const kind of ['pixels','reference-size','score','node-box','capture','missing-proof']){
+  const p=structuredClone(packets[1]),edge=p.mapReview.edges.find(e=>e.from==='visible-1-3'&&e.to==='visible-2-3'),e=edge.lineReference;
+  assert.ok(e);
+  if(kind==='pixels')e.pixelSha256='0'.repeat(64);
+  if(kind==='reference-size')e.referenceNodeSize=59;
+  if(kind==='score')e.pixelSupport=.8;
+  if(kind==='node-box')e.sourceNodeBoxes[0][0]+=10;
+  if(kind==='capture')e.sourceCaptureFrameId='0'.repeat(32);
+  if(kind==='missing-proof')delete edge.lineReference;
+  assert.equal(observe(frames[1],p).anchorVerified,false,kind);
+ }
+});
+
+test('completed peer binds the same physical node when adding a missing first row changes IDs',()=>{
+ const {execFileSync}=require('node:child_process'),source='artifacts/p4c-reference-line-higher-post-analysis-01/manifest.json';
+ const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
+import json,sys,pathlib
+sys.path[:0]=['ml','F:/CRK helper/ml']
+from PIL import Image
+from map_aspect import recover_map_aspect
+m=json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'));f=m['cases'][0]['frames'][2];p=json.loads(pathlib.Path(f['packet']).read_text(encoding='utf-8'))
+with Image.open(f['image']) as im:p['mapReview']=recover_map_aspect(im,p)
+print(json.dumps(p))
+`,source],{cwd:path.join(__dirname,'..'),maxBuffer:10*1024*1024});
+ const m=JSON.parse(fs.readFileSync(path.join(__dirname,'..',source))),s=loadReplayFrames(m.cases[0])[2],p=JSON.parse(raw),n=p.mapReview.nodes.find(n=>n.checkProposal);
+ assert.ok(n);assert.equal(n.checkProposal.peerNodeId,'visible-3-1');
+ assert.equal(adaptMap({...s.frame,png:s.png},p).verified,true);
+ const altered=structuredClone(p);altered.mapReview.nodes.find(n=>n.checkProposal).checkProposal.peerNodeId='visible-2-1';
+ assert.equal(adaptMap({...s.frame,png:s.png},altered).verified,false);
+});
+
 test('anchored near-native preview still requires measured aspect and matching original anchor status',()=>{
  const {execFileSync}=require('node:child_process'),source='artifacts/p4c-near-native-zone9-pre-analysis-01/manifest.json';
  const raw=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',`
