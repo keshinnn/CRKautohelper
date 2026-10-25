@@ -144,9 +144,9 @@
     "semantic_hash": ""
   },
   "lib/replay-evaluator.cjs": {
-    "mtime": 1792848814.6004326,
-    "seen": 1792881320.016814,
-    "ast_hash": "575a69ed015e92d84f61ad95f553cae0",
+    "mtime": 1792887715.4288614,
+    "seen": 1792888017.601038,
+    "ast_hash": "2679669844e342648689b71eff926ac7",
     "semantic_hash": ""
   },
   "lib/replay-runner.cjs": {
@@ -234,9 +234,9 @@
     "semantic_hash": ""
   },
   "ml/random_client_transform.py": {
-    "mtime": 1792843075.5473938,
-    "seen": 1792881320.0168366,
-    "ast_hash": "cacd0f3faaddff7f0c7f521760f8b443",
+    "mtime": 1792886746.9045742,
+    "seen": 1792888017.6011758,
+    "ast_hash": "364c40a0e363435b32197f8784978691",
     "semantic_hash": ""
   },
   "ml/render_overlay.py": {
@@ -348,9 +348,9 @@
     "semantic_hash": ""
   },
   "tests/replay-evaluator.test.cjs": {
-    "mtime": 1792848766.3672554,
-    "seen": 1792881320.0168653,
-    "ast_hash": "b4ed4282279465739cb290414521f9cc",
+    "mtime": 1792887675.7808921,
+    "seen": 1792888017.6012182,
+    "ast_hash": "4b6169130c5e8a02f7f5baba3319756a",
     "semantic_hash": ""
   },
   "tests/replay-runner.test.cjs": {
@@ -450,9 +450,9 @@
     "semantic_hash": ""
   },
   "tests/test_random_client_transform.py": {
-    "mtime": 1792843041.7893207,
-    "seen": 1792881320.0168905,
-    "ast_hash": "c42945b86a5a5bd515ab0824ebe7674b",
+    "mtime": 1792886726.680821,
+    "seen": 1792888017.6012545,
+    "ast_hash": "6784d1223cb8e35d4a2ca4fbe7e21133",
     "semantic_hash": ""
   },
   "tests/test_sparse_map_geometry.py": {
@@ -504,9 +504,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-24-crk-helper-v2-p4c-plan.md": {
-    "mtime": 1792883580.7797682,
-    "seen": 1792883822.7636533,
-    "ast_hash": "ed6b697eaad65c7a1cf4d082bbaf72ac",
+    "mtime": 1792888987.8024557,
+    "seen": 1792888993.8318675,
+    "ast_hash": "0d19f863aef2071367d276cb4c51b0ba",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-10-24-crk-helper-v2-design.md": {
@@ -540,9 +540,9 @@
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1792885925.1248887,
-    "seen": 1792885936.228201,
-    "ast_hash": "b7d88f74fd79f2ca3a6353138b08bcea",
+    "mtime": 1792888987.8014553,
+    "seen": 1792888993.8318772,
+    "ast_hash": "2620db482b06c6ea3c62430fccd65d3f",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -585,6 +585,60 @@
     "mtime": 1792884726.7732766,
     "seen": 1792885029.1654997,
     "ast_hash": "48fd61539a63beddb4f18080324980bb",
+    "semantic_hash": ""
+  },
+  "data/p4c/random-pilot-review-v1.json": {
+    "mtime": 1792887474.9013507,
+    "seen": 1792888017.601016,
+    "ast_hash": "4a2c0de746b62a15b34cb6f976b4567a",
+    "semantic_hash": ""
+  },
+  "lib/replay-case.cjs": {
+    "mtime": 1792887715.4278588,
+    "seen": 1792888017.6010356,
+    "ast_hash": "df74aa6f39883e4ff94cafd182d29e9b",
+    "semantic_hash": ""
+  },
+  "ml/freeze_replay_prefixes.py": {
+    "mtime": 1792887086.2401097,
+    "seen": 1792888017.601161,
+    "ast_hash": "2ab53958e2a3abf19184081aa96972e1",
+    "semantic_hash": ""
+  },
+  "ml/random_replay_plan.py": {
+    "mtime": 1792886909.3406978,
+    "seen": 1792888017.6011777,
+    "ast_hash": "95239386d370d369453159ca07bc8be8",
+    "semantic_hash": ""
+  },
+  "scripts/replay-development.cjs": {
+    "mtime": 1792887715.4293604,
+    "seen": 1792888017.6011949,
+    "ast_hash": "ee347576537b0ed4da02e56669edc59a",
+    "semantic_hash": ""
+  },
+  "tests/replay-case.test.cjs": {
+    "mtime": 1792887572.3506951,
+    "seen": 1792888017.6012156,
+    "ast_hash": "54b35e8f0246082e2cb0b8b5c458ed4e",
+    "semantic_hash": ""
+  },
+  "tests/replay-development-cli.test.cjs": {
+    "mtime": 1792887675.7813935,
+    "seen": 1792888017.6012166,
+    "ast_hash": "d3396d594f441d67305a6ab03604e2ed",
+    "semantic_hash": ""
+  },
+  "tests/test_prefix_freezer.py": {
+    "mtime": 1792887032.779294,
+    "seen": 1792888017.6012459,
+    "ast_hash": "f17b74d47cafb50aa1cb8ac0facac9ac",
+    "semantic_hash": ""
+  },
+  "tests/test_random_replay_plan.py": {
+    "mtime": 1792886849.4193418,
+    "seen": 1792888017.6012557,
+    "ast_hash": "bf8259303771662e87736c23f2066a8c",
     "semantic_hash": ""
   }
 }

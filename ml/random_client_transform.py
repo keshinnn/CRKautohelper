@@ -3,7 +3,7 @@
 This utility does not run recognition or claim P4-C acceptance. A dataset
 generator must freeze its sequences and anchors before invoking it.
 """
-import hashlib,math,random
+import hashlib,io,math,random
 from pathlib import Path
 from PIL import Image
 
@@ -36,7 +36,7 @@ def inverse_point(point,layout):
 
 def transform_png(source,layout,output):
     source=Path(source);output=Path(output);raw=source.read_bytes()
-    with Image.open(source) as image:
+    with Image.open(io.BytesIO(raw)) as image:
         if image.format!='PNG' or list(image.size)!=layout['inputSize']:raise ValueError('original PNG size does not match frozen layout')
         left,top,w,h=layout['cropBox']
         if min(left,top)<0 or min(w,h)<=0 or left+w>image.width or top+h>image.height:raise ValueError('crop outside source')

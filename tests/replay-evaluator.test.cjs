@@ -35,3 +35,11 @@ test('native development grading checks geometry without promoting any milestone
  assert.equal(evaluateDevelopmentReplay({...c,reviewed:false},r).passed,false);
  assert.throws(()=>evaluateReplay(c,r,{stage:'P4-C'}),/MILESTONE_SCALE_INVALID/);
 });
+
+test('nonuniform development sequences report their mode without a false isotropic scale',()=>{
+ const {evaluateDevelopmentReplay}=require('../lib/replay-evaluator.cjs');
+ const r={state:'NO_SELECTION',passed:false,nativeActions:0,actions:[]};
+ const grade=evaluateDevelopmentReplay({id:'random',parentCaseId:'native',transformMode:'pre-change'},r);
+ assert.equal(grade.scale,null);assert.equal(grade.transformMode,'pre-change');assert.equal(grade.parentCaseId,'native');assert.equal(grade.g4Complete,false);
+ assert.throws(()=>evaluateDevelopmentReplay({transformMode:'invented'},r),/DEVELOPMENT_TRANSFORM_INVALID/);
+});

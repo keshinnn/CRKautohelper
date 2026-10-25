@@ -46,6 +46,24 @@ class RandomClientTransformTests(unittest.TestCase):
             self.assertNotIn('packet',one)
             with self.assertRaises(FileExistsError):transform_png(source,layout,Path(folder)/'one.png')
 
+    def test_rendered_pixels_bind_the_same_input_bytes_that_were_hashed(self):
+        import io
+        from unittest.mock import patch
+        root=Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory(prefix='crk-random-binding-',dir=root/'artifacts') as folder:
+            source=Path(folder)/'source.png';output=Path(folder)/'output.png'
+            Image.new('RGB',(80,60),(255,0,0)).save(source)
+            original=source.read_bytes();replacement=io.BytesIO();Image.new('RGB',(80,60),(0,0,255)).save(replacement,format='PNG')
+            read=Path.read_bytes
+            def changed_after_read(path):
+                raw=read(path)
+                if path==source:source.write_bytes(replacement.getvalue())
+                return raw
+            layout=sample_layout([80,60],[[4,4,72,52]],71)
+            with patch.object(Path,'read_bytes',changed_after_read):result=transform_png(source,layout,output)
+            self.assertEqual(result['transform']['inputSha256'],hashlib.sha256(original).hexdigest())
+            with Image.open(output) as image:self.assertEqual(image.getpixel((image.width//2,image.height//2)),(255,0,0))
+
     def test_outside_or_empty_anchor_annotations_are_rejected(self):
         for required in [[],[[1400,1000,100,100]],[[20,20,-5,10]],[[0,0,1440,1080]]]:
             with self.assertRaises(ValueError):sample_layout([1440,1080],required,3)

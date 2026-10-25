@@ -1,0 +1,36 @@
+{
+  "caseId": "zone-1-first-battle",
+  "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+  "sourceManifestSha256": "918b5bd7dc4cfc41e78d383f29447ef9760199d914072ab6ee97cb973e4e4e26",
+  "prefixManifestSha256": "eb8839b6c90896601a0493dadfea51dcbf316b04f59b34ae23a69bcf849de5ea",
+  "prefixImageSha256": "d1eb16065d9d270e956f8bd423e1d26f3cbed9490b404357faf79011ec0cbb73",
+  "prefixReviewed": true,
+  "reviewer": "Assistant visual review independent of the tested project recognizer",
+  "reviewedNativeFrames": [
+    2513,
+    2514,
+    2520,
+    2556
+  ],
+  "reviewMethod": "Full original PNGs checked: prefix is a closed zone1 map; visible gate, target globalcolumn2 and line are unobstructed; selected preview matches. Required scene labels/map evidence/preview identity/Enter control stay within conservative envelope.",
+  "anchorReview": {
+    "reviewed": true,
+    "caseId": "zone-1-first-battle",
+    "videoSha256": "af0edce98d57e893d0051bb710668ba9a4ee8a5352aa363a8f5b097586cd901a",
+    "annotationSha256": "ea7c95615338b0601211489e90374bdd5b2e91951458033f50b5f094bc425a3f",
+    "sourceSize": [
+      1440,
+      1080
+    ],
+    "boxes": [
+      [
+        12,
+        12,
+        1416,
+        1056
+      ]
+    ],
+    "scope": "Conservative inner full-client envelope, not per-object boxes; positive crop margins only1..12px. Size/aspect stress remains nonuniform. Large evidence-removing crops belong to separate negative tests."
+  },
+  "g4Complete": false
+}
