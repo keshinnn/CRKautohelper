@@ -256,3 +256,7 @@ Current verified development prefix24/60variants(8sourceinteractions×3size/aspe
 Currentdevelopmentprefix25/60variantsverified aftersourceintervalendpointfix;105Node/135Python testsallgreen,current24recomputedregression+focused25passed,fresh30negativeand57artifact/sourcebindingsaudited(evidence-v8). Main20continues26. Eachpassedcaseonevirtualclick/native0; formalG4/heldout/performance/finalreviewpending,P5stillunapproved.
 
 Currentdevelopmentprefix30/60variantsverified (10sourceinteractions×3transforms),107Node/137Pythonallgreen,freshnegative30and57source/artifactbundlesaudited(evidence-v9). Different-video variant31stoppedbeforeanyinput atANCHOR_MISSING; firstpreframe needsindependentanchor. G4/heldout/performance/finalreviewpending; native0/P5unapproved.
+
+最新小幅比例修正：109項Node與140項Python測試、30組新辨識負例及正負評分器對照均通過。另一部影片的第31組變換案例與同段原始解析度回放也分別通過，均僅一次虛擬點擊。前30組完整回歸及證據總核對仍在執行，尚未宣稱全體31組通過；正式G4、保留集及效能驗收仍待完成，P5未批准。
+
+當前版本前31／60個開發變換案例已核對通過（前30組完整重算回歸，加第31組完整回放）；109項Node、140項Python及30組新負例通過，57套影格證據核對完成。第32組已開始。原始影片數、保留集與正式G4驗收仍依原計畫計算，這31組不是31段獨立影片；原生操作為0。

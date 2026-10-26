@@ -353,6 +353,31 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
         map_vision.node_candidates=original
 
 
+def _small_aspect_sparse_evidence(original,binding,rgb,digest,ratio):
+    if original.get('absoluteFloorKnown') is not False or original.get('columns') is not None or original.get('frameId')!=digest[:20]:return None
+    nodes=original.get('nodes')
+    if not isinstance(nodes,list) or any(not isinstance(n,dict) for n in nodes):return None
+    gates=[n for n in nodes if n.get('type')=='exit'];normal=[n for n in nodes if n.get('type') not in ('exit','boss')]
+    if len(gates)!=1 or len(normal)<5:return None
+    for n in [*normal,*gates]:
+        box,center=n.get('box'),n.get('center')
+        if not isinstance(box,list) or len(box)!=4 or not isinstance(center,list) or len(center)!=2 or not np.isfinite([*box,*center,n.get('score',0)]).all():return None
+        x,y,w,h=box
+        if min(x,y)<0 or min(w,h)<=0 or x+w>rgb.width or y+h>rgb.height or not .48<=n.get('score',0)<=1:return None
+        if abs(center[0]-x-w/2)>.011 or abs(center[1]-y-h/2)>.011:return None
+    gx,gy,gw,gh=gates[0]['box']
+    if min(gx,gy,rgb.width-gx-gw,rgb.height-gy-gh)<=0:return None
+    radius=float(np.median([min(n['box'][2:]) for n in normal]));clusters=[]
+    for x in sorted(n['center'][0] for n in normal):
+        if not clusters or x-np.mean(clusters[-1])>radius*.5:clusters.append([x])
+        else:clusters[-1].append(x)
+    if len(clusters)!=3:return None
+    return {'method':'source_bound_unanchored_three_column_small_aspect_recovery','actionsExecuted':False,
+        'pixelSha256':digest,'sourceImageSha256':binding.get('imageSha256'),'sourceCaptureFrameId':binding.get('frameId'),
+        'sourceSize':list(rgb.size),'rawFrameId':original['frameId'],'sourceGateBox':list(gates[0]['box']),
+        'observedColumns':[float(np.mean(c)) for c in clusters],'observedNodeCount':len(normal),'pixelAspectRatio':ratio}
+
+
 @reference_geometry
 @completed_geometry
 def recover_map_aspect(image, packet):
@@ -371,10 +396,16 @@ def recover_map_aspect(image, packet):
         return original
     deviation=abs(calibration['ratio']-1)
     near_native=deviation<=.08
+    raw_prior=packet.get('v2OriginalMapReview')
+    if not isinstance(raw_prior,dict):raw_prior=original
+    small_sparse=None
     if deviation<=.03:
-        if original.get('absoluteFloorKnown') is not True or len(original.get('columns') or [])!=4:return original
-        root=Path(os.environ.get('CRK_V1_ROOT', 'F:/CRK helper'))
-        return _supplement_orange_candidates(rgb,rgb,original,calibration,binding,root,digest,binding['imageSha256'],completed_only=True)
+        small_sparse=_small_aspect_sparse_evidence(raw_prior,binding,rgb,digest,calibration['ratio'])
+        if small_sparse is None or round(rgb.width/calibration['ratio'])==rgb.width:
+            if original.get('absoluteFloorKnown') is True and len(original.get('columns') or [])==4:
+                root=Path(os.environ.get('CRK_V1_ROOT', 'F:/CRK helper'))
+                return _supplement_orange_candidates(rgb,rgb,original,calibration,binding,root,digest,binding['imageSha256'],completed_only=True)
+            return original
     if near_native and type(original.get('absoluteFloorKnown')) is not bool:
         return original
     normalized = rgb.resize((round(rgb.width / calibration['ratio']), rgb.height),
@@ -413,6 +444,7 @@ def recover_map_aspect(image, packet):
             'binding': {'pixelSha256': normal_pixel, 'imageSha256': normalized_sha},
             'mapReview': relative,
         })
+    if small_sparse is not None and (result.get('absoluteFloorKnown') is not True or result.get('floorAnchorSource')!='visible_top_gate'):return original
     columns, nodes = result.get('columns'), result.get('nodes', [])
     if (result.get('frameId') != normal_pixel[:20]
             or not isinstance(columns, list) or len(columns) != 4
@@ -489,7 +521,7 @@ def recover_map_aspect(image, packet):
     result['analysisScaleY'] = round(normalized.height * 960 / normalized.width) / rgb.height
     result['aspectRectification'] = {
         'verified': True, 'method': 'same_frame_circle_aspect_map_rectification',
-        'rectificationPurpose':('anchored_near_native_recovery' if original['absoluteFloorKnown'] else 'unanchored_near_native_recovery') if near_native else 'pixel_aspect_recovery',
+        'rectificationPurpose':('anchored_near_native_recovery' if raw_prior.get('absoluteFloorKnown') is True else 'unanchored_near_native_recovery') if near_native else 'pixel_aspect_recovery',
         'sourceImageSha256': binding['imageSha256'], 'pixelSha256': digest,
         'sourceCaptureFrameId': binding.get('frameId'),
         'sourceSize': list(rgb.size), 'rectifiedInputSize': list(normalized.size),
@@ -503,5 +535,6 @@ def recover_map_aspect(image, packet):
         'forwardMatrix': [[1 / inverse_x, 0, 0], [0, 1, 0], [0, 0, 1]],
         'inverseMatrix': [[inverse_x, 0, 0], [0, 1, 0], [0, 0, 1]],
         'calibration': calibration, 'actionsExecuted': False,
+        **({'smallAspectSparseRecovery':small_sparse} if small_sparse is not None else {}),
     }
     return result

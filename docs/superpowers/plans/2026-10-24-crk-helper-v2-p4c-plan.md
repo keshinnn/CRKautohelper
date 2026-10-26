@@ -225,3 +225,7 @@ Actual25/46303 boundarycalibrationcandidate projectedtop+height overshoots721 by
 ### Task2 original source ellipse extents for native outlines
 
 Actual30/95343 no peerextent clearsordinary.9/.08 though actualsourceellipseextentdoes(.9440 vs.7804). Add source-original ellipseextent hypothesis toexistingboundedoutlinecrop search, within10%median, same2%alignment andscores; do notnormalizeanear-nativeframe. Existingactualellipse/template geometryproof isretained andNodebound tosource/frame/box/score; missing/alteredproofreject. ActualREDandorange-erasednegative, full30/current29regressions/fullNode/Python/negative before31.
+
+### Task2 source-bound small-aspect sparse recovery
+
+Actual31firstpreframe hasuniqueexit/6normalnodes/3Xclusters andtruepixelratio.9751886; prior<=3%skip preventsnormalizationandabsoluteanchor. PermitnontrivialactualnormalizationONLYforrawunanchored/no-column/uniquegate/>=5normal/3clustercontexts, withsourceboundsmallAspectSparseRecovery proof validatedbyNode andalloriginalqualityconstraintsunchanged. Existinganchorednative framesretaincurrentcoordinateconvention. ActualRED/source-topology-negative tests first; thenfull31/current30/negative/fulltests before32.
