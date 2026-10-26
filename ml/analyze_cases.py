@@ -36,6 +36,7 @@ def main():
     from map_action_evidence import inspect_map_actions
     from preview_registration import PreviewAnchorTracker
     from stage_timing import StageTiming
+    from frame_intermediates import FrameIntermediates
     if args.fast_map:
         import map_vision
         from fast_map_candidates import node_candidates
@@ -90,46 +91,48 @@ def main():
                 rgb=im.convert('RGB')
             frame_id=source_frame_id(video_sha,f['frameIndex'],digest)
             timing.mark('decode_binding')
-            key=(video_sha,f['frameIndex'],digest);cache=cached.get(key);source_cache_rejection=None
-            if cache:
-                candidate=json.loads(Path(cache).read_text(encoding='utf-8'))
-                if candidate.get('binding',{}).get('frameId')!=frame_id:cache=None;source_cache_rejection='SOURCE_FRAME_ID_MISMATCH'
-            if cache:
-                p=json.loads(Path(cache).read_text(encoding='utf-8'))
-                if p['binding']['imageSha256']!=digest or p['binding']['pixelSha256']!=hashlib.sha256(rgb.tobytes()).hexdigest():raise ValueError('cache does not bind original bytes')
-                p['analysisTiming']={'mode':'cached_v1_packet_current_v2_identity','freshFullPipeline':False,'cachedPacketSha256':hashlib.sha256(Path(cache).read_bytes()).hexdigest()}
-            else:
-                p=inspect_capture('data:image/png;base64,'+base64.b64encode(raw).decode(),
-                  {'frameId':frame_id,'imageSha256':digest,'width':rgb.width,'height':rgb.height},root/'data/flow')
-                p['analysisTiming']={'mode':'fresh_full_pipeline','freshFullPipeline':True}
-            p['analysisTiming']['sourceCacheRejection']=source_cache_rejection
-            timing.mark('v1_observation')
-            p['observerContractVersion']=1
-            p['sourceBinding']={'videoSha256':video_sha,'frameIndex':f['frameIndex'],'imageSha256':digest}
-            p['progress']=parse_progress(p['evidence'])
-            timing.mark('progress')
-            from sparse_map_geometry import recover_map_geometry
-            original_map=p.pop('v2OriginalMapReview',None)
-            if original_map is not None:p['mapReview']=original_map
-            repaired_map=recover_map_geometry(rgb,p)
-            if repaired_map is not p.get('mapReview'):
-                p['v2OriginalMapReview']=p.get('mapReview');p['mapReview']=repaired_map
-            timing.mark('sparse_geometry')
-            from map_aspect import recover_map_aspect
-            aspect_map=recover_map_aspect(rgb,p)
-            if aspect_map is not p.get('mapReview'):
-                if 'v2OriginalMapReview' not in p:p['v2OriginalMapReview']=p.get('mapReview')
-                p['mapReview']=aspect_map
-            timing.mark('aspect_geometry')
-            p.pop('v2TrackedMap',None)
-            p['v2TrackedMap']=tracker.observe({'png':raw,'packet':p,'atMs':f.get('atMs'),'sourcePtsMs':f.get('sourcePtsMs'),'windowKey':'offline:original-video','geometryVersion':f.get('geometryVersion','original')})
-            timing.mark('preview_registration')
-            p['v2PreviewContext']=inspect_preview_context(rgb,p)
-            timing.mark('preview_controls')
-            p['v2Preview']=inspect_preview_identity(rgb,p,context=p['v2PreviewContext'])
-            timing.mark('preview_identity')
-            p['v2MapActions']=inspect_map_actions(rgb,p)
-            timing.mark('map_actions')
+            with FrameIntermediates(frame_id,digest,list(rgb.size)) as intermediates:
+                key=(video_sha,f['frameIndex'],digest);cache=cached.get(key);source_cache_rejection=None
+                if cache:
+                    candidate=json.loads(Path(cache).read_text(encoding='utf-8'))
+                    if candidate.get('binding',{}).get('frameId')!=frame_id:cache=None;source_cache_rejection='SOURCE_FRAME_ID_MISMATCH'
+                if cache:
+                    p=json.loads(Path(cache).read_text(encoding='utf-8'))
+                    if p['binding']['imageSha256']!=digest or p['binding']['pixelSha256']!=hashlib.sha256(rgb.tobytes()).hexdigest():raise ValueError('cache does not bind original bytes')
+                    p['analysisTiming']={'mode':'cached_v1_packet_current_v2_identity','freshFullPipeline':False,'cachedPacketSha256':hashlib.sha256(Path(cache).read_bytes()).hexdigest()}
+                else:
+                    p=inspect_capture('data:image/png;base64,'+base64.b64encode(raw).decode(),
+                      {'frameId':frame_id,'imageSha256':digest,'width':rgb.width,'height':rgb.height},root/'data/flow')
+                    p['analysisTiming']={'mode':'fresh_full_pipeline','freshFullPipeline':True}
+                p['analysisTiming']['sourceCacheRejection']=source_cache_rejection
+                timing.mark('v1_observation')
+                p['observerContractVersion']=1
+                p['sourceBinding']={'videoSha256':video_sha,'frameIndex':f['frameIndex'],'imageSha256':digest}
+                p['progress']=parse_progress(p['evidence'])
+                timing.mark('progress')
+                from sparse_map_geometry import recover_map_geometry
+                original_map=p.pop('v2OriginalMapReview',None)
+                if original_map is not None:p['mapReview']=original_map
+                repaired_map=recover_map_geometry(rgb,p)
+                if repaired_map is not p.get('mapReview'):
+                    p['v2OriginalMapReview']=p.get('mapReview');p['mapReview']=repaired_map
+                timing.mark('sparse_geometry')
+                from map_aspect import recover_map_aspect
+                aspect_map=recover_map_aspect(rgb,p)
+                if aspect_map is not p.get('mapReview'):
+                    if 'v2OriginalMapReview' not in p:p['v2OriginalMapReview']=p.get('mapReview')
+                    p['mapReview']=aspect_map
+                timing.mark('aspect_geometry')
+                p.pop('v2TrackedMap',None)
+                p['v2TrackedMap']=tracker.observe({'png':raw,'packet':p,'atMs':f.get('atMs'),'sourcePtsMs':f.get('sourcePtsMs'),'windowKey':'offline:original-video','geometryVersion':f.get('geometryVersion','original')})
+                timing.mark('preview_registration')
+                p['v2PreviewContext']=inspect_preview_context(rgb,p)
+                timing.mark('preview_controls')
+                p['v2Preview']=inspect_preview_identity(rgb,p,context=p['v2PreviewContext'])
+                timing.mark('preview_identity')
+                p['v2MapActions']=inspect_map_actions(rgb,p)
+                timing.mark('map_actions')
+            p['frameIntermediates']=intermediates.summary()
             p['ocrAnalysis']=bounded.take_metadata() if bounded else {'mode':'original_v1'}
             p['ocrAnalysis']['freshFullPipeline']=not bool(cache)
             p['analysisTiming']['elapsedMs']=(time.perf_counter()-started)*1000
