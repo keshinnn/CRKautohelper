@@ -1,0 +1,52 @@
+{
+  "version": "s3-scroll-local-coverage-v1",
+  "developmentOnly": true,
+  "frozenAcceptanceDenominatorChanged": false,
+  "parentVideoSha256": "df4176658c886958d5218c2ed1fa4c4d6b2798ae9ea5a758265e151cd4709de1",
+  "cases": [
+    {
+      "id": "s3-scroll-46047-battle",
+      "frameIndex": 46047,
+      "image": "artifacts/p4c-frozen-native-30-v3/dev-earlier-0Q-zone4-floor1-col4/0046047.png",
+      "sha256": "d2b8df960366953212147fd54ed4f5105ecafeef60870954d1a7b05514514c65",
+      "size": [
+        1280,
+        720
+      ],
+      "expectedType": "battle",
+      "expectedBox": [
+        681,
+        578,
+        78,
+        78
+      ],
+      "minimumIoU": 0.9,
+      "reviewed": true,
+      "reviewMethod": "Visible physical outer icon extent reviewed on source-native1280x720 PNG; box does not come from test intent or model candidate. No production per-frame branch.",
+      "status": "OPEN",
+      "safetyExpected": "ANCHOR_MISSING"
+    },
+    {
+      "id": "s3-scroll-46057-heal",
+      "frameIndex": 46057,
+      "image": "artifacts/p4c-frozen-native-30-v3/dev-earlier-0Q-zone4-floor1-col4/0046057.png",
+      "sha256": "7016097e745b08b2828cbde9c866afb1f6e6b189c830d1301521b879146fc130",
+      "size": [
+        1280,
+        720
+      ],
+      "expectedType": "heal",
+      "expectedBox": [
+        461,
+        421,
+        78,
+        80
+      ],
+      "minimumIoU": 0.9,
+      "reviewed": true,
+      "reviewMethod": "Visible physical outer icon extent reviewed on source-native1280x720 PNG; box does not come from test intent or model candidate. No production per-frame branch.",
+      "status": "OPEN",
+      "safetyExpected": "ANCHOR_MISSING"
+    }
+  ]
+}

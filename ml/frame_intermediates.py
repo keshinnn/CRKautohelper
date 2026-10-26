@@ -17,11 +17,13 @@ _process_assets={}
 
 
 class FrameIntermediates:
-    def __init__(self,source_id,source_sha256,source_size,owner=None):
+    def __init__(self,source_id,source_sha256,source_size,owner=None,enabled=True):
         if (re.fullmatch(r'[a-f0-9]{32}',source_id or '') is None
                 or re.fullmatch(r'[a-f0-9]{64}',source_sha256 or '') is None
                 or len(source_size)!=2 or any(type(x) is not int or x<=0 for x in source_size)):
             raise ValueError('FRAME_CONTEXT_SOURCE_INVALID')
+        if type(enabled) is not bool:raise ValueError('FRAME_CONTEXT_POLICY_INVALID')
+        self.enabled=enabled
         self.source_id=source_id;self.source_sha256=source_sha256;self.source_size=list(source_size)
         self.owner=owner;self._cache={};self._assets={};self._calls=[]
 
@@ -31,6 +33,7 @@ class FrameIntermediates:
             raise RuntimeError('FRAME_CONTEXT_NESTED' if _scope_thread==threading.get_ident() else 'FRAME_CONTEXT_CONCURRENT')
         _scope_thread=threading.get_ident()
         try:
+            if not self.enabled:return self
             if self.owner is None:
                 import map_vision
                 self.owner=map_vision
@@ -42,7 +45,8 @@ class FrameIntermediates:
 
     def __exit__(self,*exc):
         global _scope_thread
-        self.owner.node_candidates=self.original;self._cache.clear();self._assets.clear()
+        if self.enabled:self.owner.node_candidates=self.original
+        self._cache.clear();self._assets.clear()
         _scope_thread=None;_scope_lock.release()
 
     def _identity(self,image,folder,args,kwargs):
@@ -85,7 +89,7 @@ class FrameIntermediates:
         return result
 
     def summary(self):
-        return {'method':'same_frame_exact_raw_candidate_inputs','sourceCaptureFrameId':self.source_id,
+        return {'enabled':self.enabled,'method':'same_frame_exact_raw_candidate_inputs','sourceCaptureFrameId':self.source_id,
             'sourceImageSha256':self.source_sha256,'sourceSize':self.source_size,'crossFrameReuse':False,
             'authorityCached':False,'hits':sum(c['hit'] for c in self._calls),
             'misses':sum(not c['hit'] for c in self._calls),'calls':copy.deepcopy(self._calls)}

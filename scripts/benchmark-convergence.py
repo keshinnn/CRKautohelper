@@ -10,10 +10,10 @@ def percentiles(values):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--warmup',type=int,default=10);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--warmup',type=int,default=10);parser.add_argument('--disable-frame-reuse',action='store_true');args=parser.parse_args()
     if args.warmup<1:raise ValueError('EXPLICIT_WARMUP_REQUIRED')
     root=Path(__file__).resolve().parents[1];out=Path(args.output).resolve()
-    subprocess.run([sys.executable,'-B','scripts/convergence-regression.py','--source',args.source,'--output',str(out),'--workers','1'],cwd=root,check=True)
+    subprocess.run([sys.executable,'-B','scripts/convergence-regression.py','--source',args.source,'--output',str(out),'--workers','1']+(['--disable-frame-reuse'] if args.disable_frame_reuse else []),cwd=root,check=True)
     run=json.loads((out/'report.json').read_text(encoding='utf-8'));m=json.loads((out/'manifest.json').read_text(encoding='utf-8'))
     packets=[json.loads(Path(f['packet']).read_text(encoding='utf-8')) for c in m['cases'] for f in c['frames']]
     records=[p['analysisTiming'] for p in packets]
@@ -26,7 +26,12 @@ def main():
     subprocess.run(['node','scripts/benchmark-replay.cjs',str(out/'manifest.json'),str(node_file)],cwd=root,check=True)
     node=json.loads(node_file.read_text(encoding='utf-8'));warm={p['binding']['frameId'] for p in packets[:args.warmup]}
     causal=[r for r in node['rows'] if r['frameId'] not in warm]
-    result={'schema':1,'workers':1,'cache':False,'warmupFrames':args.warmup,'warmedAnalysisMs':percentiles([r['elapsedMs'] for r in measured]),
+    within=[x for p in packets[args.warmup:] for x in p.get('frameIntermediates',{}).get('calls',[])]
+    hit=[x['elapsedMs'] for x in within if x['hit']];miss=[x['elapsedMs'] for x in within if not x['hit']]
+    slow=max(packets[args.warmup:],key=lambda p:p['analysisTiming']['elapsedMs'])
+    slow_module=max(slow['analysisTiming']['moduleMs'],key=slow['analysisTiming']['moduleMs'].get)
+    result={'schema':1,'workers':1,'cache':False,'warmupFrames':args.warmup,'sameFrameReuse':{'enabled':not args.disable_frame_reuse,'crossFrame':False,'hits':len(hit),'misses':len(miss),'hitMs':percentiles(hit) if hit else None,'missMs':percentiles(miss) if miss else None},
+      'slowestWarmedFrame':{'frameId':slow['binding']['frameId'],'sourceBinding':slow.get('sourceBinding'),'elapsedMs':slow['analysisTiming']['elapsedMs'],'dominantModule':slow_module,'dominantModuleMs':slow['analysisTiming']['moduleMs'][slow_module]},'warmedAnalysisMs':percentiles([r['elapsedMs'] for r in measured]),
       'warmedNodeMs':percentiles([r['nodeMs'] for r in causal]),'warmedOverallCpuMs':percentiles([r['overallMs'] for r in causal]),
       'modulesMs':{name:percentiles([r['moduleMs'][name] for r in measured]) for name in modules},
       'commit':run['commit'],'code':run['code'],'externalDependencies':run['externalDependencies'],

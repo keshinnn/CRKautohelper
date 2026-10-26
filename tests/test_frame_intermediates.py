@@ -57,6 +57,12 @@ class FrameIntermediatesTests(unittest.TestCase):
             self.assertEqual(self.calls,2)
         finally:cv2.setUseOptimized(original)
 
+    def test_explicit_disabled_control_recomputes_without_caching(self):
+        with FrameIntermediates('a'*32,'b'*64,[16,12],owner=self.owner,enabled=False) as f:
+            self.owner.node_candidates(self.image,self.folder);self.owner.node_candidates(self.image,self.folder)
+            self.assertFalse(f.summary()['enabled']);self.assertEqual(f.summary()['hits'],0)
+        self.assertEqual(self.calls,2);self.assertIs(self.owner.node_candidates,self.original)
+
     def test_nested_frames_cannot_inherit_outer_measurements(self):
         with self.scope():
             with self.assertRaisesRegex(RuntimeError,'FRAME_CONTEXT_NESTED'):

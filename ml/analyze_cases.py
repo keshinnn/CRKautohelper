@@ -27,7 +27,7 @@ def effective_observation_state(packet):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('source_manifest');parser.add_argument('output');parser.add_argument('--cache');parser.add_argument('--fast-map',action='store_true');parser.add_argument('--bounded-ocr',type=int,choices=[736,960,1280]);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('source_manifest');parser.add_argument('output');parser.add_argument('--cache');parser.add_argument('--fast-map',action='store_true');parser.add_argument('--bounded-ocr',type=int,choices=[736,960,1280]);parser.add_argument('--disable-frame-reuse',action='store_true');args=parser.parse_args()
     root=Path(os.environ.get('CRK_V1_ROOT','F:/CRK helper'));sys.path.insert(0,str(root/'ml'))
     socket.socket.connect=lambda *a,**k: (_ for _ in ()).throw(RuntimeError('network disabled in offline observer'))
     from observation import inspect_capture
@@ -66,7 +66,7 @@ def main():
                 except ValueError:continue  # Unbound historical cache is not authoritative.
                 for f in c['frames']:
                     if f.get('packet'):cached[(video_sha,f['frameIndex'],f['sha256'])]=f['packet']
-    m['analysis']={'observerContractVersion':1,'sourceManifestSha256':hashlib.sha256(source_path.read_bytes()).hexdigest(),
+    m['analysis']={'observerContractVersion':1,'frameReuseEnabled':not args.disable_frame_reuse,'sourceManifestSha256':hashlib.sha256(source_path.read_bytes()).hexdigest(),
       'runtimeEvidence':runtime_evidence,
       'englishSceneCodeSha256':hashlib.sha256((Path(__file__).parent/'english_scene.py').read_bytes()).hexdigest(),
       'progressCodeSha256':hashlib.sha256((Path(__file__).parent/'progress_evidence.py').read_bytes()).hexdigest(),
@@ -91,7 +91,7 @@ def main():
                 rgb=im.convert('RGB')
             frame_id=source_frame_id(video_sha,f['frameIndex'],digest)
             timing.mark('decode_binding')
-            with FrameIntermediates(frame_id,digest,list(rgb.size)) as intermediates:
+            with FrameIntermediates(frame_id,digest,list(rgb.size),enabled=not args.disable_frame_reuse) as intermediates:
                 key=(video_sha,f['frameIndex'],digest);cache=cached.get(key);source_cache_rejection=None
                 if cache:
                     candidate=json.loads(Path(cache).read_text(encoding='utf-8'))

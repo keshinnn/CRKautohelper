@@ -60,7 +60,7 @@ def replay_command(manifest,out,source):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--source',required=True);parser.add_argument('--output',required=True)
-    parser.add_argument('--workers',type=int,choices=[1,2,3],default=1);parser.add_argument('--cache')
+    parser.add_argument('--workers',type=int,choices=[1,2,3],default=1);parser.add_argument('--cache');parser.add_argument('--disable-frame-reuse',action='store_true')
     args=parser.parse_args();root=Path(__file__).resolve().parents[1];out=Path(args.output).resolve();out.mkdir()
     source=Path(args.source).resolve();raw=source.read_bytes();original=json.loads(raw)
     if not original.get('cases'):raise ValueError('NO_CASES')
@@ -75,13 +75,14 @@ def main():
             'code':code,'externalDependencies':dependencies,'runtimeFingerprint':runtime['fingerprint'],
             'runnerSha256':sha(__file__),'sourceManifestSha256':sha(source),
             'cacheManifestSha256':sha(args.cache) if args.cache else None,
-            'expectedCases':len(original['cases']),'workers':args.workers,'performanceEvidence':False,
+            'expectedCases':len(original['cases']),'workers':args.workers,'frameReuseEnabled':not args.disable_frame_reuse,'performanceEvidence':False,
             'nativeActions':0,'g4Complete':False,'shards':[]}
     def save():(out/'report.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     def run_shard(index):
         folder=out/f'shard-{index}';folder.mkdir();group={**original,'cases':original['cases'][index::args.workers]}
         src=folder/'source.json';src.write_text(json.dumps(group,indent=2),encoding='utf-8')
         command=[sys.executable,'-B','ml/analyze_cases.py',str(src),str(folder/'analysis'),'--fast-map','--bounded-ocr','960']
+        if args.disable_frame_reuse:command+=['--disable-frame-reuse']
         if args.cache:command+=['--cache',str(Path(args.cache).resolve())]
         with (folder/'analysis.log').open('wb') as log:r=subprocess.run(command,cwd=root,stdout=log,stderr=subprocess.STDOUT)
         return index,folder,r.returncode
