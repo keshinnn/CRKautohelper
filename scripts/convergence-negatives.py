@@ -12,6 +12,14 @@ def control_case(manifest,case_id):
     return cases[0]
 
 
+def control_request(source,label):
+    if label not in ['gray-request','eligible-request']:raise ValueError('CONTROL_LABEL_INVALID')
+    if label=='gray-request' and (source.get('baseNegativeId')!='neg-native-gray-node' or source.get('expectedRecognizedMapContext') is not True):raise ValueError('REVIEWED_GRAY_CONTROL_REQUIRED')
+    c=json.loads(json.dumps(source));c.update(id=label,frames=c['frames'][:2],expectedRecognizedMapContext=True)
+    if label=='eligible-request':c['expectedRejectionReasons']=['NODE_UNAVAILABLE','COORDINATE_INVALID']
+    return c
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',required=True);parser.add_argument('--positive-analysis',required=True);parser.add_argument('--control-case',default='zone-2-first-battle-random-fixed');args=parser.parse_args()
     root=Path(__file__).resolve().parents[1];out=Path(args.output).resolve();out.mkdir()
@@ -39,14 +47,16 @@ def main():
             status,result=check(folder/'analysis/manifest.json',folder);report['results'].append({k:v for k,v in result.items() if k!='version'});save()
             print(json.dumps({'completed':len(report['results']),'id':c['id'],'passed':result['passed']}),flush=True)
             if status or not result['passed']:raise ValueError('NEGATIVE_REJECTION_FAILED')
+        gray_case=next(c for c in m['cases'] if c.get('baseNegativeId')=='neg-native-gray-node')
+        gray_file=out/gray_case['id']/'analysis/manifest.json';gray_manifest=json.loads(gray_file.read_text(encoding='utf-8'))
+        gray=control_case(gray_manifest,gray_case['id'])
         controls=[]
         for label,invalid in [('gray-request',True),('eligible-request',False)]:
-            folder=out/label;folder.mkdir();c=json.loads(json.dumps(original));c.update(id=label,frames=c['frames'][:2],expectedRecognizedMapContext=True,expectedRejectionReasons=['NODE_UNAVAILABLE','COORDINATE_INVALID'])
-            if invalid:c['intent']={'zone':2,'floor':1,'column':1,'event':'battle','mode':'select'}
-            p=folder/'source.json';p.write_text(json.dumps({**positive,'cases':[c]},indent=2),encoding='utf-8')
+            folder=out/label;folder.mkdir();c=control_request(gray if invalid else original,label)
+            p=folder/'source.json';p.write_text(json.dumps({**(gray_manifest if invalid else positive),'cases':[c]},indent=2),encoding='utf-8')
             status,result=check(p,folder)
             if not result['recognizedMapContext'] or result['passed'] is not invalid or result['unexpectedSelectionProof'] is invalid or status!=int(not invalid):raise ValueError('GRADER_CONTROL_FAILED')
-            controls.append({'label':label,'correctlyGraded':True,'analysisSourceSha256':reg.sha(positive_file)})
+            controls.append({'label':label,'correctlyGraded':True,'analysisSourceSha256':reg.sha(gray_file if invalid else positive_file)})
         report.update(passed=len(report['results'])==30 and all(r['passed'] for r in report['results']),controls=controls);save()
     except BaseException as error:report['error']=str(error);save();raise
 

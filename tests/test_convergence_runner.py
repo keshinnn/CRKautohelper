@@ -26,6 +26,17 @@ class ConvergenceRunnerTests(unittest.TestCase):
         cached=json.loads((ROOT/'artifacts/convergence-20261026/random39-final-02/manifest.json').read_text(encoding='utf-8'))
         with self.assertRaisesRegex(ValueError,'FRESH_CONTROL_REQUIRED'):m.control_case(cached,'zone-2-first-battle-random-fixed')
 
+    def test_grader_controls_preserve_actual_gray_and_eligible_intents(self):
+        spec=importlib.util.spec_from_file_location('negative',ROOT/'scripts/convergence-negatives.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+        native=json.loads((ROOT/'artifacts/convergence-20261026/native20-final-02/manifest.json').read_text(encoding='utf-8'))
+        eligible=m.control_case(native,'zone-2-first-battle')
+        gray_manifest=json.loads((ROOT/'artifacts/convergence-20261026/negative30-final-03/neg-native-gray-node-random-1/analysis/manifest.json').read_text(encoding='utf-8'))
+        gray=gray_manifest['cases'][0];before=json.dumps(gray,sort_keys=True)
+        result=m.control_request(gray,'gray-request')
+        self.assertEqual(result['intent'],gray['intent']);self.assertEqual(result['frames'],gray['frames'][:2]);self.assertEqual(json.dumps(gray,sort_keys=True),before)
+        self.assertEqual(m.control_request(eligible,'eligible-request')['intent'],eligible['intent'])
+        with self.assertRaises(ValueError):m.control_request(eligible,'gray-request')
+
     def test_external_producers_templates_and_ocr_assets_cannot_change_undetected(self):
         m=module()
         with tempfile.TemporaryDirectory(dir=ROOT/'artifacts') as tmp:
