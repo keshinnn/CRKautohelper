@@ -241,3 +241,10 @@ G2評分器已修正：安全距離用人工目標短邊5%，不能用較小安�
 最新89項Node、127項Python測試及30組隨機負例通過。57套實際辨識影格證據、影片／影格身份及當前程式雜湊均已核對；另有3張負例在首張UNKNOWN後依規則不再處理。正在回歸前20／60個開發變換案例，這不是20段獨立原始影片的正式通過。保留集及正式G4仍未驗收，P5未批准。
 
 前20組回歸在第19組預覽過渡影格發現座標格式不一致：未做比例校正的畫面，被完成外框修正誤加了校正座標標記。已修正為原圖座標格式，原有拒絕錯誤標記的保護仍保留。第19組完整片段重新通過；最新90項Node／127項Python及30組負例通過，正以當前版本重跑20／60個開發變換案例，通過後接第21組。
+
+
+2026-10-26 continuation checkpoint: transaction-local directmap-root fix aeb6c68 passed96/96Node and regradedexisting20/20development variants using identicalpriorML analyses. Case21 stillfailsfullreplay: currentpixel-scopedordinarypreview repair recoversframe23740, while23741 onward hasonly3visible detectedcolumns/no gate. Newrealframe regression remainsRED and preventsadvancing22. No completecase21/G4/P5claim. Currentuncommittedvision changes require freshfullPython/negative/current20regression afterthisdefect isresolved. Allsourcepixels/truth remainfrozen; no nativeinput.
+
+Current repair evidence: actual21st resized development variant now closes (onevirtualclick,15consumedframes,IoU.9460205471,margin32.4339px).99Node/132Python tests allpass; fresh30negative replaypasses,gradercontrolpositive/graycorrect; V12384filesunchanged. Prior20currentmodelrecomputationfinished,replaystillrunning;30sourceformalG4andheldout/performance remainpending. Not a formal acceptance claim.
+
+Verified continuation: currentfirst21developmentvariantspassed(full20recomputedregression+focused21), exactcode/source/runtime bindings andeveryconsumedfive-artifactbundle audited. Freshnegative30/30 and57actualframebundlesaudited, evidence-v5. Main17continues22/60expected; these21variantscover7sourceinteractions, not21independentclips. FormalG4false, holdoutmodelinferenceuntouched, nativeactions0.

@@ -242,7 +242,7 @@ def _orange_node_pixel_geometry(image, box, root, digest, allow_icon_core=False)
     return result,proof
 
 
-def _supplement_orange_candidates(image, normalized, initial, calibration, binding, root, normal_pixel, normalized_sha, *, completed_only=False):
+def _supplement_orange_candidates(image, normalized, initial, calibration, binding, root, normal_pixel, normalized_sha, *, completed_only=False, panel_scope=None):
     """Scoped candidate producer; the original lattice/line code still decides."""
     if re.fullmatch(r'[a-f0-9]{32}',binding.get('frameId','')) is None:return initial
     peers=[n for n in initial.get('nodes',[]) if n.get('type') not in ('exit','boss')]
@@ -293,10 +293,13 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
                 'geometryEvidence':geometry,'actionsExecuted':False}})
     from completed_node_candidates import completed_node_candidates
     proposals+=completed_node_candidates(image,initial,inverse,root,binding,list(normalized.size),normal_pixel,analysis_size,analysis_pixel)
-    if not proposals:return initial
+    if panel_scope is not None:
+        from heal_node_candidates import heal_node_candidates
+        proposals+=heal_node_candidates(image,initial,inverse,root,binding,list(normalized.size),normal_pixel,analysis_size,analysis_pixel)
+    if not proposals and panel_scope is None:return initial
     import map_vision
     from sparse_map_geometry import recover_map_geometry
-    original=map_vision.node_candidates;cached=None
+    original=map_vision.node_candidates;cached=None;excluded=[]
     def candidates(current,folder):
         nonlocal cached
         if list(current.size)!=analysis_size or hashlib.sha256(np.asarray(current.convert('RGB')).tobytes()).hexdigest()!=analysis_pixel:
@@ -306,6 +309,11 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
         for proposal in proposals:
             px,py=proposal['center'];size=min(proposal['box'][2:])
             if not any(math.hypot(px-n['center'][0],py-n['center'][1])<=size*.25 for n in result):result.append(copy.deepcopy(proposal))
+        if panel_scope is not None:
+            cut=panel_scope['cutX']/inverse*fx
+            removed=[n for n in result if n['center'][0]>=cut]
+            excluded[:]=copy.deepcopy(removed)
+            result=[n for n in result if n not in removed]
         return result
     map_vision.node_candidates=candidates
     def inspect_and_recover():
@@ -322,6 +330,8 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
             if additional:
                 proposals+=additional
                 result=inspect_and_recover()
+        if panel_scope is not None and excluded:result['previewPanelScope']={**copy.deepcopy(panel_scope),'analysisSize':analysis_size,'analysisPixelSha256':analysis_pixel,'excluded':excluded}
+        if any(n.get('healProposal') and (n.get('type')!='heal' or n.get('completed') is not False) for n in result.get('nodes',[])):return initial
         if any(n.get('pixelProposal') and (n.get('type')!='battle' or n.get('completed') is not False) for n in result.get('nodes',[])):return initial
         if any(n.get('checkProposal') and (n.get('type') in ('exit','boss') or n.get('completed') is not True) for n in result.get('nodes',[])):return initial
         if any(n.get('gateProposal') and n.get('type')!='exit' for n in result.get('nodes',[])):return initial
@@ -372,8 +382,12 @@ def recover_map_aspect(image, packet):
     raw = io.BytesIO()
     normalized.save(raw, format='PNG')
     normalized_sha = hashlib.sha256(raw.getvalue()).hexdigest()
-    result = _supplement_orange_candidates(rgb,normalized,result,calibration,binding,root,normal_pixel,normalized_sha)
-    candidate_scope = None
+    panel_scope=None
+    if len(result.get('columns') or [])!=4 and not any(n.get('type')=='exit' for n in result.get('nodes',[])):
+        from preview_panel_scope import ordinary_preview_panel_scope
+        panel_scope=ordinary_preview_panel_scope(rgb,packet)
+    result = _supplement_orange_candidates(rgb,normalized,result,calibration,binding,root,normal_pixel,normalized_sha,panel_scope=panel_scope)
+    candidate_scope = result.pop('previewPanelScope',None)
     if len(result.get('columns') or []) != 4:
         # A visible top gate places every ordinary row below that gate.
         # Preview-header icons above it are not another map column. Keep the
@@ -411,6 +425,9 @@ def recover_map_aspect(image, packet):
             geometry=node['pixelProposal']['geometryEvidence']
             node['box']=list(geometry['originalAnalysisBox'])
             node['center']=list(geometry['originalAnalysisCenter'])
+        if node.get('healProposal'):
+            node['box']=list(node['healProposal']['originalAnalysisBox'])
+            node['center']=list(node['healProposal']['originalAnalysisCenter'])
         if node.get('checkProposal'):
             node['box']=list(node['checkProposal']['originalAnalysisBox'])
             node['center']=list(node['checkProposal']['originalAnalysisCenter'])
@@ -478,6 +495,7 @@ def recover_map_aspect(image, packet):
         'rectifiedImageSha256': normalized_sha,
         'rectifiedPixelSha256': normal_pixel,
         'candidateScope': candidate_scope,
+        'previewPanelScopeRequired':bool(candidate_scope and candidate_scope.get('method')=='same_frame_ordinary_preview_control_panel_scope'),
         'forwardMatrix': [[1 / inverse_x, 0, 0], [0, 1, 0], [0, 0, 1]],
         'inverseMatrix': [[inverse_x, 0, 0], [0, 1, 0], [0, 0, 1]],
         'calibration': calibration, 'actionsExecuted': False,
