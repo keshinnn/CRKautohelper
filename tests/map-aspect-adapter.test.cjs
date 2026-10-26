@@ -248,7 +248,13 @@ with Image.open(f['image']) as im:p['mapReview']=recover_map_aspect(im,p)
 print(json.dumps(p))
 `,source],{cwd:path.join(__dirname,'..'),maxBuffer:10*1024*1024});
  const m=JSON.parse(fs.readFileSync(path.join(__dirname,'..',source))),s=loadReplayFrames(m.cases[0])[2],p=JSON.parse(raw),n=p.mapReview.nodes.find(n=>n.checkProposal);
- assert.ok(n);assert.equal(n.checkProposal.peerNodeId,'visible-3-1');
+ assert.ok(n);
+ // Several same-frame peers have independently valid equal extents. Removing
+ // premature .01 rounding can change the best crop/peer; the safety contract
+ // is the physical measurement binding, not the incidental candidate ID.
+ const peer=p.mapReview.nodes.find(x=>x.id===n.checkProposal.peerNodeId);
+ assert.ok(peer);assert.notEqual(peer.id,n.id);
+ assert.deepEqual(peer.box,n.checkProposal.peerSourceBox);
  assert.equal(adaptMap({...s.frame,png:s.png},p).verified,true);
  const altered=structuredClone(p);altered.mapReview.nodes.find(n=>n.checkProposal).checkProposal.peerNodeId='visible-2-1';
  assert.equal(adaptMap({...s.frame,png:s.png},altered).verified,false);
