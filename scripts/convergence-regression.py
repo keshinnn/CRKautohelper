@@ -4,7 +4,7 @@ Each shard runs the current observer, then the current virtual transaction.
 Optional cache is raw V1 evidence only; analyze_cases validates its OCR runtime.
 No native capture/input module is invoked. Fresh and cached frames are counted.
 """
-import argparse,concurrent.futures,hashlib,json,subprocess,sys,time
+import argparse,concurrent.futures,hashlib,json,subprocess,sys,time,os
 from pathlib import Path
 
 
@@ -14,7 +14,17 @@ def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def code_snapshot(root):
     return {p.relative_to(root).as_posix():sha(p) for folder in ['ml','lib','scripts','tests','data']
             if (root/folder).exists() for p in sorted((root/folder).rglob('*'))
-            if p.is_file() and p.suffix in ['.py','.cjs','.js','.json']}
+            if p.is_file() and p.suffix in ['.py','.cjs','.js','.json','.png','.onnx','.yaml','.yml']}
+
+
+def dependency_snapshot(v1,runtime):
+    paths=[]
+    for folder in ['ml','data/map','data/flow']:
+        base=v1/folder
+        if not base.is_dir():raise ValueError('V1_DEPENDENCY_DIRECTORY_MISSING')
+        paths.extend(p for p in base.rglob('*') if p.is_file() and p.suffix in ['.py','.json','.png','.onnx','.yaml','.yml'])
+    paths.extend(Path(runtime['packageRoot'])/a['path'] for a in runtime['ocrAssets'])
+    return {str(p.resolve()):sha(p) for p in sorted(set(paths))}
 
 
 def check_snapshot(root,expected):
@@ -47,10 +57,15 @@ def main():
     source=Path(args.source).resolve();raw=source.read_bytes();original=json.loads(raw)
     if not original.get('cases'):raise ValueError('NO_CASES')
     (out/'source.snapshot.json').write_bytes(raw);code=code_snapshot(root)
+    sys.path.insert(0,str(root/'ml'))
+    from runtime_evidence import capture_runtime_evidence
+    runtime=capture_runtime_evidence();v1=Path(os.environ.get('CRK_V1_ROOT','F:/CRK helper')).resolve()
+    dependencies=dependency_snapshot(v1,runtime)
     report={'stage':'architecture-convergence-regression','complete':False,'passed':False,
             'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root).decode().strip(),
             'workingTreeStatus':subprocess.check_output(['git','status','--porcelain'],cwd=root).decode(),
-            'code':code,'runnerSha256':sha(__file__),'sourceManifestSha256':sha(source),
+            'code':code,'externalDependencies':dependencies,'runtimeFingerprint':runtime['fingerprint'],
+            'runnerSha256':sha(__file__),'sourceManifestSha256':sha(source),
             'cacheManifestSha256':sha(args.cache) if args.cache else None,
             'expectedCases':len(original['cases']),'workers':args.workers,'performanceEvidence':False,
             'nativeActions':0,'g4Complete':False,'shards':[]}
@@ -70,6 +85,7 @@ def main():
             while pending:
                 done,rest=concurrent.futures.wait(pending,timeout=1,return_when=concurrent.futures.FIRST_COMPLETED)
                 check_snapshot(root,code)
+                if dependency_snapshot(v1,runtime)!=dependencies:raise ValueError('EXTERNAL_DEPENDENCIES_CHANGED')
                 for result in done:
                     i,folder,status=result.result();report['shards'].append({'index':i,'path':str(folder),'status':status});save()
                     print(json.dumps({'shard':i,'status':status}),flush=True)
@@ -77,6 +93,7 @@ def main():
         if any(s['status']!=0 for s in report['shards']):raise ValueError('ANALYSIS_FAILED_SEE_SHARD_LOG')
         manifests=[json.loads((Path(s['path'])/'analysis/manifest.json').read_text(encoding='utf-8')) for s in sorted(report['shards'],key=lambda s:s['index'])]
         if not all(m['analysis']['allFramesAnalyzed'] is True for m in manifests):raise ValueError('INCOMPLETE_ANALYSIS')
+        if not all(m['analysis']['runtimeEvidence']['fingerprint']==runtime['fingerprint'] for m in manifests):raise ValueError('SHARD_RUNTIME_MISMATCH')
         cases=merge_cases(original,manifests);merged={**original,'cases':cases,'analysis':{**manifests[0]['analysis'],'sourceManifestSha256':sha(source),'shardProvenance':report['shards']}}
         manifest=out/'manifest.json';manifest.write_text(json.dumps(merged,indent=2),encoding='utf-8')
         report['frames']=sum(len(c['frames']) for c in cases);report['freshFrames']=report['cachedRawV1Frames']=0
@@ -86,8 +103,10 @@ def main():
                 p=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
                 report['freshFrames' if p['analysisTiming']['freshFullPipeline'] else 'cachedRawV1Frames']+=1
         check_snapshot(root,code)
+        if dependency_snapshot(v1,runtime)!=dependencies:raise ValueError('EXTERNAL_DEPENDENCIES_CHANGED')
         with (out/'replay.log').open('wb') as log:r=subprocess.run(['node','scripts/replay-development.cjs',str(manifest),str(out/'replay')],cwd=root,stdout=log,stderr=subprocess.STDOUT)
         check_snapshot(root,code)
+        if dependency_snapshot(v1,runtime)!=dependencies:raise ValueError('EXTERNAL_DEPENDENCIES_CHANGED')
         replay=out/'replay/report.json'
         if replay.exists():report.update(replayReportSha256=sha(replay),results=json.loads(replay.read_text(encoding='utf-8'))['results'])
         if r.returncode:raise ValueError('REPLAY_FAILED_SEE_REPLAY_LOG')

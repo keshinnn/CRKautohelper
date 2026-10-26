@@ -3,6 +3,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'ml'))
 
 class GeometryContractTests(unittest.TestCase):
+    def test_legacy_model_analysis_raster_matches_actual_ties_even_stage(self):
+        from geometry_contract import analysis_raster,geometry_certificate
+        self.assertEqual(analysis_raster([1920,721]),[960,360])
+        binding={'frameId':'a'*32,'imageSha256':'b'*64,'pixelSha256':'c'*64,'width':1920,'height':721}
+        with self.assertRaises(ValueError):geometry_certificate(binding,[1920,721],[960,361])
+
     def test_real_aspect_producer_declares_coordinate_spaces_and_preserves_measurement_precision(self):
         from PIL import Image
         sys.path.insert(1,'F:/CRK helper/ml')

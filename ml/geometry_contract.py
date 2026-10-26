@@ -14,6 +14,16 @@ def raster_round(value):
     return math.floor(value + .5)
 
 
+def analysis_raster(source):
+    """Actual legacy map_vision raster: preserve its operation order/ties-even.
+
+    V2-owned rectification/calibration rasters use raster_round; the preserved
+    V1 producer owns this model raster and uses round(height * (960/width)).
+    """
+    _size(source)
+    return [960,round(source[1]*(960/source[0]))]
+
+
 def _size(size):
     if len(size) != 2 or any(type(v) is not int or v <= 0 for v in size):
         raise ValueError('actual positive raster dimensions required')
@@ -39,6 +49,8 @@ def geometry_certificate(binding, rectified, analysis):
     source=[binding['width'],binding['height']]
     for size in [source,rectified,analysis]: _size(size)
     if rectified[1] != source[1]: raise ValueError('aspect rectification preserves source Y')
+    if list(analysis)!=analysis_raster(rectified): raise ValueError('analysis raster differs from actual legacy producer')
     return {'version':1,'spaces':{'source':source,'client':list(source),'rectified':list(rectified),'analysis':list(analysis)},
             'sourceCaptureFrameId':binding.get('frameId'),'sourceImageSha256':binding['imageSha256'],
-            'pixelSha256':binding['pixelSha256'],'rounding':'endpoints_float64_raster_half_up'}
+            'pixelSha256':binding['pixelSha256'],'rounding':'endpoints_float64_raster_half_up',
+            'analysisRounding':'legacy_model_ties_even'}

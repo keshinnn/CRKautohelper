@@ -24,7 +24,7 @@ test('copied, edited or different-zone context cannot authorize waiting',()=>{
   const o=mutate(adaptMap({...source.frame,png:source.png},packet));
   assert.equal(verifyPreview({intent:{zone:6}},o).kind,'reject');
  }
- for(const mutate of [p=>p.v2PreviewContext.pixelSha256='f'.repeat(64),p=>p.v2PreviewContext.timerEvidence.score=.94,p=>p.progress.conflictingEvidence=true]){
+ for(const mutate of [p=>p.v2PreviewContext.pixelSha256='f'.repeat(64),p=>p.v2PreviewContext.timerEvidence.score=.94,p=>p.progress.conflictingEvidence=true,p=>p.evidence=[],p=>delete p.v2PreviewContext.timerEvidence.timeLimitEvidence,p=>p.v2PreviewContext.timerEvidence.timeLimitEvidence.score=.74]){
   const q=structuredClone(packet);mutate(q);assert.notEqual(adaptMap({...source.frame,png:source.png},q).state,'PREVIEW_PENDING');
  }
 });

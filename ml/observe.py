@@ -17,6 +17,7 @@ with Image.open(filename) as image:
     width, height = image.size
 packet = inspect_capture('data:image/png;base64,'+base64.b64encode(raw).decode(),
     {'frameId':frame_id,'imageSha256':hashlib.sha256(raw).hexdigest(),'width':width,'height':height}, root/'data/flow')
+packet['observerContractVersion']=1
 from preview_identity import inspect_preview_identity
 from preview_context import inspect_preview_context
 from map_action_evidence import inspect_map_actions

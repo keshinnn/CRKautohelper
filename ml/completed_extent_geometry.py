@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 import numpy as np
 from PIL import Image
-from geometry_contract import resize_box, resize_point, raster_round
+from geometry_contract import resize_box, resize_point, analysis_raster
 
 
 def recover_completed_extents(image,m,binding):
@@ -32,7 +32,7 @@ def recover_completed_extents(image,m,binding):
     inverse=rgb.width/normal_size[0];normalized=rgb.resize(tuple(normal_size),Image.Resampling.LANCZOS)
     normal_pixel=hashlib.sha256(normalized.tobytes()).hexdigest()
     if normal_pixel!=rect.get('rectifiedPixelSha256',digest):return m
-    analysis_size=[960,raster_round(normal_size[1]*960/normal_size[0])]
+    analysis_size=analysis_raster(normal_size)
     analysis=normalized.resize(tuple(analysis_size),Image.Resampling.LANCZOS)
     analysis_pixel=hashlib.sha256(analysis.tobytes()).hexdigest();initial=copy.deepcopy(m)
     for n in initial['nodes']:

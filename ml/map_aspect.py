@@ -13,7 +13,7 @@ import numpy as np
 from PIL import Image
 from reference_line_geometry import reference_geometry
 from completed_extent_geometry import completed_geometry
-from geometry_contract import resize_box, resize_point, raster_round, geometry_certificate
+from geometry_contract import resize_box, resize_point, raster_round, geometry_certificate, analysis_raster
 
 
 def _qualified_aspect_groups(candidates):
@@ -261,7 +261,7 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
         if any(not .48<=n.get('score',0)<=1 for n in peers):return initial
     inverse=image.width/normalized.width;nw=float(np.median([n['box'][2] for n in peers]));nh=float(np.median([n['box'][3] for n in peers]))
     proposals=[]
-    analysis_size=[960,raster_round(normalized.height*960/normalized.width)]
+    analysis_size=analysis_raster(list(normalized.size))
     fx,fy=960/normalized.width,analysis_size[1]/normalized.height
     analysis_pixel=hashlib.sha256(np.asarray(normalized.resize(tuple(analysis_size),Image.Resampling.LANCZOS)).tobytes()).hexdigest()
     indices=[] if completed_only else list(calibration['consensus'])
@@ -541,7 +541,7 @@ def recover_map_aspect(image, packet):
     result['header'] = copy.deepcopy(original.get('header'))
     result['frameId'] = digest[:20]
     result['analysisScale'] = 960 / rgb.width
-    result['analysisScaleY'] = raster_round(normalized.height * 960 / normalized.width) / rgb.height
+    result['analysisScaleY'] = analysis_raster(list(normalized.size))[1] / rgb.height
     result['aspectRectification'] = {
         'verified': True, 'method': 'same_frame_circle_aspect_map_rectification',
         'rectificationPurpose':('anchored_near_native_recovery' if raw_prior.get('absoluteFloorKnown') is True else 'unanchored_near_native_recovery') if near_native else 'pixel_aspect_recovery',
@@ -550,8 +550,8 @@ def recover_map_aspect(image, packet):
         'sourceSize': list(rgb.size), 'rectifiedInputSize': list(normalized.size),
         'rectifiedColumns': list(columns),
         'rectifiedFloorAnchorSource': result.get('floorAnchorSource'),
-        'modelAnalysisSize': [960, raster_round(normalized.height * 960 / normalized.width)],
-        'coordinateContract': geometry_certificate(binding,list(normalized.size),[960,raster_round(normalized.height*960/normalized.width)]),
+        'modelAnalysisSize': analysis_raster(list(normalized.size)),
+        'coordinateContract': geometry_certificate(binding,list(normalized.size),analysis_raster(list(normalized.size))),
         'rectifiedImageSha256': normalized_sha,
         'rectifiedPixelSha256': normal_pixel,
         'candidateScope': candidate_scope,

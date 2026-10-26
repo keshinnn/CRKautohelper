@@ -24,7 +24,7 @@ async function main(){
   for(const c of m.cases){
    currentCase=c.id;
    const folder=path.join(out,c.id);fs.mkdirSync(folder);
-   const consumed=[],frames=loadReplayFrames(c,m.videoSha256),gate=buildReplayGate(c);
+   const consumed=[],frames=loadReplayFrames(c,m.videoSha256,m.analysis?.observerContractVersion),gate=buildReplayGate(c);
    const r=await runReplay({frames,intent:c.intent,gate,observe:async source=>{
     const f={...source.frame,png:source.png},p=source.packet;
     const o=p.flow.state==='MAP'&&!p.v2Preview?.verified?adaptMap(f,p):adaptPreview(f,p);

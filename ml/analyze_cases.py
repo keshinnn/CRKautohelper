@@ -26,6 +26,7 @@ def main():
     from preview_context import inspect_preview_context
     from map_action_evidence import inspect_map_actions
     from preview_registration import PreviewAnchorTracker
+    from stage_timing import StageTiming
     if args.fast_map:
         import map_vision
         from fast_map_candidates import node_candidates
@@ -55,7 +56,7 @@ def main():
                 except ValueError:continue  # Unbound historical cache is not authoritative.
                 for f in c['frames']:
                     if f.get('packet'):cached[(video_sha,f['frameIndex'],f['sha256'])]=f['packet']
-    m['analysis']={'sourceManifestSha256':hashlib.sha256(source_path.read_bytes()).hexdigest(),
+    m['analysis']={'observerContractVersion':1,'sourceManifestSha256':hashlib.sha256(source_path.read_bytes()).hexdigest(),
       'runtimeEvidence':runtime_evidence,
       'englishSceneCodeSha256':hashlib.sha256((Path(__file__).parent/'english_scene.py').read_bytes()).hexdigest(),
       'progressCodeSha256':hashlib.sha256((Path(__file__).parent/'progress_evidence.py').read_bytes()).hexdigest(),
@@ -73,12 +74,13 @@ def main():
         video_sha=case_source_sha(m,c)
         folder=out/c['id'];folder.mkdir();count=0;tracker=PreviewAnchorTracker()
         for f in c['frames']:
-            started=time.perf_counter();image_path=Path(f['image']);raw=image_path.read_bytes();digest=hashlib.sha256(raw).hexdigest()
+            started=time.perf_counter();timing=StageTiming();image_path=Path(f['image']);raw=image_path.read_bytes();digest=hashlib.sha256(raw).hexdigest()
             if digest!=f['sha256']:raise ValueError('frozen image bytes changed')
             with Image.open(image_path) as im:
                 if im.format!='PNG' or list(im.size)!=f['size']:raise ValueError('source PNG dimensions changed')
                 rgb=im.convert('RGB')
             frame_id=source_frame_id(video_sha,f['frameIndex'],digest)
+            timing.mark('decode_binding')
             key=(video_sha,f['frameIndex'],digest);cache=cached.get(key);source_cache_rejection=None
             if cache:
                 candidate=json.loads(Path(cache).read_text(encoding='utf-8'))
@@ -92,27 +94,37 @@ def main():
                   {'frameId':frame_id,'imageSha256':digest,'width':rgb.width,'height':rgb.height},root/'data/flow')
                 p['analysisTiming']={'mode':'fresh_full_pipeline','freshFullPipeline':True}
             p['analysisTiming']['sourceCacheRejection']=source_cache_rejection
+            timing.mark('v1_observation')
+            p['observerContractVersion']=1
             p['sourceBinding']={'videoSha256':video_sha,'frameIndex':f['frameIndex'],'imageSha256':digest}
             p['progress']=parse_progress(p['evidence'])
+            timing.mark('progress')
             from sparse_map_geometry import recover_map_geometry
             original_map=p.pop('v2OriginalMapReview',None)
             if original_map is not None:p['mapReview']=original_map
             repaired_map=recover_map_geometry(rgb,p)
             if repaired_map is not p.get('mapReview'):
                 p['v2OriginalMapReview']=p.get('mapReview');p['mapReview']=repaired_map
+            timing.mark('sparse_geometry')
             from map_aspect import recover_map_aspect
             aspect_map=recover_map_aspect(rgb,p)
             if aspect_map is not p.get('mapReview'):
                 if 'v2OriginalMapReview' not in p:p['v2OriginalMapReview']=p.get('mapReview')
                 p['mapReview']=aspect_map
+            timing.mark('aspect_geometry')
             p.pop('v2TrackedMap',None)
             p['v2TrackedMap']=tracker.observe({'png':raw,'packet':p,'atMs':f.get('atMs'),'sourcePtsMs':f.get('sourcePtsMs'),'windowKey':'offline:original-video','geometryVersion':f.get('geometryVersion','original')})
+            timing.mark('preview_registration')
             p['v2PreviewContext']=inspect_preview_context(rgb,p)
+            timing.mark('preview_controls')
             p['v2Preview']=inspect_preview_identity(rgb,p,context=p['v2PreviewContext'])
+            timing.mark('preview_identity')
             p['v2MapActions']=inspect_map_actions(rgb,p)
+            timing.mark('map_actions')
             p['ocrAnalysis']=bounded.take_metadata() if bounded else {'mode':'original_v1'}
             p['ocrAnalysis']['freshFullPipeline']=not bool(cache)
             p['analysisTiming']['elapsedMs']=(time.perf_counter()-started)*1000
+            p['analysisTiming']['moduleMs']=timing.module_ms
             target=folder/f"{f['frameIndex']:07}.packet.json";target.write_text(json.dumps(p,ensure_ascii=False,indent=2),encoding='utf-8');f['packet']=str(target.resolve());count+=1
             (out/'manifest.json').write_text(json.dumps(m,ensure_ascii=False,indent=2),encoding='utf-8')
             if p['flow']['state']=='UNKNOWN' and not p['v2Preview']['verified']:
