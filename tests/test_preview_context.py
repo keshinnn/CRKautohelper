@@ -11,6 +11,17 @@ def actual_frame():
     return Image.open(f['image']).convert('RGB'),json.loads(Path(f['packet']).read_text(encoding='utf-8'))
 
 class PreviewContextTests(unittest.TestCase):
+    def test_batch_classification_uses_independent_controls_without_inventing_identity(self):
+        from analyze_cases import effective_observation_state
+        from preview_context import inspect_preview_context
+        from bounded_ocr import BoundedOCRRuntime
+        image,p=actual_frame();p['flow']['state']='UNKNOWN'
+        with BoundedOCRRuntime(960):p['v2PreviewContext']=inspect_preview_context(image,p)
+        self.assertFalse(p['v2Preview']['verified'])
+        self.assertEqual(effective_observation_state(p),'PREVIEW_PENDING')
+        p['v2PreviewContext']={'verified':False}
+        self.assertEqual(effective_observation_state(p),'UNKNOWN')
+
     def test_actual_transition_controls_are_known_even_with_no_map_nodes(self):
         from preview_context import inspect_preview_context
         from bounded_ocr import BoundedOCRRuntime

@@ -17,6 +17,15 @@ def source_frame_id(video_sha,index,image_sha):
     return hashlib.sha256((video_sha+str(index)+image_sha).encode()).hexdigest()[:32]
 
 
+def effective_observation_state(packet):
+    # Producer hint only: JS still independently validates context and identity.
+    # A fully observed control panel is known waiting evidence even when the
+    # legacy title classifier is UNKNOWN. An arbitrary unknown still stops.
+    if (packet.get('v2Preview') or {}).get('verified') is True:return 'PREVIEW'
+    if (packet.get('v2PreviewContext') or {}).get('verified') is True:return 'PREVIEW_PENDING'
+    return (packet.get('flow') or {}).get('state','UNKNOWN')
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('source_manifest');parser.add_argument('output');parser.add_argument('--cache');parser.add_argument('--fast-map',action='store_true');parser.add_argument('--bounded-ocr',type=int,choices=[736,960,1280]);args=parser.parse_args()
     root=Path(os.environ.get('CRK_V1_ROOT','F:/CRK helper'));sys.path.insert(0,str(root/'ml'))
@@ -127,7 +136,7 @@ def main():
             p['analysisTiming']['moduleMs']=timing.module_ms
             target=folder/f"{f['frameIndex']:07}.packet.json";target.write_text(json.dumps(p,ensure_ascii=False,indent=2),encoding='utf-8');f['packet']=str(target.resolve());count+=1
             (out/'manifest.json').write_text(json.dumps(m,ensure_ascii=False,indent=2),encoding='utf-8')
-            if p['flow']['state']=='UNKNOWN' and not p['v2Preview']['verified']:
+            if effective_observation_state(p)=='UNKNOWN':
                 raise ValueError('UNKNOWN; failure packet preserved: '+str(target))
         print(json.dumps({'case':c['id'],'frames':count,'complete':True}),flush=True)
     m['analysis']['allFramesAnalyzed']=True

@@ -317,6 +317,7 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
         proposals+=heal_node_candidates(image,initial,inverse,root,binding,list(normalized.size),normal_pixel,analysis_size,analysis_pixel)
     if not proposals and panel_scope is None:return initial
     import map_vision
+    from map_observer import inspect_map
     from sparse_map_geometry import recover_map_geometry
     original=map_vision.node_candidates;cached=None;excluded=[]
     def candidates(current,folder):
@@ -336,7 +337,7 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
         return result
     map_vision.node_candidates=candidates
     def inspect_and_recover():
-        result=map_vision.inspect_map(normalized,root/'data/map',read_header=False)
+        result=inspect_map(normalized,root/'data/map',read_header=False)
         if len(result.get('columns') or [])!=4:
             relative=copy.deepcopy(result);gates=[n for n in relative['nodes'] if n.get('type')=='exit']
             if len(gates)==1:relative['nodes']=[n for n in relative['nodes'] if n.get('type')=='exit' or n['center'][1]>gates[0]['center'][1]]
@@ -434,7 +435,7 @@ def recover_map_aspect(image, packet):
     normalized = rgb.resize((raster_round(rgb.width / calibration['ratio']), rgb.height),
                             Image.Resampling.LANCZOS)
     normal_pixel = hashlib.sha256(normalized.tobytes()).hexdigest()
-    from map_vision import inspect_map
+    from map_observer import inspect_map
     root = Path(os.environ.get('CRK_V1_ROOT', 'F:/CRK helper'))
     result = inspect_map(normalized, root / 'data/map', read_header=False)
     raw = io.BytesIO()
@@ -551,6 +552,7 @@ def recover_map_aspect(image, packet):
         'rectifiedColumns': list(columns),
         'rectifiedFloorAnchorSource': result.get('floorAnchorSource'),
         'modelAnalysisSize': analysis_raster(list(normalized.size)),
+        'modelGeometryEvidence': result.get('modelGeometryEvidence'),
         'coordinateContract': geometry_certificate(binding,list(normalized.size),analysis_raster(list(normalized.size))),
         'rectifiedImageSha256': normalized_sha,
         'rectifiedPixelSha256': normal_pixel,

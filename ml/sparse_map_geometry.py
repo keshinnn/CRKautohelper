@@ -46,7 +46,7 @@ def recover_map_geometry(image,packet):
     if len(solutions)!=1:return original
     # Rerun the original detector and actual connecting-line pixels. Geometry
     # comes solely from this image's measured candidates, never an annotation.
-    from map_vision import inspect_map
+    from map_observer import inspect_map
     repaired=inspect_map(image,Path(os.environ.get('CRK_V1_ROOT','F:/CRK helper'))/'data/map',geometry={'columns':solutions[0]},read_header=False)
     if repaired.get('absoluteFloorKnown') is not True or repaired.get('floorAnchorSource')!='visible_top_gate' or repaired.get('frameId')!=digest[:20]:return original
     repaired['header']=copy.deepcopy(original.get('header'))

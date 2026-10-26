@@ -56,7 +56,7 @@ def inspect_preview_identity(image,packet,context=None):
         if packet.get('flow',{}).get('state') not in ['UNKNOWN','NODE_BATTLE']:return unknown
         root=Path(os.environ.get('CRK_V1_ROOT','F:/CRK helper'));module_path=str(root/'ml')
         if module_path not in sys.path:sys.path.insert(0,module_path)
-        from map_vision import inspect_map
+        from map_observer import inspect_map
         m=inspect_map(image,root/'data/map',read_header=False)
         if len(m.get('columns') or [])!=4 or len(m.get('nodes',[]))<6 or len([e for e in m.get('edges',[]) if e.get('pixel_support',0)>=.85])<3:return unknown
         recovered_map=m
