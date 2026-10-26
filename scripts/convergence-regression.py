@@ -49,6 +49,14 @@ def merge_cases(source,shards):
     return merged
 
 
+def replay_command(manifest,out,source):
+    if source.get('stage') in ['P4-A','P4-B']:
+        expected='none' if source['stage']=='P4-A' else 'fixed_scale'
+        if source.get('transform')!=expected:raise ValueError('MILESTONE_TRANSFORM_INVALID')
+        return ['node','scripts/accept-replay.cjs',str(manifest),'data/p4a/cases.json',str(out)]
+    return ['node','scripts/replay-development.cjs',str(manifest),str(out)]
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--source',required=True);parser.add_argument('--output',required=True)
@@ -104,7 +112,7 @@ def main():
                 report['freshFrames' if p['analysisTiming']['freshFullPipeline'] else 'cachedRawV1Frames']+=1
         check_snapshot(root,code)
         if dependency_snapshot(v1,runtime)!=dependencies:raise ValueError('EXTERNAL_DEPENDENCIES_CHANGED')
-        with (out/'replay.log').open('wb') as log:r=subprocess.run(['node','scripts/replay-development.cjs',str(manifest),str(out/'replay')],cwd=root,stdout=log,stderr=subprocess.STDOUT)
+        with (out/'replay.log').open('wb') as log:r=subprocess.run(replay_command(manifest,out/'replay',original),cwd=root,stdout=log,stderr=subprocess.STDOUT)
         check_snapshot(root,code)
         if dependency_snapshot(v1,runtime)!=dependencies:raise ValueError('EXTERNAL_DEPENDENCIES_CHANGED')
         replay=out/'replay/report.json'

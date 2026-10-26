@@ -33,7 +33,8 @@ async function main(){
    if(sha(png)!==entry.sha256)throw Error('FROZEN_SOURCE_CHANGED');
    if(entry.size?.[0]!==Math.round(1440*scale)||entry.size?.[1]!==Math.round(1080*scale))throw Error('CLIENT_SIZE_CHANGED');
    return {png,packet,frame:{id:packet.binding.frameId,sha256:entry.sha256,atMs:entry.atMs,sourcePtsMs:entry.sourcePtsMs,
-    width:entry.size[0],height:entry.size[1],geometryVersion:entry.geometryVersion,windowKey:'offline:original-video',origin:[0,0]}};
+    width:entry.size[0],height:entry.size[1],geometryVersion:entry.geometryVersion,windowKey:'offline:original-video',origin:[0,0],
+    ...(manifest.analysis?.observerContractVersion!=null?{observerContractVersion:manifest.analysis.observerContractVersion}:{})}};
   });
   const consumed=[];
   const r=await runReplay({frames,intent:c.intent,gate:{windowMs:c.gateWindowMs,clientBox:c.clientBox,previewFromPtsMs:c.frames[2].sourcePtsMs},observe:async source=>{
