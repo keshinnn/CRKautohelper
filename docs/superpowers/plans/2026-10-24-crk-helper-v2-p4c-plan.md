@@ -217,3 +217,7 @@ Actualvariant22 source30119 completedcandidateuses a real same-frame rawpeer mea
 ### Task2 native preview source size references
 
 Native/near-native frames also need theexistingmeasuredsameframepeer-size hypotheses, notonlymedian. Actual24/30138 missestargetCanny undergreenoutline; actualpeer116.14x116.1 clearsordinaryRGB.9528/gap.2448 whilemedian110.11x110.06fails. Extendexistingwithin10%observedpeer-size search andper-crop.9/.08 checks toallimages, sameboundedalignment. EmitactualsourcePNG/RGB/frame/peerbox identity/size proof; Node validatesexactsameframepeer andbounds, rejects missing/alteredproof. No fakeaspectnormalization or scorepromotion. ActualREDtestfirst, thencompletecase24, fullcurrentNode/Python/negative/current23regressionbeforeadvancing25.
+
+### Task2 raster interval endpoints
+
+Actual25/46303 boundarycalibrationcandidate projectedtop+height overshoots721 by1e-13. Preserve strictcoordinatebounds; projectbothmeasuredrasterendpoints with integerproduct/source-dimension division andderiveextent. No clipping/tolerance/threshold/consensus changes. ActualsourceboundarytestRED->GREEN, NodeactualMAPbinding andallnewsourcecropped/pixelguards, full25/current24/negative/suites beforeadvance26.

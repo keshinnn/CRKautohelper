@@ -99,9 +99,13 @@ def estimate_pixel_aspect(image):
             continue
         if abs(ratio - 1) > .1 and abs(math.sin(theta * 2)) > .2:
             continue
+        # Project the measured half-open interval, not independently rounded
+        # origin and extent; an actual raster endpoint must stay on its edge.
+        left,top=x*width/960,y*height/ah
+        right,bottom=(x+w)*width/960,(y+h)*height/ah
         candidates.append({
             'analysisBox': [x, y, w, h],
-            'box': [x / sx, y / sy, w / sx, h / sy],
+            'box': [left,top,right-left,bottom-top],
             'center': [cx / sx, cy / sy], 'ratio': ratio,
             'solidity': solidity, 'ellipseFill': fill, 'angleDegrees': angle,
         })

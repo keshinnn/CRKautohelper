@@ -504,9 +504,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-24-crk-helper-v2-p4c-plan.md": {
-    "mtime": 1792977976.7449727,
-    "seen": 1792978468.4770668,
-    "ast_hash": "7da62f40f0f2991fa2a3ed384f9322ec",
+    "mtime": 1792979478.340834,
+    "seen": 1792979981.2561147,
+    "ast_hash": "20253d4590b48bf7101d15e5a2b5579c",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-10-24-crk-helper-v2-design.md": {
@@ -534,15 +534,15 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-10-24-p4c-progress.md": {
-    "mtime": 1792977646.63478,
-    "seen": 1792978468.4770763,
-    "ast_hash": "60a4a22fdefaa1430f4b3368119c4019",
+    "mtime": 1792979162.4906006,
+    "seen": 1792979981.2561233,
+    "ast_hash": "74474ab86b532eaa3ee77b62f371fbb0",
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1792978288.3906953,
-    "seen": 1792978468.4770775,
-    "ast_hash": "532d327744cc8612800636929e6621dc",
+    "mtime": 1792979873.9579103,
+    "seen": 1792979981.2561252,
+    "ast_hash": "84c6405b8e4c1464f327b60603d81a07",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -642,9 +642,9 @@
     "semantic_hash": ""
   },
   "ml/map_aspect.py": {
-    "mtime": 1792976052.3577578,
-    "seen": 1792976726.5469604,
-    "ast_hash": "a517aaf0fb64bc108d0461e608b51715",
+    "mtime": 1792979497.0687935,
+    "seen": 1792979981.255962,
+    "ast_hash": "8444ad25d557612d534636695f118eaa",
     "semantic_hash": ""
   },
   "tests/map-aspect-adapter.test.cjs": {
@@ -825,6 +825,24 @@
     "mtime": 1792977976.7439644,
     "seen": 1792978468.4770293,
     "ast_hash": "423bd50952396521ac54f3190e105606",
+    "semantic_hash": ""
+  },
+  "data/p4c/negative-random-evidence-v7.json": {
+    "mtime": 1792979050.277944,
+    "seen": 1792979981.2558904,
+    "ast_hash": "6e665eeabb72d5fbc3c0ba559734f883",
+    "semantic_hash": ""
+  },
+  "tests/aspect-endpoints.test.cjs": {
+    "mtime": 1792979786.0415666,
+    "seen": 1792979981.256002,
+    "ast_hash": "a159b58957e16e9c537a57869f513f42",
+    "semantic_hash": ""
+  },
+  "tests/test_aspect_endpoint_projection.py": {
+    "mtime": 1792979478.340834,
+    "seen": 1792979981.2560408,
+    "ast_hash": "48d81c0ed759d921843a469b2749faaa",
     "semantic_hash": ""
   }
 }
