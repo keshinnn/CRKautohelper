@@ -1,0 +1,15 @@
+# Python vision performance and generalization contract
+
+Spec: user 2026-10-27 next-stage instructions; prior checkpoint a7a05a2.
+
+Goal: preserve exact source/geometry/identity and one-click/wait/refusal contracts while lowering warmed complete causal CPU p95 to <=1500ms. Producer baseline p50/p95 2767.417/4370.174ms, causal 2708.224/4292.450ms; fixed source focus5-source.json193frames/warmup10 remains unchanged. Do not add module p95 values.
+
+Approaches: (A) measure and remove duplicate work / share validated immutable same-frame intermediates (chosen under user's explicit authorization); (B) native/GPU rewrite/model replacement (outside approval); (C) reduce samples/thresholds/independence or reuse past frames (prohibited). Expected benefit is conditional on measured redundant cost; no claim that A alone reaches1500ms. Keep only repeatable improvements with no semantic/safety regression; one initial optimization round, at most two measured independent changes, then decide from comparable baseline. Do not accumulate low-return patches.
+
+Scope: V2 ml/analyze_cases.py, ml/observe.py, ml/map_aspect.py, ml/map_observer.py, ml/fast_map_candidates.py and new small frame-local intermediate helper only if measurements justify. Profiling tools/tests/docs may be added. V1 disk files and weights unchanged; Python V2 hooks are process-local. Node Selector/ClickTransaction/PreviewVerifier/proof authority not rewritten. No new packages, YOLO, lower IoU (.90), clamp/tolerance, OCR score promotions, TTL>2500, deadline>15000, skipped stable independent preview pair (>=200ms), future frames or per-map/frame branches.
+
+Profiling: instrument actual operations including OpenCV worker threads, high-level call counts, input shape, Python cumulative/self time. Profiler output is diagnostic and never a fresh speed gate. Freeze commit/code/assets/dataset/runner hashes; compare original and instrumented semantic outputs excluding timing metadata. Isolated acceptance uses old193frame source, same venv/assets, one inference process, warmup10, no other project inference/tests; same-frame reuse is reported separately from full-packet replay/raw V1 reuse. Samples with cross-frame or raw V1 cache are excluded from fresh speed claims.
+
+Known defects: source S3 frame46047 battle near720,616 and46057heal near500,455. Add reviewed source-bound box annotations and failing coverage regressions; preserve explicit known-failure status if not fixed. A passing parent replay does not resolve local missing candidates. Unanchored observations cannot select. No changes to frozen positive or negative denominators.
+
+Gate to40–60 and holdout: completed optimization round, full correct current fresh/byte-bound regressions + known defect state documented, comparable warmed causal p95<=1500ms. If target not met, report concrete remaining operations/call counts and scoped options; do not automatically continue40 or P5. If achieved, continue frozen40–60 and heldout as instructed; P5 remains separately unapproved until G4 complete and user consents.
