@@ -210,12 +210,14 @@ def inspect_preview_identity(image,packet):
             if types['type']!='battle' or types['completed']:continue
             templates=map_templates(root/'data/map');best=None;radius=max(1,round(min(nw,nh)*.02))
             sizes=[(nw,nh)]
-            if aspect:
-                # Rectified template scales can yield two slightly different
-                # outer sizes in one map. Search only sizes actually detected
-                # in this frame, retaining the existing icon thresholds.
-                sizes+=sorted({tuple(n['box'][2:]) for n in normal
-                    if .9*nw<=n['box'][2]<=1.1*nw and .9*nh<=n['box'][3]<=1.1*nh})
+            # Native images can also contain independently detected extents
+            # on either side of the median. Never invent a size to fit intent.
+            peer_sizes={}
+            for peer in normal:
+                pw,ph=peer['box'][2:]
+                if .9*nw<=pw<=1.1*nw and .9*nh<=ph<=1.1*nh:
+                    peer_sizes.setdefault((pw,ph),peer)
+            sizes=list(dict.fromkeys(sizes+sorted(peer_sizes)))
             measured_sizes={}
             if aspect:
                 calibration=aspect.get('calibration') or {}
@@ -245,13 +247,22 @@ def inspect_preview_identity(image,packet):
                         # A stronger match to another template at another size
                         # must not discard a crop that independently clears
                         # both unchanged ordinary-icon thresholds.
-                        if aspect and (scores[0][1]!='node-orange' or scores[0][0]<.9 or scores[0][0]-scores[1][0]<.08):continue
-                        if best is None or scores[0][0]>best[0][0][0]:best=(scores,dx,dy,candidate_box,measured_sizes.get((candidate_w,candidate_h)))
+                        if (scores[0][1]!='node-orange' or scores[0][0]<.9 or scores[0][0]-scores[1][0]<.08):continue
+                        if best is None or scores[0][0]>best[0][0][0]:best=(scores,dx,dy,candidate_box,measured_sizes.get((candidate_w,candidate_h)),peer_sizes.get((candidate_w,candidate_h)))
             if best is None:continue
-            ranks,dx,dy,box,size_evidence=best
+            ranks,dx,dy,box,size_evidence,peer=best
             if ranks[0][0]<.9 or ranks[0][0]-ranks[1][0]<.08 or ranks[0][1]!='node-orange':continue
             candidate['box']=box
             if size_evidence:candidate['iconSizeEvidence']=size_evidence
+            if peer is not None:
+                candidate['iconSizeMethod']='same_frame_detected_peer_extent'
+                candidate['iconPeerSizeEvidence']={
+                    'method':'same_frame_detected_peer_extent','actionsExecuted':False,
+                    'pixelSha256':digest,'sourceImageSha256':packet['binding']['imageSha256'],
+                    'sourceCaptureFrameId':packet['binding']['frameId'],'sourceSize':[width,height],
+                    'peerNodeId':peer['id'],'peerSourceBox':list(peer['box']),'peerScore':peer['score'],
+                    'candidateSize':list(box[2:]),'peerMedianSize':[float(nw),float(nh)]}
+
             candidate.update(types);candidate.update({'id':f'outline-{floor}-{column}','floor':floor,'column':column,'score':ranks[0][0],'recovered':True,'iconScore':ranks[0][0],'iconAlignmentPx':[dx,dy]})
             nodes.append(candidate);recovered.append(candidate)
     for n in nodes:
