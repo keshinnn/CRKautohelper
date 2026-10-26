@@ -3,8 +3,17 @@ import argparse,hashlib,importlib.util,json,os,subprocess,sys
 from pathlib import Path
 
 
+def control_case(manifest,case_id):
+    cases=[c for c in manifest['cases'] if c['id']==case_id]
+    if len(cases)!=1 or len(cases[0]['frames'])<2:raise ValueError('CONTROL_CASE_REQUIRED')
+    for f in cases[0]['frames'][:2]:
+        packet=json.loads(Path(f['packet']).read_text(encoding='utf-8'))
+        if packet.get('analysisTiming',{}).get('freshFullPipeline') is not True:raise ValueError('FRESH_CONTROL_REQUIRED')
+    return cases[0]
+
+
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--output',required=True);parser.add_argument('--positive-analysis',required=True);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--output',required=True);parser.add_argument('--positive-analysis',required=True);parser.add_argument('--control-case',default='zone-2-first-battle-random-fixed');args=parser.parse_args()
     root=Path(__file__).resolve().parents[1];out=Path(args.output).resolve();out.mkdir()
     spec=importlib.util.spec_from_file_location('regression',root/'scripts/convergence-regression.py');reg=importlib.util.module_from_spec(spec);spec.loader.exec_module(reg)
     sys.path.insert(0,str(root/'ml'));from runtime_evidence import capture_runtime_evidence
@@ -20,6 +29,8 @@ def main():
         with (folder/'check.log').open('wb') as log:r=subprocess.run(['node','scripts/negative-selection-check.cjs',str(manifest),str(folder/'check')],cwd=root,stdout=log,stderr=subprocess.STDOUT)
         unchanged();return r.returncode,json.loads((folder/'check/report.json').read_text(encoding='utf-8'))
     try:
+        positive_file=Path(args.positive_analysis).resolve();positive=json.loads(positive_file.read_text(encoding='utf-8'))
+        original=control_case(positive,args.control_case)
         for c in m['cases']:
             unchanged();folder=out/c['id'];folder.mkdir();p=folder/'source.json';p.write_text(json.dumps({**m,'cases':[c]},indent=2),encoding='utf-8')
             with (folder/'analysis.log').open('wb') as log:r=subprocess.run([sys.executable,'-B','ml/analyze_cases.py',str(p),str(folder/'analysis'),'--fast-map','--bounded-ocr','960'],cwd=root,stdout=log,stderr=subprocess.STDOUT)
@@ -28,8 +39,6 @@ def main():
             status,result=check(folder/'analysis/manifest.json',folder);report['results'].append({k:v for k,v in result.items() if k!='version'});save()
             print(json.dumps({'completed':len(report['results']),'id':c['id'],'passed':result['passed']}),flush=True)
             if status or not result['passed']:raise ValueError('NEGATIVE_REJECTION_FAILED')
-        positive_file=Path(args.positive_analysis).resolve();positive=json.loads(positive_file.read_text(encoding='utf-8'))
-        original=next(c for c in positive['cases'] if c['id']=='zone-2-first-battle-random-fixed')
         controls=[]
         for label,invalid in [('gray-request',True),('eligible-request',False)]:
             folder=out/label;folder.mkdir();c=json.loads(json.dumps(original));c.update(id=label,frames=c['frames'][:2],expectedRecognizedMapContext=True,expectedRejectionReasons=['NODE_UNAVAILABLE','COORDINATE_INVALID'])

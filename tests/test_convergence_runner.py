@@ -17,6 +17,15 @@ class ConvergenceRunnerTests(unittest.TestCase):
         self.assertEqual(m.replay_command(Path('development.json'),Path('out'),{'cases':[]}),['node','scripts/replay-development.cjs','development.json','out'])
         with self.assertRaises(ValueError):m.replay_command(manifest,Path('out'),{**source,'transform':'unknown'})
 
+    def test_negative_grader_control_requires_explicit_fresh_case(self):
+        spec=importlib.util.spec_from_file_location('negative',ROOT/'scripts/convergence-negatives.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+        manifest=json.loads((ROOT/'artifacts/convergence-20261026/native20-final-02/manifest.json').read_text(encoding='utf-8'))
+        c=m.control_case(manifest,'zone-2-first-battle')
+        self.assertEqual(c['id'],'zone-2-first-battle');self.assertEqual(len(c['frames']),38)
+        with self.assertRaises(ValueError):m.control_case(manifest,'missing-case')
+        cached=json.loads((ROOT/'artifacts/convergence-20261026/random39-final-02/manifest.json').read_text(encoding='utf-8'))
+        with self.assertRaisesRegex(ValueError,'FRESH_CONTROL_REQUIRED'):m.control_case(cached,'zone-2-first-battle-random-fixed')
+
     def test_external_producers_templates_and_ocr_assets_cannot_change_undetected(self):
         m=module()
         with tempfile.TemporaryDirectory(dir=ROOT/'artifacts') as tmp:
