@@ -13,6 +13,29 @@ def normalize_evidence(rows):
         result.append({**row,'text':normalized,'recognizerText':text,'orthographicNormalization':'remaining_time_traditional_glyphs'} if normalized!=text else dict(row))
     return result
 
+def _remaining_timer_locators(rows):
+    timers=[r for r in rows if .85<=r.get('score',0)<=1 and
+        ('剩餘時間' in r.get('text','') or re.fullmatch(r'剩時間\d+天\d{2}:\d{2}:\d{2}',re.sub(r'\s+','',r.get('text',''))))]
+    if timers:return timers
+    labels=[r for r in rows if .65<=r.get('score',0)<.85 and re.sub(r'\s+','',r.get('text',''))=='剩餘時間']
+    clocks=[r for r in rows if .9<=r.get('score',0)<=1 and re.fullmatch(r'\d+天\d{2}:\d{2}:\d{2}',re.sub(r'\s+','',r.get('text','')))]
+    if len(labels)!=1 or len(clocks)!=1:return []
+    bounds=[]
+    for row in [labels[0],clocks[0]]:
+        points=np.asarray(row.get('box'),dtype=float)
+        if points.shape!=(4,2) or not np.isfinite(points).all():return []
+        lo,hi=points.min(0),points.max(0)
+        if (hi<=lo).any():return []
+        bounds.append((*lo,*hi))
+    (x,y,right,bottom),(cx,cy,cr,cb)=bounds;h=bottom-y;ch=cb-cy
+    if not (cx>(x+right)/2 and cr>right and -.5*max(h,ch)<=cx-right<=max(h,ch)
+            and abs((cy+cb-y-bottom)/2)<=max(h,ch)*.3):return []
+    left,top,endx,endy=min(x,cx),min(y,cy),max(right,cr),max(bottom,cb)
+    # Both original rows locate one crop only. Neither weak label nor the
+    # adjacent clock grants context until that full crop is independently read.
+    return [{**labels[0],'box':[[left,top],[endx,top],[endx,endy],[left,endy]],
+        'remainingLabelLocator':labels[0],'adjacentClockLocator':clocks[0]}]
+
 class _MeasuredPreprocess(DetPreProcess):
     def __init__(self,side,mean,std,records):
         super().__init__(side,'max',mean,std);self.records=records
@@ -109,8 +132,7 @@ class BoundedOCRRuntime:
             elif len(precise)>1:return rows
         # A missing global glyph is only a crop locator. The fresh crop below
         # must still read the complete original label and clock at >=.90.
-        timers=[r for r in rows if .85<=r.get('score',0)<=1 and
-            ('剩餘時間' in r.get('text','') or re.fullmatch(r'剩時間\d+天\d{2}:\d{2}:\d{2}',re.sub(r'\s+','',r.get('text',''))))]
+        timers=_remaining_timer_locators(rows)
         header=text_reader.map_header_from_evidence(rows)
         if len(seasons)!=1 or len(timers)!=1 or header['displayedZone'] is None or header['score']<.9 or header['conflictingEvidence']:return rows
         bounds=[]
@@ -159,13 +181,16 @@ class BoundedOCRRuntime:
             matches=[]
             for crop_box in crops:
                 if crop_box[2]<=crop_box[0] or crop_box[3]<=crop_box[1]:continue
-                readings=normalize_evidence(self.read_line_variants(image.crop(crop_box),len(re.sub(r'\s+','',row['text']))))
+                glyph_text=row['text']+row.get('adjacentClockLocator',{}).get('text','')
+                readings=normalize_evidence(self.read_line_variants(image.crop(crop_box),len(re.sub(r'\s+','',glyph_text))))
                 matches=[{**r,'actualCropBox':crop_box} for r in readings if r['score']>=.9 and re.fullmatch(pattern,re.sub(r'\s+','',r['text']))]
                 if matches:break
             keys={re.sub(r'\s+','',r['text']) for r in matches}
             if len(keys)!=1:return rows
             best=max(matches,key=lambda r:r['score']);left,top,endx,endy=best.pop('actualCropBox')
             fresh.append({**best,'box':[[left,top],[endx,top],[endx,endy],[left,endy]],'source':'map_context_original_crop','contextKind':kind,'cropBox':[left,top,endx-left,endy-top],'originalText':row['text'],'originalScore':row['score']})
+            if 'adjacentClockLocator' in row:
+                fresh[-1].update({key:row[key] for key in ['remainingLabelLocator','adjacentClockLocator']})
             if position_evidence:fresh[-1]['positionEvidence']=position_evidence
         return [*rows,*fresh]
 

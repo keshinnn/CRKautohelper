@@ -229,3 +229,7 @@ Actual30/95343 no peerextent clearsordinary.9/.08 though actualsourceellipseexte
 ### Task2 source-bound small-aspect sparse recovery
 
 Actual31firstpreframe hasuniqueexit/6normalnodes/3Xclusters andtruepixelratio.9751886; prior<=3%skip preventsnormalizationandabsoluteanchor. PermitnontrivialactualnormalizationONLYforrawunanchored/no-column/uniquegate/>=5normal/3clustercontexts, withsourceboundsmallAspectSparseRecovery proof validatedbyNode andalloriginalqualityconstraintsunchanged. Existinganchorednative framesretaincurrentcoordinateconvention. ActualRED/source-topology-negative tests first; thenfull31/current30/negative/fulltests before32.
+
+### Task2 separate weak remaining-label and actual clock crop locator
+
+Actualvariant33source53172hasweakexactremaininglabel .7025 plusseparateclock .9658, soexisting.85locatorgate cannotrereadfulltimerandMAPremainsUNKNOWN. Permitonlyoneexactweaklabel .65..85 andoneclock>=.9 withboundedbaseline/overlap/gap tolocateoriginalunioncrop. Preservebothrawtokens/scores/boxes; requirefreshcompleteexactremainingtimer>=.9 andexistingseason/zonecontext beforeMAP. No inferredglyphs/scorepromotion/thresholddecrease. ActualRED->GREENpluserasedlabel/clock/missing/duplicate/misalignmentnegatives. OCRhashchangesrequirefreshfullpipeline(current32andnegatives), notlegacycacheinferenceclaim. Complete33loopandsuites/sourceartifactauditsbefore34.
