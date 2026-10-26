@@ -22,30 +22,32 @@ IoU>=.90 and all source/OCR/geometry thresholds unchanged; no clamp, TTL<=2500ms
 ## Task1: reproducible operation-level profiling
 Files: new ml/operation_profile.py, scripts/profile-vision.py, tests/test_operation_profile.py; artifacts/performance-20261027.
 Interface: process-local diagnostic instrumentation, stage-bound events {function,calls,elapsed,inputShape,frame}; optional cProfile output. No production behavior changes.
-- [ ] RED: workers counted, stage attribution, exceptions restore originals, return values unchanged; tests/test_operation_profile.py.
-- [ ] GREEN diagnostic instrumentation and explicit source/output runner with no native imports/actions.
-- [ ] Freeze representative diagnostic source (including two S3 defects); run no-cache current baseline profile; save cumulative/self and native operation stats and semantic packet comparison.
+- [x] RED: workers counted, stage attribution, exceptions restore originals, return values unchanged; tests/test_operation_profile.py.
+- [x] GREEN diagnostic instrumentation and explicit source/output runner with no native imports/actions.
+- [x] Freeze representative diagnostic source (including two S3 defects); run no-cache current baseline profile; save cumulative/self and native operation stats and semantic packet comparison.
 Acceptance: real call count/time for dominant modules including workers; instrumented vs uninstrumented semantic equality; actual baseline193data/hash retained. Risks: profiler overhead and nested double counting, explicitly separated from performance gate.
 
 ## Task2: measured minimum optimization round
 Files: only measured V2 hot modules named in spec; focused regression tests and optional small immutable same-frame context.
 Interface: existing packet/geometry/proof unchanged; reuse scoped to one current validated frame and exact operation identity; diagnostics for hit/miss costs separate.
-- [ ] Choose at most two changes from measured call graph, record per-change expected recoverable measured cost and risks before implementing.
-- [ ] RED->GREEN for exact outputs, mutation/source/parameter isolation, cache hit/miss, negative refusal; preserve original source binding.
-- [ ] Focus #8/#19/#23/#25/#39 and affected actual frames. Keep only repeatable improvements; revert changes without meaningful measured benefit.
+- [x] Choose at most two changes from measured call graph, record per-change expected recoverable measured cost and risks before implementing.
+- [x] RED->GREEN for exact outputs, mutation/source/parameter isolation, cache hit/miss, negative refusal; preserve original source binding.
+- [x] Focus #8/#19/#23/#25/#39 and affected actual frames. Keep only repeatable improvements; revert changes without meaningful measured benefit.
 Acceptance: equivalent semantic evidence and no threshold changes; causal/producer improvement measured with full fresh source processing. No optimization justified only by function name. Risks: hidden injected detector dependencies, deep-copy overhead, score ordering/rounding drift.
 
 ## Task3: track S3 local coverage defects
 Files: source-bound reviewed regression annotations in data/p4c and tests for46047/46057, defect ledger docs/validation.
-- [ ] Verify source PNG hash and actual missing icon extents; trace candidate extraction vs classification/lattice/NMS loss using profile outputs and intermediate diagnostics.
-- [ ] Add expected-presence regression at original IoU requirement; if unresolved, explicit expected failures excluded from success count, plus independent unanchored selection refusal tests.
-- [ ] Do not change detector for one image or mark solved because parent clip closes.
+- [x] Verify source PNG hash and actual missing icon extents; trace candidate extraction vs classification/lattice/NMS loss using profile outputs and intermediate diagnostics.
+- [x] Add expected-presence regression at original IoU requirement; if unresolved, explicit expected failures excluded from success count, plus independent unanchored selection refusal tests.
+- [x] Do not change detector for one image or mark solved because parent clip closes.
 Acceptance: two defects have cause/evidence/current status; safety refusal retained. Risk: relative IDs shift during scroll, match physical boxes, not accidental IDs.
 
 ## Task4: correctness + comparable performance and gate
 Files: versioned run artifacts, docs/validation/2026-10-27-python-vision-performance.md, progress.md, updated graph.
-- [ ] Current full Node/Python tests; current39/native20/fixed15/negative30+controls regressions; retain five artifacts/hash/versions.
-- [ ] Isolated original193frames single worker, warmup10, no-cache, per-module and causal p50/p95, slowest frame/stage and hit/miss costs; save before/after comparable stats.
-- [ ] Whole-branch independent review; source/asset/hash checks; AST graph update.
-- [ ] If p95<=1500 and safety/correctness stable, proceed frozen40–60/holdout and retain denominators. Otherwise provide measured next options and stop; no unbounded speculative patches.
+- [x] Current full Node/Python tests; current39/native20/fixed15/negative30+controls regressions; retain five artifacts/hash/versions.
+- [x] Isolated original193frames single worker, warmup10, no-cache, per-module and causal p50/p95, slowest frame/stage and hit/miss costs; save before/after comparable stats.
+- [x] Whole-branch independent review; source/asset/hash checks; AST graph update.
+- [x] If p95<=1500 and safety/correctness stable, proceed frozen40–60/holdout and retain denominators. Otherwise provide measured next options and stop; no unbounded speculative patches.
 Acceptance: explicit unit/offline/CPU/live separation, no G4/P5 promotion without actual gates. P5 remains unauthorized.
+
+Final round result: functional/semantic gates passed; fresh causalCPU p95 3753.4514 -> 2743.6726ms, still FAIL1500. Per Task4 alternative deliver measured remaining bottlenecks and stop before40/holdout/P5. Two known S3 omissions remain expected failures, not passed. See docs/validation/2026-10-27-python-vision-performance.md.

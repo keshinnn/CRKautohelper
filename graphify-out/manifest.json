@@ -162,9 +162,9 @@
     "semantic_hash": ""
   },
   "ml/analyze_cases.py": {
-    "mtime": 1793022274.823625,
-    "seen": 1793025805.5203612,
-    "ast_hash": "af6b2362c659121b8a525e9d5ed39908",
+    "mtime": 1793040306.8009093,
+    "seen": 1793040547.669078,
+    "ast_hash": "75c1dd437137a6605a501c47f348568e",
     "semantic_hash": ""
   },
   "ml/bounded_ocr.py": {
@@ -210,9 +210,9 @@
     "semantic_hash": ""
   },
   "ml/observe.py": {
-    "mtime": 1793017210.282632,
-    "seen": 1793018837.1443508,
-    "ast_hash": "268838a2e0879194b1453235117fcdc8",
+    "mtime": 1793038349.1794114,
+    "seen": 1793040547.6691046,
+    "ast_hash": "37ca3390d9ea0cc4fce20b043ba780ce",
     "semantic_hash": ""
   },
   "ml/preview_identity.py": {
@@ -540,9 +540,9 @@
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1793004032.543267,
-    "seen": 1793018837.1445827,
-    "ast_hash": "4143dc76e3889df44f58951312d2cc10",
+    "mtime": 1793035733.9077637,
+    "seen": 1793040547.6692946,
+    "ast_hash": "15bc2e24866a48b71b5d86a51f48a49f",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -984,9 +984,9 @@
     "semantic_hash": ""
   },
   "scripts/benchmark-convergence.py": {
-    "mtime": 1793023365.9978242,
-    "seen": 1793025805.5203927,
-    "ast_hash": "1a27b35f11dfa674a6d56f4c814c7487",
+    "mtime": 1793040306.8029177,
+    "seen": 1793040547.6691327,
+    "ast_hash": "74416e0e0849db667ff0d1fa64778a82",
     "semantic_hash": ""
   },
   "scripts/convergence-negatives.py": {
@@ -996,9 +996,9 @@
     "semantic_hash": ""
   },
   "scripts/convergence-regression.py": {
-    "mtime": 1793026523.4679644,
-    "seen": 1793027065.943636,
-    "ast_hash": "ee19d337e9a713ed3d71f49666fe197a",
+    "mtime": 1793040306.8019137,
+    "seen": 1793040547.6691375,
+    "ast_hash": "520206153f8872075cc85d38d9c5c1c2",
     "semantic_hash": ""
   },
   "scripts/negative-selection-check.cjs": {
@@ -1056,9 +1056,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-26-geometry-preview-convergence.md": {
-    "mtime": 1793007948.116596,
-    "seen": 1793018837.1445587,
-    "ast_hash": "d902b011a5e4f6398ef5c66866ec22a9",
+    "mtime": 1793035733.8972392,
+    "seen": 1793040547.6692796,
+    "ast_hash": "91c17969a01d0d9145cfa1eab8b5117c",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-10-26-geometry-preview-contract.md": {
@@ -1068,9 +1068,9 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-10-26-convergence-status.md": {
-    "mtime": 1793034139.0708537,
-    "seen": 1793034589.352048,
-    "ast_hash": "15de434474d7afab1c7c20f41b10f676",
+    "mtime": 1793035675.3865716,
+    "seen": 1793040547.6692932,
+    "ast_hash": "5019b4a99fb51e9071d261e9f83edb9c",
     "semantic_hash": ""
   },
   "ml/map_observer.py": {
@@ -1101,6 +1101,78 @@
     "mtime": 1793026737.9978623,
     "seen": 1793027065.94366,
     "ast_hash": "623fd383ea98a22d55fa32724193ac89",
+    "semantic_hash": ""
+  },
+  "data/p4c/s3-scroll-known-defects-v1.json": {
+    "mtime": 1793038927.757984,
+    "seen": 1793040547.6690524,
+    "ast_hash": "f3a9a4074ee390d0fa5f78103520a695",
+    "semantic_hash": ""
+  },
+  "ml/frame_intermediates.py": {
+    "mtime": 1793040306.799401,
+    "seen": 1793040547.6690898,
+    "ast_hash": "1f3e08e45d7254e706799b00d7598770",
+    "semantic_hash": ""
+  },
+  "ml/operation_profile.py": {
+    "mtime": 1793037284.939553,
+    "seen": 1793040547.669106,
+    "ast_hash": "b82e48a1e2829b03474bf83cf35e0e30",
+    "semantic_hash": ""
+  },
+  "scripts/profile-vision.py": {
+    "mtime": 1793039504.530489,
+    "seen": 1793040547.6691432,
+    "ast_hash": "a166866084bb9287cfd711dc14f930b1",
+    "semantic_hash": ""
+  },
+  "tests/s3-scroll-refusal.test.cjs": {
+    "mtime": 1793039438.6717834,
+    "seen": 1793040547.6691875,
+    "ast_hash": "fca066f3ab13463a68c778704220a3ae",
+    "semantic_hash": ""
+  },
+  "tests/test_frame_context_pipeline.py": {
+    "mtime": 1793040232.7976656,
+    "seen": 1793040547.6692138,
+    "ast_hash": "ea259e653edd573b7775ddce1ff132e0",
+    "semantic_hash": ""
+  },
+  "tests/test_frame_intermediates.py": {
+    "mtime": 1793040198.227338,
+    "seen": 1793040547.6692147,
+    "ast_hash": "942594a4c47e7d21352b27f7b05a1d33",
+    "semantic_hash": ""
+  },
+  "tests/test_operation_profile.py": {
+    "mtime": 1793037242.9309142,
+    "seen": 1793040547.669228,
+    "ast_hash": "e07896a1b1810f9f8e5e7c766b314b8d",
+    "semantic_hash": ""
+  },
+  "tests/test_s3_scroll_defects.py": {
+    "mtime": 1793040866.948785,
+    "seen": 1793041434.2912688,
+    "ast_hash": "d95354cdfc7354d50eeac38d27ce6004",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-10-27-python-vision-performance.md": {
+    "mtime": 1793037166.1003644,
+    "seen": 1793040547.6692808,
+    "ast_hash": "de210e6547d5078d22e7843e241d5c2f",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-10-27-python-vision-performance.md": {
+    "mtime": 1793037166.0983663,
+    "seen": 1793040547.6692848,
+    "ast_hash": "31d951b8da03eb1911e56d4fe869bafc",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-26-convergence-execution-ledger.md": {
+    "mtime": 1793035733.8987424,
+    "seen": 1793040547.6692917,
+    "ast_hash": "67104eb45cc2bdc7da3977efc0367dd5",
     "semantic_hash": ""
   }
 }
