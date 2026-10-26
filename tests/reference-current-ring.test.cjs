@@ -1,0 +1,9 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),{execFileSync}=require('node:child_process');
+const {adaptMap}=require('../lib/observer-adapter.cjs'),{loadReplayFrames}=require('../lib/replay-case.cjs');let current;
+function fixture(){const m=JSON.parse(fs.readFileSync('artifacts/p4c-random-development-60-run-23/dev-L0-zone6-floor1-col2-resume-1781-random-fixed/analysis/manifest.json')),s=loadReplayFrames(m.cases[0])[0];current??=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',"import sys,json;sys.path[:0]=['ml','tests','F:/CRK helper/ml'];from test_reference_current_ring import ReferenceCurrentRingTests;from map_action_evidence import inspect_map_actions;im,p=ReferenceCurrentRingTests().source();p['v2MapActions']=inspect_map_actions(im,p);print(json.dumps(p,ensure_ascii=True))"],{encoding:'utf8',maxBuffer:10000000});return {frame:{...s.frame,png:s.png},p:JSON.parse(current)};}
+test('actual resized in-progress node requires bound original-pixel reference ring',()=>{const {frame,p}=fixture(),o=adaptMap(frame,p);assert.equal(o.verified,true);assert.equal(o.current?.verified,true);assert.equal(o.current.nodeId,'visible-1-2');assert.equal(o.current.inProgress,true);assert.ok(p.v2MapActions.current.referenceRing);});
+test('missing or altered reference-ring provenance cannot prove a current node',()=>{
+ for(const mutate of [c=>delete c.referenceRing,c=>c.referenceRing.pixelSha256='a'.repeat(64),c=>c.referenceRing.sourceCaptureFrameId='a'.repeat(32),c=>c.referenceRing.sourceNodeBox[0]++,c=>c.referenceRing.referenceNodeBox[2]++,c=>c.referenceRing.forwardMatrix[0][0]+=.01,c=>c.referenceRing.originalCoverage=.09,c=>c.referenceRing.originalQuadrants[0]=.01]){
+  const {frame,p}=fixture();assert.ok(p.v2MapActions.current?.referenceRing);mutate(p.v2MapActions.current);assert.equal(adaptMap(frame,p).current,null);
+ }
+});
