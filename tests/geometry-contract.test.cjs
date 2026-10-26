@@ -1,5 +1,10 @@
 const {test}=require('node:test'),assert=require('node:assert/strict');
 const {resizeBox,resizePoint,validateGeometryCertificate}=require('../lib/geometry-contract.cjs');
+test('native geometry uses the same actual legacy raster rule at half ties',()=>{
+ const {nativeGeometryEvidence}=require('../lib/geometry-contract.cjs');
+ assert.deepEqual(nativeGeometryEvidence({width:1920,height:721},'a'.repeat(64)),{
+  sourceSize:[1920,721],rectifiedPixelSha256:'a'.repeat(64),modelAnalysisSize:[960,360]});
+});
 test('real map adapter does not silently fall back to legacy rules for a tampered new certificate',()=>{
  const fs=require('node:fs'),{loadReplayFrames}=require('../lib/replay-case.cjs'),{adaptMap}=require('../lib/observer-adapter.cjs');
  const m=JSON.parse(fs.readFileSync('artifacts/p4c-aspect-endpoints-case25-analysis-01/manifest.json'));
