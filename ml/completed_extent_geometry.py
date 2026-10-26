@@ -7,6 +7,7 @@ import re
 from pathlib import Path
 import numpy as np
 from PIL import Image
+from geometry_contract import resize_box, resize_point, raster_round
 
 
 def recover_completed_extents(image,m,binding):
@@ -31,7 +32,7 @@ def recover_completed_extents(image,m,binding):
     inverse=rgb.width/normal_size[0];normalized=rgb.resize(tuple(normal_size),Image.Resampling.LANCZOS)
     normal_pixel=hashlib.sha256(normalized.tobytes()).hexdigest()
     if normal_pixel!=rect.get('rectifiedPixelSha256',digest):return m
-    analysis_size=[960,round(normal_size[1]*960/normal_size[0])]
+    analysis_size=[960,raster_round(normal_size[1]*960/normal_size[0])]
     analysis=normalized.resize(tuple(analysis_size),Image.Resampling.LANCZOS)
     analysis_pixel=hashlib.sha256(analysis.tobytes()).hexdigest();initial=copy.deepcopy(m)
     for n in initial['nodes']:
@@ -53,7 +54,13 @@ def recover_completed_extents(image,m,binding):
             'previousAnalysisBox':list(old.get('analysisBox',old['box'])),'previousAnalysisCenter':list(old.get('analysisCenter',old['center'])),
             'previousCheckMaskIoU':actions['nodes'][old['id']]['checkMaskIoU']}
         n['geometryMethod']='original_source_done_template_extent'
-        x,y,w,h=proof['sourceBox'];n['box']=[round(x,2),y,round(w,2),h];n['center']=[round(x+w/2,2),y+h/2]
+        x,y,w,h=proof['sourceBox']
+        if rect.get('coordinateContract'):
+            n['box']=resize_box(proof['originalAnalysisBox'],normal_size,list(rgb.size))
+            n['center']=resize_point(proof['originalAnalysisCenter'],normal_size,list(rgb.size))
+        else:
+            # Immutable legacy/native packets retain their declared convention.
+            n['box']=[round(x,2),y,round(w,2),h];n['center']=[round(x+w/2,2),y+h/2]
         if rect:
             n['analysisBox']=list(proof['originalAnalysisBox']);n['analysisCenter']=list(proof['originalAnalysisCenter'])
         changed.add(n['id'])
@@ -65,8 +72,8 @@ def recover_completed_extents(image,m,binding):
     result['uncertainConnections']=[e for e in result.get('uncertainConnections',[]) if not changed.intersection([e['from'],e['to']])]
     def node_geometry(n):
         box=n.get('analysisBox',n['box']);center=n.get('analysisCenter',n['center']);sx,sy=analysis_size[0]/normal_size[0],analysis_size[1]/normal_size[1]
-        return {'id':n['id'],'box':[v*(sx if i%2==0 else sy) for i,v in enumerate(box)],
-                'center':[center[0]*sx,center[1]*sy],'lineGeometryStage':'final_verified_boxes'}
+        return {'id':n['id'],'box':resize_box(box,normal_size,analysis_size),
+                'center':resize_point(center,normal_size,analysis_size),'lineGeometryStage':'final_verified_boxes'}
     for a in result['nodes']:
         for b in result['nodes']:
             if not changed.intersection([a['id'],b['id']]) or b.get('type')=='exit' or b.get('visibleRow')!=a.get('visibleRow',-10)+1:continue

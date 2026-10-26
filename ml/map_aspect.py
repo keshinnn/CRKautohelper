@@ -13,6 +13,7 @@ import numpy as np
 from PIL import Image
 from reference_line_geometry import reference_geometry
 from completed_extent_geometry import completed_geometry
+from geometry_contract import resize_box, resize_point, raster_round, geometry_certificate
 
 
 def _qualified_aspect_groups(candidates):
@@ -69,7 +70,7 @@ def _gate_supported_aspect_candidates(image,candidates,analysis,sx,sy,digest):
 def estimate_pixel_aspect(image):
     rgb = np.asarray(image.convert('RGB'))
     height, width = rgb.shape[:2]
-    ah = round(height * 960 / width)
+    ah = raster_round(height * 960 / width)
     if ah < 24:
         return None
     analysis = cv2.resize(rgb, (960, ah), interpolation=cv2.INTER_LINEAR)
@@ -101,11 +102,10 @@ def estimate_pixel_aspect(image):
             continue
         # Project the measured half-open interval, not independently rounded
         # origin and extent; an actual raster endpoint must stay on its edge.
-        left,top=x*width/960,y*height/ah
-        right,bottom=(x+w)*width/960,(y+h)*height/ah
+        source_box=resize_box([x,y,w,h],[960,ah],[width,height])
         candidates.append({
             'analysisBox': [x, y, w, h],
-            'box': [left,top,right-left,bottom-top],
+            'box': source_box,
             'center': [cx / sx, cy / sy], 'ratio': ratio,
             'solidity': solidity, 'ellipseFill': fill, 'angleDegrees': angle,
         })
@@ -261,14 +261,14 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
         if any(not .48<=n.get('score',0)<=1 for n in peers):return initial
     inverse=image.width/normalized.width;nw=float(np.median([n['box'][2] for n in peers]));nh=float(np.median([n['box'][3] for n in peers]))
     proposals=[]
-    analysis_size=[960,round(normalized.height*960/normalized.width)]
+    analysis_size=[960,raster_round(normalized.height*960/normalized.width)]
     fx,fy=960/normalized.width,analysis_size[1]/normalized.height
     analysis_pixel=hashlib.sha256(np.asarray(normalized.resize(tuple(analysis_size),Image.Resampling.LANCZOS)).tobytes()).hexdigest()
     indices=[] if completed_only else list(calibration['consensus'])
     if not completed_only and not any(n.get('type')=='exit' for n in initial['nodes']) and not any(calibration['candidates'][i].get('circleKind')=='cyan_gate' for i in indices):
         # The orange consensus may already suffice for aspect calibration,
         # while the edge detector independently missed the visible gate.
-        ah=round(image.height*960/image.width)
+        ah=raster_round(image.height*960/image.width)
         analysis=cv2.resize(np.asarray(image),(960,ah),interpolation=cv2.INTER_LINEAR)
         supported=_gate_supported_aspect_candidates(image,calibration['candidates'],analysis,960/image.width,ah/image.height,binding['pixelSha256'])
         gates=[q for q in supported if q.get('circleKind')=='cyan_gate' and abs(q['ratio']/calibration['ratio']-1)<=.04]
@@ -280,9 +280,9 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
         if circle.get('circleKind')=='cyan_gate':
             if any(n.get('type')=='exit' for n in initial['nodes']):continue
             evidence=circle['iconEvidence'];x,y,w,h=evidence['sourceInnerBox'];rx,ry,rw,rh=evidence['templateInnerBox'];tw,th=evidence['templateSize']
-            source=[x-rx*w/rw,y-ry*h/rh,tw*w/rw,th*h/rh];box=[source[0]/inverse,source[1],source[2]/inverse,source[3]];center=[box[0]+box[2]/2,box[1]+box[3]/2]
-            injected=[box[0]*fx,box[1]*fy,box[2]*fx,box[3]*fy]
-            proposals.append({'box':injected,'center':[center[0]*fx,center[1]*fy],'score':evidence['innerScore'],'template':'node-exit.png',
+            source=[x-rx*w/rw,y-ry*h/rh,tw*w/rw,th*h/rh];box=resize_box(source,list(image.size),list(normalized.size));center=[box[0]+box[2]/2,box[1]+box[3]/2]
+            injected=resize_box(box,list(normalized.size),analysis_size)
+            proposals.append({'box':injected,'center':resize_point(center,list(normalized.size),analysis_size),'score':evidence['innerScore'],'template':'node-exit.png',
                 'scoreMethod':'original_source_gate_arrow_rgb','gateProposal':{
                     'method':'same_frame_original_cyan_gate_candidate','sourceImageSha256':binding['imageSha256'],'pixelSha256':binding['pixelSha256'],
                     'sourceCaptureFrameId':binding['frameId'],'sourceSize':list(image.size),'rectifiedInputSize':list(normalized.size),
@@ -292,16 +292,16 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
         if any(math.hypot(cx-n['center'][0],cy-n['center'][1])<=min(nw,nh)*.25 for n in initial['nodes']):continue
         measured=_orange_node_pixel_geometry(image,[(cx-nw/2)*inverse,cy-nh/2,nw*inverse,nh],root,calibration['pixelSha256'],allow_icon_core=True)
         if measured is None:continue
-        (x,y,w,h),evidence=measured;box=[x/inverse,y,w/inverse,h];center=[(x+w/2)/inverse,y+h/2]
+        (x,y,w,h),evidence=measured;box=resize_box([x,y,w,h],list(image.size),list(normalized.size));center=resize_point([x+w/2,y+h/2],list(image.size),list(normalized.size))
         geometry={**evidence,'candidateIndex':index,'originalAnalysisBox':box,'originalAnalysisCenter':center}
-        proposals.append({'box':[box[0]*fx,box[1]*fy,box[2]*fx,box[3]*fy],
-            'center':[center[0]*fx,center[1]*fy],'score':evidence['innerScore'],'template':'node-orange.png',
+        proposals.append({'box':resize_box(box,list(normalized.size),analysis_size),
+            'center':resize_point(center,list(normalized.size),analysis_size),'score':evidence['innerScore'],'template':'node-orange.png',
             'scoreMethod':'original_source_inner_template_rgb','pixelProposal':{
                 'method':'same_frame_original_orange_inner_candidate','sourceImageSha256':binding['imageSha256'],
                 'pixelSha256':calibration['pixelSha256'],'sourceCaptureFrameId':binding['frameId'],
                 'sourceSize':list(image.size),'rectifiedInputSize':list(normalized.size),
                 'rectifiedPixelSha256':normal_pixel,'analysisSize':analysis_size,'analysisPixelSha256':analysis_pixel,
-                'injectedAnalysisBox':[box[0]*fx,box[1]*fy,box[2]*fx,box[3]*fy],
+                'injectedAnalysisBox':resize_box(box,list(normalized.size),analysis_size),
                 'geometryEvidence':geometry,'actionsExecuted':False}})
     from completed_node_candidates import completed_node_candidates
     if sparse:
@@ -424,14 +424,14 @@ def recover_map_aspect(image, packet):
     small_sparse=None
     if deviation<=.03:
         small_sparse=_small_aspect_sparse_evidence(raw_prior,binding,rgb,digest,calibration['ratio'])
-        if small_sparse is None or round(rgb.width/calibration['ratio'])==rgb.width:
+        if small_sparse is None or raster_round(rgb.width/calibration['ratio'])==rgb.width:
             if original.get('absoluteFloorKnown') is True and len(original.get('columns') or [])==4:
                 root=Path(os.environ.get('CRK_V1_ROOT', 'F:/CRK helper'))
                 return _supplement_orange_candidates(rgb,rgb,original,calibration,binding,root,digest,binding['imageSha256'],completed_only=True)
             return original
     if near_native and type(original.get('absoluteFloorKnown')) is not bool:
         return original
-    normalized = rgb.resize((round(rgb.width / calibration['ratio']), rgb.height),
+    normalized = rgb.resize((raster_round(rgb.width / calibration['ratio']), rgb.height),
                             Image.Resampling.LANCZOS)
     normal_pixel = hashlib.sha256(normalized.tobytes()).hexdigest()
     from map_vision import inspect_map
@@ -535,14 +535,13 @@ def recover_map_aspect(image, packet):
                     node['box'] = [cx - w / 2, cy - h / 2, w, h]
         node['analysisBox'] = list(node['box'])
         node['analysisCenter'] = list(node['center'])
-        x, y, w, h = node['box']
-        node['box'] = [round(x * inverse_x, 2), y, round(w * inverse_x, 2), h]
-        node['center'] = [round(node['center'][0] * inverse_x, 2), node['center'][1]]
-    result['columns'] = [round(x * inverse_x, 2) for x in columns]
+        node['box'] = resize_box(node['analysisBox'], list(normalized.size), list(rgb.size))
+        node['center'] = resize_point(node['analysisCenter'], list(normalized.size), list(rgb.size))
+    result['columns'] = [resize_point([x,0],list(normalized.size),list(rgb.size))[0] for x in columns]
     result['header'] = copy.deepcopy(original.get('header'))
     result['frameId'] = digest[:20]
     result['analysisScale'] = 960 / rgb.width
-    result['analysisScaleY'] = round(normalized.height * 960 / normalized.width) / rgb.height
+    result['analysisScaleY'] = raster_round(normalized.height * 960 / normalized.width) / rgb.height
     result['aspectRectification'] = {
         'verified': True, 'method': 'same_frame_circle_aspect_map_rectification',
         'rectificationPurpose':('anchored_near_native_recovery' if raw_prior.get('absoluteFloorKnown') is True else 'unanchored_near_native_recovery') if near_native else 'pixel_aspect_recovery',
@@ -551,7 +550,8 @@ def recover_map_aspect(image, packet):
         'sourceSize': list(rgb.size), 'rectifiedInputSize': list(normalized.size),
         'rectifiedColumns': list(columns),
         'rectifiedFloorAnchorSource': result.get('floorAnchorSource'),
-        'modelAnalysisSize': [960, round(normalized.height * 960 / normalized.width)],
+        'modelAnalysisSize': [960, raster_round(normalized.height * 960 / normalized.width)],
+        'coordinateContract': geometry_certificate(binding,list(normalized.size),[960,raster_round(normalized.height*960/normalized.width)]),
         'rectifiedImageSha256': normalized_sha,
         'rectifiedPixelSha256': normal_pixel,
         'candidateScope': candidate_scope,

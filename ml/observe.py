@@ -18,6 +18,7 @@ with Image.open(filename) as image:
 packet = inspect_capture('data:image/png;base64,'+base64.b64encode(raw).decode(),
     {'frameId':frame_id,'imageSha256':hashlib.sha256(raw).hexdigest(),'width':width,'height':height}, root/'data/flow')
 from preview_identity import inspect_preview_identity
+from preview_context import inspect_preview_context
 from map_action_evidence import inspect_map_actions
 from sparse_map_geometry import recover_map_geometry
 from map_aspect import recover_map_aspect
@@ -29,7 +30,8 @@ with Image.open(filename) as image:
     if aspect_map is not packet.get('mapReview'):
         if 'v2OriginalMapReview' not in packet:packet['v2OriginalMapReview']=packet.get('mapReview')
         packet['mapReview']=aspect_map
-    packet['v2Preview'] = inspect_preview_identity(image, packet)
+    packet['v2PreviewContext'] = inspect_preview_context(image, packet)
+    packet['v2Preview'] = inspect_preview_identity(image, packet,context=packet['v2PreviewContext'])
     packet['v2MapActions'] = inspect_map_actions(image, packet)
 sys.stdout.reconfigure(encoding='utf-8')
 print(json.dumps(packet, ensure_ascii=False))

@@ -3,6 +3,7 @@ import hashlib,io,math
 import cv2
 import numpy as np
 from PIL import Image
+from geometry_contract import resize_box, resize_point
 
 
 def completed_node_candidates(image,initial,inverse,root,binding,normal_size,normal_pixel,analysis_size,analysis_pixel):
@@ -13,7 +14,7 @@ def completed_node_candidates(image,initial,inverse,root,binding,normal_size,nor
     mw,mh=np.median([[n['box'][2]*inverse,n['box'][3]] for n in peers],axis=0)
     sizes={}
     for peer in sorted(peers,key=lambda n:(n.get('type')=='battle',n['id'])):
-        x,y,w,h=peer['box'];box=[x*inverse,y,w*inverse,h]
+        x,y,w,h=peer['box'];box=resize_box(peer['box'],normal_size,list(image.size))
         if .9*mw<=box[2]<=1.1*mw and .9*mh<=box[3]<=1.1*mh:sizes.setdefault(tuple(box[2:]),(peer['id'],box))
     templates=map_templates(root/'data/map');components=cv2.connectedComponentsWithStats(_green(np.asarray(image)))[2][1:];found=[]
     fx,fy=analysis_size[0]/normal_size[0],analysis_size[1]/normal_size[1]
@@ -61,10 +62,10 @@ def completed_node_candidates(image,initial,inverse,root,binding,normal_size,nor
                                 'otherFamilyScore':other[0],'otherFamilyTemplate':other[1],'greenCoverage':coverage,
                                 'checkMaskIoU':check_score,'originalCheckMaskIoU':original_check_score,'neutralOverlayCheck':overlay,'actionsExecuted':False}
                 if best:
-                    box=best['sourceBox'];normalized=[box[0]/inverse,box[1],box[2]/inverse,box[3]]
+                    box=best['sourceBox'];normalized=resize_box(box,list(image.size),normal_size)
                     best['originalAnalysisBox']=normalized;best['originalAnalysisCenter']=[normalized[0]+normalized[2]/2,normalized[1]+normalized[3]/2]
-                    best['injectedAnalysisBox']=[normalized[0]*fx,normalized[1]*fy,normalized[2]*fx,normalized[3]*fy]
-                    proposal={'box':best['injectedAnalysisBox'],'center':[best['originalAnalysisCenter'][0]*fx,best['originalAnalysisCenter'][1]*fy],
+                    best['injectedAnalysisBox']=resize_box(normalized,normal_size,analysis_size)
+                    proposal={'box':best['injectedAnalysisBox'],'center':resize_point(best['originalAnalysisCenter'],normal_size,analysis_size),
                         'score':best['iconScore'],'template':best['matchedTemplate']+'.png','scoreMethod':'original_source_done_template_rgb','checkProposal':best}
                     duplicate=next((i for i,n in enumerate(found) if math.hypot(n['center'][0]-proposal['center'][0],n['center'][1]-proposal['center'][1])<min(proposal['box'][2:])*.25),None)
                     if duplicate is None:found.append(proposal)

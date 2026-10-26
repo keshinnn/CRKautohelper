@@ -2,6 +2,7 @@
 import copy,hashlib,math
 import cv2
 import numpy as np
+from geometry_contract import resize_box, resize_point
 
 def heal_node_candidates(image,initial,inverse,root,binding,normal_size,normal_pixel,analysis_size,analysis_pixel):
  from map_action_evidence import _green
@@ -34,9 +35,9 @@ def heal_node_candidates(image,initial,inverse,root,binding,normal_size,normal_p
       'alignmentPx':[dx,dy],'alignmentRadius':radius,'iconScore':heal[0],'matchedTemplate':heal[1],'otherFamilyScore':other[0],'otherFamilyTemplate':other[1],
       'templateImageSha256':hashlib.sha256((root/'data/map'/str(heal[1]+'.png')).read_bytes()).hexdigest(),'analysisSizeForIcon':[58,58],'innerBox':[12,12,34,34]}
   if best:
-   b=best['sourceBox'];box=[b[0]/inverse,b[1],b[2]/inverse,b[3]];center=[box[0]+box[2]/2,box[1]+box[3]/2]
-   best.update(originalAnalysisBox=box,originalAnalysisCenter=center,injectedAnalysisBox=[box[0]*fx,box[1]*fy,box[2]*fx,box[3]*fy])
-   proposal={'box':best['injectedAnalysisBox'],'center':[center[0]*fx,center[1]*fy],'score':best['iconScore'],'template':best['matchedTemplate']+'.png','scoreMethod':'original_source_heal_template_rgb','healProposal':best}
+   b=best['sourceBox'];box=resize_box(b,list(image.size),normal_size);center=[box[0]+box[2]/2,box[1]+box[3]/2]
+   best.update(originalAnalysisBox=box,originalAnalysisCenter=center,injectedAnalysisBox=resize_box(box,normal_size,analysis_size))
+   proposal={'box':best['injectedAnalysisBox'],'center':resize_point(center,normal_size,analysis_size),'score':best['iconScore'],'template':best['matchedTemplate']+'.png','scoreMethod':'original_source_heal_template_rgb','healProposal':best}
    duplicate=next((i for i,n in enumerate(found) if math.hypot(n['center'][0]-proposal['center'][0],n['center'][1]-proposal['center'][1])<min(proposal['box'][2:])*.25),None)
    if duplicate is None:found.append(proposal)
    elif found[duplicate]['score']<proposal['score']:found[duplicate]=proposal

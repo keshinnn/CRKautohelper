@@ -23,6 +23,7 @@ def main():
     socket.socket.connect=lambda *a,**k: (_ for _ in ()).throw(RuntimeError('network disabled in offline observer'))
     from observation import inspect_capture
     from preview_identity import inspect_preview_identity
+    from preview_context import inspect_preview_context
     from map_action_evidence import inspect_map_actions
     from preview_registration import PreviewAnchorTracker
     if args.fast_map:
@@ -106,7 +107,8 @@ def main():
                 p['mapReview']=aspect_map
             p.pop('v2TrackedMap',None)
             p['v2TrackedMap']=tracker.observe({'png':raw,'packet':p,'atMs':f.get('atMs'),'sourcePtsMs':f.get('sourcePtsMs'),'windowKey':'offline:original-video','geometryVersion':f.get('geometryVersion','original')})
-            p['v2Preview']=inspect_preview_identity(rgb,p)
+            p['v2PreviewContext']=inspect_preview_context(rgb,p)
+            p['v2Preview']=inspect_preview_identity(rgb,p,context=p['v2PreviewContext'])
             p['v2MapActions']=inspect_map_actions(rgb,p)
             p['ocrAnalysis']=bounded.take_metadata() if bounded else {'mode':'original_v1'}
             p['ocrAnalysis']['freshFullPipeline']=not bool(cache)
