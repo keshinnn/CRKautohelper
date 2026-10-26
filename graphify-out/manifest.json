@@ -126,21 +126,21 @@
     "semantic_hash": ""
   },
   "lib/observer-adapter.cjs": {
-    "mtime": 1792960181.8896677,
-    "seen": 1792960652.4751163,
-    "ast_hash": "4ddf80fcab8eb705c7d15e06b3fabc1b",
+    "mtime": 1792972760.5310116,
+    "seen": 1792973018.5160987,
+    "ast_hash": "3adeb53d6a501f5db3bbb2ac8ff17b30",
     "semantic_hash": ""
   },
   "lib/preview-session.cjs": {
-    "mtime": 1792797162.193794,
-    "seen": 1792881320.0168104,
-    "ast_hash": "a2c89434e6c956e666bb6cca23b6c19a",
+    "mtime": 1792972524.6030483,
+    "seen": 1792973018.5161006,
+    "ast_hash": "de615d0cbbbe2f9e7b46b66f1909463d",
     "semantic_hash": ""
   },
   "lib/preview-verifier.cjs": {
-    "mtime": 1792841318.132177,
-    "seen": 1792881320.0168126,
-    "ast_hash": "588cb3c8d413551be1be149b90fca2b6",
+    "mtime": 1792972524.6025434,
+    "seen": 1792973018.5161016,
+    "ast_hash": "ef06c017370b09234748be6a04f4c8a3",
     "semantic_hash": ""
   },
   "lib/replay-evaluator.cjs": {
@@ -504,9 +504,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-24-crk-helper-v2-p4c-plan.md": {
-    "mtime": 1792960637.3550406,
-    "seen": 1792960652.4753613,
-    "ast_hash": "ac1564b34f122f2f37423175cbfa4818",
+    "mtime": 1792972976.486328,
+    "seen": 1792973018.5161839,
+    "ast_hash": "cd2d163be223570e1cf4c0a9b42a2ce9",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-10-24-crk-helper-v2-design.md": {
@@ -534,15 +534,15 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-10-24-p4c-progress.md": {
-    "mtime": 1792961348.120927,
-    "seen": 1792962532.4045296,
-    "ast_hash": "91db5a5fc0d585ba1b6063037f5d42d7",
+    "mtime": 1792962802.5503757,
+    "seen": 1792973018.5161881,
+    "ast_hash": "816c46f0a7d955ffb0fefe46a8599fb3",
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1792961348.109421,
-    "seen": 1792962532.4045315,
-    "ast_hash": "478b082c14f47b39d5f35b613d5d41e8",
+    "mtime": 1792972760.5310116,
+    "seen": 1792973018.5161889,
+    "ast_hash": "98cc938cf2ce29ec978d23a11fdcdc3f",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -765,6 +765,18 @@
     "mtime": 1792962505.528216,
     "seen": 1792962532.4043055,
     "ast_hash": "9e1daa8d5645d6717bc58ac5eff48979",
+    "semantic_hash": ""
+  },
+  "tests/test_preview_panel_scope.py": {
+    "mtime": 1792972976.4858296,
+    "seen": 1792973018.516166,
+    "ast_hash": "7dc453ff62bec969720328617945ef8a",
+    "semantic_hash": ""
+  },
+  "tests/transaction-map-anchor.test.cjs": {
+    "mtime": 1792972760.5189734,
+    "seen": 1792973018.516178,
+    "ast_hash": "00d6f234add17d20ae855f41454ee531",
     "semantic_hash": ""
   }
 }
