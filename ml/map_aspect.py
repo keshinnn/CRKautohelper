@@ -250,7 +250,15 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
     """Scoped candidate producer; the original lattice/line code still decides."""
     if re.fullmatch(r'[a-f0-9]{32}',binding.get('frameId','')) is None:return initial
     peers=[n for n in initial.get('nodes',[]) if n.get('type') not in ('exit','boss')]
-    if len(peers)<4:return initial
+    sparse=len(peers)==3
+    if len(peers)<4:
+        gates=[n for n in initial.get('nodes',[]) if n.get('type')=='exit']
+        if (not sparse or completed_only or len(initial.get('nodes',[]))!=4 or len(gates)!=1
+                or initial.get('absoluteFloorKnown') is not False or initial.get('columns') is not None):return initial
+        for k in [2,3]:
+            median=float(np.median([n['box'][k] for n in peers]))
+            if median<=0 or any(abs(n['box'][k]/median-1)>.04 for n in peers):return initial
+        if any(not .48<=n.get('score',0)<=1 for n in peers):return initial
     inverse=image.width/normalized.width;nw=float(np.median([n['box'][2] for n in peers]));nh=float(np.median([n['box'][3] for n in peers]))
     proposals=[]
     analysis_size=[960,round(normalized.height*960/normalized.width)]
@@ -296,6 +304,13 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
                 'injectedAnalysisBox':[box[0]*fx,box[1]*fy,box[2]*fx,box[3]*fy],
                 'geometryEvidence':geometry,'actionsExecuted':False}})
     from completed_node_candidates import completed_node_candidates
+    if sparse:
+        # Three agreeing detector extents locate hypotheses only. A fourth,
+        # distinct original-pixel icon must pass the existing .9/.08 checks
+        # before the original lattice is rerun with any additional candidate.
+        proposals=[p for p in proposals if p.get('pixelProposal')]
+        if not proposals:return initial
+        for proposal in proposals:proposal['pixelProposal']['requiresSparsePeerBootstrap']=True
     proposals+=completed_node_candidates(image,initial,inverse,root,binding,list(normalized.size),normal_pixel,analysis_size,analysis_pixel)
     if panel_scope is not None:
         from heal_node_candidates import heal_node_candidates
@@ -348,6 +363,14 @@ def _supplement_orange_candidates(image, normalized, initial, calibration, bindi
                 and all(abs(v*(inverse if i%2==0 else 1)-check['peerSourceBox'][i])<=.011 for i,v in enumerate(peer['box']))]
             if len(matches)!=1:return initial
             check['peerNodeId']=matches[0]['id']
+        if sparse:
+            confirmed=[n for n in result.get('nodes',[]) if n.get('pixelProposal',{}).get('requiresSparsePeerBootstrap') is True]
+            if not confirmed:return initial
+            result['sparsePeerBootstrap']={'method':'three_agreeing_detected_extents_and_fourth_original_icon','actionsExecuted':False,
+                'pixelSha256':binding['pixelSha256'],'sourceImageSha256':binding['imageSha256'],'sourceCaptureFrameId':binding['frameId'],
+                'sourceSize':list(image.size),'rectifiedInputSize':list(normalized.size),'rectifiedPixelSha256':normal_pixel,
+                'peers':[{k:copy.deepcopy(n[k]) for k in ['box','center','score','type']} for n in peers],
+                'gateBox':copy.deepcopy(gates[0]['box']),'geometryEvidence':copy.deepcopy(confirmed[0]['pixelProposal']['geometryEvidence'])}
         return result
     finally:
         map_vision.node_candidates=original
@@ -422,6 +445,7 @@ def recover_map_aspect(image, packet):
         from preview_panel_scope import ordinary_preview_panel_scope
         panel_scope=ordinary_preview_panel_scope(rgb,packet)
     result = _supplement_orange_candidates(rgb,normalized,result,calibration,binding,root,normal_pixel,normalized_sha,panel_scope=panel_scope)
+    sparse_bootstrap=result.pop('sparsePeerBootstrap',None)
     candidate_scope = result.pop('previewPanelScope',None)
     if len(result.get('columns') or []) != 4:
         # A visible top gate places every ordinary row below that gate.
@@ -536,5 +560,6 @@ def recover_map_aspect(image, packet):
         'inverseMatrix': [[inverse_x, 0, 0], [0, 1, 0], [0, 0, 1]],
         'calibration': calibration, 'actionsExecuted': False,
         **({'smallAspectSparseRecovery':small_sparse} if small_sparse is not None else {}),
+        **({'sparsePeerBootstrap':sparse_bootstrap} if sparse_bootstrap is not None else {}),
     }
     return result

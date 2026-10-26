@@ -1,0 +1,10 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),{execFileSync}=require('node:child_process');
+const {adaptMap}=require('../lib/observer-adapter.cjs'),{loadReplayFrames}=require('../lib/replay-case.cjs');let current;
+function fixture(){const m=JSON.parse(fs.readFileSync('artifacts/p4c-random-development-60-run-24/dev-L0-zone6-floor1-col2-resume-1781-random-post-change/analysis/manifest.json')),s=loadReplayFrames(m.cases[0])[4];current??=execFileSync('F:/CRK helper/.venv/Scripts/python.exe',['-B','-c',"import sys,json,copy;sys.path[:0]=['ml','tests','F:/CRK helper/ml'];from test_sparse_peer_bootstrap import SparsePeerBootstrapTests;from map_aspect import recover_map_aspect;from map_action_evidence import inspect_map_actions;import map_vision;from fast_map_candidates import node_candidates;map_vision.node_candidates=node_candidates;im,p=SparsePeerBootstrapTests().source();p['v2OriginalMapReview']=copy.deepcopy(p['mapReview']);p['mapReview']=recover_map_aspect(im,p);p['v2MapActions']=inspect_map_actions(im,p);print(json.dumps(p,ensure_ascii=True))"],{encoding:'utf8',maxBuffer:10000000});return {frame:{...s.frame,png:s.png},p:JSON.parse(current)};}
+test('actual dim transition recovers a measured lattice without promoting weak scene confidence',()=>{const {frame,p}=fixture(),o=adaptMap(frame,p);assert.equal(o.stateVerified,true);assert.equal(o.anchorVerified,true);assert.equal(o.verified,false);assert.ok(p.mapReview.aspectRectification.sparsePeerBootstrap);});
+test('missing or altered sparse-peer bootstrap proof cannot authorize map geometry',()=>{
+ for(const mutate of [p=>delete p.mapReview.aspectRectification.sparsePeerBootstrap,p=>p.mapReview.aspectRectification.sparsePeerBootstrap.pixelSha256='a'.repeat(64),p=>p.mapReview.aspectRectification.sparsePeerBootstrap.peers[0].box[0]++,p=>p.mapReview.aspectRectification.sparsePeerBootstrap.geometryEvidence.innerScore=.89,p=>p.mapReview.aspectRectification.sparsePeerBootstrap.peers.pop()]){
+  const {frame,p}=fixture();assert.ok(p.mapReview.aspectRectification?.sparsePeerBootstrap);mutate(p);assert.equal(adaptMap(frame,p).stateVerified,false);
+ }
+});
+

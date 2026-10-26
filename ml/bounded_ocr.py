@@ -16,10 +16,13 @@ def normalize_evidence(rows):
 def _remaining_timer_locators(rows):
     timers=[r for r in rows if .85<=r.get('score',0)<=1 and
         ('剩餘時間' in r.get('text','') or re.fullmatch(r'剩時間\d+天\d{2}:\d{2}:\d{2}',re.sub(r'\s+','',r.get('text',''))))]
-    if timers:return timers
-    labels=[r for r in rows if .65<=r.get('score',0)<.85 and re.sub(r'\s+','',r.get('text',''))=='剩餘時間']
-    clocks=[r for r in rows if .9<=r.get('score',0)<=1 and re.fullmatch(r'\d+天\d{2}:\d{2}:\d{2}',re.sub(r'\s+','',r.get('text','')))]
-    if len(labels)!=1 or len(clocks)!=1:return []
+    if any(re.fullmatch(r'(?:剩餘時間|剩時間)\d+天\d{2}:\d{2}:\d{2}',re.sub(r'\s+','',r.get('text',''))) for r in timers):return timers
+    labels=[r for r in rows if .65<=r.get('score',0)<=1 and re.fullmatch(r'剩餘時間(?:\d+天)?',re.sub(r'\s+','',r.get('text','')))]
+    if len(labels)!=1:return timers
+    days_with_label=re.search(r'\d+天$',re.sub(r'\s+','',labels[0]['text'])) is not None
+    pattern=r'\d{2}:\d{2}:\d{2}' if days_with_label else r'\d+天\d{2}:\d{2}:\d{2}'
+    clocks=[r for r in rows if .9<=r.get('score',0)<=1 and re.fullmatch(pattern,re.sub(r'\s+','',r.get('text','')))]
+    if len(clocks)!=1:return timers
     bounds=[]
     for row in [labels[0],clocks[0]]:
         points=np.asarray(row.get('box'),dtype=float)

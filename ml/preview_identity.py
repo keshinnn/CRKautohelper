@@ -150,7 +150,7 @@ def inspect_preview_identity(image,packet):
             readings=runtime.read_line_variants(crop,sum('\u3400'<=c<='\u9fff' for c in ordinary[0]['text']));kind='bounded_original_pixel_line_recognition';crop_scale=1
         else:
             crop=crop.resize((crop.width*3,crop.height*3));readings=text_reader.read_text(crop);kind='bounded_original_pixel_crop_ocr';crop_scale=3
-        refined=[r for r in readings if re.sub(r'\s+','',r.get('text',''))=='普通' and r.get('score',0)>=.95]
+        refined=sorted([r for r in readings if re.sub(r'\s+','',r.get('text',''))=='普通' and r.get('score',0)>=.95],key=lambda r:r['score'],reverse=True)[:1]
         if runtime and not refined:
             # Adjacent difficulty stars can share the detected text box. Trim
             # only a small, bounded left margin and require a new high-score
@@ -158,12 +158,12 @@ def inspect_preview_identity(image,packet):
             for fraction in [.1,.2,.3]:
                 local_left=left+round(oh*fraction)
                 readings=runtime.read_line_variants(image.crop((local_left,top,right,bottom)),sum('\u3400'<=c<='\u9fff' for c in ordinary[0]['text']))
-                refined=[r for r in readings if re.sub(r'\s+','',r.get('text',''))=='普通' and r.get('score',0)>=.95]
+                refined=sorted([r for r in readings if re.sub(r'\s+','',r.get('text',''))=='普通' and r.get('score',0)>=.95],key=lambda r:r['score'],reverse=True)[:1]
                 if len(refined)==1:
                     left=local_left
                     break
         if len(refined)!=1:return unknown
-        ordinary_evidence={'kind':kind,'originalScore':ordinary[0]['score'],'refinedScore':refined[0]['score'],'cropBox':[left,top,right-left,bottom-top],'cropScale':crop_scale}
+        ordinary_evidence={'kind':kind,'originalScore':ordinary[0]['score'],'refinedScore':refined[0]['score'],'refinedReading':dict(refined[0]),'cropBox':[left,top,right-left,bottom-top],'cropScale':crop_scale}
     eb,tb,ob=map(_box,[enters[0],timers[0],ordinary[0]])
     if not ob[1]<tb[1]<eb[1] or eb[1]-tb[1]<height*.15:return unknown
     hsv=cv2.cvtColor(a,cv2.COLOR_RGB2HSV)
