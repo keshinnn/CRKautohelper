@@ -233,8 +233,29 @@ def inspect_preview_identity(image,packet):
                             'method':'same_frame_orange_circle_and_original_template_extent',
                             'pixelSha256':digest,'candidateIndex':index,'sourceCircleBox':circle['box'],
                             **reference,'actionsExecuted':False}
-            for candidate_w,candidate_h in sizes:
-                candidate_box=[cx-candidate_w/2,cy-candidate_h/2,candidate_w,candidate_h]
+            ellipse_boxes={}
+            def outline_size_hypotheses():
+                # Keep an already independently valid peer/circle crop. The
+                # source ellipse is a fallback, not a replacement measurement.
+                yield from sizes
+                if best is not None or aspect:return
+                from map_aspect import _orange_node_pixel_geometry
+                measurement=_orange_node_pixel_geometry(image,box,root,digest,allow_icon_core=True)
+                if measurement is None:return
+                source_box,geometry_evidence=measurement;ew,eh=source_box[2:]
+                if not (.9*nw<=ew<=1.1*nw and .9*nh<=eh<=1.1*nh):return
+                key=(ew,eh)
+                ellipse_boxes[key]={
+                    'method':'same_frame_original_ellipse_extent','actionsExecuted':False,
+                    'pixelSha256':digest,'sourceImageSha256':packet['binding']['imageSha256'],
+                    'sourceCaptureFrameId':packet['binding']['frameId'],'sourceSize':[width,height],
+                    'sourceBox':source_box,'sourceSearchBox':list(box),'peerMedianSize':[float(nw),float(nh)],
+                    'geometryEvidence':geometry_evidence}
+                yield key
+            for candidate_w,candidate_h in outline_size_hypotheses():
+                ellipse_evidence=ellipse_boxes.get((candidate_w,candidate_h))
+                candidate_box=(list(ellipse_evidence['sourceBox']) if ellipse_evidence else
+                    [cx-candidate_w/2,cy-candidate_h/2,candidate_w,candidate_h])
                 if min(candidate_box[:2])<0 or candidate_box[0]+candidate_w>width or candidate_box[1]+candidate_h>height:continue
                 for dx in range(-radius,radius+1):
                     for dy in range(-radius,radius+1):
@@ -248,12 +269,17 @@ def inspect_preview_identity(image,packet):
                         # must not discard a crop that independently clears
                         # both unchanged ordinary-icon thresholds.
                         if (scores[0][1]!='node-orange' or scores[0][0]<.9 or scores[0][0]-scores[1][0]<.08):continue
-                        if best is None or scores[0][0]>best[0][0][0]:best=(scores,dx,dy,candidate_box,measured_sizes.get((candidate_w,candidate_h)),peer_sizes.get((candidate_w,candidate_h)))
+                        if best is None or scores[0][0]>best[0][0][0]:best=(scores,dx,dy,candidate_box,measured_sizes.get((candidate_w,candidate_h)),None if ellipse_evidence else peer_sizes.get((candidate_w,candidate_h)),ellipse_evidence)
             if best is None:continue
-            ranks,dx,dy,box,size_evidence,peer=best
+            ranks,dx,dy,box,size_evidence,peer,ellipse_evidence=best
             if ranks[0][0]<.9 or ranks[0][0]-ranks[1][0]<.08 or ranks[0][1]!='node-orange':continue
             candidate['box']=box
             if size_evidence:candidate['iconSizeEvidence']=size_evidence
+            if ellipse_evidence is not None:
+                candidate['iconMatchedTemplate']=ranks[0][1]
+                candidate['iconRunnerUpScore']=ranks[1][0]
+                candidate['iconSizeMethod']='same_frame_original_ellipse_extent'
+                candidate['iconEllipseSizeEvidence']=ellipse_evidence
             if peer is not None:
                 candidate['iconSizeMethod']='same_frame_detected_peer_extent'
                 candidate['iconPeerSizeEvidence']={

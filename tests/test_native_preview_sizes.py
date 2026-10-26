@@ -10,10 +10,17 @@ class NativePreviewSizeTests(unittest.TestCase):
  def test_actual_native_aspect_preview_uses_a_measured_same_frame_peer_extent(self):
   image,p=self.source();self.assertNotIn('aspectRectification',p['mapReview']);r=inspect_preview_identity(image,p);self.assertTrue(r['verified']);self.assertEqual([r['selectedNode'][k] for k in ['zone','floor','column']],[4,2,3])
   node=next(n for n in r['recoveredNodes'] if n['id']==r['selectedNode']['nodeId']);self.assertGreaterEqual(node['iconScore'],.9);self.assertIn('iconPeerSizeEvidence',node)
- def test_unavailable_peer_extents_or_missing_controls_do_not_promote_native_preview(self):
+ def test_missing_controls_reject_and_missing_peer_sizes_require_independent_pixel_extent(self):
   image,p=self.source();p['evidence']=[r for r in p['evidence'] if r.get('text')!='03:00'];self.assertFalse(inspect_preview_identity(image,p)['verified'])
   image,p=self.source()
   for n in p['mapReview']['nodes']:
    if n['type']!='exit':n['box'][2:]=[110.11,110.06]
+  recovered=inspect_preview_identity(image,p);self.assertTrue(recovered['verified'])
+  selected=next(n for n in recovered['recoveredNodes'] if n['id']==recovered['selectedNode']['nodeId'])
+  self.assertNotIn('iconPeerSizeEvidence',selected);self.assertIn('iconEllipseSizeEvidence',selected)
+  self.assertEqual([recovered['selectedNode'][k] for k in ['zone','floor','column']],[4,2,3])
+  self.assertGreaterEqual(selected['iconEllipseSizeEvidence']['geometryEvidence']['innerScore'],.9)
+  import hashlib,numpy as np
+  x,y,w,h=selected['iconEllipseSizeEvidence']['geometryEvidence']['actualCropBox'];a=np.asarray(image).copy();a[y:y+h,x:x+w]=[40,40,40];image=Image.fromarray(a);raw=io.BytesIO();image.save(raw,format='PNG');digest=hashlib.sha256(image.tobytes()).hexdigest();p['binding'].update(pixelSha256=digest,imageSha256=hashlib.sha256(raw.getvalue()).hexdigest(),frameId=hashlib.sha256(raw.getvalue()).hexdigest()[:32]);p['mapReview']['frameId']=digest[:20];p['flow']['frameId']=digest[:20]
   self.assertFalse(inspect_preview_identity(image,p)['verified'])
 if __name__=='__main__':unittest.main()

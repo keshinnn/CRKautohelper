@@ -221,3 +221,7 @@ Native/near-native frames also need theexistingmeasuredsameframepeer-size hypoth
 ### Task2 raster interval endpoints
 
 Actual25/46303 boundarycalibrationcandidate projectedtop+height overshoots721 by1e-13. Preserve strictcoordinatebounds; projectbothmeasuredrasterendpoints with integerproduct/source-dimension division andderiveextent. No clipping/tolerance/threshold/consensus changes. ActualsourceboundarytestRED->GREEN, NodeactualMAPbinding andallnewsourcecropped/pixelguards, full25/current24/negative/suites beforeadvance26.
+
+### Task2 original source ellipse extents for native outlines
+
+Actual30/95343 no peerextent clearsordinary.9/.08 though actualsourceellipseextentdoes(.9440 vs.7804). Add source-original ellipseextent hypothesis toexistingboundedoutlinecrop search, within10%median, same2%alignment andscores; do notnormalizeanear-nativeframe. Existingactualellipse/template geometryproof isretained andNodebound tosource/frame/box/score; missing/alteredproofreject. ActualREDandorange-erasednegative, full30/current29regressions/fullNode/Python/negative before31.
