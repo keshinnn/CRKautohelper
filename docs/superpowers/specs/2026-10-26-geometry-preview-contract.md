@@ -18,6 +18,8 @@ Python `geometry_contract.resize_point/resize_box`與JS `geometry-contract`各�
 
 歷史 `analysisBox/analysisCenter` 是rectified raster的量測，名稱沿用作相容欄位；不是960 tensor座標。新契約將其空間明訂為rectified。`pixelProposal.injectedAnalysisBox`才是模型analysis空間。新producer只透過集中投影建立這些欄位；completed/heal候選與完成外框修復同樣適用。既有V1 native輸出、不可變舊packet的舊.01規約保留在明確舊路徑，不把舊資料偽裝成新證據。
 
+第23組完整回歸暴露V1大圖便利入口本身已各自取整框與中心，無法事後恢復精度。因此新增 `map_observer.inspect_map` 邊界：直接使用未更改的V1演算法處理實際960 raster，保存每節點 `detectorGeometry`，再投影一次。`modelGeometryEvidence` 綁模型尺寸／像素及rectified來源；JS同時重算model→rectified→source，並驗證修復前的原量測。沒有重訓或放寬原.011／1e-9條件。原生路徑的模型尺寸也由同一 `nativeGeometryEvidence/analysisRaster` 規則建立。
+
 ## 預覽控制、身份與操作權限
 
 `preview_context.py`只從本張原像素驗證區域、普通預覽文字、03:00及綠色Enter控制。抽自原preview_identity邏輯，後者重用結果而不重複OCR。低信心時間標籤只定位裁切，新的原像素OCR仍須達原.75標籤門檻；時間數字仍須.95，沒有把低分直接升高。
@@ -33,6 +35,8 @@ JS `preview-context.cjs`獨立核對來源、區域、原始OCR列會員關係�
 
 PreviewSession驗證原觀察的私有權威，再複製進trace；每張等待影格仍經frame/時間／window驗證，清空先前穩定預覽對，原15秒deadline不重設，不新增點擊。完整身份確認仍沿用原來源配準、格點與選中節點驗證，不能用等待控制替代。57947本張只等待，不借後續圖預測身份；後續幀按原序到達後才可形成預覽證據。
 
+批次producer也採相同能力邊界：原始分類器UNKNOWN但本張獨立控制項已完整確認時，`effective_observation_state`僅給出PREVIEW_PENDING提示，仍由JS獨立驗證後才能等待；沒有控制證據的UNKNOWN照常停止。此提示不成為Selector／Preview身份權威。
+
 ## 回歸版本
 
-`scripts/convergence-regression.py`只跑明確提供的manifest，不自動向後推進。凍結Git commit、工作樹狀態、所有ml/lib/scripts/tests/data關鍵檔hash（含圖片）、外部V1程式／map與flow模板／OCR資產、控制器hash與資料manifest；運行中若檔案改變即判失敗，各分片runtime指紋也須一致。新報告區分fresh推論與已核對runtime的raw V1 cache，所有V2契約／交易均重新執行，不借舊pass結果。當前最終回歸採無cache新鮮分析。
+`scripts/convergence-regression.py`只跑明確提供的manifest，不自動向後推進。凍結Git commit、工作樹狀態、所有ml/lib/scripts/tests/data關鍵檔hash（含圖片）、外部V1程式／map與flow模板／OCR資產、控制器hash與資料manifest；運行中若檔案改變即判失敗，各分片runtime指紋也須一致。新報告區分fresh推論與已核對runtime的raw V1 cache，所有V2契約／交易均重新執行，不借舊pass結果。原始20、固定15、負例與隔離基準採無cache新鮮分析；39組變換回歸只重用逐項核對依賴的raw V1輸出，當版V2全部重算，詳見驗證紀錄，不作新鮮效能證據。
