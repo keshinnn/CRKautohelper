@@ -168,9 +168,9 @@
     "semantic_hash": ""
   },
   "ml/bounded_ocr.py": {
-    "mtime": 1793064203.9004257,
-    "seen": 1793064584.894795,
-    "ast_hash": "f4b1e5b92eba40b1fcdb613d584ff47e",
+    "mtime": 1793092327.8752208,
+    "seen": 1793092905.1771128,
+    "ast_hash": "122c58ddc3d38f10a4f05b3c2b1e2a07",
     "semantic_hash": ""
   },
   "ml/current_position_evidence.py": {
@@ -954,9 +954,9 @@
     "semantic_hash": ""
   },
   "lib/preview-context.cjs": {
-    "mtime": 1793017248.1033795,
-    "seen": 1793018837.1443095,
-    "ast_hash": "302db13e9ae76028f1c8c7b9e65b7944",
+    "mtime": 1793090682.415545,
+    "seen": 1793092905.1771047,
+    "ast_hash": "e24da16f4f607e1a291ca75ac20184cc",
     "semantic_hash": ""
   },
   "ml/geometry_contract.py": {
@@ -966,9 +966,9 @@
     "semantic_hash": ""
   },
   "ml/preview_context.py": {
-    "mtime": 1793008385.2005248,
-    "seen": 1793018837.144352,
-    "ast_hash": "eaefc152546d6e7f6b753016bb02ce51",
+    "mtime": 1793092330.9926908,
+    "seen": 1793092905.1771305,
+    "ast_hash": "42ab4ccb88bc5fed32db9fe20e6e05bc",
     "semantic_hash": ""
   },
   "ml/stage_timing.py": {
@@ -1194,9 +1194,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-27-development-40-60.md": {
-    "mtime": 1793062918.3632953,
-    "seen": 1793064584.8949165,
-    "ast_hash": "e4218460338931035abe5f6e02a037c0",
+    "mtime": 1793087692.7208626,
+    "seen": 1793092905.1772478,
+    "ast_hash": "0439f4f30157932b764effddd4323d21",
     "semantic_hash": ""
   },
   "docs/validation/2026-10-27-case40-high-handoff.md": {
@@ -1221,6 +1221,30 @@
     "mtime": 1793054495.0528827,
     "seen": 1793064584.8949292,
     "ast_hash": "a0005f717a09eec7de8a923fdacac4c0",
+    "semantic_hash": ""
+  },
+  "tests/ordinary-aspect-context.test.cjs": {
+    "mtime": 1793090626.9646356,
+    "seen": 1793092905.1771722,
+    "ast_hash": "810d47d6abff41794d186521f788eab5",
+    "semantic_hash": ""
+  },
+  "tests/test_context_line_remeasurement.py": {
+    "mtime": 1793092219.7122536,
+    "seen": 1793092905.1771922,
+    "ast_hash": "0c99886468ee1c6b757092baf9542dbd",
+    "semantic_hash": ""
+  },
+  "tests/test_preview_context_aspect.py": {
+    "mtime": 1793092223.988397,
+    "seen": 1793092905.1772156,
+    "ast_hash": "bf2b0c68b9c7d6cb5988713fdf6c1607",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-27-case40-resume-status.md": {
+    "mtime": 1793093150.380642,
+    "seen": 1793093398.3211524,
+    "ast_hash": "97be96fd0d86d9f7e69f8217766a00ba",
     "semantic_hash": ""
   }
 }

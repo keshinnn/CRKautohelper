@@ -84,6 +84,30 @@ def _timer_original_crop(image,evidence):
     return []
 
 
+def _ordinary_crop_scale(packet,binding,digest,width,height):
+    e=(packet.get('mapReview') or {}).get('aspectRectification')
+    if e is None:return 1,None
+    # Unversioned captures predate the geometry certificate. Preserve their
+    # legacy scale-one OCR recipe without using any unverified aspect data.
+    # A current V2 packet may never fall back when its certificate is missing.
+    if packet.get('observerContractVersion') is None and e.get('coordinateContract') is None:return 1,None
+    from geometry_contract import geometry_certificate,analysis_raster
+    size=[width,height];r=e.get('rectifiedInputSize')
+    if (e.get('verified') is not True or e.get('method')!='same_frame_circle_aspect_map_rectification'
+        or e.get('actionsExecuted') is not False or e.get('sourceCaptureFrameId')!=binding['frameId']
+        or e.get('sourceImageSha256')!=binding['imageSha256'] or e.get('pixelSha256')!=digest or e.get('sourceSize')!=size
+        or not isinstance(r,list) or len(r)!=2 or any(type(v) is not int or v<=0 for v in r) or r[1]!=height):return None
+    scale=width/r[0]
+    if (e.get('modelAnalysisSize')!=analysis_raster(r)
+        or e.get('coordinateContract')!=geometry_certificate(binding,r,analysis_raster(r))
+        or e.get('forwardMatrix')!=[[1/scale,0,0],[0,1,0],[0,0,1]]
+        or e.get('inverseMatrix')!=[[scale,0,0],[0,1,0],[0,0,1]]
+        or (e.get('calibration') or {}).get('pixelSha256')!=digest
+        or (e.get('calibration') or {}).get('sourceSize')!=size):return None
+    return scale,{'method':'same_frame_rectified_horizontal_glyph_crop','horizontalScale':scale,
+        'sourceCaptureFrameId':binding['frameId'],'sourceImageSha256':binding['imageSha256'],
+        'pixelSha256':digest,'sourceSize':size,'rectifiedInputSize':r}
+
 def inspect_preview_context(image,packet):
     unknown={'verified':False,'reason':'PREVIEW_CONTEXT_UNPROVEN'}
     a=np.asarray(image.convert('RGB'));height,width=a.shape[:2]
@@ -109,7 +133,10 @@ def inspect_preview_context(image,packet):
     if ordinary[0]['score']<.8:
         # Re-read a bounded original-pixel crop; do not promote the old score
         # or substitute an expected word into OCR output.
-        ox,oy,ow,oh=_box(ordinary[0]);left=max(0,int(ox+ow-oh*2));top=max(0,int(oy-3));right=min(width,int(ox+ow+3));bottom=min(height,int(oy+oh+3))
+        geometry=_ordinary_crop_scale(packet,binding,digest,width,height)
+        if geometry is None:return unknown
+        horizontal_scale,position_evidence=geometry
+        ox,oy,ow,oh=_box(ordinary[0]);left=max(0,int(ox+ow-oh*2*horizontal_scale));top=max(0,int(oy-3));right=min(width,int(ox+ow+3));bottom=min(height,int(oy+oh+3))
         crop=image.crop((left,top,right,bottom))
         root=Path(os.environ.get('CRK_V1_ROOT','F:/CRK helper'));module_path=str(root/'ml')
         if module_path not in sys.path:sys.path.insert(0,module_path)
@@ -125,7 +152,7 @@ def inspect_preview_context(image,packet):
             # only a small, bounded left margin and require a new high-score
             # reading from actual pixels; never strip punctuation from text.
             for fraction in [.1,.2,.3]:
-                local_left=left+round(oh*fraction)
+                local_left=left+round(oh*fraction*horizontal_scale)
                 readings=runtime.read_line_variants(image.crop((local_left,top,right,bottom)),sum('\u3400'<=c<='\u9fff' for c in ordinary[0]['text']))
                 refined=sorted([r for r in readings if re.sub(r'\s+','',r.get('text',''))=='普通' and r.get('score',0)>=.95],key=lambda r:r['score'],reverse=True)[:1]
                 if len(refined)==1:
@@ -133,6 +160,7 @@ def inspect_preview_context(image,packet):
                     break
         if len(refined)!=1:return unknown
         ordinary_evidence={'kind':kind,'originalScore':ordinary[0]['score'],'refinedScore':refined[0]['score'],'refinedReading':dict(refined[0]),'cropBox':[left,top,right-left,bottom-top],'cropScale':crop_scale}
+        if position_evidence:ordinary_evidence['positionEvidence']=position_evidence
     eb,tb,ob=map(_box,[enters[0],timers[0],ordinary[0]])
     if not ob[1]<tb[1]<eb[1] or eb[1]-tb[1]<height*.15:return unknown
     hsv=cv2.cvtColor(a,cv2.COLOR_RGB2HSV)

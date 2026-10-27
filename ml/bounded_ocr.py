@@ -1,5 +1,5 @@
 """Opt-in V2 OCR preprocessing. Existing assets, refiners and scores unchanged."""
-import re
+import re,math,hashlib
 import numpy as np
 from PIL import Image
 import text_reader
@@ -38,6 +38,29 @@ def _remaining_timer_locators(rows):
     # adjacent clock grants context until that full crop is independently read.
     return [{**labels[0],'box':[[left,top],[endx,top],[endx,endy],[left,endy]],
         'remainingLabelLocator':labels[0],'adjacentClockLocator':clocks[0]}]
+
+def _context_reading_key(kind,text):
+    text=re.sub(r'\s+','',text)
+    if kind=='season':
+        match=re.fullmatch(r'冥界[試试](?:[煉炼])?季([1-9]\d?)',text)
+        return ('season',int(match[1])) if match else None
+    match=re.fullmatch(r'剩餘時間(\d+)天(\d{2}):(\d{2}):(\d{2})',text)
+    return ('timer',*map(int,match.groups())) if match else None
+
+def _context_claim_agrees(kind,locator,reading):
+    if not .9<=reading.get('score',0)<=1:return False
+    original=re.sub(r'\s+','',locator['text']+locator.get('adjacentClockLocator',{}).get('text',''))
+    actual=re.sub(r'\s+','',reading['text'])
+    if kind=='season':
+        old=re.search(r'季([1-9]\d?)$',original);new=re.search(r'季([1-9]\d?)$',actual)
+        return old is not None and new is not None and old[1]==new[1]
+    # Label spelling does not erase an observed complete clock claim. Colon
+    # presentation is normalized for contradiction checking only, never to
+    # make an otherwise unqualified fresh reading satisfy its label gate.
+    old=re.findall(r'(?<!\d)(\d+)天(\d{2}):(\d{2}):(\d{2})(?!\d)',original.replace('：',':'))
+    if not old:return True
+    new=re.fullmatch(r'剩餘時間(\d+)天(\d{2}):(\d{2}):(\d{2})',actual)
+    return len(old)==1 and new is not None and tuple(map(int,old[0]))==tuple(map(int,new.groups()))
 
 class _MeasuredPreprocess(DetPreProcess):
     def __init__(self,side,mean,std,records):
@@ -138,38 +161,17 @@ class BoundedOCRRuntime:
         timers=_remaining_timer_locators(rows)
         header=text_reader.map_header_from_evidence(rows)
         if len(seasons)!=1 or len(timers)!=1 or header['displayedZone'] is None or header['score']<.9 or header['conflictingEvidence']:return rows
-        bounds=[]
-        for row in [seasons[0],timers[0]]:
-            points=np.asarray(row.get('box'),dtype=float)
-            if points.shape!=(4,2) or not np.isfinite(points).all():return rows
-            x,y=points.min(0);right,bottom=points.max(0);h=bottom-y
-            if not 0<h<image.height*.1 or x<0 or right>image.width*.5 or y>image.height*.3:return rows
-            bounds.append((x,y,right,bottom,h))
-        a,b=bounds
-        # Detector quadrilateral padding may touch or slightly overlap even
-        # though the two original text baselines are clearly separate.
-        minimum_height=min(a[4],b[4])
-        separation=(b[1]+b[3]-a[1]-a[3])/2
-        horizontal_limit=max(a[4],b[4]);position_evidence=None
-        if abs(a[0]-b[0])>horizontal_limit:
-            from map_aspect import estimate_pixel_aspect
-            calibration=estimate_pixel_aspect(image)
-            if calibration is not None and calibration['ratio']>1:
-                horizontal_limit*=calibration['ratio']
-                position_evidence={'method':'same_frame_pixel_aspect_horizontal_indent',
-                    'pixelAspect':calibration['ratio'],'pixelSha256':calibration['pixelSha256'],
-                    'sourceSize':calibration['sourceSize'],'calibrationMethod':calibration['method']}
-        if separation<minimum_height*.75 or a[3]-b[1]>minimum_height*.15 or abs(a[0]-b[0])>horizontal_limit:
+        geometry=self._map_context_geometry(image,[seasons[0],timers[0]])
+        if geometry is None:
             if not any(r.get('source')=='bounded_map_title_crop_ocr' for r in season_candidates):
-                # Reuse the existing bounded original-pixel detector retry to
-                # obtain a tighter quadrilateral; never relax the line gate.
                 context=[r for r in rows if r is seasons[0] or not re.search(r'冥界[試试]',r.get('text',''))]
                 self.context_refining=True
                 try:refined=text_reader.refine_map_title(image,context)
                 finally:self.context_refining=False
                 actual=[r for r in refined if r.get('source')=='bounded_map_title_crop_ocr']
                 if len(actual)==1:return self._reread_map_context(image,[*rows,*actual])
-            return rows
+            return self._remeasure_map_context(image,rows,[seasons[0],timers[0]])
+        bounds,position_evidence=geometry
         fresh=[]
         for kind,row,(x,y,right,bottom,h) in zip(['season','timer'],[seasons[0],timers[0]],bounds):
             trim=(0 if row.get('source')=='bounded_map_title_crop_ocr' else .12*h) if kind=='season' else -.1*h
@@ -188,12 +190,104 @@ class BoundedOCRRuntime:
                 readings=normalize_evidence(self.read_line_variants(image.crop(crop_box),len(re.sub(r'\s+','',glyph_text))))
                 matches=[{**r,'actualCropBox':crop_box} for r in readings if r['score']>=.9 and re.fullmatch(pattern,re.sub(r'\s+','',r['text']))]
                 if matches:break
-            keys={re.sub(r'\s+','',r['text']) for r in matches}
-            if len(keys)!=1:return rows
+            keys={_context_reading_key(kind,r['text']) for r in matches}
+            if len(keys)>1:return rows
+            if not keys:return self._remeasure_map_context(image,rows,[seasons[0],timers[0]],fresh)
             best=max(matches,key=lambda r:r['score']);left,top,endx,endy=best.pop('actualCropBox')
+            if not _context_claim_agrees(kind,row,best):return rows
             fresh.append({**best,'box':[[left,top],[endx,top],[endx,endy],[left,endy]],'source':'map_context_original_crop','contextKind':kind,'cropBox':[left,top,endx-left,endy-top],'originalText':row['text'],'originalScore':row['score']})
             if 'adjacentClockLocator' in row:
                 fresh[-1].update({key:row[key] for key in ['remainingLabelLocator','adjacentClockLocator']})
+            if position_evidence:fresh[-1]['positionEvidence']=position_evidence
+        return [*rows,*fresh]
+
+    def _map_context_geometry(self,image,lines):
+        bounds=[]
+        for row in lines:
+            points=np.asarray(row.get('box'),dtype=float)
+            if points.shape!=(4,2) or not np.isfinite(points).all():return None
+            x,y=points.min(0);right,bottom=points.max(0);h=bottom-y
+            if not 0<h<image.height*.1 or x<0 or right>image.width*.5 or y>image.height*.3:return None
+            bounds.append((x,y,right,bottom,h))
+        a,b=bounds
+        # Detector quadrilateral padding may touch or slightly overlap even
+        # though the two original text baselines are clearly separate.
+        minimum_height=min(a[4],b[4])
+        separation=(b[1]+b[3]-a[1]-a[3])/2
+        horizontal_limit=max(a[4],b[4]);position_evidence=None
+        if abs(a[0]-b[0])>horizontal_limit:
+            from map_aspect import estimate_pixel_aspect
+            calibration=estimate_pixel_aspect(image)
+            if calibration is not None and calibration['ratio']>1:
+                horizontal_limit*=calibration['ratio']
+                position_evidence={'method':'same_frame_pixel_aspect_horizontal_indent',
+                    'pixelAspect':calibration['ratio'],'pixelSha256':calibration['pixelSha256'],
+                    'sourceSize':calibration['sourceSize'],'calibrationMethod':calibration['method']}
+        if separation<minimum_height*.75 or a[3]-b[1]>minimum_height*.15 or abs(a[0]-b[0])>horizontal_limit:
+            return None
+        return bounds,position_evidence
+
+    def _remeasure_map_context(self,image,rows,locators,fresh_prefix=()):
+        # Old rows locate pixels only. Remeasure each line independently with
+        # the existing detector, then read that original crop at unchanged .90.
+        measured=[];proofs=[]
+        for kind,locator in zip(['season','timer'],locators):
+            prior=next((r for r in fresh_prefix if r['contextKind']==kind),None)
+            if prior is not None:
+                measured.append(prior);proofs.append(None);continue
+            points=np.asarray(locator.get('box'),dtype=float)
+            if points.shape!=(4,2) or not np.isfinite(points).all():return rows
+            lo,hi=points.min(0),points.max(0);h=hi[1]-lo[1]
+            if not (0<h<image.height*.1 and 0<=lo[0]<hi[0]<=image.width*.5 and 0<=lo[1]<hi[1]<=image.height and lo[1]<=image.height*.3):return rows
+            pad=h/2
+            outer=(max(0,int(lo[0]-pad)),max(0,int(lo[1]-pad)),min(image.width,int(hi[0]+pad)),min(image.height,int(hi[1]+pad)))
+            local=normalize_evidence(self.previous_read(image.crop(outer)));contained=[]
+            for candidate in local:
+                q=np.asarray(candidate.get('box'),dtype=float)
+                if q.shape!=(4,2) or not np.isfinite(q).all():continue
+                q=q+np.array(outer[:2]);a,b=q.min(0),q.max(0)
+                if (b<=a).any() or (a<lo).any() or (b>hi).any():continue
+                crop=(math.ceil(a[0]),math.ceil(a[1]),math.floor(b[0]),math.floor(b[1]))
+                if crop[2]>crop[0] and crop[3]>crop[1]:contained.append((candidate,q,crop))
+            if len(contained)!=1:return rows
+            candidate,q,crop=contained[0];left,top,endx,endy=crop
+            measured.append({**locator,'box':[[left,top],[endx,top],[endx,endy],[left,endy]]})
+            proofs.append({'method':'same_frame_contained_detector_line_and_fresh_recognition','locator':locator,
+                'detectorCropBox':[outer[0],outer[1],outer[2]-outer[0],outer[3]-outer[1]],
+                'detectorReading':candidate,'sourceDetectorQuad':q.tolist(),'recognitionCropBox':[left,top,endx-left,endy-top]})
+        # Line envelopes establish context alignment; contained detector boxes
+        # establish the pixels read. Preserve already-valid envelopes rather
+        # than replacing both with narrower glyph bounds unnecessarily.
+        envelopes=locators
+        geometry=self._map_context_geometry(image,envelopes)
+        if geometry is None:
+            for candidate_pair in [[measured[0],locators[1]],[locators[0],measured[1]],measured]:
+                geometry=self._map_context_geometry(image,candidate_pair)
+                if geometry is not None:
+                    envelopes=candidate_pair;break
+        if geometry is None:return rows
+        _,position_evidence=geometry
+        pixel_sha=hashlib.sha256(image.tobytes()).hexdigest()
+        fresh=[]
+        for kind,locator,row,envelope,proof in zip(['season','timer'],locators,measured,envelopes,proofs):
+            if proof is None:
+                if not _context_claim_agrees(kind,locator,row):return rows
+                fresh.append(row);continue
+            left,top=row['box'][0];endx,endy=row['box'][2]
+            pattern=r'冥界[試试](?:[煉炼])?季[1-9]\d?' if kind=='season' else r'剩餘時間\d+天\d{2}:\d{2}:\d{2}'
+            glyph_text=locator['text']+locator.get('adjacentClockLocator',{}).get('text','')
+            count=len(re.sub(r'\s+','',glyph_text))
+            if not 1<=count<=20:return rows
+            readings=normalize_evidence(self.read_line_variants(image.crop((left,top,endx,endy)),count))
+            matches=[r for r in readings if r['score']>=.9 and re.fullmatch(pattern,re.sub(r'\s+','',r['text']))]
+            if len({_context_reading_key(kind,r['text']) for r in matches})!=1:return rows
+            best=max(matches,key=lambda r:r['score'])
+            if not _context_claim_agrees(kind,locator,best):return rows
+            fresh.append({**best,'box':row['box'],'source':'map_context_original_crop','contextKind':kind,
+                'cropBox':[left,top,endx-left,endy-top],'originalText':locator['text'],'originalScore':locator['score'],
+                'originalPixelRefinement':{**proof,'sourcePixelSha256':pixel_sha,'refinedReading':best,
+                    'contextGeometryEnvelopes':[e['box'] for e in envelopes],'geometryEnvelopeBox':envelope['box']}})
+            if 'adjacentClockLocator' in locator:fresh[-1].update({key:locator[key] for key in ['remainingLabelLocator','adjacentClockLocator']})
             if position_evidence:fresh[-1]['positionEvidence']=position_evidence
         return [*rows,*fresh]
 
