@@ -162,9 +162,9 @@
     "semantic_hash": ""
   },
   "ml/analyze_cases.py": {
-    "mtime": 1793040306.8009093,
-    "seen": 1793040547.669078,
-    "ast_hash": "75c1dd437137a6605a501c47f348568e",
+    "mtime": 1793125950.5394657,
+    "seen": 1793126020.465451,
+    "ast_hash": "928c9d19b474964a73ba3e958123287b",
     "semantic_hash": ""
   },
   "ml/bounded_ocr.py": {
@@ -186,9 +186,9 @@
     "semantic_hash": ""
   },
   "ml/fast_map_candidates.py": {
-    "mtime": 1793115756.1708732,
-    "seen": 1793115842.030297,
-    "ast_hash": "3e7e1fe452b1e2a5435b43597e84c211",
+    "mtime": 1793126087.6635654,
+    "seen": 1793126108.2628195,
+    "ast_hash": "1f06f98b93d1fa281ae74bc645ee99f8",
     "semantic_hash": ""
   },
   "ml/freeze_replay_corpus.py": {
@@ -540,9 +540,9 @@
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1793111775.963638,
-    "seen": 1793115842.0304542,
-    "ast_hash": "1672a2ccb870e87ca065f1b6068b0bab",
+    "mtime": 1793124742.0750995,
+    "seen": 1793126020.465603,
+    "ast_hash": "ff8a1d10907c1b0e430c44ccf46209fe",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -1188,9 +1188,9 @@
     "semantic_hash": ""
   },
   "docs/reports/crk-helper-v2-development-60-report.md": {
-    "mtime": 1793106805.4280388,
-    "seen": 1793115842.0304303,
-    "ast_hash": "e994fb06c3edc0bc752d0f6fc6b0d285",
+    "mtime": 1793124946.0547235,
+    "seen": 1793126020.465578,
+    "ast_hash": "d55ad8de9c630e4fd0fff0349fdb14e0",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-27-development-40-60.md": {
@@ -1269,6 +1269,30 @@
     "mtime": 1793106757.8994124,
     "seen": 1793115842.03045,
     "ast_hash": "7c2d3b1a94c8a5910a3596f064e2a18e",
+    "semantic_hash": ""
+  },
+  "tests/test_bounded_coverage.py": {
+    "mtime": 1793125876.6842394,
+    "seen": 1793126020.4655263,
+    "ast_hash": "8e70ad4c3011309ca194c28c78c63c32",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-10-28-bounded-coverage.md": {
+    "mtime": 1793125821.2286494,
+    "seen": 1793126020.4655871,
+    "ast_hash": "d0d2e1c3314685b2676bc09869398d85",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-10-28-bounded-coverage-design.md": {
+    "mtime": 1793125821.2266448,
+    "seen": 1793126020.4655907,
+    "ast_hash": "4201576c1238b735b2ad6e1796fb31ae",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-27-m1-status.md": {
+    "mtime": 1793124901.4703283,
+    "seen": 1793126020.4656005,
+    "ast_hash": "6346cbdd38c00f08cf29f9b216ba66d3",
     "semantic_hash": ""
   }
 }

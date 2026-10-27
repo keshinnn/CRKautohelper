@@ -39,7 +39,7 @@ def main():
     from frame_intermediates import FrameIntermediates
     if args.fast_map:
         import map_vision
-        from fast_map_candidates import node_candidates
+        from fast_map_candidates import coverage_node_candidates as node_candidates
         map_vision.node_candidates=node_candidates
     bounded=None;ocr_mode='original_v1';ocr_code=None
     if args.bounded_ocr is not None:

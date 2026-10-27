@@ -1,4 +1,4 @@
-"""Exhaustive V1 search plus approved low-count nominal quantization rescue.
+"""Original V1 search with incremental nominal quantization supplements.
 
 Base candidates are preserved. Only when fewer than four survive base NMS,
 scan missing floor/ceil sizes at the canonical scale on the same Canny image.
@@ -30,8 +30,7 @@ def _groups(folder,height,width):
             groups[key][1].append((order,path.name,temp,norm));order+=1
     return tuple(groups.values())
 
-@lru_cache(maxsize=8)
-def _nominal_groups(folder,height,width):
+def _supplement_groups(folder,height,width,padding):
     from map_vision import map_templates
     folder=Path(folder);meta=folder/'template-metadata.json'
     metadata=json.loads(meta.read_text(encoding='utf-8')) if meta.exists() else {}
@@ -42,8 +41,8 @@ def _nominal_groups(folder,height,width):
         h,w=t.shape;path=Path(name+'.png')
         reference_height=metadata.get(path.name,{}).get('frame_height',720 if path.stem.startswith('node-b-') else 540)
         scale=round(height/reference_height,4)
-        for tw in sorted({math.floor(w*scale),math.ceil(w*scale)}):
-            for th in sorted({math.floor(h*scale),math.ceil(h*scale)}):
+        for tw in range(max(1,math.floor(w*scale)-padding),math.ceil(w*scale)+padding+1):
+            for th in range(max(1,math.floor(h*scale)-padding),math.ceil(h*scale)+padding+1):
                 key=(path.name,(tw,th))
                 if key in seen or min(tw,th)<=0 or tw>=width or th>=height:continue
                 seen.add(key)
@@ -56,6 +55,15 @@ def _nominal_groups(folder,height,width):
                 groups[mask_key][1].append((order,path.name,temp,norm));order+=1
     return tuple(groups.values())
 
+
+@lru_cache(maxsize=8)
+def _nominal_groups(folder,height,width):
+    return _supplement_groups(folder,height,width,0)
+
+
+@lru_cache(maxsize=8)
+def _coverage_groups(folder,height,width):
+    return _supplement_groups(folder,height,width,1)
 
 def _match_group(edges,group):
     mask,kernels=group
@@ -74,7 +82,8 @@ def _match_group(edges,group):
             res[max(0,y-th//2):y+th//2+1,max(0,x-tw//2):x+tw//2+1]=0
     return matches
 
-def node_candidates(image,templates,workers=4):
+def node_candidates(image,templates,workers=4,*,coverage=False):
+    if type(coverage) is not bool:raise ValueError('boolean coverage mode required')
     if workers not in [1,2,4]:raise ValueError('bounded worker count required')
     # Avoid nesting twelve OpenCV threads inside each of four independent jobs.
     # This affects only this isolated observer process, not the user's V1 app.
@@ -91,8 +100,9 @@ def node_candidates(image,templates,workers=4):
         r=min(m['box'][2:])/2
         if any(math.dist(m['center'],k['center'])<max(r,min(k['box'][2:])/2) for k in kept):continue
         kept.append(m)
-    if len(kept)<4:
-        extra=_nominal_groups(str(Path(templates).resolve()),gray.shape[0],gray.shape[1])
+    if coverage or len(kept)<4:
+        bank=_coverage_groups if coverage else _nominal_groups
+        extra=bank(str(Path(templates).resolve()),gray.shape[0],gray.shape[1])
         if workers==1:parts=[_match_group(edges,g) for g in extra]
         else:
             with ThreadPoolExecutor(max_workers=workers) as pool:parts=list(pool.map(lambda g:_match_group(edges,g),extra))
@@ -103,3 +113,8 @@ def node_candidates(image,templates,workers=4):
             if any(math.dist(m['center'],k['center'])<max(r,min(k['box'][2:])/2) for k in kept):continue
             kept.append(m)
     return kept
+
+
+def coverage_node_candidates(image,templates,workers=4):
+    """Bounded V2 coverage; candidates still carry no selection authority."""
+    return node_candidates(image,templates,workers,coverage=True)
