@@ -168,8 +168,8 @@
     "semantic_hash": ""
   },
   "ml/bounded_ocr.py": {
-    "mtime": 1793001380.4375615,
-    "seen": 1793001969.4315686,
+    "mtime": 1793064203.9004257,
+    "seen": 1793064584.894795,
     "ast_hash": "f4b1e5b92eba40b1fcdb613d584ff47e",
     "semantic_hash": ""
   },
@@ -540,9 +540,9 @@
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1793035733.9077637,
-    "seen": 1793040547.6692946,
-    "ast_hash": "15bc2e24866a48b71b5d86a51f48a49f",
+    "mtime": 1793064577.7057283,
+    "seen": 1793064584.89493,
+    "ast_hash": "95af9d18580fc22b1d09b7a63cfc908e",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -1158,9 +1158,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-27-python-vision-performance.md": {
-    "mtime": 1793037166.1003644,
-    "seen": 1793040547.6692808,
-    "ast_hash": "de210e6547d5078d22e7843e241d5c2f",
+    "mtime": 1793054292.2776885,
+    "seen": 1793064584.894918,
+    "ast_hash": "c33305e196c5f7f8e20087891f326a5a",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-10-27-python-vision-performance.md": {
@@ -1173,6 +1173,54 @@
     "mtime": 1793035733.8987424,
     "seen": 1793040547.6692917,
     "ast_hash": "67104eb45cc2bdc7da3977efc0367dd5",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-27-development60-partial-summary.json": {
+    "mtime": 1793064497.8355632,
+    "seen": 1793064584.8947792,
+    "ast_hash": "aca2dc4ba68debbf23b2af57009beead",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-27-python-vision-performance-summary.json": {
+    "mtime": 1793054495.1027417,
+    "seen": 1793064584.8947806,
+    "ast_hash": "e3db5320d24acca336249ab43a7e5abd",
+    "semantic_hash": ""
+  },
+  "docs/reports/crk-helper-v2-development-60-report.md": {
+    "mtime": 1793064497.8335655,
+    "seen": 1793064584.8949099,
+    "ast_hash": "89bdeab82c91fbe97a41dbed393a056b",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-10-27-development-40-60.md": {
+    "mtime": 1793062918.3632953,
+    "seen": 1793064584.8949165,
+    "ast_hash": "e4218460338931035abe5f6e02a037c0",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-27-case40-high-handoff.md": {
+    "mtime": 1793064497.836567,
+    "seen": 1793064584.8949265,
+    "ast_hash": "c0ac548c739a971f65d459f447cf5f89",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-27-development40-60-execution-ledger.md": {
+    "mtime": 1793064577.7057283,
+    "seen": 1793064584.8949275,
+    "ast_hash": "f81b9f98e0d521129f66b02ba0114feb",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-27-python-vision-execution-ledger.md": {
+    "mtime": 1793054495.1109843,
+    "seen": 1793064584.8949282,
+    "ast_hash": "d8613f94fb06ab3b363fd30071c83ade",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-27-python-vision-performance.md": {
+    "mtime": 1793054495.0528827,
+    "seen": 1793064584.8949292,
+    "ast_hash": "a0005f717a09eec7de8a923fdacac4c0",
     "semantic_hash": ""
   }
 }

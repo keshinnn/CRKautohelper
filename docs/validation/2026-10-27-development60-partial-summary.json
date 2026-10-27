@@ -1,0 +1,1389 @@
+{
+  "functionalCommit": "c9559e14f97cdbdefd9c07ddfe00a9f305a3dc0a",
+  "case40RunCommit": "af30157",
+  "frozenDenominator": 60,
+  "passedSameFrozenFunctionalVersion": 39,
+  "failed": 1,
+  "untested": 20,
+  "testedPassRatePercent": 97.5,
+  "completeDenominatorPassPercent": 65,
+  "newRoundTests": 1,
+  "newRoundFirstPass": 0,
+  "earliestTraceableFirst39": {
+    "pass": 15,
+    "fail": 24,
+    "absoluteFirstEverClaimed": false
+  },
+  "currentRoundFailure": "case40 EVIDENCE_UNVERIFIED",
+  "sourceManifestSha256": "189b37115b1d08b0c245306bb727b13759d00aa0efb76a30e74b85acc6038e60",
+  "qualificationSha256": "5e7151bf405f885912086698101afefad711d66080a18314e2cc105f2b8ce522",
+  "diagnosisSha256": "79efd826662fe1c9adb0e9770454696f31db06d28a7f9bb38742ac9a7542431c",
+  "draftAccepted": false,
+  "productionRestored": true,
+  "stopRequiresHighAssessment": true,
+  "holdoutStarted": false,
+  "g4Complete": false,
+  "nativeActions": 0,
+  "rows": [
+    {
+      "number": 1,
+      "id": "zone-1-first-battle-random-fixed",
+      "intent": {
+        "zone": 1,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2290,
+          1293
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f3",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-1-first-battle-random-fixed/transaction.json"
+    },
+    {
+      "number": 2,
+      "id": "zone-1-first-battle-random-pre-change",
+      "intent": {
+        "zone": 1,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1643,
+          723
+        ],
+        [
+          1557,
+          948
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-1-first-battle-random-pre-change/transaction.json"
+    },
+    {
+      "number": 3,
+      "id": "zone-1-first-battle-random-post-change",
+      "intent": {
+        "zone": 1,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2345,
+          1064
+        ],
+        [
+          1651,
+          969
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f2",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-1-first-battle-random-post-change/transaction.json"
+    },
+    {
+      "number": 4,
+      "id": "zone-2-first-battle-random-fixed",
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1471,
+          777
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f3",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-2-first-battle-random-fixed/transaction.json"
+    },
+    {
+      "number": 5,
+      "id": "zone-2-first-battle-random-pre-change",
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2094,
+          948
+        ],
+        [
+          1568,
+          1008
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f2",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-2-first-battle-random-pre-change/transaction.json"
+    },
+    {
+      "number": 6,
+      "id": "zone-2-first-battle-random-post-change",
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1196,
+          631
+        ],
+        [
+          2065,
+          1233
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-2-first-battle-random-post-change/transaction.json"
+    },
+    {
+      "number": 7,
+      "id": "zone-3-first-battle-random-fixed",
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2481,
+          1347
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-3-first-battle-random-fixed/transaction.json"
+    },
+    {
+      "number": 8,
+      "id": "zone-3-first-battle-random-pre-change",
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2345,
+          1420
+        ],
+        [
+          2041,
+          920
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f2",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-3-first-battle-random-pre-change/transaction.json"
+    },
+    {
+      "number": 9,
+      "id": "zone-3-first-battle-random-post-change",
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2071,
+          1132
+        ],
+        [
+          1058,
+          577
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-3-first-battle-random-post-change/transaction.json"
+    },
+    {
+      "number": 10,
+      "id": "zone-8-first-battle-random-fixed",
+      "intent": {
+        "zone": 8,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2009,
+          1010
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f2",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-8-first-battle-random-fixed/transaction.json"
+    },
+    {
+      "number": 11,
+      "id": "zone-8-first-battle-random-pre-change",
+      "intent": {
+        "zone": 8,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1103,
+          553
+        ],
+        [
+          2225,
+          1336
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-8-first-battle-random-pre-change/transaction.json"
+    },
+    {
+      "number": 12,
+      "id": "zone-8-first-battle-random-post-change",
+      "intent": {
+        "zone": 8,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1677,
+          1051
+        ],
+        [
+          2252,
+          1434
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-8-first-battle-random-post-change/transaction.json"
+    },
+    {
+      "number": 13,
+      "id": "zone-9-first-battle-random-fixed",
+      "intent": {
+        "zone": 9,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          996,
+          541
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-9-first-battle-random-fixed/transaction.json"
+    },
+    {
+      "number": 14,
+      "id": "zone-9-first-battle-random-pre-change",
+      "intent": {
+        "zone": 9,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1469,
+          792
+        ],
+        [
+          1366,
+          1074
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f3",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-9-first-battle-random-pre-change/transaction.json"
+    },
+    {
+      "number": 15,
+      "id": "zone-9-first-battle-random-post-change",
+      "intent": {
+        "zone": 9,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1805,
+          1401
+        ],
+        [
+          1315,
+          546
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/zone-9-first-battle-random-post-change/transaction.json"
+    },
+    {
+      "number": 16,
+      "id": "dev-primary-zone2-floor2-col3-higher-random-fixed",
+      "intent": {
+        "zone": 2,
+        "floor": 2,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1342,
+          552
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone2-floor2-col3-higher-random-fixed/transaction.json"
+    },
+    {
+      "number": 17,
+      "id": "dev-primary-zone2-floor2-col3-higher-random-pre-change",
+      "intent": {
+        "zone": 2,
+        "floor": 2,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2467,
+          1302
+        ],
+        [
+          2543,
+          1050
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone2-floor2-col3-higher-random-pre-change/transaction.json"
+    },
+    {
+      "number": 18,
+      "id": "dev-primary-zone2-floor2-col3-higher-random-post-change",
+      "intent": {
+        "zone": 2,
+        "floor": 2,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1997,
+          1146
+        ],
+        [
+          2196,
+          1287
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f2",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone2-floor2-col3-higher-random-post-change/transaction.json"
+    },
+    {
+      "number": 19,
+      "id": "dev-primary-zone3-floor3-col1-higher-random-fixed",
+      "intent": {
+        "zone": 3,
+        "floor": 3,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1873,
+          1370
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone3-floor3-col1-higher-random-fixed/transaction.json"
+    },
+    {
+      "number": 20,
+      "id": "dev-primary-zone3-floor3-col1-higher-random-pre-change",
+      "intent": {
+        "zone": 3,
+        "floor": 3,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1255,
+          689
+        ],
+        [
+          1941,
+          1265
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone3-floor3-col1-higher-random-pre-change/transaction.json"
+    },
+    {
+      "number": 21,
+      "id": "dev-primary-zone3-floor3-col1-higher-random-post-change",
+      "intent": {
+        "zone": 3,
+        "floor": 3,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1734,
+          1187
+        ],
+        [
+          1772,
+          817
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f3",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone3-floor3-col1-higher-random-post-change/transaction.json"
+    },
+    {
+      "number": 22,
+      "id": "dev-primary-zone4-floor2-col3-random-fixed",
+      "intent": {
+        "zone": 4,
+        "floor": 2,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2383,
+          1372
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone4-floor2-col3-random-fixed/transaction.json"
+    },
+    {
+      "number": 23,
+      "id": "dev-primary-zone4-floor2-col3-random-pre-change",
+      "intent": {
+        "zone": 4,
+        "floor": 2,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1101,
+          668
+        ],
+        [
+          1734,
+          1018
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone4-floor2-col3-random-pre-change/transaction.json"
+    },
+    {
+      "number": 24,
+      "id": "dev-primary-zone4-floor2-col3-random-post-change",
+      "intent": {
+        "zone": 4,
+        "floor": 2,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2275,
+          1203
+        ],
+        [
+          1448,
+          1072
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone4-floor2-col3-random-post-change/transaction.json"
+    },
+    {
+      "number": 25,
+      "id": "dev-primary-zone6-floor1-col2-random-fixed",
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1145,
+          721
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone6-floor1-col2-random-fixed/transaction.json"
+    },
+    {
+      "number": 26,
+      "id": "dev-primary-zone6-floor1-col2-random-pre-change",
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2105,
+          871
+        ],
+        [
+          1056,
+          635
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone6-floor1-col2-random-pre-change/transaction.json"
+    },
+    {
+      "number": 27,
+      "id": "dev-primary-zone6-floor1-col2-random-post-change",
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2275,
+          1186
+        ],
+        [
+          1349,
+          580
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone6-floor1-col2-random-post-change/transaction.json"
+    },
+    {
+      "number": 28,
+      "id": "dev-primary-zone10-floor1-col2-random-fixed",
+      "intent": {
+        "zone": 10,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1203,
+          864
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone10-floor1-col2-random-fixed/transaction.json"
+    },
+    {
+      "number": 29,
+      "id": "dev-primary-zone10-floor1-col2-random-pre-change",
+      "intent": {
+        "zone": 10,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1187,
+          703
+        ],
+        [
+          1389,
+          615
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone10-floor1-col2-random-pre-change/transaction.json"
+    },
+    {
+      "number": 30,
+      "id": "dev-primary-zone10-floor1-col2-random-post-change",
+      "intent": {
+        "zone": 10,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1217,
+          625
+        ],
+        [
+          1725,
+          1256
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-primary-zone10-floor1-col2-random-post-change/transaction.json"
+    },
+    {
+      "number": 31,
+      "id": "dev-L0-zone6-floor1-col2-select-1773-random-fixed",
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          966,
+          740
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f2",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-L0-zone6-floor1-col2-select-1773-random-fixed/transaction.json"
+    },
+    {
+      "number": 32,
+      "id": "dev-L0-zone6-floor1-col2-select-1773-random-pre-change",
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1152,
+          597
+        ],
+        [
+          2015,
+          850
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-L0-zone6-floor1-col2-select-1773-random-pre-change/transaction.json"
+    },
+    {
+      "number": 33,
+      "id": "dev-L0-zone6-floor1-col2-select-1773-random-post-change",
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1486,
+          1014
+        ],
+        [
+          1218,
+          564
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-L0-zone6-floor1-col2-select-1773-random-post-change/transaction.json"
+    },
+    {
+      "number": 34,
+      "id": "dev-L0-zone6-floor1-col2-resume-1781-random-fixed",
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "clientSizes": [
+        [
+          1781,
+          915
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-L0-zone6-floor1-col2-resume-1781-random-fixed/transaction.json"
+    },
+    {
+      "number": 35,
+      "id": "dev-L0-zone6-floor1-col2-resume-1781-random-pre-change",
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "clientSizes": [
+        [
+          1168,
+          594
+        ],
+        [
+          1938,
+          1263
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-L0-zone6-floor1-col2-resume-1781-random-pre-change/transaction.json"
+    },
+    {
+      "number": 36,
+      "id": "dev-L0-zone6-floor1-col2-resume-1781-random-post-change",
+      "intent": {
+        "zone": 6,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "clientSizes": [
+        [
+          1457,
+          1035
+        ],
+        [
+          1227,
+          571
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f3",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-L0-zone6-floor1-col2-resume-1781-random-post-change/transaction.json"
+    },
+    {
+      "number": 37,
+      "id": "dev-L0-zone6-floor3-col3-select-1932-random-fixed",
+      "intent": {
+        "zone": 6,
+        "floor": 3,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1256,
+          645
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-L0-zone6-floor3-col3-select-1932-random-fixed/transaction.json"
+    },
+    {
+      "number": 38,
+      "id": "dev-L0-zone6-floor3-col3-select-1932-random-pre-change",
+      "intent": {
+        "zone": 6,
+        "floor": 3,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2137,
+          1241
+        ],
+        [
+          2552,
+          1391
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u901a\u904e\uff0f0",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-L0-zone6-floor3-col3-select-1932-random-pre-change/transaction.json"
+    },
+    {
+      "number": 39,
+      "id": "dev-L0-zone6-floor3-col3-select-1932-random-post-change",
+      "intent": {
+        "zone": 6,
+        "floor": 3,
+        "column": 3,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1786,
+          1227
+        ],
+        [
+          2053,
+          1191
+        ]
+      ],
+      "status": "\u901a\u904e\uff08\u524d\u56de\u5408\uff0c\u540c\u529f\u80fdhash\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1",
+      "evidence": "artifacts/performance-20261027/random39-current-01/replay/dev-L0-zone6-floor3-col3-select-1932-random-post-change/transaction.json"
+    },
+    {
+      "number": 40,
+      "id": "dev-earlier-L0-zone5-floor1-col1-random-fixed",
+      "intent": {
+        "zone": 5,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1885,
+          793
+        ]
+      ],
+      "status": "\u5931\u6557\uff08\u672c\u8f2arun-01\uff09",
+      "firstTraceable": "\u5931\u6557\uff0f1\u500b\u5b8c\u6574\u9589\u74b0\u5617\u8a66",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-40\\run-01\\replay\\dev-earlier-L0-zone5-floor1-col1-random-fixed\\transaction.json"
+    },
+    {
+      "number": 41,
+      "id": "dev-earlier-L0-zone5-floor1-col1-random-pre-change",
+      "intent": {
+        "zone": 5,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2481,
+          1135
+        ],
+        [
+          1751,
+          963
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-41\\source.json"
+    },
+    {
+      "number": 42,
+      "id": "dev-earlier-L0-zone5-floor1-col1-random-post-change",
+      "intent": {
+        "zone": 5,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1466,
+          1087
+        ],
+        [
+          1729,
+          1350
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-42\\source.json"
+    },
+    {
+      "number": 43,
+      "id": "dev-earlier-L0-zone8-floor1-col4-random-fixed",
+      "intent": {
+        "zone": 8,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2249,
+          1408
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-43\\source.json"
+    },
+    {
+      "number": 44,
+      "id": "dev-earlier-L0-zone8-floor1-col4-random-pre-change",
+      "intent": {
+        "zone": 8,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1706,
+          785
+        ],
+        [
+          1009,
+          632
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-44\\source.json"
+    },
+    {
+      "number": 45,
+      "id": "dev-earlier-L0-zone8-floor1-col4-random-post-change",
+      "intent": {
+        "zone": 8,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1958,
+          1107
+        ],
+        [
+          1813,
+          945
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-45\\source.json"
+    },
+    {
+      "number": 46,
+      "id": "dev-earlier-0Q-zone4-floor1-col4-random-fixed",
+      "intent": {
+        "zone": 4,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1697,
+          1075
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-46\\source.json"
+    },
+    {
+      "number": 47,
+      "id": "dev-earlier-0Q-zone4-floor1-col4-random-pre-change",
+      "intent": {
+        "zone": 4,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1886,
+          1065
+        ],
+        [
+          1753,
+          1326
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-47\\source.json"
+    },
+    {
+      "number": 48,
+      "id": "dev-earlier-0Q-zone4-floor1-col4-random-post-change",
+      "intent": {
+        "zone": 4,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1209,
+          730
+        ],
+        [
+          1315,
+          560
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-48\\source.json"
+    },
+    {
+      "number": 49,
+      "id": "dev-LX46-zone1-floor1-col1-resume-random-fixed",
+      "intent": {
+        "zone": 1,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "clientSizes": [
+        [
+          1590,
+          1079
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-49\\source.json"
+    },
+    {
+      "number": 50,
+      "id": "dev-LX46-zone1-floor1-col1-resume-random-pre-change",
+      "intent": {
+        "zone": 1,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "clientSizes": [
+        [
+          1796,
+          1384
+        ],
+        [
+          1801,
+          1057
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-50\\source.json"
+    },
+    {
+      "number": 51,
+      "id": "dev-LX46-zone1-floor1-col1-resume-random-post-change",
+      "intent": {
+        "zone": 1,
+        "floor": 1,
+        "column": 1,
+        "event": "battle",
+        "mode": "resume"
+      },
+      "clientSizes": [
+        [
+          1709,
+          1097
+        ],
+        [
+          1448,
+          693
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-51\\source.json"
+    },
+    {
+      "number": 52,
+      "id": "dev-LX46-zone2-floor1-col2-select-random-fixed",
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1710,
+          1229
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-52\\source.json"
+    },
+    {
+      "number": 53,
+      "id": "dev-LX46-zone2-floor1-col2-select-random-pre-change",
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1290,
+          1005
+        ],
+        [
+          1466,
+          713
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-53\\source.json"
+    },
+    {
+      "number": 54,
+      "id": "dev-LX46-zone2-floor1-col2-select-random-post-change",
+      "intent": {
+        "zone": 2,
+        "floor": 1,
+        "column": 2,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1475,
+          640
+        ],
+        [
+          1962,
+          1238
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-54\\source.json"
+    },
+    {
+      "number": 55,
+      "id": "dev-LX46-zone3-floor1-col4-select-random-fixed",
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1446,
+          854
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-55\\source.json"
+    },
+    {
+      "number": 56,
+      "id": "dev-LX46-zone3-floor1-col4-select-random-pre-change",
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2167,
+          1141
+        ],
+        [
+          1268,
+          662
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-56\\source.json"
+    },
+    {
+      "number": 57,
+      "id": "dev-LX46-zone3-floor1-col4-select-random-post-change",
+      "intent": {
+        "zone": 3,
+        "floor": 1,
+        "column": 4,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1462,
+          690
+        ],
+        [
+          1449,
+          1151
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-57\\source.json"
+    },
+    {
+      "number": 58,
+      "id": "dev-LX46-zone4-floor2-col1-select-random-fixed",
+      "intent": {
+        "zone": 4,
+        "floor": 2,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          2306,
+          1417
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-58\\source.json"
+    },
+    {
+      "number": 59,
+      "id": "dev-LX46-zone4-floor2-col1-select-random-pre-change",
+      "intent": {
+        "zone": 4,
+        "floor": 2,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1067,
+          752
+        ],
+        [
+          2399,
+          1182
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-59\\source.json"
+    },
+    {
+      "number": 60,
+      "id": "dev-LX46-zone4-floor2-col1-select-random-post-change",
+      "intent": {
+        "zone": 4,
+        "floor": 2,
+        "column": 1,
+        "event": "battle",
+        "mode": "select"
+      },
+      "clientSizes": [
+        [
+          1329,
+          732
+        ],
+        [
+          1437,
+          853
+        ]
+      ],
+      "status": "\u672a\u6e2c\u8a66",
+      "firstTraceable": "\u7121\u6cd5\u78ba\u8a8d",
+      "evidence": "artifacts\\development-20261027-medium-01\\case-60\\source.json"
+    }
+  ]
+}
