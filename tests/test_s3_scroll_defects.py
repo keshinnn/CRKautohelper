@@ -37,9 +37,7 @@ class S3ScrollCoverageDefects(unittest.TestCase):
   if r.returncode:raise RuntimeError(r.stderr)
   result=json.loads((out/'manifest.json').read_text(encoding='utf-8'));cls.packets={f['frameIndex']:json.loads(Path(f['packet']).read_text(encoding='utf-8')) for f in result['cases'][0]['frames']}
   cls.covered={label['frameIndex']:checked_coverage(label,cls.packets[label['frameIndex']],cls.data['parentVideoSha256']) for label in cls.labels}
- @unittest.expectedFailure
  def test_battle_46047_detects_reviewed_physical_icon(self):self.assertTrue(self.covered[46047],'Known OPEN battle omission46047')
- @unittest.expectedFailure
  def test_heal_46057_detects_reviewed_physical_icon(self):self.assertTrue(self.covered[46057],'Known OPEN heal omission46057')
  def test_unanchored_scroll_frames_do_not_claim_absolute_floor(self):
   for p in self.packets.values():self.assertIs(p['mapReview']['absoluteFloorKnown'],False)

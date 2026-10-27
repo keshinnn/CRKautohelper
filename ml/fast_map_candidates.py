@@ -1,7 +1,9 @@
 """Original V1 search with incremental nominal quantization supplements.
 
-Base candidates are preserved. Only when fewer than four survive base NMS,
-scan missing floor/ceil sizes at the canonical scale on the same Canny image.
+Default M1 scans nominal floor/ceil sizes only below four base candidates.
+Explicit V2 coverage then scans the bounded one-pixel band, retaining the
+entire M1 result. Both reuse one Canny image; supplements never rescan an
+earlier stage's (template,size) pair.
 The hook is local to an offline V2 process; no V1 files are edited.
 """
 from concurrent.futures import ThreadPoolExecutor
@@ -30,13 +32,17 @@ def _groups(folder,height,width):
             groups[key][1].append((order,path.name,temp,norm));order+=1
     return tuple(groups.values())
 
-def _supplement_groups(folder,height,width,padding):
+def _supplement_groups(folder,height,width,padding,omit_nominal=False):
     from map_vision import map_templates
     folder=Path(folder);meta=folder/'template-metadata.json'
     metadata=json.loads(meta.read_text(encoding='utf-8')) if meta.exists() else {}
     base=[k for _,kernels in _groups(str(folder),height,width) for k in kernels]
     seen={(name,tuple(temp.shape[::-1])) for _,name,temp,_ in base}
     groups={};order=max((k[0] for k in base),default=-1)+1
+    if omit_nominal:
+        nominal=_nominal_groups(str(folder),height,width)
+        seen.update((name,tuple(temp.shape[::-1])) for _,kernels in nominal for _,name,temp,_ in kernels)
+        order+=sum(len(kernels) for _,kernels in nominal)
     for name,t,ring,_,_ in map_templates(folder):
         h,w=t.shape;path=Path(name+'.png')
         reference_height=metadata.get(path.name,{}).get('frame_height',720 if path.stem.startswith('node-b-') else 540)
@@ -62,8 +68,8 @@ def _nominal_groups(folder,height,width):
 
 
 @lru_cache(maxsize=8)
-def _coverage_groups(folder,height,width):
-    return _supplement_groups(folder,height,width,1)
+def _coverage_groups(folder,height,width,omit_nominal=False):
+    return _supplement_groups(folder,height,width,1,omit_nominal)
 
 def _match_group(edges,group):
     mask,kernels=group
@@ -100,9 +106,12 @@ def node_candidates(image,templates,workers=4,*,coverage=False):
         r=min(m['box'][2:])/2
         if any(math.dist(m['center'],k['center'])<max(r,min(k['box'][2:])/2) for k in kept):continue
         kept.append(m)
-    if coverage or len(kept)<4:
-        bank=_coverage_groups if coverage else _nominal_groups
-        extra=bank(str(Path(templates).resolve()),gray.shape[0],gray.shape[1])
+    low_count=len(kept)<4
+    folder=str(Path(templates).resolve());height,width=gray.shape
+    banks=[]
+    if low_count:banks.append(_nominal_groups(folder,height,width))
+    if coverage:banks.append(_coverage_groups(folder,height,width,omit_nominal=low_count))
+    for extra in banks:
         if workers==1:parts=[_match_group(edges,g) for g in extra]
         else:
             with ThreadPoolExecutor(max_workers=workers) as pool:parts=list(pool.map(lambda g:_match_group(edges,g),extra))

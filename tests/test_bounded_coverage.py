@@ -1,5 +1,6 @@
 """Real source-bound local coverage without changing the legacy M1 policy."""
 import hashlib,json,math,sys,unittest
+from collections import Counter
 from pathlib import Path
 from unittest.mock import patch
 import cv2
@@ -31,20 +32,33 @@ class BoundedCoverageTests(unittest.TestCase):
     self.assertEqual(classify_node(im,got[best],FOLDER)['type'],'battle')
     self.assertTrue(all(.48<=n['score']<=1 for n in got))
  def test_single_canny_unique_bounded_incremental_kernels(self):
-  im,_=self.fixtures[0];seen=[];original=fm._match_group
+  self.check_incremental_kernels(self.fixtures[0][0])
+  with Image.open(ROOT/'artifacts/case41-stability-analysis-20261027-01/S2-35935-actual/model.png') as source:im=source.convert('RGB')
+  self.check_incremental_kernels(im)
+ def check_incremental_kernels(self,im):
+  seen=[];original=fm._match_group
   def collect(edges,g):
    seen.extend((name,tuple(t.shape[::-1])) for _,name,t,_ in g[1]);return original(edges,g)
   with patch.object(fm,'_match_group',side_effect=collect),patch.object(cv2,'Canny',wraps=cv2.Canny) as canny:
    fm.coverage_node_candidates(im,FOLDER)
   base=[(n,tuple(t.shape[::-1])) for _,ks in fm._groups(str(FOLDER.resolve()),im.height,im.width) for _,n,t,_ in ks]
   self.assertEqual(len(base),204);self.assertEqual(canny.call_count,1)
-  self.assertEqual(len(seen),len(set(seen)));self.assertTrue(set(base).issubset(seen));self.assertGreater(len(seen),204)
+  self.assertEqual(Counter(k for k in seen if k in set(base)),Counter(base))
+  extra=[k for k in seen if k not in set(base)]
+  self.assertEqual(len(extra),len(set(extra)));self.assertGreater(len(seen),204)
   self.assertLessEqual(len(seen),204+16*len(map_templates(FOLDER)))
   meta=json.loads((FOLDER/'template-metadata.json').read_text(encoding='utf-8'));templates={n+'.png':t for n,t,_,_,_ in map_templates(FOLDER)}
   for n,(w,h) in set(seen)-set(base):
    t=templates[n];ref=meta.get(n,{}).get('frame_height',720 if n.startswith('node-b-') else 540);scale=round(im.height/ref,4)
    self.assertTrue(math.floor(t.shape[1]*scale)-1<=w<=math.ceil(t.shape[1]*scale)+1)
    self.assertTrue(math.floor(t.shape[0]*scale)-1<=h<=math.ceil(t.shape[0]*scale)+1)
+ def test_coverage_preserves_entire_existing_m1_result(self):
+  file=ROOT/'artifacts/case41-stability-analysis-20261027-01/S2-35935-actual/model.png'
+  with Image.open(file) as source:im=source.convert('RGB')
+  row=next(x for x in json.loads((ROOT/'artifacts/m1-20261027-01/matcher-benchmark.json').read_text(encoding='utf-8'))['rows'] if x['key']=='S2-35935')
+  self.assertEqual(hashlib.sha256(im.tobytes()).hexdigest(),row['modelRgbSha256'])
+  before=fm.node_candidates(im,FOLDER);self.assertEqual(len(before),12)
+  self.assertEqual(fm.coverage_node_candidates(im,FOLDER)[:len(before)],before)
  def test_blank_pixels_do_not_gain_coverage_candidates(self):
   self.assertEqual(fm.coverage_node_candidates(Image.new('RGB',(960,712)),FOLDER),[])
 if __name__=='__main__':unittest.main()

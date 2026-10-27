@@ -33,3 +33,10 @@ Files: ml/fast_map_candidates.py (new bank/helper flag/wrapper), ml/analyze_case
 - [ ] 43..60 sequential, fullfresh, save each firstfailure/trace. Necessary small repairs only with TDD/regression.
 - [ ] All60 must pass before frozen held30; use proper formal gate, do not label development grader as formal G4.
 - [ ] Final60 table/first trace history/current regression/source hashes/OPEN defects and unmet G4; no native.
+
+## One review fix pass
+- [x] RealCLI RED3tests/5failures for stale/missing backend cache identity, then backend admission+sharedmetadata identity fix. Both directions and valid same-mode cache reuse covered.
+- [x] Additional prefix RED on oldM1lowcount output; preserve full M1 prefix by ordered stages and omit already-scanned nominal kernels fromcoverage.
+- [x] Strengthen unique-kernel test for both712(highcount) and721(lowcount); retain original204 multiplicities, no extra duplicates. Initial global-uniqueness assumption corrected to preserve17 original duplicate size pairs at721.
+- [x] S3 fresh independent physical labels now pass(.951/.931IoU); remove2expectedFailure decorators only, assertions unchanged.
+- [ ] Finalsourcecommit, newfullcase42fresh02, complete all current regressions; preliminary3562case42pass is prior evidence only, never substituted as final-version pass.

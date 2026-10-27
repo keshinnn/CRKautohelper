@@ -54,12 +54,17 @@ def main():
     english_runtime=EnglishSceneRuntime();english_runtime.__enter__();atexit.register(english_runtime.close)
     source_path=Path(args.source_manifest);m=json.loads(source_path.read_text(encoding='utf-8'));out=Path(args.output);out.mkdir()
     cached={};cache_ignored=None
+    map_backend='exact_grouped_masks_parallel4' if args.fast_map else 'v1_original'
+    map_backend_sha=hashlib.sha256((Path(__file__).parent/'fast_map_candidates.py').read_bytes()).hexdigest() if args.fast_map else None
     if args.cache:
         old=json.loads(Path(args.cache).read_text(encoding='utf-8'))
         old_ocr=(old.get('analysis') or {}).get('ocrPreprocessing') or {'mode':'original_v1','codeSha256':None}
         if old_ocr.get('mode')!=ocr_mode or old_ocr.get('codeSha256')!=ocr_code:cache_ignored='OCR_PREPROCESSING_CHANGED'
         elif (old.get('analysis') or {}).get('runtimeEvidence',{}).get('fingerprint')!=runtime_evidence['fingerprint']:cache_ignored='OCR_RUNTIME_CHANGED_OR_UNBOUND'
         elif any((old.get('analysis') or {}).get(key)!=hashlib.sha256((Path(__file__).parent/filename).read_bytes()).hexdigest() for key,filename in [('englishSceneCodeSha256','english_scene.py'),('progressCodeSha256','progress_evidence.py')]):cache_ignored='SEMANTIC_RUNTIME_CHANGED_OR_UNBOUND'
+        elif ((old.get('analysis') or {}).get('mapBackend')!=map_backend
+              or 'mapBackendSha256' not in (old.get('analysis') or {})
+              or (old.get('analysis') or {}).get('mapBackendSha256')!=map_backend_sha):cache_ignored='MAP_BACKEND_CHANGED_OR_UNBOUND'
         else:
             for c in old['cases']:
                 try:video_sha=case_source_sha(old,c)
@@ -78,8 +83,8 @@ def main():
       'previewRegistrationCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_registration.py').read_bytes()).hexdigest(),
       'ocrPreprocessing':{'mode':ocr_mode,'codeSha256':ocr_code,'maximumTensorSide':args.bounded_ocr,'thresholdsChanged':False},'cacheIgnoredReason':cache_ignored,
       'cacheManifestSha256':hashlib.sha256(Path(args.cache).read_bytes()).hexdigest() if args.cache else None,
-      'nativeActions':0,'allFramesAnalyzed':False,'mapBackend':'exact_grouped_masks_parallel4' if args.fast_map else 'v1_original',
-      'mapBackendSha256':hashlib.sha256((Path(__file__).parent/'fast_map_candidates.py').read_bytes()).hexdigest() if args.fast_map else None}
+      'nativeActions':0,'allFramesAnalyzed':False,'mapBackend':map_backend,
+      'mapBackendSha256':map_backend_sha}
     for c in m['cases']:
         video_sha=case_source_sha(m,c)
         folder=out/c['id'];folder.mkdir();count=0;tracker=PreviewAnchorTracker()
