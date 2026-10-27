@@ -1,6 +1,7 @@
-"""Same exhaustive V1 kernels and scores, grouped by mask and run concurrently.
+"""Exhaustive V1 search plus approved low-count nominal quantization rescue.
 
-No proposal pruning, changed scales, cropped search regions or lower thresholds.
+Base candidates are preserved. Only when fewer than four survive base NMS,
+scan missing floor/ceil sizes at the canonical scale on the same Canny image.
 The hook is local to an offline V2 process; no V1 files are edited.
 """
 from concurrent.futures import ThreadPoolExecutor
@@ -28,6 +29,33 @@ def _groups(folder,height,width):
             norm=float(np.sqrt(np.square(temp.astype('float32')).sum()))
             groups[key][1].append((order,path.name,temp,norm));order+=1
     return tuple(groups.values())
+
+@lru_cache(maxsize=8)
+def _nominal_groups(folder,height,width):
+    from map_vision import map_templates
+    folder=Path(folder);meta=folder/'template-metadata.json'
+    metadata=json.loads(meta.read_text(encoding='utf-8')) if meta.exists() else {}
+    base=[k for _,kernels in _groups(str(folder),height,width) for k in kernels]
+    seen={(name,tuple(temp.shape[::-1])) for _,name,temp,_ in base}
+    groups={};order=max((k[0] for k in base),default=-1)+1
+    for name,t,ring,_,_ in map_templates(folder):
+        h,w=t.shape;path=Path(name+'.png')
+        reference_height=metadata.get(path.name,{}).get('frame_height',720 if path.stem.startswith('node-b-') else 540)
+        scale=round(height/reference_height,4)
+        for tw in sorted({math.floor(w*scale),math.ceil(w*scale)}):
+            for th in sorted({math.floor(h*scale),math.ceil(h*scale)}):
+                key=(path.name,(tw,th))
+                if key in seen or min(tw,th)<=0 or tw>=width or th>=height:continue
+                seen.add(key)
+                temp=cv2.resize(t,(tw,th),interpolation=cv2.INTER_NEAREST)
+                mask=cv2.resize(ring,(tw,th),interpolation=cv2.INTER_NEAREST)
+                mask_key=(mask.shape,mask.tobytes())
+                if mask_key not in groups:groups[mask_key]=[mask,[]]
+                temp.flags.writeable=False
+                norm=float(np.sqrt(np.square(temp.astype('float32')).sum()))
+                groups[mask_key][1].append((order,path.name,temp,norm));order+=1
+    return tuple(groups.values())
+
 
 def _match_group(edges,group):
     mask,kernels=group
@@ -63,4 +91,15 @@ def node_candidates(image,templates,workers=4):
         r=min(m['box'][2:])/2
         if any(math.dist(m['center'],k['center'])<max(r,min(k['box'][2:])/2) for k in kept):continue
         kept.append(m)
+    if len(kept)<4:
+        extra=_nominal_groups(str(Path(templates).resolve()),gray.shape[0],gray.shape[1])
+        if workers==1:parts=[_match_group(edges,g) for g in extra]
+        else:
+            with ThreadPoolExecutor(max_workers=workers) as pool:parts=list(pool.map(lambda g:_match_group(edges,g),extra))
+        additions=[item for part in parts for item in part]
+        additions.sort(key=lambda item:(-item[2]['score'],item[0],item[1]))
+        for _,_,m in additions:
+            r=min(m['box'][2:])/2
+            if any(math.dist(m['center'],k['center'])<max(r,min(k['box'][2:])/2) for k in kept):continue
+            kept.append(m)
     return kept

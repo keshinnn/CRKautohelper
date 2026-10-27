@@ -186,9 +186,9 @@
     "semantic_hash": ""
   },
   "ml/fast_map_candidates.py": {
-    "mtime": 1792828232.9427924,
-    "seen": 1792881320.016824,
-    "ast_hash": "551081afbecd8ee523d136efc388d3fd",
+    "mtime": 1793115756.1708732,
+    "seen": 1793115842.030297,
+    "ast_hash": "3e7e1fe452b1e2a5435b43597e84c211",
     "semantic_hash": ""
   },
   "ml/freeze_replay_corpus.py": {
@@ -540,9 +540,9 @@
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1793064577.7057283,
-    "seen": 1793064584.89493,
-    "ast_hash": "95af9d18580fc22b1d09b7a63cfc908e",
+    "mtime": 1793111775.963638,
+    "seen": 1793115842.0304542,
+    "ast_hash": "1672a2ccb870e87ca065f1b6068b0bab",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -1188,9 +1188,9 @@
     "semantic_hash": ""
   },
   "docs/reports/crk-helper-v2-development-60-report.md": {
-    "mtime": 1793064497.8335655,
-    "seen": 1793064584.8949099,
-    "ast_hash": "89bdeab82c91fbe97a41dbed393a056b",
+    "mtime": 1793106805.4280388,
+    "seen": 1793115842.0304303,
+    "ast_hash": "e994fb06c3edc0bc752d0f6fc6b0d285",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-27-development-40-60.md": {
@@ -1242,9 +1242,33 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-10-27-case40-resume-status.md": {
-    "mtime": 1793093150.380642,
-    "seen": 1793093398.3211524,
-    "ast_hash": "97be96fd0d86d9f7e69f8217766a00ba",
+    "mtime": 1793106804.4555576,
+    "seen": 1793115842.0304496,
+    "ast_hash": "b874407b4b7a3c06fbb85b5472978171",
+    "semantic_hash": ""
+  },
+  "tests/test_nominal_quantization.py": {
+    "mtime": 1793115681.964801,
+    "seen": 1793115842.0303981,
+    "ast_hash": "25938b3536f3545686937798a7b4727a",
+    "semantic_hash": ""
+  },
+  "docs/reports/2026-10-27-case41-candidate-resampling-analysis.md": {
+    "mtime": 1793111774.9013798,
+    "seen": 1793115842.030429,
+    "ast_hash": "ad106ad07c2e40bda0b533f60b90ba0b",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-10-27-m1-nominal-quantization.md": {
+    "mtime": 1793115592.4586504,
+    "seen": 1793115842.030438,
+    "ast_hash": "9e08494fc8788a408d80494b98b78ba8",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-27-case41-high-handoff.md": {
+    "mtime": 1793106757.8994124,
+    "seen": 1793115842.03045,
+    "ast_hash": "7c2d3b1a94c8a5910a3596f064e2a18e",
     "semantic_hash": ""
   }
 }
