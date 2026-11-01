@@ -540,9 +540,9 @@
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1793132593.5821836,
-    "seen": 1793143039.507047,
-    "ast_hash": "dab190f5942722de5deae84b73e2b1f4",
+    "mtime": 1793552725.665211,
+    "seen": 1793554632.6148856,
+    "ast_hash": "0467f2dd7274576908d3f233af34ec00",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -1302,9 +1302,9 @@
     "semantic_hash": ""
   },
   "ml/map_pipeline.py": {
-    "mtime": 1793142927.1677907,
-    "seen": 1793143039.5069091,
-    "ast_hash": "e93d0b40c7f9eec55b91bc8a8028f943",
+    "mtime": 1793554360.05112,
+    "seen": 1793554632.6147459,
+    "ast_hash": "ea48d848d98eda9875d6276a4fd78bdd",
     "semantic_hash": ""
   },
   "tests/test_candidate_phases.py": {
@@ -1341,6 +1341,18 @@
     "mtime": 1793133253.4384656,
     "seen": 1793143039.507046,
     "ast_hash": "6a7831d868eaf01e758e0ea6afd5df66",
+    "semantic_hash": ""
+  },
+  "tests/test_legacy_current_phase.py": {
+    "mtime": 1793554337.1731553,
+    "seen": 1793554632.61482,
+    "ast_hash": "67984e83c43a8349b3ff60d6b43a02b5",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-11-02-phase-observation-status.md": {
+    "mtime": 1793552721.533306,
+    "seen": 1793554632.6148846,
+    "ast_hash": "7ef11c09b88faa43a8f6d8a45889887e",
     "semantic_hash": ""
   }
 }

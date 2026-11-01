@@ -32,6 +32,15 @@ def observe_geometry(image, packet, root, *, context, coverage=False, timing=Non
             if 'v2OriginalMapReview' not in packet:
                 packet['v2OriginalMapReview'] = packet.get('mapReview')
             packet['mapReview'] = aspect
+        graph = packet.get('mapReview')
+        if coverage and isinstance(graph, dict):
+            # Re-measure against final source-space nodes; never copy a prior node ID.
+            from map_current import inspect_current_node
+            progress = prior.get('header') if isinstance(prior, dict) else None
+            if not isinstance(progress, dict):
+                progress = packet.get('progress') or {}
+            graph['currentPosition'] = inspect_current_node(
+                image, packet.get('evidence') or [], graph, root / 'data/map', progress)
         if timing is not None:
             timing.mark('aspect_geometry')
 
