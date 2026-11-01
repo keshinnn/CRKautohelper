@@ -19,35 +19,56 @@ def observe_geometry(image, packet, root, *, context, coverage=False, timing=Non
         packet['mapReview'] = original
     prior = packet.get('mapReview')
 
-    def recover():
-        repaired = recover_map_geometry(image, packet)
-        if repaired is not packet.get('mapReview'):
-            if 'v2OriginalMapReview' not in packet:
-                packet['v2OriginalMapReview'] = packet.get('mapReview')
-            packet['mapReview'] = repaired
-        if timing is not None:
+    def recover(target, *, baseline=None, record_timing=True):
+        repaired = recover_map_geometry(image, target)
+        if repaired is not target.get('mapReview'):
+            if 'v2OriginalMapReview' not in target:
+                target['v2OriginalMapReview'] = target.get('mapReview')
+            target['mapReview'] = repaired
+        if timing is not None and record_timing:
             timing.mark('sparse_geometry')
-        aspect = recover_map_aspect(image, packet)
-        if aspect is not packet.get('mapReview'):
-            if 'v2OriginalMapReview' not in packet:
-                packet['v2OriginalMapReview'] = packet.get('mapReview')
-            packet['mapReview'] = aspect
-        graph = packet.get('mapReview')
-        if coverage and isinstance(graph, dict):
+        before_aspect = target.get('mapReview')
+        expected = baseline.get('aspectRectification') if baseline is not None else None
+        source_working = copy.deepcopy(before_aspect) if baseline is not None and not expected else None
+        aspect = recover_map_aspect(image, target)
+        if baseline is not None:
+            observed = aspect.get('aspectRectification') if isinstance(aspect, dict) else None
+            geometry_keys = ('sourceSize', 'rectifiedInputSize', 'modelAnalysisSize',
+                             'forwardMatrix', 'inverseMatrix', 'sourceCaptureFrameId',
+                             'sourceImageSha256', 'pixelSha256')
+            reason = None
+            if not expected and observed:
+                reason = 'coverage_cannot_introduce_unaccepted_rectification'
+                accepted = source_working
+            elif expected and (not observed or any(observed.get(k) != expected.get(k) for k in geometry_keys)):
+                reason = 'coverage_geometry_differs_from_same_frame_m1'
+                accepted = copy.deepcopy(baseline)
+            if reason is not None:
+                target['v2CoverageGeometryDecision'] = {
+                    'reason': reason, 'baselineAspect': copy.deepcopy(expected),
+                    'rejectedMapReview': copy.deepcopy(aspect), 'actionsExecuted': False,
+                }
+                aspect = accepted
+        if aspect is not before_aspect:
+            if 'v2OriginalMapReview' not in target:
+                target['v2OriginalMapReview'] = before_aspect
+            target['mapReview'] = aspect
+        graph = target.get('mapReview')
+        if coverage and record_timing and isinstance(graph, dict):
             # Re-measure against final source-space nodes; never copy a prior node ID.
             from map_current import inspect_current_node
             progress = prior.get('header') if isinstance(prior, dict) else None
             if not isinstance(progress, dict):
-                progress = packet.get('progress') or {}
+                progress = target.get('progress') or {}
             graph['currentPosition'] = inspect_current_node(
-                image, packet.get('evidence') or [], graph, root / 'data/map', progress)
-        if timing is not None:
+                image, target.get('evidence') or [], graph, root / 'data/map', progress)
+        if timing is not None and record_timing:
             timing.mark('aspect_geometry')
 
     if not coverage or not isinstance(prior, dict):
         if coverage and timing is not None:
             timing.mark('source_coverage')
-        recover()
+        recover(packet)
         return packet
 
     rgb = image.convert('RGB')
@@ -62,8 +83,17 @@ def observe_geometry(image, packet, root, *, context, coverage=False, timing=Non
             or context.source_size != list(rgb.size)):
         raise ValueError('FRAME_MAP_PRIOR_SOURCE_MISMATCH')
 
+    # Geometry acceptance is decided with the unchanged M1 backend on this frame.
+    # Coverage may add candidates inside that route, never select another raster.
+    from fast_map_candidates import node_candidates, coverage_node_candidates
+    routing = copy.deepcopy(packet)
+    with context.backend(node_candidates):
+        recover(routing, record_timing=False)
+    baseline = routing['mapReview']
+    if timing is not None:
+        timing.mark('baseline_geometry')
+
     import map_vision
-    from fast_map_candidates import coverage_node_candidates
     packet['v2OriginalMapReview'] = copy.deepcopy(prior)
     with context.backend(coverage_node_candidates):
         # Same current raster; do not repeat OCR or borrow an earlier frame's map.
@@ -72,5 +102,5 @@ def observe_geometry(image, packet, root, *, context, coverage=False, timing=Non
         packet['mapReview'] = expanded
         if timing is not None:
             timing.mark('source_coverage')
-        recover()
+        recover(packet, baseline=baseline)
     return packet

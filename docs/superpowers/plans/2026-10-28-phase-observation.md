@@ -29,3 +29,24 @@ Ruling: a same-image feasibility probe shows existing map_aspect already honors 
 
 ## Stop boundaries
 No threshold relaxation, frame-ID hacks, unknown skipping, corpus changes, estimator/raster/model rewrite or native operations. New integration defects: diagnose source and repair only within this approved scope. Broader redesign requires user approval. Do not promote partial batch/suffix diagnostics into a passing full regression.
+# 2026-11-02 補充：幾何路由接受邊界仍須隔離
+
+當版24bfb2a的42組／native20／fixed15閉環與負例30皆通過，但1551張稽核的31張候選變動中，S3 46045一個原本合法的戰鬥節點消失。原圖SHA `2cbdc12a5820b74618251719d9bd683bd08480fa0afd5cea9482b893eca40886`。原生4個候選補強後仍4個；比例恢復在M1模式沒有接受校正圖，而coverage模式接受1231×720→960×561校正圖的7個候選並替換原圖，丟掉原圖右下候選。不是快取、OCR、點擊或預覽身份失敗。完整兩模式邊界重現：`artifacts/phase-routing-20261028-01/native46045-loss-01/boundary-trace.json`。
+
+這仍是已批准的Observer／比例恢復呼叫邊界隔離範圍，不修改估計器、raster、模板銀行、JS權威或驗收閾值。原始M1地圖欄位只保留資料，尚不足以保存整個既有幾何接受路徑。
+
+最小修正與驗收：
+
+1. 先新增真實46045的RED回歸：同幀M1未接受校正時，補強不得憑增加候選另選校正raster而丟掉原本候選；共用與停用模式結果必須一致。保持所有既有測試斷言。
+2. 在`map_pipeline.py`先以原M1 backend完整執行既有幾何路徑，保存當幀基準結果；這不是上一張影格或舊快取。
+3. 補強後的幾何結果僅在是否校正、source／rectified／analysis尺寸及正反矩陣完全符合當幀基準時接受。M1未接受校正而coverage新接受時，保留補強後的source工作觀察；M1已接受但coverage結果不同時，保留同幀已驗證的M1結果。保留拒絕結果與原因供稽核，不將其作為操作權限。不以新IoU容差、clamp或舊節點座標補洞。
+4. 最終同幀currentPosition照既有方法重新測量，來源綁定、proof／JS獨立驗證及交易保持不變。
+5. 先聚焦46045、31／41／42及S3兩張，再完整單元與當版全套必要回歸。修改後必須使用新版本／新證據目錄，不把24bfb2a通過紀錄算入新版。
+6. 原生1551／七張及所有候選變動像素稽核必須沒有新增錯誤或原有合法候選消失。完整回歸、壓力與效能穩定後才43～60；不啟動保留集或P5。
+
+只讀反事實試驗`route-parity-study-02/report.json`在9張聚焦影格中恢復46045原4個候選，同時保持31／41／42目標IoU≥.90與S3兩個獨立GT通過；不是生產修正、閉環或效能驗收。第一版試驗將41組轉換前35928與轉換後GT混比造成斷言失敗，原始腳本／日誌保留；第二版採該組凍結的preFrames35929、35935，沒有改動凍結資料或正式測試。
+
+主要風險是多跑同幀M1幾何增加CPU耗時，與拒絕新校正路徑可能降低補強收益。原圖與校正圖的raw匹配仍共用同幀中間結果；須以原193張隔離基準實測，不宣稱已改善效能。若仍需新候選融合演算法、估計器／raster修改或放寬安全條件，停止並回報。
+
+---
+

@@ -1188,9 +1188,9 @@
     "semantic_hash": ""
   },
   "docs/reports/crk-helper-v2-development-60-report.md": {
-    "mtime": 1793133253.4374645,
-    "seen": 1793143039.5070198,
-    "ast_hash": "f054370290990c807e5578bea17661c1",
+    "mtime": 1793560237.0229218,
+    "seen": 1793563211.532351,
+    "ast_hash": "244b616727d51b2ebe201b4fcb455840",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-27-development-40-60.md": {
@@ -1302,9 +1302,9 @@
     "semantic_hash": ""
   },
   "ml/map_pipeline.py": {
-    "mtime": 1793554360.05112,
-    "seen": 1793554632.6147459,
-    "ast_hash": "ea48d848d98eda9875d6276a4fd78bdd",
+    "mtime": 1793563095.2298582,
+    "seen": 1793563211.5321262,
+    "ast_hash": "00573f28982e1b2aa7527bf04d28e019",
     "semantic_hash": ""
   },
   "tests/test_candidate_phases.py": {
@@ -1326,9 +1326,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-28-phase-observation.md": {
-    "mtime": 1793133225.915387,
-    "seen": 1793143039.50703,
-    "ast_hash": "7d663dcb1def44db4624ff363d553c0f",
+    "mtime": 1793562817.2020447,
+    "seen": 1793563211.5323725,
+    "ast_hash": "cd1062673202e03a0a3b8e74cb6034a1",
     "semantic_hash": ""
   },
   "docs/validation/2026-10-28-coverage-regression-case31.md": {
@@ -1350,9 +1350,15 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-11-02-phase-observation-status.md": {
-    "mtime": 1793552721.533306,
-    "seen": 1793554632.6148846,
-    "ast_hash": "7ef11c09b88faa43a8f6d8a45889887e",
+    "mtime": 1793560262.976056,
+    "seen": 1793563211.5324101,
+    "ast_hash": "192256c9c09fc9a5a8c9586f9d8b2189",
+    "semantic_hash": ""
+  },
+  "tests/test_phase_route_parity.py": {
+    "mtime": 1793563063.2136445,
+    "seen": 1793563211.5322936,
+    "ast_hash": "03d83e3a52942ce8a6154809c2f62a55",
     "semantic_hash": ""
   }
 }
