@@ -27,7 +27,8 @@ def effective_observation_state(packet):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('source_manifest');parser.add_argument('output');parser.add_argument('--cache');parser.add_argument('--fast-map',action='store_true');parser.add_argument('--bounded-ocr',type=int,choices=[736,960,1280]);parser.add_argument('--disable-frame-reuse',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('source_manifest');parser.add_argument('output');parser.add_argument('--cache');parser.add_argument('--fast-map',action='store_true');parser.add_argument('--map-coverage',action='store_true');parser.add_argument('--bounded-ocr',type=int,choices=[736,960,1280]);parser.add_argument('--disable-frame-reuse',action='store_true');args=parser.parse_args()
+    if args.map_coverage and not args.fast_map:parser.error('--map-coverage requires --fast-map')
     root=Path(os.environ.get('CRK_V1_ROOT','F:/CRK helper'));sys.path.insert(0,str(root/'ml'))
     socket.socket.connect=lambda *a,**k: (_ for _ in ()).throw(RuntimeError('network disabled in offline observer'))
     from observation import inspect_capture
@@ -39,7 +40,7 @@ def main():
     from frame_intermediates import FrameIntermediates
     if args.fast_map:
         import map_vision
-        from fast_map_candidates import coverage_node_candidates as node_candidates
+        from fast_map_candidates import node_candidates
         map_vision.node_candidates=node_candidates
     bounded=None;ocr_mode='original_v1';ocr_code=None
     if args.bounded_ocr is not None:
@@ -54,7 +55,7 @@ def main():
     english_runtime=EnglishSceneRuntime();english_runtime.__enter__();atexit.register(english_runtime.close)
     source_path=Path(args.source_manifest);m=json.loads(source_path.read_text(encoding='utf-8'));out=Path(args.output);out.mkdir()
     cached={};cache_ignored=None
-    map_backend='exact_grouped_masks_parallel4' if args.fast_map else 'v1_original'
+    map_backend=('exact_grouped_masks_parallel4_phase_coverage' if args.map_coverage else 'exact_grouped_masks_parallel4') if args.fast_map else 'v1_original'
     map_backend_sha=hashlib.sha256((Path(__file__).parent/'fast_map_candidates.py').read_bytes()).hexdigest() if args.fast_map else None
     if args.cache:
         old=json.loads(Path(args.cache).read_text(encoding='utf-8'))
@@ -73,6 +74,7 @@ def main():
                     if f.get('packet'):cached[(video_sha,f['frameIndex'],f['sha256'])]=f['packet']
     m['analysis']={'observerContractVersion':1,'frameReuseEnabled':not args.disable_frame_reuse,'sourceManifestSha256':hashlib.sha256(source_path.read_bytes()).hexdigest(),
       'runtimeEvidence':runtime_evidence,
+      'mapPipelineSha256':hashlib.sha256((Path(__file__).parent/'map_pipeline.py').read_bytes()).hexdigest(),
       'englishSceneCodeSha256':hashlib.sha256((Path(__file__).parent/'english_scene.py').read_bytes()).hexdigest(),
       'progressCodeSha256':hashlib.sha256((Path(__file__).parent/'progress_evidence.py').read_bytes()).hexdigest(),
       'identityCodeSha256':hashlib.sha256((Path(__file__).parent/'preview_identity.py').read_bytes()).hexdigest(),
@@ -115,19 +117,8 @@ def main():
                 p['sourceBinding']={'videoSha256':video_sha,'frameIndex':f['frameIndex'],'imageSha256':digest}
                 p['progress']=parse_progress(p['evidence'])
                 timing.mark('progress')
-                from sparse_map_geometry import recover_map_geometry
-                original_map=p.pop('v2OriginalMapReview',None)
-                if original_map is not None:p['mapReview']=original_map
-                repaired_map=recover_map_geometry(rgb,p)
-                if repaired_map is not p.get('mapReview'):
-                    p['v2OriginalMapReview']=p.get('mapReview');p['mapReview']=repaired_map
-                timing.mark('sparse_geometry')
-                from map_aspect import recover_map_aspect
-                aspect_map=recover_map_aspect(rgb,p)
-                if aspect_map is not p.get('mapReview'):
-                    if 'v2OriginalMapReview' not in p:p['v2OriginalMapReview']=p.get('mapReview')
-                    p['mapReview']=aspect_map
-                timing.mark('aspect_geometry')
+                from map_pipeline import observe_geometry
+                observe_geometry(rgb,p,root,context=intermediates,coverage=args.map_coverage,timing=timing)
                 p.pop('v2TrackedMap',None)
                 p['v2TrackedMap']=tracker.observe({'png':raw,'packet':p,'atMs':f.get('atMs'),'sourcePtsMs':f.get('sourcePtsMs'),'windowKey':'offline:original-video','geometryVersion':f.get('geometryVersion','original')})
                 timing.mark('preview_registration')

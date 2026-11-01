@@ -1,17 +1,17 @@
-# Graph Report - CRK-Helper-V2  (2026-10-28)
+# Graph Report - CRK-Helper-V2  (2026-11-02)
 
 ## Corpus Check
-- 215 files · ~83,698 words
+- 222 files · ~85,851 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 2 file(s) not represented in the graph (top: (none) 2)
 
 ## Summary
-- 1462 nodes · 3367 edges · 91 communities (64 shown, 27 thin omitted)
-- Extraction: 90% EXTRACTED · 10% INFERRED · 0% AMBIGUOUS · INFERRED: 345 edges (avg confidence: 0.87)
+- 1521 nodes · 3498 edges · 106 communities (68 shown, 38 thin omitted)
+- Extraction: 89% EXTRACTED · 11% INFERRED · 0% AMBIGUOUS · INFERRED: 370 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3562ab30`
+- Built from commit: `3d3b7063`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -21,7 +21,7 @@
 - inspect_preview_identity
 - recover_map_aspect
 - CRK Helper V2：失敗導向重構設計與分階段驗收
-- hashlib
+- pathlib
 - CRK Helper V2 — 閉環測試階段性技術審查報告
 - evidence.test.cjs
 - CRK Helper V2 P4-C 正式集合與隨機壓力測試
@@ -37,7 +37,7 @@
 - 第41組候選生成與重採樣穩定性分析
 - geometry-contract.test.cjs
 - geometry.test.cjs
-- resize_box
+- FrameIntermediates
 - CRK Helper V2：P0–P3核心與審閱修正紀錄
 - CorpusFreezerTests
 - P4-A 原始影片最小閉環結果
@@ -50,61 +50,75 @@
 - pending-preview.test.cjs
 - ProgressRuntime
 - ref_node_fs
-- ordinary-aspect-context.test.cjs
+- Python視覺效能優化與泛化驗證（2026-10-27）
 - PrefixFreezerTests
-- map-aspect-adapter.test.cjs
-- numpy
+- recover_map_geometry
+- fast_map_candidates.py
 - transaction-map-anchor.test.cjs
 - loadReplayFrames
-- convergence-regression.py
+- hashlib
 - CRK Helper V2 P4-C 正式集合與隨機壓力測試
 - observe-image.cjs
 - observer-adapter.cjs
 - ProgressRuntime
 - PreviewSession
 - CRK Helper V2 座標與預覽證據收斂 Implementation Plan
-- re
-- FrameIntermediates
-- replay-development.cjs
+- analyze_cases.py
+- FrameIntermediatesTests
+- preview-panel-scope.test.cjs
 - ContextLineRemeasurementTests
 - ConvergenceRunnerTests
-- higher-floor-replay.test.cjs
+- preview-session.cjs
 - random_replay_plan.py
 - M1有限實作與離線驗證計畫
 - Python vision performance and generalization Implementation Plan
 - V2 座標／預覽收斂驗證紀錄
 - GateSupportedAspectTests
 - S3ScrollCoverageDefects
-- native-ellipse-preview.test.cjs
+- json
 - node-selector.cjs
 - MapTitleRereadTests
-- observer-adapter.test.cjs
-- native-preview-sizes.test.cjs
-- actual_frame
-- CRK Helper V2：60組開發測試階段報告（M1有限實作）
-- benchmark-replay.cjs
-- model-boundary.test.cjs
-- adaptMap
+- PhaseMapPipelineTests
+- resize_box
+- CRK Helper V2：60組開發測試階段報告（coverage當版回歸未通過）
+- PreviewPanelScopeTests
+- inspect_preview_context
+- audit-native-convergence.cjs
 - CacheBackendIdentityTests
-- _MeasuredPreprocess
+- numpy
+- node_candidates
 - specs/2026-10-27-python-vision-performance.md
 - 2026-10-26-convergence-execution-ledger.md
-- FixedScaleTests
-- ref_node_assert
+- NativeEllipsePreviewTests
+- sys
+- SmallAspectSparseTests
+- CompletedNodeCandidateTests
+- EnglishCurrentTests
+- PhaseObserverCliTests
 - OfflineAnalyzerTests
-- StageTiming
+- ReferenceCurrentRingTests
+- convergence-regression.py
+- map-aspect-adapter.test.cjs
+- observer-adapter.test.cjs
+- re
 - 2026-10-27-development-40-60.md
 - 2026-10-27-case40-high-handoff.md
 - 2026-10-27-development40-60-execution-ledger.md
 - 2026-10-27-python-vision-execution-ledger.md
-- sparse-peer-bootstrap.test.cjs
+- higher-floor-replay.test.cjs
 - PreviewRegistrationTests
 - Bounded Coverage Implementation Plan
-- review-regressions.test.cjs
+- NominalQuantizationTests
 - SameFramePipelineTests
 - CRK Helper V2：60組離線閉環測試報告
 - BoundedCoverageTests
+- small-aspect-sparse.test.cjs
+- preview-session.test.cjs
+- 三、第41組的具體原因
 - 2026-10-28-bounded-coverage-design.md
+- reference_line_geometry.py
+- replay-runner.cjs
+- V2 座標與點後等待契約 v1
 
 ## God Nodes (most connected - your core abstractions)
 1. `BoundedOCRRuntime` - 57 edges
@@ -119,10 +133,10 @@
 10. `G0多來源影格與快取隔離 brief` - 27 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `第42組失敗：候選總數足夠，但指定節點缺漏` --references--> `selectNode()`  [INFERRED]
-  docs/reports/crk-helper-v2-development-60-report.md → lib/node-selector.cjs
 - `為什麼不直接改用參考內框校準` --references--> `aspectGeometry()`  [INFERRED]
   docs/reports/2026-10-27-case41-candidate-resampling-analysis.md → lib/observer-adapter.cjs
+- `2. 已保留的最小優化` --references--> `FrameIntermediates`  [INFERRED]
+  docs/validation/2026-10-27-python-vision-performance.md → ml/frame_intermediates.py
 - `不同部分` --references--> `heal_node_candidates()`  [INFERRED]
   docs/reports/2026-10-27-case41-candidate-resampling-analysis.md → ml/heal_node_candidates.py
 - `3.6 恢復篩選與安全拒絕是後果` --references--> `_supplement_orange_candidates()`  [INFERRED]
@@ -133,31 +147,23 @@
 ## Import Cycles
 - None detected.
 
-## Communities (91 total, 27 thin omitted)
+## Communities (106 total, 38 thin omitted)
 
 ### Community 1 - "preview-registration.test.cjs"
-Cohesion: 0.11
-Nodes (25): clone(), frame(), intent, map(), preview(), assert, {map,intent,clone}, {selectNode,validateProof} (+17 more)
+Cohesion: 0.13
+Nodes (19): frame(), intent, map(), preview(), assert, {map,preview,intent}, {runReplay}, {test} (+11 more)
 
 ### Community 2 - "BoundedOCRRuntime"
-Cohesion: 0.21
-Nodes (6): BoundedOCRRuntime, _context_claim_agrees(), _context_reading_key(), normalize_evidence(), _remaining_timer_locators(), OrdinaryWhitespaceTests
+Cohesion: 0.15
+Nodes (7): BoundedOCRRuntime, _context_claim_agrees(), _context_reading_key(), _MeasuredPreprocess, normalize_evidence(), _remaining_timer_locators(), OrdinaryWhitespaceTests
 
 ### Community 3 - "inspect_preview_identity"
-Cohesion: 0.11
-Nodes (6): AspectPreviewTests, EnglishPreviewTests, NativeEllipsePreviewTests, NativePreviewSizeTests, inspect_preview_identity(), PreviewIdentityTests
-
-### Community 4 - "recover_map_aspect"
-Cohesion: 0.07
-Nodes (11): AspectEndpointProjectionTests, ExactCandidateSearchTests, node_candidates(), estimate_pixel_aspect(), MapAspectTests, recover_map_aspect(), iou(), NominalQuantizationTests (+3 more)
+Cohesion: 0.14
+Nodes (5): AspectPreviewTests, EnglishPreviewTests, NativePreviewSizeTests, inspect_preview_identity(), PreviewIdentityTests
 
 ### Community 5 - "CRK Helper V2：失敗導向重構設計與分階段驗收"
 Cohesion: 0.08
 Nodes (25): 10. 本次有條件批准與執行順序, 11. P0–P3 核心實作與審閱修訂（2026-10-24）, 1. 唯一目標與完成邊界, 2.1 已確認的問題, 2.2 尚未證實、需要測試的風險, 2.3 可重用與暫緩處理, 2. 根本原因與證據等級, 3. 方案比較與建議 (+17 more)
-
-### Community 6 - "hashlib"
-Cohesion: 0.12
-Nodes (10): _box(), freeze_corpus(), main(), validate_corpus(), extract_case(), main(), _decode(), recover_preview_anchor() (+2 more)
 
 ### Community 7 - "CRK Helper V2 — 閉環測試階段性技術審查報告"
 Cohesion: 0.05
@@ -172,8 +178,8 @@ Cohesion: 0.07
 Nodes (27): Actual native map-title OCR truncation repair brief, Actual watermarked Chinese title context repair brief, English source development repair brief (2026-10-25), G0多來源影格與快取隔離 brief, Native coordinate convention regression, Sparse native map geometry failure brief, Task2/3 next isolated defect: offscreen-gate ordinary preview scope, Task2/4 actual anisotropic zero-candidate failure brief (+19 more)
 
 ### Community 10 - "map_aspect.py"
-Cohesion: 0.08
-Nodes (25): case_source_sha(), main(), source_frame_id(), completed_geometry(), wrapped(), raster_round(), _cyan_component(), estimate_pixel_aspect() (+17 more)
+Cohesion: 0.16
+Nodes (19): 3.2 比例量測成功，但有數值偏差；座標投影契約沒有算錯, raster_round(), _cyan_component(), estimate_pixel_aspect(), _gate_pixel_geometry(), _gate_supported_aspect_candidates(), _orange_node_pixel_geometry(), _qualified_aspect_groups() (+11 more)
 
 ### Community 11 - "negative-selection-check.cjs"
 Cohesion: 0.10
@@ -192,32 +198,28 @@ Cohesion: 0.07
 Nodes (28): 2026-10-25：區域10、人工標註及多來源隔離, 2026-10-25 延續驗證, LX46 英文與浮水印開發驗證（2026-10-25）, P4-C 開發進度：尚未正式驗收, 三種尺寸流程試跑通過, 來源修訂與浮水印場景（最新）, 原生960×720的三段新閉環, 尚待完成 (+20 more)
 
 ### Community 16 - "accept-replay.cjs"
-Cohesion: 0.15
-Nodes (14): evaluateDevelopmentReplay(), evaluateReplay(), gradeReplay(), {adaptMap,adaptPreview}, {captureCodeVersion}, {compareSnapshot}, crypto, {evaluateReplay} (+6 more)
+Cohesion: 0.09
+Nodes (29): writeCaseArtifacts(), evaluateDevelopmentReplay(), evaluateReplay(), gradeReplay(), captureCodeVersion(), walk(), {adaptMap,adaptPreview}, {captureCodeVersion} (+21 more)
 
 ### Community 17 - "convergence-regression.py"
-Cohesion: 0.17
+Cohesion: 0.14
 Nodes (3): OperationProfile, measured(), OperationProfileTests
 
 ### Community 18 - "inspect_map_actions"
-Cohesion: 0.09
-Nodes (9): CompletedNodeCandidateTests, CurrentPositionEvidenceTests, EnglishCurrentTests, inspect_map_actions(), PixelMapActionTests, ReferenceCurrentRingTests, recover_map_geometry(), SparseMapGeometryTests (+1 more)
+Cohesion: 0.26
+Nodes (3): CurrentPositionEvidenceTests, inspect_map_actions(), PixelMapActionTests
 
 ### Community 19 - "第41組候選生成與重採樣穩定性分析"
-Cohesion: 0.07
-Nodes (26): 3.1 像素內容並未讓下方節點消失, 3.2 比例量測成功，但有數值偏差；座標投影契約沒有算錯, 3.3 模板尺寸取整是可直接重現的斷點, 3.4 影像與模板集合的交叉實驗, 3.5 Canny不是把整張圖的邊緣都弄丟；NMS也不是主要肇因, 3.6 恢復篩選與安全拒絕是後果, 一、結論與建議, 七、推薦M1的最小修改設計（未批准、未實作） (+18 more)
+Cohesion: 0.10
+Nodes (19): 一、結論與建議, 七、推薦M1的最小修改設計（未批准、未實作）, 不同部分, 九、證據索引, 二、實驗範圍與方法, 五、候選方案與實測取捨, 八、尚未釐清與後續研究順序, 六、運算成本與G4的實際意義 (+11 more)
 
 ### Community 20 - "geometry-contract.test.cjs"
-Cohesion: 0.18
-Nodes (20): analysisRaster(), {isDeepStrictEqual:eq}, nativeGeometryEvidence(), resizeBox(), resizePoint(), size(), validateGeometryCertificate(), adaptPreviewContext() (+12 more)
+Cohesion: 0.12
+Nodes (25): analysisRaster(), {isDeepStrictEqual:eq}, nativeGeometryEvidence(), resizeBox(), resizePoint(), size(), validateGeometryCertificate(), adaptPreviewContext() (+17 more)
 
 ### Community 21 - "geometry.test.cjs"
 Cohesion: 0.29
 Nodes (11): analysisToClient(), assertCurrentGeometry(), clientToAnalysis(), clientToScreen(), createGeometry(), finiteArray(), point(), assert (+3 more)
-
-### Community 22 - "resize_box"
-Cohesion: 0.19
-Nodes (9): recover_completed_extents(), node_geometry(), analysis_raster(), geometry_certificate(), resize_box(), resize_point(), _size(), _ordinary_crop_scale() (+1 more)
 
 ### Community 23 - "CRK Helper V2：P0–P3核心與審閱修正紀錄"
 Cohesion: 0.18
@@ -236,56 +238,56 @@ Cohesion: 0.33
 Nodes (6): 2026-10-26 continuation: case17 gate proposal and row pitch, Case18 line raster reference repair (current work), Main14 case20 detected-completed extent failure and isolated repair, Main16 case21: transaction-local semantic root after post-click resize, Native completed proposals and independent supplemental gate, SDD ledger — plan: C:/Users/User/Documents/Codex/CRK-Helper-V2/docs/superpowers/plans/2026-10-24-crk-helper-v2-p0-p3-plan.md
 
 ### Community 32 - "BoundedOCRRuntime"
-Cohesion: 0.13
-Nodes (5): BoundedOCRRuntime, BoundedOCRTests, normalize_evidence(), PreviewContextAspectTests, PreviewTimerTests
+Cohesion: 0.14
+Nodes (6): BoundedOCRRuntime, BoundedOCRTests, normalize_evidence(), actual_frame(), PreviewContextTests, PreviewTimerTests
 
 ### Community 33 - "pending-preview.test.cjs"
-Cohesion: 0.11
-Nodes (17): readDirectMapAnchor(), active, { createGeometry, clientToScreen }, crypto, { readDirectMapAnchor }, { validateProof, validateFrame }, { verifyPreview }, {adaptMap,readDirectMapAnchor} (+9 more)
+Cohesion: 0.12
+Nodes (16): verifyPreview(), {adaptMap,readDirectMapAnchor}, assert, {execFileSync}, fixture(), fs, {loadReplayFrames}, {PreviewSession} (+8 more)
 
 ### Community 34 - "ProgressRuntime"
-Cohesion: 0.11
-Nodes (10): EnglishSceneRuntime, semantic_state(), readings(), EnglishSceneRuntime, EnglishSceneTests, ProgressRuntime, RemainingTimeLocatorTests, SplitDayClockTests (+2 more)
+Cohesion: 0.13
+Nodes (9): EnglishSceneRuntime, semantic_state(), EnglishSceneRuntime, EnglishSceneTests, ProgressRuntime, RemainingTimeLocatorTests, SplitDayClockTests, SplitRemainingClockTests (+1 more)
 
 ### Community 35 - "ref_node_fs"
-Cohesion: 0.06
-Nodes (30): crypto, fs, path, {spawnSync}, crypto, {execFileSync}, fs, path (+22 more)
+Cohesion: 0.05
+Nodes (37): assert, fs, os, path, {test}, {writeCaseArtifacts}, assert, {resizeBox,resizePoint,validateGeometryCertificate} (+29 more)
 
-### Community 36 - "ordinary-aspect-context.test.cjs"
-Cohesion: 0.12
-Nodes (14): readPreviewWaitAuthority(), verifyPreview(), {adaptMap}, assert, fs, path, {readPreviewWaitAuthority}, {test} (+6 more)
+### Community 36 - "Python視覺效能優化與泛化驗證（2026-10-27）"
+Cohesion: 0.18
+Nodes (10): 1. 操作層量測，而非依名稱判斷, 2. 已保留的最小優化, 3. 有量測但未採用的方案, 4. S3缺陷仍OPEN, 5. 獨立審查與當版回歸, 6. 完整成對效能測量, 7. 未達標原因與下一輪有限方案, 8. 執行取捨、審查界限與未完成事項 (+2 more)
 
-### Community 38 - "map-aspect-adapter.test.cjs"
-Cohesion: 0.20
-Nodes (9): {adaptMap,adaptPreview}, assert, fixture(), fs, {loadReplayFrames}, observe(), path, {selectNode} (+1 more)
+### Community 38 - "recover_map_geometry"
+Cohesion: 0.36
+Nodes (3): recover_map_geometry(), SparseMapGeometryTests, WatermarkedCheckTests
 
-### Community 39 - "numpy"
-Cohesion: 0.16
-Nodes (18): completed_node_candidates(), inspect_in_progress(), _reference_ring(), _coverage_groups(), coverage_node_candidates(), _groups(), _match_group(), node_candidates() (+10 more)
+### Community 39 - "fast_map_candidates.py"
+Cohesion: 0.24
+Nodes (8): _CandidateScan, _coverage_groups(), coverage_node_candidates(), _groups(), _match_group(), node_candidates(), _nominal_groups(), _supplement_groups()
 
 ### Community 40 - "transaction-map-anchor.test.cjs"
 Cohesion: 0.18
-Nodes (12): {adaptMap,adaptPreview,readDirectMapAnchor}, assert, fixture(), fs, {loadReplayFrames}, observation(), path, replay() (+4 more)
+Nodes (11): {adaptMap,adaptPreview,readDirectMapAnchor}, assert, fixture(), fs, {loadReplayFrames}, path, replay(), {runReplay} (+3 more)
 
 ### Community 41 - "loadReplayFrames"
 Cohesion: 0.05
 Nodes (40): buildReplayGate(), crypto, fs, invalid(), loadReplayFrames(), sha(), {adaptMap}, assert (+32 more)
 
-### Community 42 - "convergence-regression.py"
-Cohesion: 0.08
-Nodes (18): capture_runtime_evidence(), main(), scale_png(), main(), percentiles(), control_case(), control_request(), main() (+10 more)
+### Community 42 - "hashlib"
+Cohesion: 0.13
+Nodes (11): _box(), freeze_corpus(), main(), validate_corpus(), extract_case(), main(), main(), scale_png() (+3 more)
 
 ### Community 43 - "CRK Helper V2 P4-C 正式集合與隨機壓力測試"
 Cohesion: 0.13
 Nodes (15): Actual case14 original text and near-native recovery brief, Actual glowing-edge candidate and precision repair brief, Actual second-floor case16 pixel evidence brief, CRK Helper V2 P4-C 正式集合與隨機壓力測試, Current evidence, G0追加實作 brief：實際OCR資產與runtime可追溯, G2評分器校正與開發報告, P3回放分支補強：沒有有效點擊不得讀取人工後續 (+7 more)
 
 ### Community 44 - "observe-image.cjs"
-Cohesion: 0.15
-Nodes (12): {adaptMap,adaptPreview}, bundle, crypto, frame, fs, id, packet, path (+4 more)
+Cohesion: 0.06
+Nodes (31): crypto, fs, path, {spawnSync}, crypto, {execFileSync}, fs, path (+23 more)
 
 ### Community 45 - "observer-adapter.cjs"
-Cohesion: 0.23
-Nodes (17): boxValid(), aspectGeometry(), completedGeometry(), crypto, directMapAnchors, healGeometry(), {isDeepStrictEqual}, mapActions() (+9 more)
+Cohesion: 0.10
+Nodes (38): boxValid(), adaptMap(), adaptPreview(), aspectGeometry(), bind(), completedGeometry(), crypto, directMapAnchors (+30 more)
 
 ### Community 46 - "ProgressRuntime"
 Cohesion: 0.23
@@ -295,24 +297,20 @@ Nodes (4): parse_progress(), ProgressRuntime, EnglishProgressTests, ProgressEvid
 Cohesion: 0.20
 Nodes (9): CRK Helper V2 座標與預覽證據收斂 Implementation Plan, Global Constraints, Review Focus, Task 1：根因重現、契約與聚焦測試, Task 2：最小幾何契約, Task 3：預覽控制／身份與等待能力分離, Task 4：同版本回歸、稽核與停止交付, 執行紀錄 (+1 more)
 
-### Community 49 - "re"
-Cohesion: 0.33
-Nodes (6): freeze_prefixes(), _sha(), _box(), _english_ordinary_crop(), inspect_preview_context(), _timer_original_crop()
+### Community 49 - "analyze_cases.py"
+Cohesion: 0.14
+Nodes (7): 預覽控制、身份與操作權限, case_source_sha(), effective_observation_state(), main(), source_frame_id(), StageTiming, StageTimingTests
 
-### Community 50 - "FrameIntermediates"
-Cohesion: 0.08
-Nodes (12): 1. 操作層量測，而非依名稱判斷, 2. 已保留的最小優化, 3. 有量測但未採用的方案, 4. S3缺陷仍OPEN, 5. 獨立審查與當版回歸, 6. 完整成對效能測量, 7. 未達標原因與下一輪有限方案, 8. 執行取捨、審查界限與未完成事項 (+4 more)
-
-### Community 51 - "replay-development.cjs"
-Cohesion: 0.18
-Nodes (10): {adaptMap,adaptPreview}, {buildReplayGate,loadReplayFrames}, {captureCodeVersion}, crypto, {evaluateDevelopmentReplay}, fs, path, {runReplay} (+2 more)
-
-### Community 54 - "higher-floor-replay.test.cjs"
+### Community 51 - "preview-panel-scope.test.cjs"
 Cohesion: 0.22
-Nodes (7): {adaptMap,adaptPreview}, assert, crypto, fs, path, {runReplay}, {test}
+Nodes (7): {adaptPreview}, assert, currentPackets, fixture(), fs, {loadReplayFrames}, {test}
+
+### Community 54 - "preview-session.cjs"
+Cohesion: 0.25
+Nodes (7): readDirectMapAnchor(), active, { createGeometry, clientToScreen }, crypto, { readDirectMapAnchor }, { validateProof, validateFrame }, { verifyPreview }
 
 ### Community 55 - "random_replay_plan.py"
-Cohesion: 0.16
+Cohesion: 0.17
 Nodes (10): inverse_point(), sample_layout(), transform_box(), transform_png(), _box(), _frame(), plan_sequences(), _sha() (+2 more)
 
 ### Community 56 - "M1有限實作與離線驗證計畫"
@@ -327,53 +325,65 @@ Nodes (7): Global Constraints, Python vision performance and generalization Impl
 Cohesion: 0.17
 Nodes (11): V2 座標／預覽收斂驗證紀錄, 原始1551影格與七張歷史變動的當版核對, 固定倍率工具相容性修正, 基準與範圍, 已發現並處理的迴歸, 最終工具版本與驗收邊界, 最終階段結果, 本輪明確取捨與剩餘限制 (+3 more)
 
+### Community 59 - "GateSupportedAspectTests"
+Cohesion: 0.18
+Nodes (3): AspectEndpointProjectionTests, GateSupportedAspectTests, estimate_pixel_aspect()
+
 ### Community 60 - "S3ScrollCoverageDefects"
 Cohesion: 0.20
 Nodes (4): checked_coverage(), GroundTruthFixtureContractTests, iou(), S3ScrollCoverageDefects
 
-### Community 61 - "native-ellipse-preview.test.cjs"
-Cohesion: 0.25
-Nodes (7): {adaptPreview}, assert, {execFileSync}, fixture(), fs, {loadReplayFrames}, {test}
+### Community 61 - "json"
+Cohesion: 0.13
+Nodes (8): render_sequences(), _save_manifest(), control_case(), control_request(), main(), check(), unchanged(), require_phase_backend()
 
 ### Community 62 - "node-selector.cjs"
-Cohesion: 0.26
-Nodes (11): fail(), freeze(), iou(), issued, numbers(), selectNode(), validateFrame(), validateProof() (+3 more)
+Cohesion: 0.20
+Nodes (14): fail(), freeze(), iou(), issued, numbers(), selectNode(), validateFrame(), validateProof() (+6 more)
 
-### Community 64 - "observer-adapter.test.cjs"
+### Community 66 - "resize_box"
+Cohesion: 0.19
+Nodes (8): completed_geometry(), wrapped(), recover_completed_extents(), node_geometry(), resize_box(), resize_point(), _size(), GeometryContractTests
+
+### Community 67 - "CRK Helper V2：60組開發測試階段報告（coverage當版回歸未通過）"
+Cohesion: 0.08
+Nodes (21): 60組當版狀態, CRK Helper V2：60組開發測試階段報告（coverage當版回歸未通過）, 剩餘缺陷與未完成事項, 回歸、稽核與效能, 已執行結果與首筆紀錄, 本輪修改及新增風險, Phase observation implementation plan, Stop boundaries (+13 more)
+
+### Community 69 - "inspect_preview_context"
+Cohesion: 0.22
+Nodes (8): analysis_raster(), geometry_certificate(), _box(), _english_ordinary_crop(), inspect_preview_context(), _ordinary_crop_scale(), _timer_original_crop(), PreviewContextAspectTests
+
+### Community 70 - "audit-native-convergence.cjs"
+Cohesion: 0.22
+Nodes (10): {adaptMap,adaptPreview}, audit(), candidateView(), {captureCodeVersion}, crypto, fs, {loadReplayFrames}, path (+2 more)
+
+### Community 72 - "numpy"
+Cohesion: 0.29
+Nodes (9): completed_node_candidates(), inspect_in_progress(), _reference_ring(), heal_node_candidates(), _check_masks(), _green(), inspect_map_actions(), _neutral_overlay_check() (+1 more)
+
+### Community 73 - "node_candidates"
+Cohesion: 0.43
+Nodes (3): ExactCandidateSearchTests, node_candidates(), SparsePeerBootstrapTests
+
+### Community 84 - "convergence-regression.py"
+Cohesion: 0.27
+Nodes (8): capture_runtime_evidence(), check_snapshot(), code_snapshot(), dependency_snapshot(), main(), merge_cases(), replay_command(), sha()
+
+### Community 85 - "map-aspect-adapter.test.cjs"
+Cohesion: 0.20
+Nodes (9): {adaptMap,adaptPreview}, assert, fixture(), fs, {loadReplayFrames}, observe(), path, {selectNode} (+1 more)
+
+### Community 86 - "observer-adapter.test.cjs"
 Cohesion: 0.20
 Nodes (6): {adaptMap,adaptPreview}, assert, crypto, fs, path, {test}
 
-### Community 65 - "native-preview-sizes.test.cjs"
-Cohesion: 0.25
-Nodes (7): {adaptPreview}, assert, {execFileSync}, fixture(), fs, {loadReplayFrames}, {test}
+### Community 87 - "re"
+Cohesion: 0.36
+Nodes (4): freeze_prefixes(), _sha(), _box(), ordinary_preview_panel_scope()
 
-### Community 66 - "actual_frame"
+### Community 92 - "higher-floor-replay.test.cjs"
 Cohesion: 0.22
-Nodes (7): V2 座標與點後等待契約 v1, 回歸版本, 座標, 預覽控制、身份與操作權限, effective_observation_state(), actual_frame(), PreviewContextTests
-
-### Community 67 - "CRK Helper V2：60組開發測試階段報告（M1有限實作）"
-Cohesion: 0.18
-Nodes (9): 60組逐項結果, CRK Helper V2：60組開發測試階段報告（M1有限實作）, M1修改範圍及驗證, 效能（正式G4仍未達標）, 未完成與下一步邊界, 第42組失敗：候選總數足夠，但指定節點缺漏, 通過率與歷史, M1有限實作與驗證：第41組通過，第42組停在範圍邊界 (+1 more)
-
-### Community 68 - "benchmark-replay.cjs"
-Cohesion: 0.29
-Nodes (5): {adaptMap,adaptPreview}, fs, {loadReplayFrames,buildReplayGate}, {performance}, {runReplay}
-
-### Community 69 - "model-boundary.test.cjs"
-Cohesion: 0.29
-Nodes (6): {adaptMap}, assert, {execFileSync}, fs, {loadReplayFrames}, {test}
-
-### Community 70 - "adaptMap"
-Cohesion: 0.12
-Nodes (30): writeCaseArtifacts(), adaptMap(), adaptPreview(), bind(), markDirectMapAnchor(), runReplay(), captureCodeVersion(), walk() (+22 more)
-
-### Community 79 - "ref_node_assert"
-Cohesion: 0.13
-Nodes (10): assert, fs, path, {test}, {adaptMap}, assert, fs, {loadReplayFrames} (+2 more)
-
-### Community 92 - "sparse-peer-bootstrap.test.cjs"
-Cohesion: 0.25
-Nodes (7): {adaptMap}, assert, {execFileSync}, fixture(), fs, {loadReplayFrames}, {test}
+Nodes (7): {adaptMap,adaptPreview}, assert, crypto, fs, path, {runReplay}, {test}
 
 ### Community 93 - "PreviewRegistrationTests"
 Cohesion: 0.24
@@ -383,31 +393,51 @@ Nodes (4): PreviewAnchorTracker, PreviewAnchorTracker, PreviewRegistrationTests,
 Cohesion: 0.25
 Nodes (7): Bounded Coverage Implementation Plan, Global Constraints, One review fix pass, Review Focus, Task1: RED/GREEN bounded coverage, Task2: current fresh qualification, Task3: finish remaining frozen offline corpus
 
-### Community 95 - "review-regressions.test.cjs"
-Cohesion: 0.29
-Nodes (6): assert, {map,intent,preview}, {PreviewSession}, {selectNode}, setup(), {test}
-
 ### Community 97 - "CRK Helper V2：60組離線閉環測試報告"
 Cohesion: 0.20
 Nodes (8): 2aeae97 當版完整結果, 第40組修復進行狀態（接續High評估）, High接續時的界線, 停止狀態, 已完成的當版驗證, 已定位的資料流, 第41組：候選恢復阻塞與High接續資料, 第41組完整失敗證據
 
+### Community 99 - "small-aspect-sparse.test.cjs"
+Cohesion: 0.25
+Nodes (7): {adaptMap}, assert, {execFileSync}, fixture(), fs, {loadReplayFrames}, {test}
+
+### Community 100 - "preview-session.test.cjs"
+Cohesion: 0.29
+Nodes (6): assert, {map,intent,preview,clone}, {PreviewSession}, {selectNode}, setup(), {test}
+
+### Community 101 - "三、第41組的具體原因"
+Cohesion: 0.33
+Nodes (6): 3.1 像素內容並未讓下方節點消失, 3.3 模板尺寸取整是可直接重現的斷點, 3.4 影像與模板集合的交叉實驗, 3.5 Canny不是把整張圖的邊緣都弄丟；NMS也不是主要肇因, 3.6 恢復篩選與安全拒絕是後果, 三、第41組的具體原因
+
+### Community 103 - "reference_line_geometry.py"
+Cohesion: 0.40
+Nodes (4): reference_geometry(), wrapped(), measure(), reference_line()
+
+### Community 104 - "replay-runner.cjs"
+Cohesion: 0.40
+Nodes (3): {performance}, {PreviewSession}, {selectNode}
+
+### Community 105 - "V2 座標與點後等待契約 v1"
+Cohesion: 0.50
+Nodes (3): V2 座標與點後等待契約 v1, 回歸版本, 座標
+
 ## Knowledge Gaps
-- **27 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **38 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `aspectGeometry()` connect `observer-adapter.cjs` to `第41組候選生成與重採樣穩定性分析`, `geometry-contract.test.cjs`, `adaptMap`?**
-  _High betweenness centrality (0.414) - this node is a cross-community bridge._
-- **Should `json` be split into smaller, more focused modules?**
-  _Cohesion score 0.10938007140538786 - nodes in this community are weakly interconnected._
+- **Why does `第41組候選生成與重採樣穩定性分析` connect `第41組候選生成與重採樣穩定性分析` to `三、第41組的具體原因`?**
+  _High betweenness centrality (0.381) - this node is a cross-community bridge._
 - **Should `preview-registration.test.cjs` be split into smaller, more focused modules?**
-  _Cohesion score 0.1053763440860215 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.13438735177865613 - nodes in this community are weakly interconnected._
+- **Why does `aspectGeometry()` connect `observer-adapter.cjs` to `第41組候選生成與重採樣穩定性分析`, `geometry-contract.test.cjs`?**
+  _High betweenness centrality (0.370) - this node is a cross-community bridge._
+- **Should `BoundedOCRRuntime` be split into smaller, more focused modules?**
+  _Cohesion score 0.1471861471861472 - nodes in this community are weakly interconnected._
 - **Should `inspect_preview_identity` be split into smaller, more focused modules?**
-  _Cohesion score 0.10795454545454546 - nodes in this community are weakly interconnected._
-- **Should `recover_map_aspect` be split into smaller, more focused modules?**
-  _Cohesion score 0.06894049346879536 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.13675213675213677 - nodes in this community are weakly interconnected._
 - **Should `CRK Helper V2：失敗導向重構設計與分階段驗收` be split into smaller, more focused modules?**
   _Cohesion score 0.08 - nodes in this community are weakly interconnected._
-- **Should `hashlib` be split into smaller, more focused modules?**
-  _Cohesion score 0.1164021164021164 - nodes in this community are weakly interconnected._
+- **Should `pathlib` be split into smaller, more focused modules?**
+  _Cohesion score 0.1178743961352657 - nodes in this community are weakly interconnected._

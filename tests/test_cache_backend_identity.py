@@ -6,9 +6,10 @@ class CacheBackendIdentityTests(unittest.TestCase):
   self.temp=tempfile.TemporaryDirectory(prefix='crk-backend-contract-',dir=ROOT/'artifacts');self.folder=pathlib.Path(self.temp.name)
   image=ROOT/'artifacts/p4a-native/0002550.png';self.source=self.folder/'source.json';self.source.write_text(json.dumps({'videoSha256':'a'*64,'cases':[{'id':'cache-backend','frames':[{'image':str(image),'sha256':hashlib.sha256(image.read_bytes()).hexdigest(),'frameIndex':2550,'size':[1440,1080]}]}]}),encoding='utf-8');self.counter=0
  def tearDown(self):self.temp.cleanup()
- def run_analyzer(self,cache=None,fast=True):
+ def run_analyzer(self,cache=None,fast=True,coverage=False):
   self.counter+=1;out=self.folder/('out-'+str(self.counter));args=[sys.executable,'-B',str(ROOT/'ml/analyze_cases.py'),str(self.source),str(out)]
   if fast:args+=['--fast-map']
+  if coverage:args+=['--map-coverage']
   if cache is not None:
    file=self.folder/('cache-'+str(self.counter)+'.json');file.write_text(json.dumps(cache),encoding='utf-8');args+=['--cache',str(file)]
   p=subprocess.run(args,cwd=ROOT,capture_output=True,text=True,encoding='utf-8',timeout=120);self.assertEqual(p.returncode,0,p.stderr)
@@ -33,4 +34,16 @@ class CacheBackendIdentityTests(unittest.TestCase):
    with self.subTest(before=before,after=after):
     baseline,_=self.run_analyzer(fast=before);actual,packet=self.run_analyzer(baseline,fast=after)
     self.assertEqual(actual['analysis']['cacheIgnoredReason'],'MAP_BACKEND_CHANGED_OR_UNBOUND');self.assertTrue(packet['analysisTiming']['freshFullPipeline'])
+ def test_coverage_mode_binds_distinct_backend_and_reuses_only_matching_mode(self):
+  baseline,_=self.run_analyzer()
+  expanded,packet=self.run_analyzer(baseline,coverage=True)
+  self.assertEqual(expanded['analysis']['cacheIgnoredReason'],'MAP_BACKEND_CHANGED_OR_UNBOUND')
+  self.assertTrue(packet['analysisTiming']['freshFullPipeline'])
+  self.assertEqual(expanded['analysis']['mapBackend'],'exact_grouped_masks_parallel4_phase_coverage')
+  reused,packet=self.run_analyzer(expanded,coverage=True)
+  self.assertIsNone(reused['analysis']['cacheIgnoredReason'])
+  self.assertFalse(packet['analysisTiming']['freshFullPipeline'])
+  returned,packet=self.run_analyzer(expanded)
+  self.assertEqual(returned['analysis']['cacheIgnoredReason'],'MAP_BACKEND_CHANGED_OR_UNBOUND')
+  self.assertTrue(packet['analysisTiming']['freshFullPipeline'])
 if __name__=='__main__':unittest.main()

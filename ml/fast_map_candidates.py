@@ -9,7 +9,7 @@ The hook is local to an offline V2 process; no V1 files are edited.
 from concurrent.futures import ThreadPoolExecutor
 from functools import lru_cache
 from pathlib import Path
-import json,math
+import copy,json,math
 import cv2
 import numpy as np
 
@@ -88,41 +88,49 @@ def _match_group(edges,group):
             res[max(0,y-th//2):y+th//2+1,max(0,x-tw//2):x+tw//2+1]=0
     return matches
 
+class _CandidateScan:
+    """One exact model raster; lazy raw stages return independent copies."""
+    def __init__(self,image,templates,workers=4):
+        if workers not in [1,2,4]:raise ValueError('bounded worker count required')
+        if cv2.getNumThreads()!=1:cv2.setNumThreads(1)
+        self.workers=workers
+        a=np.array(image.convert('RGB'));gray=cv2.cvtColor(a,cv2.COLOR_RGB2GRAY)
+        self.edges=cv2.Canny(gray,70,150)
+        self.folder=str(Path(templates).resolve());self.height,self.width=gray.shape
+        self.kept=[]
+        self._append(self._scan(_groups(self.folder,self.height,self.width)))
+        self.low_count=len(self.kept)<4
+        self._m1=None;self._coverage=None
+
+    def _scan(self,groups):
+        if self.workers==1:parts=[_match_group(self.edges,g) for g in groups]
+        else:
+            with ThreadPoolExecutor(max_workers=self.workers) as pool:
+                parts=list(pool.map(lambda g:_match_group(self.edges,g),groups))
+        return [item for part in parts for item in part]
+
+    def _append(self,matches):
+        matches.sort(key=lambda item:(-item[2]['score'],item[0],item[1]))
+        for _,_,m in matches:
+            r=min(m['box'][2:])/2
+            if any(math.dist(m['center'],k['center'])<max(r,min(k['box'][2:])/2) for k in self.kept):continue
+            self.kept.append(m)
+
+    def candidates(self,coverage=False):
+        if type(coverage) is not bool:raise ValueError('boolean coverage mode required')
+        if self._m1 is None:
+            if self.low_count:self._append(self._scan(_nominal_groups(self.folder,self.height,self.width)))
+            self._m1=copy.deepcopy(self.kept)
+        if not coverage:return copy.deepcopy(self._m1)
+        if self._coverage is None:
+            self._append(self._scan(_coverage_groups(self.folder,self.height,self.width,omit_nominal=self.low_count)))
+            self._coverage=copy.deepcopy(self.kept)
+        return copy.deepcopy(self._coverage)
+
+
 def node_candidates(image,templates,workers=4,*,coverage=False):
     if type(coverage) is not bool:raise ValueError('boolean coverage mode required')
-    if workers not in [1,2,4]:raise ValueError('bounded worker count required')
-    # Avoid nesting twelve OpenCV threads inside each of four independent jobs.
-    # This affects only this isolated observer process, not the user's V1 app.
-    if cv2.getNumThreads()!=1:cv2.setNumThreads(1)
-    a=np.array(image.convert('RGB'));gray=cv2.cvtColor(a,cv2.COLOR_RGB2GRAY);edges=cv2.Canny(gray,70,150)
-    groups=_groups(str(Path(templates).resolve()),gray.shape[0],gray.shape[1])
-    if workers==1:parts=[_match_group(edges,g) for g in groups]
-    else:
-        with ThreadPoolExecutor(max_workers=workers) as pool:parts=list(pool.map(lambda g:_match_group(edges,g),groups))
-    matches=[item for part in parts for item in part]
-    matches.sort(key=lambda item:(-item[2]['score'],item[0],item[1]))
-    kept=[]
-    for _,_,m in matches:
-        r=min(m['box'][2:])/2
-        if any(math.dist(m['center'],k['center'])<max(r,min(k['box'][2:])/2) for k in kept):continue
-        kept.append(m)
-    low_count=len(kept)<4
-    folder=str(Path(templates).resolve());height,width=gray.shape
-    banks=[]
-    if low_count:banks.append(_nominal_groups(folder,height,width))
-    if coverage:banks.append(_coverage_groups(folder,height,width,omit_nominal=low_count))
-    for extra in banks:
-        if workers==1:parts=[_match_group(edges,g) for g in extra]
-        else:
-            with ThreadPoolExecutor(max_workers=workers) as pool:parts=list(pool.map(lambda g:_match_group(edges,g),extra))
-        additions=[item for part in parts for item in part]
-        additions.sort(key=lambda item:(-item[2]['score'],item[0],item[1]))
-        for _,_,m in additions:
-            r=min(m['box'][2:])/2
-            if any(math.dist(m['center'],k['center'])<max(r,min(k['box'][2:])/2) for k in kept):continue
-            kept.append(m)
-    return kept
-
+    return _CandidateScan(image,templates,workers).candidates(coverage)
 
 def coverage_node_candidates(image,templates,workers=4):
     """Bounded V2 coverage; candidates still carry no selection authority."""

@@ -67,4 +67,21 @@ class ConvergenceRunnerTests(unittest.TestCase):
             bad=json.loads(json.dumps(good));mutate(bad['cases'][0])
             with self.assertRaises(ValueError):m.merge_cases(source,[bad])
 
+    def test_negative_runner_requires_current_coverage_backend_and_pipeline(self):
+        spec=importlib.util.spec_from_file_location('negative',ROOT/'scripts/convergence-negatives.py')
+        negative=importlib.util.module_from_spec(spec);spec.loader.exec_module(negative)
+        code={'ml/fast_map_candidates.py':'a'*64,'ml/map_pipeline.py':'b'*64}
+        good={'analysis':{'mapBackend':'exact_grouped_masks_parallel4_phase_coverage',
+                          'mapBackendSha256':'a'*64,'mapPipelineSha256':'b'*64}}
+        negative.require_phase_backend(good,code)
+        for key,value in [('mapBackend','exact_grouped_masks_parallel4'),
+                          ('mapBackendSha256','0'*64),('mapPipelineSha256','0'*64),
+                          ('mapPipelineSha256',None)]:
+            wrong=json.loads(json.dumps(good))
+            if value is None:wrong['analysis'].pop(key)
+            else:wrong['analysis'][key]=value
+            with self.subTest(key=key,value=value):
+                with self.assertRaisesRegex(ValueError,'CURRENT_COVERAGE_BACKEND_REQUIRED'):
+                    negative.require_phase_backend(wrong,code)
+
 if __name__=='__main__':unittest.main()

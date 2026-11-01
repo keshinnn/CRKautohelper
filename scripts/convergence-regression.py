@@ -76,12 +76,12 @@ def main():
             'runnerSha256':sha(__file__),'sourceManifestSha256':sha(source),
             'cacheManifestSha256':sha(args.cache) if args.cache else None,
             'expectedCases':len(original['cases']),'workers':args.workers,'frameReuseEnabled':not args.disable_frame_reuse,'performanceEvidence':False,
-            'nativeActions':0,'g4Complete':False,'shards':[]}
+            'nativeActions':0,'g4Complete':False,'mapBackendPolicy':'exact_grouped_masks_parallel4_phase_coverage','shards':[]}
     def save():(out/'report.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     def run_shard(index):
         folder=out/f'shard-{index}';folder.mkdir();group={**original,'cases':original['cases'][index::args.workers]}
         src=folder/'source.json';src.write_text(json.dumps(group,indent=2),encoding='utf-8')
-        command=[sys.executable,'-B','ml/analyze_cases.py',str(src),str(folder/'analysis'),'--fast-map','--bounded-ocr','960']
+        command=[sys.executable,'-B','ml/analyze_cases.py',str(src),str(folder/'analysis'),'--fast-map','--map-coverage','--bounded-ocr','960']
         if args.disable_frame_reuse:command+=['--disable-frame-reuse']
         if args.cache:command+=['--cache',str(Path(args.cache).resolve())]
         with (folder/'analysis.log').open('wb') as log:r=subprocess.run(command,cwd=root,stdout=log,stderr=subprocess.STDOUT)
@@ -102,6 +102,7 @@ def main():
         if any(s['status']!=0 for s in report['shards']):raise ValueError('ANALYSIS_FAILED_SEE_SHARD_LOG')
         manifests=[json.loads((Path(s['path'])/'analysis/manifest.json').read_text(encoding='utf-8')) for s in sorted(report['shards'],key=lambda s:s['index'])]
         if not all(m['analysis']['allFramesAnalyzed'] is True for m in manifests):raise ValueError('INCOMPLETE_ANALYSIS')
+        if not all(m['analysis'].get('mapBackend')==report['mapBackendPolicy'] for m in manifests):raise ValueError('WRONG_MAP_BACKEND_POLICY')
         if not all(m['analysis']['runtimeEvidence']['fingerprint']==runtime['fingerprint'] for m in manifests):raise ValueError('SHARD_RUNTIME_MISMATCH')
         cases=merge_cases(original,manifests);merged={**original,'cases':cases,'analysis':{**manifests[0]['analysis'],'sourceManifestSha256':sha(source),'shardProvenance':report['shards']}}
         manifest=out/'manifest.json';manifest.write_text(json.dumps(merged,indent=2),encoding='utf-8')

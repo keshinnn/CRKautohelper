@@ -3,6 +3,15 @@ import argparse,hashlib,importlib.util,json,os,subprocess,sys
 from pathlib import Path
 
 
+def require_phase_backend(manifest,code):
+    analysis=manifest.get('analysis') or {}
+    expected={'mapBackend':'exact_grouped_masks_parallel4_phase_coverage',
+              'mapBackendSha256':code['ml/fast_map_candidates.py'],
+              'mapPipelineSha256':code['ml/map_pipeline.py']}
+    if any(analysis.get(key)!=value for key,value in expected.items()):
+        raise ValueError('CURRENT_COVERAGE_BACKEND_REQUIRED')
+
+
 def control_case(manifest,case_id):
     cases=[c for c in manifest['cases'] if c['id']==case_id]
     if len(cases)!=1 or len(cases[0]['frames'])<2:raise ValueError('CONTROL_CASE_REQUIRED')
@@ -28,7 +37,7 @@ def main():
     runtime=capture_runtime_evidence();v1=Path(os.environ.get('CRK_V1_ROOT','F:/CRK helper')).resolve();deps=reg.dependency_snapshot(v1,runtime);code=reg.code_snapshot(root)
     qualification=root/'data/p4c/negative-random-source-v1.json';q=json.loads(qualification.read_text(encoding='utf-8'));source=root/q['sourceManifest']
     if reg.sha(source)!=q['sourceManifestSha256'] or q['cases']!=30 or q['renderedFrames']!=60:raise ValueError('NEGATIVE_CORPUS_CHANGED')
-    m=json.loads(source.read_text(encoding='utf-8'));report={'passed':False,'results':[],'expectedCases':30,'sourceQualificationSha256':reg.sha(qualification),'sourceManifestSha256':reg.sha(source),'code':code,'externalDependencies':deps,'runtimeFingerprint':runtime['fingerprint'],'runnerSha256':reg.sha(__file__),'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root).decode().strip(),'nativeActions':0,'virtualClicks':0,'formalNegativeGateComplete':False,'g4Complete':False,'holdoutTouched':False}
+    m=json.loads(source.read_text(encoding='utf-8'));report={'passed':False,'results':[],'expectedCases':30,'sourceQualificationSha256':reg.sha(qualification),'sourceManifestSha256':reg.sha(source),'code':code,'externalDependencies':deps,'runtimeFingerprint':runtime['fingerprint'],'runnerSha256':reg.sha(__file__),'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root).decode().strip(),'nativeActions':0,'virtualClicks':0,'formalNegativeGateComplete':False,'g4Complete':False,'holdoutTouched':False,'mapBackendPolicy':'exact_grouped_masks_parallel4_phase_coverage'}
     def unchanged():
         reg.check_snapshot(root,code)
         if reg.dependency_snapshot(v1,runtime)!=deps:raise ValueError('EXTERNAL_DEPENDENCIES_CHANGED')
@@ -38,13 +47,17 @@ def main():
         unchanged();return r.returncode,json.loads((folder/'check/report.json').read_text(encoding='utf-8'))
     try:
         positive_file=Path(args.positive_analysis).resolve();positive=json.loads(positive_file.read_text(encoding='utf-8'))
+        require_phase_backend(positive,code)
         original=control_case(positive,args.control_case)
         for c in m['cases']:
             unchanged();folder=out/c['id'];folder.mkdir();p=folder/'source.json';p.write_text(json.dumps({**m,'cases':[c]},indent=2),encoding='utf-8')
-            with (folder/'analysis.log').open('wb') as log:r=subprocess.run([sys.executable,'-B','ml/analyze_cases.py',str(p),str(folder/'analysis'),'--fast-map','--bounded-ocr','960'],cwd=root,stdout=log,stderr=subprocess.STDOUT)
+            with (folder/'analysis.log').open('wb') as log:r=subprocess.run([sys.executable,'-B','ml/analyze_cases.py',str(p),str(folder/'analysis'),'--fast-map','--map-coverage','--bounded-ocr','960'],cwd=root,stdout=log,stderr=subprocess.STDOUT)
             unchanged()
             if r.returncode and 'UNKNOWN; failure packet preserved:' not in (folder/'analysis.log').read_text(encoding='utf-8'):raise ValueError('UNEXPECTED_NEGATIVE_ANALYSIS_FAILURE')
-            status,result=check(folder/'analysis/manifest.json',folder);report['results'].append({k:v for k,v in result.items() if k!='version'});save()
+            analyzed=folder/'analysis/manifest.json'
+            require_phase_backend(json.loads(analyzed.read_text(encoding='utf-8')),code)
+            status,result=check(analyzed,folder)
+            report['results'].append({**{k:v for k,v in result.items() if k!='version'},'analysisManifestSha256':reg.sha(analyzed),'mapBackendPolicy':report['mapBackendPolicy']});save()
             print(json.dumps({'completed':len(report['results']),'id':c['id'],'passed':result['passed']}),flush=True)
             if status or not result['passed']:raise ValueError('NEGATIVE_REJECTION_FAILED')
         gray_case=next(c for c in m['cases'] if c.get('baseNegativeId')=='neg-native-gray-node')

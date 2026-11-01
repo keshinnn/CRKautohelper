@@ -33,7 +33,7 @@ class S3ScrollCoverageDefects(unittest.TestCase):
   cls.temp=tempfile.TemporaryDirectory(dir=ROOT/'artifacts');cls.addClassCleanup(cls.temp.cleanup)
   m=json.loads((ROOT/'artifacts/performance-20261027/profile-source.json').read_text(encoding='utf-8'));c=next(c for c in m['cases'] if c['id']=='dev-earlier-0Q-zone4-floor1-col4')
   source=Path(cls.temp.name)/'source.json';out=Path(cls.temp.name)/'analysis';source.write_text(json.dumps({**m,'cases':[c]}),encoding='utf-8')
-  r=subprocess.run([sys.executable,'-B','ml/analyze_cases.py',str(source),str(out),'--fast-map','--bounded-ocr','960'],cwd=ROOT,capture_output=True,text=True,encoding='utf-8',timeout=120)
+  r=subprocess.run([sys.executable,'-B','ml/analyze_cases.py',str(source),str(out),'--fast-map','--map-coverage','--bounded-ocr','960'],cwd=ROOT,capture_output=True,text=True,encoding='utf-8',timeout=120)
   if r.returncode:raise RuntimeError(r.stderr)
   result=json.loads((out/'manifest.json').read_text(encoding='utf-8'));cls.packets={f['frameIndex']:json.loads(Path(f['packet']).read_text(encoding='utf-8')) for f in result['cases'][0]['frames']}
   cls.covered={label['frameIndex']:checked_coverage(label,cls.packets[label['frameIndex']],cls.data['parentVideoSha256']) for label in cls.labels}

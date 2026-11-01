@@ -162,9 +162,9 @@
     "semantic_hash": ""
   },
   "ml/analyze_cases.py": {
-    "mtime": 1793127354.1244788,
-    "seen": 1793127751.7364383,
-    "ast_hash": "dfffd16b0761aefba305fb60f33a0aa0",
+    "mtime": 1793133686.9761994,
+    "seen": 1793143039.5068922,
+    "ast_hash": "db5669232a4af78ef0880e4ff7828578",
     "semantic_hash": ""
   },
   "ml/bounded_ocr.py": {
@@ -186,9 +186,9 @@
     "semantic_hash": ""
   },
   "ml/fast_map_candidates.py": {
-    "mtime": 1793127835.0022576,
-    "seen": 1793127840.4645672,
-    "ast_hash": "50b06b2dec0a26ecb83561ad09ca7dff",
+    "mtime": 1793133384.651126,
+    "seen": 1793143039.5068986,
+    "ast_hash": "0b0cd8c8ce6ae00956c80a60947fb93f",
     "semantic_hash": ""
   },
   "ml/freeze_replay_corpus.py": {
@@ -540,9 +540,9 @@
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1793124742.0750995,
-    "seen": 1793126020.465603,
-    "ast_hash": "ff8a1d10907c1b0e430c44ccf46209fe",
+    "mtime": 1793132593.5821836,
+    "seen": 1793143039.507047,
+    "ast_hash": "dab190f5942722de5deae84b73e2b1f4",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -990,15 +990,15 @@
     "semantic_hash": ""
   },
   "scripts/convergence-negatives.py": {
-    "mtime": 1793034429.100286,
-    "seen": 1793034589.3517773,
-    "ast_hash": "e8ac1cc7a6583137062df2e780821867",
+    "mtime": 1793552331.6970255,
+    "seen": 1793552407.3056777,
+    "ast_hash": "49edab151cda3110ad490566399339b4",
     "semantic_hash": ""
   },
   "scripts/convergence-regression.py": {
-    "mtime": 1793040306.8019137,
-    "seen": 1793040547.6691375,
-    "ast_hash": "520206153f8872075cc85d38d9c5c1c2",
+    "mtime": 1793133686.9942315,
+    "seen": 1793143039.50693,
+    "ast_hash": "e38686e861b0d6b8c0a8ee4ff9bc538f",
     "semantic_hash": ""
   },
   "scripts/negative-selection-check.cjs": {
@@ -1020,9 +1020,9 @@
     "semantic_hash": ""
   },
   "tests/test_convergence_runner.py": {
-    "mtime": 1793034381.7176287,
-    "seen": 1793034589.351859,
-    "ast_hash": "353faa9fc3e28f38a20d4051777f02ee",
+    "mtime": 1793552297.9493034,
+    "seen": 1793552407.3058207,
+    "ast_hash": "8a5a970c420e7a2a2279ebb5e6262334",
     "semantic_hash": ""
   },
   "tests/test_geometry_contract.py": {
@@ -1110,9 +1110,9 @@
     "semantic_hash": ""
   },
   "ml/frame_intermediates.py": {
-    "mtime": 1793040306.799401,
-    "seen": 1793040547.6690898,
-    "ast_hash": "1f3e08e45d7254e706799b00d7598770",
+    "mtime": 1793142974.8208437,
+    "seen": 1793143039.5069,
+    "ast_hash": "31143ef5a21e5c7d1a80da2bca6386c9",
     "semantic_hash": ""
   },
   "ml/operation_profile.py": {
@@ -1152,9 +1152,9 @@
     "semantic_hash": ""
   },
   "tests/test_s3_scroll_defects.py": {
-    "mtime": 1793127354.1264808,
-    "seen": 1793127751.7365458,
-    "ast_hash": "5845a37b90f008884899b7489f4fc664",
+    "mtime": 1793133686.9962277,
+    "seen": 1793143039.507006,
+    "ast_hash": "fd2ebd64fb870ddbc1e7a30b856b27cb",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-27-python-vision-performance.md": {
@@ -1188,9 +1188,9 @@
     "semantic_hash": ""
   },
   "docs/reports/crk-helper-v2-development-60-report.md": {
-    "mtime": 1793124946.0547235,
-    "seen": 1793126020.465578,
-    "ast_hash": "d55ad8de9c630e4fd0fff0349fdb14e0",
+    "mtime": 1793133253.4374645,
+    "seen": 1793143039.5070198,
+    "ast_hash": "f054370290990c807e5578bea17661c1",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-27-development-40-60.md": {
@@ -1296,9 +1296,51 @@
     "semantic_hash": ""
   },
   "tests/test_cache_backend_identity.py": {
-    "mtime": 1793127694.2909124,
-    "seen": 1793127751.7365098,
-    "ast_hash": "75f4ef248b0c5484cf7374543601b0ea",
+    "mtime": 1793133622.7585468,
+    "seen": 1793143039.5069675,
+    "ast_hash": "bc050bdc0eb52d487159713cc42345b1",
+    "semantic_hash": ""
+  },
+  "ml/map_pipeline.py": {
+    "mtime": 1793142927.1677907,
+    "seen": 1793143039.5069091,
+    "ast_hash": "e93d0b40c7f9eec55b91bc8a8028f943",
+    "semantic_hash": ""
+  },
+  "tests/test_candidate_phases.py": {
+    "mtime": 1793142945.1315248,
+    "seen": 1793143039.5069683,
+    "ast_hash": "73db99b8f310464cacf2b010b047bc57",
+    "semantic_hash": ""
+  },
+  "tests/test_phase_map_pipeline.py": {
+    "mtime": 1793143005.216233,
+    "seen": 1793143039.5069923,
+    "ast_hash": "813a1bb61afe01579e18c981bda10dae",
+    "semantic_hash": ""
+  },
+  "tests/test_phase_observer_cli.py": {
+    "mtime": 1793133752.9519665,
+    "seen": 1793143039.506993,
+    "ast_hash": "6d3706332dcb7f8dd6002531ad4c1337",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-10-28-phase-observation.md": {
+    "mtime": 1793133225.915387,
+    "seen": 1793143039.50703,
+    "ast_hash": "7d663dcb1def44db4624ff363d553c0f",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-28-coverage-regression-case31.md": {
+    "mtime": 1793133253.4374645,
+    "seen": 1793143039.5070453,
+    "ast_hash": "6240d37cda7f3402dd36c806b9a57abc",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-10-28-coverage-status.md": {
+    "mtime": 1793133253.4384656,
+    "seen": 1793143039.507046,
+    "ast_hash": "6a7831d868eaf01e758e0ea6afd5df66",
     "semantic_hash": ""
   }
 }
