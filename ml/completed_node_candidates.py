@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 from PIL import Image
 from geometry_contract import resize_box, resize_point
+from icon_ranking import rank_required_icon
 
 
 def completed_node_candidates(image,initial,inverse,root,binding,normal_size,normal_pixel,analysis_size,analysis_pixel):
@@ -34,11 +35,10 @@ def completed_node_candidates(image,initial,inverse,root,binding,normal_size,nor
                         for dy in range(-radius,radius+1):
                             box=[bx+dx,by+dy,bw,bh]
                             if min(box[:2])<0 or box[0]+bw>image.width or box[1]+bh>image.height:continue
-                            q=np.asarray(image.crop((box[0],box[1],box[0]+bw,box[1]+bh)).resize((58,58)))[12:46,12:46];gray=cv2.cvtColor(q,cv2.COLOR_RGB2GRAY);scores=[]
-                            for name,_,_,ref,refg in templates:
-                                score=.7*float(cv2.matchTemplate(gray,refg,cv2.TM_CCOEFF_NORMED)[0,0])+.3*(1-np.abs(q.astype(float)-ref).mean()/255);scores.append((float(score),name))
-                            done=max(s for s in scores if s[1] in ('node-done','node-b-done'));other=max(s for s in scores if s[1] not in ('node-done','node-b-done'))
-                            if done[0]<.9 or done[0]-other[0]<.08:continue
+                            q=np.asarray(image.crop((box[0],box[1],box[0]+bw,box[1]+bh)).resize((58,58)))[12:46,12:46];gray=cv2.cvtColor(q,cv2.COLOR_RGB2GRAY)
+                            ranking=rank_required_icon(q,gray,templates,('node-done','node-b-done'),best['iconScore'] if best else None)
+                            if ranking is None:continue
+                            done,other=ranking
                             check=_green(q);coverage=float(check.mean());check_score=0.
                             if not .04<coverage<.30:continue
                             for mask in _check_masks():

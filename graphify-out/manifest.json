@@ -540,9 +540,9 @@
     "semantic_hash": ""
   },
   "progress.md": {
-    "mtime": 1793552725.665211,
-    "seen": 1793554632.6148856,
-    "ast_hash": "0467f2dd7274576908d3f233af34ec00",
+    "mtime": 1793577131.6858947,
+    "seen": 1793583089.1527572,
+    "ast_hash": "3113a55410bcaa34ab166de64c9b5654",
     "semantic_hash": ""
   },
   "tests/test_map_title_reread.py": {
@@ -642,9 +642,9 @@
     "semantic_hash": ""
   },
   "ml/map_aspect.py": {
-    "mtime": 1793021982.5701964,
-    "seen": 1793025805.520374,
-    "ast_hash": "4e4a7a248518f70b4c3f4a9d581736cb",
+    "mtime": 1793582696.8934147,
+    "seen": 1793583089.1524818,
+    "ast_hash": "1999df9603f6fdfbb02c0913419855c3",
     "semantic_hash": ""
   },
   "tests/map-aspect-adapter.test.cjs": {
@@ -708,9 +708,9 @@
     "semantic_hash": ""
   },
   "ml/completed_node_candidates.py": {
-    "mtime": 1793016463.3357913,
-    "seen": 1793018837.1443286,
-    "ast_hash": "07ca7017d25bff72cb5380c2719d35b5",
+    "mtime": 1793582696.8914158,
+    "seen": 1793583089.1524665,
+    "ast_hash": "f442f220ee81adbf56bde867c2dcc6b4",
     "semantic_hash": ""
   },
   "tests/test_completed_node_candidates.py": {
@@ -1188,9 +1188,9 @@
     "semantic_hash": ""
   },
   "docs/reports/crk-helper-v2-development-60-report.md": {
-    "mtime": 1793560237.0229218,
-    "seen": 1793563211.532351,
-    "ast_hash": "244b616727d51b2ebe201b4fcb455840",
+    "mtime": 1793577131.6448026,
+    "seen": 1793583089.1526968,
+    "ast_hash": "3e48851f3eadc02078e6f03ebe22ae0a",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-10-27-development-40-60.md": {
@@ -1350,15 +1350,177 @@
     "semantic_hash": ""
   },
   "docs/validation/2026-11-02-phase-observation-status.md": {
-    "mtime": 1793560262.976056,
-    "seen": 1793563211.5324101,
-    "ast_hash": "192256c9c09fc9a5a8c9586f9d8b2189",
+    "mtime": 1793577131.6458094,
+    "seen": 1793583089.152754,
+    "ast_hash": "4b3d4a8afcb31d11aeeebbaf18083c33",
     "semantic_hash": ""
   },
   "tests/test_phase_route_parity.py": {
     "mtime": 1793563063.2136445,
     "seen": 1793563211.5322936,
     "ast_hash": "03d83e3a52942ce8a6154809c2f62a55",
+    "semantic_hash": ""
+  },
+  "ml/icon_ranking.py": {
+    "mtime": 1793582677.374267,
+    "seen": 1793583089.152479,
+    "ast_hash": "f0ce5fb4a5bc724c5dacb3e8645d75c7",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/manifest.json": {
+    "mtime": 1793582455.485131,
+    "seen": 1793583089.1525347,
+    "ast_hash": "e4dde55f4440c69b0084c8969dec84a5",
+    "semantic_hash": ""
+  },
+  "tests/test_icon_ranking.py": {
+    "mtime": 1793582462.1702945,
+    "seen": 1793583089.1526208,
+    "ast_hash": "321ee5e0b8aa7aee3c4e0617dc3a4375",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-11-02-geometry-performance.md": {
+    "mtime": 1793582388.506505,
+    "seen": 1793583089.1527178,
+    "ast_hash": "6764cc07b9d1fbe4f09e5d73262d06e3",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-11-02-native-candidate-loss.md": {
+    "mtime": 1793563300.6273415,
+    "seen": 1793583089.1527526,
+    "ast_hash": "158f1d102d70e582fa5eeca7f5572763",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-11-02-route-parity-performance-stop.md": {
+    "mtime": 1793577041.3485305,
+    "seen": 1793583089.1527557,
+    "ast_hash": "61ba69dc2b9869af98a933856db44643",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/orange-ranking-fixtures-00-low-done.png": {
+    "mtime": 1793582329.853949,
+    "seen": 1793583089.1527586,
+    "ast_hash": "640b9252150a1d54c3fc1c4aacdda073",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/orange-ranking-fixtures-01-low-done.png": {
+    "mtime": 1793582329.8599796,
+    "seen": 1793583089.1527598,
+    "ast_hash": "24c3ac82a8d438d24b9a232fcb1f7c4f",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/orange-ranking-fixtures-02-low-done.png": {
+    "mtime": 1793582329.866518,
+    "seen": 1793583089.152761,
+    "ast_hash": "781f3b575183f089a182887e1d1e5921",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/orange-ranking-fixtures-03-ranking-accept.png": {
+    "mtime": 1793582329.8855517,
+    "seen": 1793583089.1527624,
+    "ast_hash": "08c95ccf62b028f376ae7612e50797a0",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/orange-ranking-fixtures-04-ranking-accept.png": {
+    "mtime": 1793582329.8910637,
+    "seen": 1793583089.1527636,
+    "ast_hash": "64ad96259a3cc34b2babb5ec40a23b61",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/orange-ranking-fixtures-05-incumbent-reject.png": {
+    "mtime": 1793582329.9000695,
+    "seen": 1793583089.1527653,
+    "ast_hash": "ba541cf34edfcc15a3007010e3c2a8c8",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/orange-ranking-fixtures-06-ranking-accept.png": {
+    "mtime": 1793582329.906588,
+    "seen": 1793583089.1527665,
+    "ast_hash": "7e9f283d4d6733823f99e22de3e9624f",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/orange-ranking-fixtures-07-incumbent-reject.png": {
+    "mtime": 1793582329.9110913,
+    "seen": 1793583089.152768,
+    "ast_hash": "3024041e2730d50e133e6f487abae166",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/orange-ranking-fixtures-08-incumbent-reject.png": {
+    "mtime": 1793582329.9216058,
+    "seen": 1793583089.1527693,
+    "ast_hash": "e2b6b42b1a43a47770857fd3ba5f5e8e",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-00-low-done.png": {
+    "mtime": 1793582154.186191,
+    "seen": 1793583089.1527705,
+    "ast_hash": "0a939ca6674432326b595a8dddd95b9b",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-01-low-done.png": {
+    "mtime": 1793582154.1921923,
+    "seen": 1793583089.152772,
+    "ast_hash": "3122fae8f84e8c646e05b578f4efedb7",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-02-low-done.png": {
+    "mtime": 1793582154.1987946,
+    "seen": 1793583089.1527731,
+    "ast_hash": "8f56093b18244af88d84cdffd804c952",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-03-margin-reject.png": {
+    "mtime": 1793582154.7632413,
+    "seen": 1793583089.1527743,
+    "ast_hash": "5a68267ee362b637f992ba3bd53abce8",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-04-margin-reject.png": {
+    "mtime": 1793582154.7722454,
+    "seen": 1793583089.1527758,
+    "ast_hash": "0941eedf5d22793eabb538227967be43",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-05-margin-reject.png": {
+    "mtime": 1793582154.7782605,
+    "seen": 1793583089.152777,
+    "ast_hash": "46c796cda98c49f23973870d48bb3001",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-06-ranking-accept.png": {
+    "mtime": 1793582154.891989,
+    "seen": 1793583089.1527781,
+    "ast_hash": "8d518da86cdb66865b81f3877d1af950",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-07-ranking-accept.png": {
+    "mtime": 1793582154.9025414,
+    "seen": 1793583089.1527796,
+    "ast_hash": "03165868bc3010a8803d4403fc63b214",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-08-incumbent-reject.png": {
+    "mtime": 1793582154.9085546,
+    "seen": 1793583089.1527808,
+    "ast_hash": "c80c3deb56fe1b603b084659518c78da",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-09-incumbent-reject.png": {
+    "mtime": 1793582154.9140725,
+    "seen": 1793583089.152782,
+    "ast_hash": "cbee746c01d3a3838a94d3f7bc5d5666",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-10-incumbent-reject.png": {
+    "mtime": 1793582154.9230766,
+    "seen": 1793583089.1527834,
+    "ast_hash": "a40b9e7fb837d35ca564547c90dee62b",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/icon-ranking/ranking-fixtures-11-ranking-accept.png": {
+    "mtime": 1793582155.1109319,
+    "seen": 1793583089.1527843,
+    "ast_hash": "f8abf18e1e4921e0ca45ae3247d2fb86",
     "semantic_hash": ""
   }
 }

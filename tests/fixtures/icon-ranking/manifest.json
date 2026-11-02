@@ -1,0 +1,703 @@
+{
+  "purpose": "Frozen old-353b2c9 real-pixel ranking outputs, not acceptance corpus or full candidate proof.",
+  "sourceCommit": "353b2c9ae76f385f1c474934f6e6f38e50d6e1d5",
+  "cases": 21,
+  "rows": [
+    {
+      "file": "ranking-fixtures-00-low-done.png",
+      "sha256": "356cfd0823105a482957a3beac1dcd870bdd73c50ba6c4d50b320445468b2b43",
+      "size": [
+        34,
+        34
+      ],
+      "category": "low-done",
+      "done": [
+        0.6152982843048383,
+        "node-done"
+      ],
+      "other": [
+        0.6337362233795282,
+        "node-b-rift"
+      ],
+      "incumbent": null,
+      "expectedAccept": false,
+      "sourceCrop": [
+        233.5097162356322,
+        1022.0934577231933,
+        158.2520833333333,
+        120.73150684931505
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "ranking-fixtures-01-low-done.png",
+      "sha256": "3b3a755546bc953a85da6161f8e5d30d9e6a98fb17fafe4143ffd900e477180c",
+      "size": [
+        34,
+        34
+      ],
+      "category": "low-done",
+      "done": [
+        0.6489902702374474,
+        "node-done"
+      ],
+      "other": [
+        0.6557558017293377,
+        "node-b-rift"
+      ],
+      "incumbent": null,
+      "expectedAccept": false,
+      "sourceCrop": [
+        233.5097162356322,
+        1023.0934577231933,
+        158.2520833333333,
+        120.73150684931505
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "ranking-fixtures-02-low-done.png",
+      "sha256": "a1eab12865a82add0ab493fbff8bcaaea4727cb63849987c068b22fd562f620f",
+      "size": [
+        34,
+        34
+      ],
+      "category": "low-done",
+      "done": [
+        0.6824240688320351,
+        "node-b-done"
+      ],
+      "other": [
+        0.6638686572657777,
+        "node-b-rift"
+      ],
+      "incumbent": null,
+      "expectedAccept": false,
+      "sourceCrop": [
+        233.5097162356322,
+        1024.0934577231933,
+        158.2520833333333,
+        120.73150684931505
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "ranking-fixtures-03-margin-reject.png",
+      "sha256": "94791e532093095474906946b9e002664ff4f5474c42c4ff0765b4ac4aeb0921",
+      "size": [
+        34,
+        34
+      ],
+      "category": "margin-reject",
+      "done": [
+        0.9015601773918447,
+        "node-done"
+      ],
+      "other": [
+        0.928828583850216,
+        "node-b-rift"
+      ],
+      "incumbent": null,
+      "expectedAccept": false,
+      "sourceCrop": [
+        883.5097162356321,
+        459.0934577231932,
+        158.2520833333333,
+        120.73150684931505
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "ranking-fixtures-04-margin-reject.png",
+      "sha256": "32cbf1299d6afb11a84291fc90552111d35627687e1422361caf44303e0c8810",
+      "size": [
+        34,
+        34
+      ],
+      "category": "margin-reject",
+      "done": [
+        0.9032012762054593,
+        "node-done"
+      ],
+      "other": [
+        0.9238374634931575,
+        "node-b-rift"
+      ],
+      "incumbent": null,
+      "expectedAccept": false,
+      "sourceCrop": [
+        884.5097162356321,
+        458.0934577231932,
+        158.2520833333333,
+        120.73150684931505
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "ranking-fixtures-05-margin-reject.png",
+      "sha256": "d33024aaa4e2935d5e36c4dbe6f0b7dab0730b341a4052a7e56155a156359204",
+      "size": [
+        34,
+        34
+      ],
+      "category": "margin-reject",
+      "done": [
+        0.9089514949231323,
+        "node-done"
+      ],
+      "other": [
+        0.8906139306211998,
+        "node-b-rift"
+      ],
+      "incumbent": null,
+      "expectedAccept": false,
+      "sourceCrop": [
+        884.5097162356321,
+        459.0934577231932,
+        158.2520833333333,
+        120.73150684931505
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "ranking-fixtures-06-ranking-accept.png",
+      "sha256": "8094dc72a69b9322bbede21a2b1f1ca7d7d99fcb672fe1d92d8d747fbe342544",
+      "size": [
+        34,
+        34
+      ],
+      "category": "ranking-accept",
+      "done": [
+        0.9259832587810066,
+        "node-done"
+      ],
+      "other": [
+        0.8394344133554785,
+        "node-b-rift"
+      ],
+      "incumbent": null,
+      "expectedAccept": true,
+      "sourceCrop": [
+        880.2384763404168,
+        455.66064670713183,
+        166.649775330706,
+        129.44686410123234
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "ranking-fixtures-07-ranking-accept.png",
+      "sha256": "65085a79830eff8bad75bf73a18a64834f8242b89b6f15b28fcecc5afd8c20a5",
+      "size": [
+        34,
+        34
+      ],
+      "category": "ranking-accept",
+      "done": [
+        0.9720812241085931,
+        "node-done"
+      ],
+      "other": [
+        0.8880864300838811,
+        "node-b-rift"
+      ],
+      "incumbent": 0.9259832587810066,
+      "expectedAccept": true,
+      "sourceCrop": [
+        881.2384763404168,
+        453.66064670713183,
+        166.649775330706,
+        129.44686410123234
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "ranking-fixtures-08-incumbent-reject.png",
+      "sha256": "970de5dd39ae5f687dc8bfb65abd2aff28d95771cb8e932f6ac7d8a21f73a3cb",
+      "size": [
+        34,
+        34
+      ],
+      "category": "incumbent-reject",
+      "done": [
+        0.9688657848811051,
+        "node-done"
+      ],
+      "other": [
+        0.864016079801306,
+        "node-b-rift"
+      ],
+      "incumbent": 0.9720812241085931,
+      "expectedAccept": false,
+      "sourceCrop": [
+        881.2384763404168,
+        454.66064670713183,
+        166.649775330706,
+        129.44686410123234
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "ranking-fixtures-09-incumbent-reject.png",
+      "sha256": "1252cbca62c2522c8737360b75552a0be080e0b67efee87d3eedb12512b46ca7",
+      "size": [
+        34,
+        34
+      ],
+      "category": "incumbent-reject",
+      "done": [
+        0.9151021352594115,
+        "node-done"
+      ],
+      "other": [
+        0.8111201442535976,
+        "node-b-rift"
+      ],
+      "incumbent": 0.9720812241085931,
+      "expectedAccept": false,
+      "sourceCrop": [
+        881.2384763404168,
+        455.66064670713183,
+        166.649775330706,
+        129.44686410123234
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "ranking-fixtures-10-incumbent-reject.png",
+      "sha256": "2a7accd6a504f5fdd7198d252e3e8e20d40c9982e68a6972e7be902a10746c88",
+      "size": [
+        34,
+        34
+      ],
+      "category": "incumbent-reject",
+      "done": [
+        0.9082646659625838,
+        "node-done"
+      ],
+      "other": [
+        0.826817247420236,
+        "node-b-rift"
+      ],
+      "incumbent": 0.9720812241085931,
+      "expectedAccept": false,
+      "sourceCrop": [
+        882.2384763404168,
+        452.66064670713183,
+        166.649775330706,
+        129.44686410123234
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "ranking-fixtures-11-ranking-accept.png",
+      "sha256": "c7bcf2af0fc5d7a633158f7c6713c90e9c73a9864408ae421e2e775a93d54a65",
+      "size": [
+        34,
+        34
+      ],
+      "category": "ranking-accept",
+      "done": [
+        0.9748283676678455,
+        "node-done"
+      ],
+      "other": [
+        0.884780859927955,
+        "node-b-rift"
+      ],
+      "incumbent": 0.9720812241085931,
+      "expectedAccept": true,
+      "sourceCrop": [
+        878.6246667489806,
+        453.8365251794987,
+        169.82268910369908,
+        131.06717083352794
+      ],
+      "required": [
+        "node-done",
+        "node-b-done"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "f89d3b9f400e2fcba397fe61f1e27f7f2517e86dd86dad30a2286d8cb8eccd7b"
+    },
+    {
+      "file": "orange-ranking-fixtures-00-low-done.png",
+      "sha256": "883e8eab54bc4bb8538137c1fd3539c26b2eacde39e3a5a0fe733a37e7bf8e21",
+      "size": [
+        34,
+        34
+      ],
+      "category": "low-done",
+      "done": [
+        0.6226741839261576,
+        "node-orange"
+      ],
+      "other": [
+        0.8987233973235302,
+        "node-live-current"
+      ],
+      "incumbent": null,
+      "expectedAccept": false,
+      "sourceCrop": {
+        "outerBox": [
+          1115.6222215727435,
+          642.1150779243891,
+          173.28201135816266,
+          131.76635591341773
+        ],
+        "alignment": [
+          -3,
+          -3
+        ]
+      },
+      "required": [
+        "node-orange"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "e716770533de25eae6ff1ae6224a500cc091329be9411129d2ba820ec8436546"
+    },
+    {
+      "file": "orange-ranking-fixtures-01-low-done.png",
+      "sha256": "0b4ca71824013d7e93fb12ae6270f0d9f55052f6cd485c752dfc609afd45b942",
+      "size": [
+        34,
+        34
+      ],
+      "category": "low-done",
+      "done": [
+        0.7023314675711996,
+        "node-orange"
+      ],
+      "other": [
+        0.8746703471264107,
+        "node-live-current"
+      ],
+      "incumbent": null,
+      "expectedAccept": false,
+      "sourceCrop": {
+        "outerBox": [
+          1115.6222215727435,
+          642.1150779243891,
+          173.28201135816266,
+          131.76635591341773
+        ],
+        "alignment": [
+          -3,
+          -2
+        ]
+      },
+      "required": [
+        "node-orange"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "e716770533de25eae6ff1ae6224a500cc091329be9411129d2ba820ec8436546"
+    },
+    {
+      "file": "orange-ranking-fixtures-02-low-done.png",
+      "sha256": "6bb131f4d9d2c7b0bde8cb0ba6eab191ab6593c7ec761c62a509c2afbdd6d1bd",
+      "size": [
+        34,
+        34
+      ],
+      "category": "low-done",
+      "done": [
+        0.7657447941688729,
+        "node-orange"
+      ],
+      "other": [
+        0.859868856385877,
+        "node-gray"
+      ],
+      "incumbent": null,
+      "expectedAccept": false,
+      "sourceCrop": {
+        "outerBox": [
+          1115.6222215727435,
+          642.1150779243891,
+          173.28201135816266,
+          131.76635591341773
+        ],
+        "alignment": [
+          -3,
+          -1
+        ]
+      },
+      "required": [
+        "node-orange"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "e716770533de25eae6ff1ae6224a500cc091329be9411129d2ba820ec8436546"
+    },
+    {
+      "file": "orange-ranking-fixtures-03-ranking-accept.png",
+      "sha256": "a72ba177c6dfff57144f5184e872a5ea78084b6bdded51ac244ea2f9f13a25e2",
+      "size": [
+        34,
+        34
+      ],
+      "category": "ranking-accept",
+      "done": [
+        0.9017556763038244,
+        "node-orange"
+      ],
+      "other": [
+        0.776689771223573,
+        "node-gray"
+      ],
+      "incumbent": null,
+      "expectedAccept": true,
+      "sourceCrop": {
+        "outerBox": [
+          1115.6222215727435,
+          642.1150779243891,
+          173.28201135816266,
+          131.76635591341773
+        ],
+        "alignment": [
+          -1,
+          0
+        ]
+      },
+      "required": [
+        "node-orange"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "e716770533de25eae6ff1ae6224a500cc091329be9411129d2ba820ec8436546"
+    },
+    {
+      "file": "orange-ranking-fixtures-04-ranking-accept.png",
+      "sha256": "d75200126a99c27ee95e04e8c911fea4722dcee63698322aee438ba533a11485",
+      "size": [
+        34,
+        34
+      ],
+      "category": "ranking-accept",
+      "done": [
+        0.9256792291082288,
+        "node-orange"
+      ],
+      "other": [
+        0.8377124071227977,
+        "node-live-active"
+      ],
+      "incumbent": 0.9017556763038244,
+      "expectedAccept": true,
+      "sourceCrop": {
+        "outerBox": [
+          1115.6222215727435,
+          642.1150779243891,
+          173.28201135816266,
+          131.76635591341773
+        ],
+        "alignment": [
+          -1,
+          1
+        ]
+      },
+      "required": [
+        "node-orange"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "e716770533de25eae6ff1ae6224a500cc091329be9411129d2ba820ec8436546"
+    },
+    {
+      "file": "orange-ranking-fixtures-05-incumbent-reject.png",
+      "sha256": "2f693668c2d252227db5f9405046b2b0977898a9d5e5619403cdfddbdf4e9b59",
+      "size": [
+        34,
+        34
+      ],
+      "category": "incumbent-reject",
+      "done": [
+        0.9085782553772888,
+        "node-orange"
+      ],
+      "other": [
+        0.7380974608397287,
+        "node-gray2"
+      ],
+      "incumbent": 0.9256792291082288,
+      "expectedAccept": false,
+      "sourceCrop": {
+        "outerBox": [
+          1115.6222215727435,
+          642.1150779243891,
+          173.28201135816266,
+          131.76635591341773
+        ],
+        "alignment": [
+          0,
+          0
+        ]
+      },
+      "required": [
+        "node-orange"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "e716770533de25eae6ff1ae6224a500cc091329be9411129d2ba820ec8436546"
+    },
+    {
+      "file": "orange-ranking-fixtures-06-ranking-accept.png",
+      "sha256": "c1c6e16c9c08d83b7cb7971fd1455cd2312f26093494c1e67dbb9ebfe1fbe571",
+      "size": [
+        34,
+        34
+      ],
+      "category": "ranking-accept",
+      "done": [
+        0.9439693248873691,
+        "node-orange"
+      ],
+      "other": [
+        0.7703759984915417,
+        "node-live-active"
+      ],
+      "incumbent": 0.9256792291082288,
+      "expectedAccept": true,
+      "sourceCrop": {
+        "outerBox": [
+          1115.6222215727435,
+          642.1150779243891,
+          173.28201135816266,
+          131.76635591341773
+        ],
+        "alignment": [
+          0,
+          1
+        ]
+      },
+      "required": [
+        "node-orange"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "e716770533de25eae6ff1ae6224a500cc091329be9411129d2ba820ec8436546"
+    },
+    {
+      "file": "orange-ranking-fixtures-07-incumbent-reject.png",
+      "sha256": "179c8ddeec8c03649648abbf58e70fdeb1ab9a9f1d14828831bb7100c366e930",
+      "size": [
+        34,
+        34
+      ],
+      "category": "incumbent-reject",
+      "done": [
+        0.9091477729653202,
+        "node-orange"
+      ],
+      "other": [
+        0.8062882423788295,
+        "node-live-active"
+      ],
+      "incumbent": 0.9439693248873691,
+      "expectedAccept": false,
+      "sourceCrop": {
+        "outerBox": [
+          1115.6222215727435,
+          642.1150779243891,
+          173.28201135816266,
+          131.76635591341773
+        ],
+        "alignment": [
+          0,
+          2
+        ]
+      },
+      "required": [
+        "node-orange"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "e716770533de25eae6ff1ae6224a500cc091329be9411129d2ba820ec8436546"
+    },
+    {
+      "file": "orange-ranking-fixtures-08-incumbent-reject.png",
+      "sha256": "5c03d6d08a5b899d4e43005456e459cde7c8bb9e4f6e06c6133ef8321f38d7cd",
+      "size": [
+        34,
+        34
+      ],
+      "category": "incumbent-reject",
+      "done": [
+        0.9217935692137347,
+        "node-orange"
+      ],
+      "other": [
+        0.6916516150174741,
+        "node-live-active"
+      ],
+      "incumbent": 0.9439693248873691,
+      "expectedAccept": false,
+      "sourceCrop": {
+        "outerBox": [
+          1115.6222215727435,
+          642.1150779243891,
+          173.28201135816266,
+          131.76635591341773
+        ],
+        "alignment": [
+          1,
+          1
+        ]
+      },
+      "required": [
+        "node-orange"
+      ],
+      "sourceImageSha256": "9d16a1f389abfeaa85699feb46a58e02a3cba6fb48e2f057df97b18207f3e8fc",
+      "legacySourceSha256": "e716770533de25eae6ff1ae6224a500cc091329be9411129d2ba820ec8436546"
+    }
+  ]
+}

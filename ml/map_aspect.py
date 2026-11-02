@@ -222,12 +222,10 @@ def _orange_node_pixel_geometry(image, box, root, digest, allow_icon_core=False)
                 x0,y0,ow,oh=result
                 if min(x0+dx,y0+dy)<0 or x0+ow+dx>image.width or y0+oh+dy>image.height:continue
                 actual=np.asarray(image.crop((x0+dx,y0+dy,x0+ow+dx,y0+oh+dy)).resize((58,58)))[12:46,12:46]
-                gray=cv2.cvtColor(actual,cv2.COLOR_RGB2GRAY);scores=[]
-                for name,_,_,ref,refg in templates:
-                    value=.7*float(cv2.matchTemplate(gray,refg,cv2.TM_CCOEFF_NORMED)[0,0])+.3*(1-np.abs(actual.astype(float)-ref).mean()/255)
-                    scores.append((float(value),name))
-                scores.sort(reverse=True)
-                if scores[0][1]!='node-orange' or scores[0][0]<.9 or scores[0][0]-scores[1][0]<.08:continue
+                from icon_ranking import rank_required_icon
+                gray=cv2.cvtColor(actual,cv2.COLOR_RGB2GRAY)
+                scores=rank_required_icon(actual,gray,templates,('node-orange',),best['score'] if best else None)
+                if scores is None:continue
                 if best is None or scores[0][0]>best['score']:
                     best={'method':'original_outer58_inner12_46_rgb_bounded_alignment','score':scores[0][0],
                         'template':'node-orange','runnerUpScore':scores[1][0],'runnerUpTemplate':scores[1][1],
