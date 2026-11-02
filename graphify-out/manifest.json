@@ -708,9 +708,9 @@
     "semantic_hash": ""
   },
   "ml/completed_node_candidates.py": {
-    "mtime": 1793582696.8914158,
-    "seen": 1793583089.1524665,
-    "ast_hash": "f442f220ee81adbf56bde867c2dcc6b4",
+    "mtime": 1793584521.1595652,
+    "seen": 1793584855.545127,
+    "ast_hash": "1caa5a74c20e6d8a127a90b240296091",
     "semantic_hash": ""
   },
   "tests/test_completed_node_candidates.py": {
@@ -1380,9 +1380,9 @@
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-11-02-geometry-performance.md": {
-    "mtime": 1793582388.506505,
-    "seen": 1793583089.1527178,
-    "ast_hash": "6764cc07b9d1fbe4f09e5d73262d06e3",
+    "mtime": 1793584592.9602697,
+    "seen": 1793584855.5452836,
+    "ast_hash": "ce2bbf82681d5b06f25ec7431adc3f6e",
     "semantic_hash": ""
   },
   "docs/validation/2026-11-02-native-candidate-loss.md": {
@@ -1521,6 +1521,18 @@
     "mtime": 1793582155.1109319,
     "seen": 1793583089.1527843,
     "ast_hash": "f8abf18e1e4921e0ca45ae3247d2fb86",
+    "semantic_hash": ""
+  },
+  "tests/test_completed_ranking_reuse.py": {
+    "mtime": 1793584485.639863,
+    "seen": 1793584855.545214,
+    "ast_hash": "a891565cc854660f19a655348af62b3c",
+    "semantic_hash": ""
+  },
+  "docs/validation/2026-11-02-geometry-ranking-performance.md": {
+    "mtime": 1793584119.2476108,
+    "seen": 1793584855.5453029,
+    "ast_hash": "4c4f282b8e5b23219427d2c3b390e261",
     "semantic_hash": ""
   }
 }

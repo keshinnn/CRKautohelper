@@ -19,6 +19,8 @@ def completed_node_candidates(image,initial,inverse,root,binding,normal_size,nor
         if .9*mw<=box[2]<=1.1*mw and .9*mh<=box[3]<=1.1*mh:sizes.setdefault(tuple(box[2:]),(peer['id'],box))
     templates=map_templates(root/'data/map');components=cv2.connectedComponentsWithStats(_green(np.asarray(image)))[2][1:];found=[]
     fx,fy=analysis_size[0]/normal_size[0],analysis_size[1]/normal_size[1]
+    # Pure classification only, bounded to this invocation; no geometry/proof reuse.
+    ranking_cache={}
     for filename in ['node-done.png','node-b-done.png']:
         raw=(root/'data/map'/filename).read_bytes();original=Image.open(io.BytesIO(raw)).convert('RGB');reference=original.resize((58,58))
         refs=[r for r in cv2.connectedComponentsWithStats(_green(np.asarray(reference)))[2][1:]
@@ -36,7 +38,13 @@ def completed_node_candidates(image,initial,inverse,root,binding,normal_size,nor
                             box=[bx+dx,by+dy,bw,bh]
                             if min(box[:2])<0 or box[0]+bw>image.width or box[1]+bh>image.height:continue
                             q=np.asarray(image.crop((box[0],box[1],box[0]+bw,box[1]+bh)).resize((58,58)))[12:46,12:46];gray=cv2.cvtColor(q,cv2.COLOR_RGB2GRAY)
-                            ranking=rank_required_icon(q,gray,templates,('node-done','node-b-done'),best['iconScore'] if best else None)
+                            incumbent=best['iconScore'] if best else None
+                            key=(q.shape,q.dtype.str,q.tobytes(),incumbent)
+                            if key in ranking_cache:
+                                ranking=ranking_cache[key]
+                            else:
+                                ranking=rank_required_icon(q,gray,templates,('node-done','node-b-done'),incumbent)
+                                if len(ranking_cache)<1024:ranking_cache[key]=ranking
                             if ranking is None:continue
                             done,other=ranking
                             check=_green(q);coverage=float(check.mean());check_score=0.
