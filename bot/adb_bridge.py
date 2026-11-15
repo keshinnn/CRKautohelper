@@ -49,7 +49,23 @@ class Device:
     def __init__(self, serial=None, adb=None):
         self.adb = adb or find_adb()
         self.serial = serial or os.environ.get('CRK_SERIAL') or self._discover()
-        self.size = self.screen_size()
+        try:
+            self.size = self.screen_size()
+        except (subprocess.TimeoutExpired, RuntimeError):
+            self.reset_adb()            # a hung adb server (seen 2026-11-16) blocks every shell call
+            self.size = self.screen_size()
+
+    def reset_adb(self):
+        """Restart the local adb server and reconnect this emulator (no input is sent to the game)."""
+        for args, t in (([self.adb, 'kill-server'], 15), ([self.adb, 'start-server'], 30)):
+            try: _run(args, timeout=t)
+            except Exception: pass
+        for _ in range(10):             # 'device offline' right after reconnect is normal; wait until it is online
+            try:
+                _run([self.adb, 'disconnect', self.serial], timeout=10); _run([self.adb, 'connect', self.serial], timeout=15)
+                if _run([self.adb, '-s', self.serial, 'get-state'], timeout=10).strip() == 'device': return
+            except Exception: pass
+            time.sleep(3.0)
 
     def _discover(self):
         candidates = [f'{h}:{p}' for h, p in mumu_ports()] + [f'127.0.0.1:{p}' for p in FALLBACK_PORTS]

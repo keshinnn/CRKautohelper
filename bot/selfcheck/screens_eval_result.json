@@ -1,0 +1,1991 @@
+{
+ "v1_flow_state": {
+  "dev": {
+   "n": 400,
+   "correct": 296,
+   "wrong": 5,
+   "abstain": 99,
+   "acc": 0.74,
+   "perClass": {
+    "BATTLE": {
+     "ok": 86,
+     "wrong": 0,
+     "abstain": 7
+    },
+    "BATTLE_READY": {
+     "ok": 14,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 2
+    },
+    "FAILURE": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 14
+    },
+    "LOBBY": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 3
+    },
+    "MAP": {
+     "ok": 13,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 1
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 6,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 5,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 127,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 3,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_RIFT": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "ROSTER": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 9,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 10
+    },
+    "VICTORY": {
+     "ok": 22,
+     "wrong": 0,
+     "abstain": 62
+    }
+   },
+   "confusions": [
+    [
+     "PREVIEW_RIFT",
+     "MAP",
+     2
+    ],
+    [
+     "MAP_TOAST",
+     "MAP",
+     2
+    ],
+    [
+     "RIFT_RESOLVING",
+     "MAP",
+     1
+    ]
+   ]
+  },
+  "held": {
+   "n": 365,
+   "correct": 293,
+   "wrong": 18,
+   "abstain": 54,
+   "acc": 0.803,
+   "perClass": {
+    "BATTLE": {
+     "ok": 66,
+     "wrong": 0,
+     "abstain": 14
+    },
+    "BATTLE_READY": {
+     "ok": 16,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 17
+    },
+    "LOBBY": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 1
+    },
+    "MAP": {
+     "ok": 30,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 0,
+     "wrong": 5,
+     "abstain": 0
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 123,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 12,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 4,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_HEAL": {
+     "ok": 0,
+     "wrong": 6,
+     "abstain": 1
+    },
+    "PREVIEW_RIFT": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 0
+    },
+    "RECRUIT": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 7
+    },
+    "VICTORY": {
+     "ok": 19,
+     "wrong": 0,
+     "abstain": 14
+    }
+   },
+   "confusions": [
+    [
+     "PREVIEW_HEAL",
+     "MAP",
+     6
+    ],
+    [
+     "MAP_TOAST",
+     "MAP",
+     5
+    ],
+    [
+     "BOSS_INTRO",
+     "BATTLE",
+     2
+    ],
+    [
+     "PREVIEW_RIFT",
+     "MAP",
+     2
+    ],
+    [
+     "RECRUIT",
+     "MAP",
+     1
+    ],
+    [
+     "UNDERFILLED_CONFIRM",
+     "BATTLE_READY",
+     1
+    ],
+    [
+     "RIFT_RESOLVING",
+     "MAP",
+     1
+    ]
+   ]
+  },
+  "all": {
+   "n": 765,
+   "correct": 589,
+   "wrong": 23,
+   "abstain": 153,
+   "acc": 0.77,
+   "perClass": {
+    "BATTLE": {
+     "ok": 152,
+     "wrong": 0,
+     "abstain": 21
+    },
+    "BATTLE_READY": {
+     "ok": 30,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 2
+    },
+    "FAILURE": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 31
+    },
+    "LOBBY": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 4
+    },
+    "MAP": {
+     "ok": 43,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 0,
+     "wrong": 7,
+     "abstain": 1
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 14,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 12,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 250,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 20,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_HEAL": {
+     "ok": 0,
+     "wrong": 6,
+     "abstain": 1
+    },
+    "PREVIEW_RIFT": {
+     "ok": 0,
+     "wrong": 4,
+     "abstain": 0
+    },
+    "RECRUIT": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 0
+    },
+    "ROSTER": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 17,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 17
+    },
+    "VICTORY": {
+     "ok": 41,
+     "wrong": 0,
+     "abstain": 76
+    }
+   },
+   "confusions": [
+    [
+     "MAP_TOAST",
+     "MAP",
+     7
+    ],
+    [
+     "PREVIEW_HEAL",
+     "MAP",
+     6
+    ],
+    [
+     "PREVIEW_RIFT",
+     "MAP",
+     4
+    ],
+    [
+     "RIFT_RESOLVING",
+     "MAP",
+     2
+    ],
+    [
+     "BOSS_INTRO",
+     "BATTLE",
+     2
+    ],
+    [
+     "RECRUIT",
+     "MAP",
+     1
+    ],
+    [
+     "UNDERFILLED_CONFIRM",
+     "BATTLE_READY",
+     1
+    ]
+   ]
+  }
+ },
+ "runner_rules": {
+  "dev": {
+   "n": 400,
+   "correct": 383,
+   "wrong": 3,
+   "abstain": 14,
+   "acc": 0.958,
+   "perClass": {
+    "BATTLE": {
+     "ok": 86,
+     "wrong": 0,
+     "abstain": 7
+    },
+    "BATTLE_READY": {
+     "ok": 14,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 2
+    },
+    "FAILURE": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 11,
+     "wrong": 0,
+     "abstain": 3
+    },
+    "LOBBY": {
+     "ok": 3,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP": {
+     "ok": 13,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 1
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 6,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 5,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 127,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 3,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_RIFT": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "ROSTER": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 9,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 10,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 83,
+     "wrong": 0,
+     "abstain": 1
+    }
+   },
+   "confusions": [
+    [
+     "MAP_TOAST",
+     "MAP",
+     2
+    ],
+    [
+     "RIFT_RESOLVING",
+     "PREVIEW_RIFT",
+     1
+    ]
+   ]
+  },
+  "held": {
+   "n": 365,
+   "correct": 342,
+   "wrong": 8,
+   "abstain": 15,
+   "acc": 0.937,
+   "perClass": {
+    "BATTLE": {
+     "ok": 66,
+     "wrong": 0,
+     "abstain": 14
+    },
+    "BATTLE_READY": {
+     "ok": 16,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 17,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOBBY": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP": {
+     "ok": 30,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 0,
+     "wrong": 5,
+     "abstain": 0
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 123,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 12,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 4,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_HEAL": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_RIFT": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RECRUIT": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 32,
+     "wrong": 0,
+     "abstain": 1
+    }
+   },
+   "confusions": [
+    [
+     "MAP_TOAST",
+     "MAP",
+     5
+    ],
+    [
+     "BOSS_INTRO",
+     "BATTLE",
+     2
+    ],
+    [
+     "RIFT_RESOLVING",
+     "PREVIEW_RIFT",
+     1
+    ]
+   ]
+  },
+  "all": {
+   "n": 765,
+   "correct": 725,
+   "wrong": 11,
+   "abstain": 29,
+   "acc": 0.948,
+   "perClass": {
+    "BATTLE": {
+     "ok": 152,
+     "wrong": 0,
+     "abstain": 21
+    },
+    "BATTLE_READY": {
+     "ok": 30,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 2
+    },
+    "FAILURE": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 28,
+     "wrong": 0,
+     "abstain": 3
+    },
+    "LOBBY": {
+     "ok": 4,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP": {
+     "ok": 43,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 0,
+     "wrong": 7,
+     "abstain": 1
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 14,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 12,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 250,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 20,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_HEAL": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_RIFT": {
+     "ok": 4,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RECRUIT": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 0
+    },
+    "ROSTER": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 17,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 18,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 115,
+     "wrong": 0,
+     "abstain": 2
+    }
+   },
+   "confusions": [
+    [
+     "MAP_TOAST",
+     "MAP",
+     7
+    ],
+    [
+     "RIFT_RESOLVING",
+     "PREVIEW_RIFT",
+     2
+    ],
+    [
+     "BOSS_INTRO",
+     "BATTLE",
+     2
+    ]
+   ]
+  }
+ },
+ "text_model": {
+  "dev": {
+   "n": 400,
+   "correct": 395,
+   "wrong": 1,
+   "abstain": 4,
+   "acc": 0.988,
+   "perClass": {
+    "BATTLE": {
+     "ok": 93,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BATTLE_READY": {
+     "ok": 14,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 1,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "FAILURE": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 11,
+     "wrong": 0,
+     "abstain": 3
+    },
+    "LOBBY": {
+     "ok": 3,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP": {
+     "ok": 13,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 3,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 6,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 5,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 127,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 3,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_RIFT": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "ROSTER": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 9,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 10,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 83,
+     "wrong": 0,
+     "abstain": 1
+    }
+   },
+   "confusions": [
+    [
+     "BOSS_INTRO",
+     "BATTLE",
+     1
+    ]
+   ]
+  },
+  "held": {
+   "n": 365,
+   "correct": 362,
+   "wrong": 0,
+   "abstain": 3,
+   "acc": 0.992,
+   "perClass": {
+    "BATTLE": {
+     "ok": 78,
+     "wrong": 0,
+     "abstain": 2
+    },
+    "BATTLE_READY": {
+     "ok": 16,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 17,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOBBY": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP": {
+     "ok": 30,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 5,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 123,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 12,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 4,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_HEAL": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_RIFT": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RECRUIT": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 32,
+     "wrong": 0,
+     "abstain": 1
+    }
+   },
+   "confusions": []
+  },
+  "all": {
+   "n": 765,
+   "correct": 757,
+   "wrong": 1,
+   "abstain": 7,
+   "acc": 0.99,
+   "perClass": {
+    "BATTLE": {
+     "ok": 171,
+     "wrong": 0,
+     "abstain": 2
+    },
+    "BATTLE_READY": {
+     "ok": 30,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 3,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "FAILURE": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 28,
+     "wrong": 0,
+     "abstain": 3
+    },
+    "LOBBY": {
+     "ok": 4,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP": {
+     "ok": 43,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 14,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 12,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 250,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 20,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_HEAL": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_RIFT": {
+     "ok": 4,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RECRUIT": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "ROSTER": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 17,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 18,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 115,
+     "wrong": 0,
+     "abstain": 2
+    }
+   },
+   "confusions": [
+    [
+     "BOSS_INTRO",
+     "BATTLE",
+     1
+    ]
+   ]
+  }
+ },
+ "image_model": {
+  "dev": {
+   "n": 400,
+   "correct": 362,
+   "wrong": 14,
+   "abstain": 24,
+   "acc": 0.905,
+   "perClass": {
+    "BATTLE": {
+     "ok": 92,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "BATTLE_READY": {
+     "ok": 14,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 0
+    },
+    "FAILURE": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 1
+    },
+    "LOADING": {
+     "ok": 4,
+     "wrong": 0,
+     "abstain": 10
+    },
+    "LOBBY": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 2
+    },
+    "MAP": {
+     "ok": 12,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 3
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 6,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 5,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 123,
+     "wrong": 4,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 3,
+     "wrong": 0,
+     "abstain": 5
+    },
+    "PREVIEW_BOSS": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 1
+    },
+    "PREVIEW_RIFT": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 1
+    },
+    "RIFT_RESOLVING": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "ROSTER": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 1
+    },
+    "TEAM_SELECT": {
+     "ok": 9,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 10,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 84,
+     "wrong": 0,
+     "abstain": 0
+    }
+   },
+   "confusions": [
+    [
+     "OTHER",
+     "MAP",
+     4
+    ],
+    [
+     "PREVIEW_BOSS",
+     "PREVIEW_BATTLE",
+     2
+    ],
+    [
+     "LOBBY",
+     "NODE_ENTRY_CONFIRM",
+     1
+    ],
+    [
+     "MAP",
+     "LOADING",
+     1
+    ],
+    [
+     "PREVIEW_RIFT",
+     "PREVIEW_BATTLE",
+     1
+    ],
+    [
+     "RIFT_RESOLVING",
+     "PREVIEW_BATTLE",
+     1
+    ],
+    [
+     "BOSS_INTRO",
+     "LOADING",
+     1
+    ],
+    [
+     "BATTLE",
+     "LOADING",
+     1
+    ],
+    [
+     "FAILURE",
+     "LOADING",
+     1
+    ],
+    [
+     "BOSS_INTRO",
+     "BATTLE",
+     1
+    ]
+   ]
+  },
+  "held": {
+   "n": 365,
+   "correct": 285,
+   "wrong": 42,
+   "abstain": 38,
+   "acc": 0.781,
+   "perClass": {
+    "BATTLE": {
+     "ok": 80,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BATTLE_READY": {
+     "ok": 16,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 2
+    },
+    "LOADING": {
+     "ok": 6,
+     "wrong": 0,
+     "abstain": 11
+    },
+    "LOBBY": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 1
+    },
+    "MAP": {
+     "ok": 30,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 5
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 81,
+     "wrong": 42,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 4
+    },
+    "PREVIEW_BOSS": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 4
+    },
+    "PREVIEW_HEAL": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 7
+    },
+    "PREVIEW_RIFT": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 2
+    },
+    "RECRUIT": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 1
+    },
+    "RIFT_RESOLVING": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 1
+    },
+    "TEAM_SELECT": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 33,
+     "wrong": 0,
+     "abstain": 0
+    }
+   },
+   "confusions": [
+    [
+     "OTHER",
+     "LOADING",
+     26
+    ],
+    [
+     "OTHER",
+     "BATTLE",
+     4
+    ],
+    [
+     "OTHER",
+     "NODE_ENTRY_CONFIRM",
+     3
+    ],
+    [
+     "OTHER",
+     "MISSING_EQUIPMENT",
+     3
+    ],
+    [
+     "OTHER",
+     "UNDERFILLED_CONFIRM",
+     2
+    ],
+    [
+     "OTHER",
+     "VICTORY",
+     2
+    ],
+    [
+     "OTHER",
+     "PREVIEW_BATTLE",
+     1
+    ],
+    [
+     "OTHER",
+     "MAP",
+     1
+    ]
+   ]
+  },
+  "all": {
+   "n": 765,
+   "correct": 647,
+   "wrong": 56,
+   "abstain": 62,
+   "acc": 0.846,
+   "perClass": {
+    "BATTLE": {
+     "ok": 172,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "BATTLE_READY": {
+     "ok": 30,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 2
+    },
+    "FAILURE": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 1
+    },
+    "LOADING": {
+     "ok": 10,
+     "wrong": 0,
+     "abstain": 21
+    },
+    "LOBBY": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 3
+    },
+    "MAP": {
+     "ok": 42,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 8
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 14,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 12,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 204,
+     "wrong": 46,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 11,
+     "wrong": 0,
+     "abstain": 9
+    },
+    "PREVIEW_BOSS": {
+     "ok": 0,
+     "wrong": 2,
+     "abstain": 5
+    },
+    "PREVIEW_HEAL": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 7
+    },
+    "PREVIEW_RIFT": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 3
+    },
+    "RECRUIT": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 1
+    },
+    "RIFT_RESOLVING": {
+     "ok": 0,
+     "wrong": 1,
+     "abstain": 1
+    },
+    "ROSTER": {
+     "ok": 0,
+     "wrong": 0,
+     "abstain": 1
+    },
+    "TEAM_SELECT": {
+     "ok": 17,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 18,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 117,
+     "wrong": 0,
+     "abstain": 0
+    }
+   },
+   "confusions": [
+    [
+     "OTHER",
+     "LOADING",
+     26
+    ],
+    [
+     "OTHER",
+     "MAP",
+     5
+    ],
+    [
+     "OTHER",
+     "BATTLE",
+     4
+    ],
+    [
+     "OTHER",
+     "NODE_ENTRY_CONFIRM",
+     3
+    ],
+    [
+     "OTHER",
+     "MISSING_EQUIPMENT",
+     3
+    ],
+    [
+     "PREVIEW_BOSS",
+     "PREVIEW_BATTLE",
+     2
+    ],
+    [
+     "OTHER",
+     "UNDERFILLED_CONFIRM",
+     2
+    ],
+    [
+     "OTHER",
+     "VICTORY",
+     2
+    ],
+    [
+     "LOBBY",
+     "NODE_ENTRY_CONFIRM",
+     1
+    ],
+    [
+     "MAP",
+     "LOADING",
+     1
+    ],
+    [
+     "PREVIEW_RIFT",
+     "PREVIEW_BATTLE",
+     1
+    ],
+    [
+     "RIFT_RESOLVING",
+     "PREVIEW_BATTLE",
+     1
+    ],
+    [
+     "BOSS_INTRO",
+     "LOADING",
+     1
+    ],
+    [
+     "BATTLE",
+     "LOADING",
+     1
+    ],
+    [
+     "FAILURE",
+     "LOADING",
+     1
+    ],
+    [
+     "BOSS_INTRO",
+     "BATTLE",
+     1
+    ],
+    [
+     "OTHER",
+     "PREVIEW_BATTLE",
+     1
+    ]
+   ]
+  }
+ },
+ "fused_model": {
+  "dev": {
+   "n": 400,
+   "correct": 395,
+   "wrong": 1,
+   "abstain": 4,
+   "acc": 0.988,
+   "perClass": {
+    "BATTLE": {
+     "ok": 93,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BATTLE_READY": {
+     "ok": 14,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 1,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "FAILURE": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 12,
+     "wrong": 0,
+     "abstain": 2
+    },
+    "LOBBY": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 1
+    },
+    "MAP": {
+     "ok": 13,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 3,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 6,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 5,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 127,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 3,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_RIFT": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "ROSTER": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 9,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 10,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 83,
+     "wrong": 0,
+     "abstain": 1
+    }
+   },
+   "confusions": [
+    [
+     "BOSS_INTRO",
+     "BATTLE",
+     1
+    ]
+   ]
+  },
+  "held": {
+   "n": 365,
+   "correct": 334,
+   "wrong": 30,
+   "abstain": 1,
+   "acc": 0.915,
+   "perClass": {
+    "BATTLE": {
+     "ok": 80,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BATTLE_READY": {
+     "ok": 16,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 17,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOBBY": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP": {
+     "ok": 30,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 5,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 93,
+     "wrong": 30,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 12,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 4,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_HEAL": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_RIFT": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RECRUIT": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 32,
+     "wrong": 0,
+     "abstain": 1
+    }
+   },
+   "confusions": [
+    [
+     "OTHER",
+     "LOADING",
+     26
+    ],
+    [
+     "OTHER",
+     "BATTLE",
+     4
+    ]
+   ]
+  },
+  "all": {
+   "n": 765,
+   "correct": 729,
+   "wrong": 31,
+   "abstain": 5,
+   "acc": 0.953,
+   "perClass": {
+    "BATTLE": {
+     "ok": 173,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BATTLE_READY": {
+     "ok": 30,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "BOSS_INTRO": {
+     "ok": 3,
+     "wrong": 1,
+     "abstain": 0
+    },
+    "FAILURE": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "LOADING": {
+     "ok": 29,
+     "wrong": 0,
+     "abstain": 2
+    },
+    "LOBBY": {
+     "ok": 3,
+     "wrong": 0,
+     "abstain": 1
+    },
+    "MAP": {
+     "ok": 43,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MAP_TOAST": {
+     "ok": 8,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "MISSING_EQUIPMENT": {
+     "ok": 14,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "NODE_ENTRY_CONFIRM": {
+     "ok": 12,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "OTHER": {
+     "ok": 220,
+     "wrong": 30,
+     "abstain": 0
+    },
+    "PREVIEW_BATTLE": {
+     "ok": 20,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_BOSS": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_HEAL": {
+     "ok": 7,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "PREVIEW_RIFT": {
+     "ok": 4,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RECRUIT": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "RIFT_RESOLVING": {
+     "ok": 2,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "ROSTER": {
+     "ok": 1,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "TEAM_SELECT": {
+     "ok": 17,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "UNDERFILLED_CONFIRM": {
+     "ok": 18,
+     "wrong": 0,
+     "abstain": 0
+    },
+    "VICTORY": {
+     "ok": 115,
+     "wrong": 0,
+     "abstain": 2
+    }
+   },
+   "confusions": [
+    [
+     "OTHER",
+     "LOADING",
+     26
+    ],
+    [
+     "OTHER",
+     "BATTLE",
+     4
+    ],
+    [
+     "BOSS_INTRO",
+     "BATTLE",
+     1
+    ]
+   ]
+  }
+ }
+}

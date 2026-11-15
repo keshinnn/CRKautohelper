@@ -1,0 +1,512 @@
+[
+ {
+  "id": "run/20261116-020348/0001",
+  "zone": 1,
+  "floor": 1,
+  "truth": [
+   1201.335,
+   1019.995
+  ],
+  "validated": true,
+  "planned": [
+   1201.3,
+   1020.0
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f1 c2 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-022030/0003",
+  "zone": 1,
+  "floor": 2,
+  "truth": [
+   1199.995,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1200.0,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f2 c2 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-055012/0001",
+  "zone": 1,
+  "floor": 2,
+  "truth": [
+   1199.995,
+   762.665
+  ],
+  "validated": true,
+  "planned": [
+   1200.0,
+   762.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f2 c2 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-055012/0002",
+  "zone": 1,
+  "floor": 2,
+  "truth": [
+   1199.995,
+   762.665
+  ],
+  "validated": true,
+  "planned": [
+   1200.0,
+   762.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f2 c2 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-055456/0006",
+  "zone": 1,
+  "floor": 3,
+  "truth": [
+   1199.995,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1200.0,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f3 c2 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-055456/0007",
+  "zone": 1,
+  "floor": 3,
+  "truth": [
+   1199.995,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1200.0,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f3 c2 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060111/0001",
+  "zone": 1,
+  "floor": 4,
+  "truth": [
+   1199.995,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1200.0,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f4 c2 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060111/0002",
+  "zone": 1,
+  "floor": 4,
+  "truth": [
+   1199.995,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1200.0,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f4 c2 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060111/0021",
+  "zone": 1,
+  "floor": 5,
+  "truth": [
+   1346.665,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1346.7,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f5 cNone seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060111/0022",
+  "zone": 1,
+  "floor": 5,
+  "truth": [
+   1346.665,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1346.7,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f5 cNone seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060954/0003",
+  "zone": 2,
+  "floor": 1,
+  "truth": [
+   1493.335,
+   1018.665
+  ],
+  "validated": true,
+  "planned": [
+   1493.3,
+   1018.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f1 c3 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060954/0004",
+  "zone": 2,
+  "floor": 1,
+  "truth": [
+   1493.335,
+   1018.665
+  ],
+  "validated": true,
+  "planned": [
+   1494.7,
+   1020.0
+  ],
+  "dist": 2,
+  "verdict": "HIT",
+  "reason": "map target f1 c3 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060954/0030",
+  "zone": 2,
+  "floor": 2,
+  "truth": [
+   1493.335,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1493.3,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f2 c3 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060954/0031",
+  "zone": 2,
+  "floor": 2,
+  "truth": [
+   1493.335,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1493.3,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f2 c3 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060954/0057",
+  "zone": 2,
+  "floor": 3,
+  "truth": [
+   1493.335,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1493.3,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f3 c3 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060954/0058",
+  "zone": 2,
+  "floor": 3,
+  "truth": [
+   1493.335,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1493.3,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f3 c3 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060954/0079",
+  "zone": 2,
+  "floor": 4,
+  "truth": [
+   1786.665,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1786.7,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f4 c4 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-060954/0080",
+  "zone": 2,
+  "floor": 4,
+  "truth": [
+   1786.665,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   1786.7,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f4 c4 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0002",
+  "zone": 2,
+  "floor": 5,
+  "truth": [
+   1346.665,
+   858.665
+  ],
+  "validated": true,
+  "planned": [
+   1346.7,
+   858.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f5 cNone seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0003",
+  "zone": 2,
+  "floor": 5,
+  "truth": [
+   1346.665,
+   858.665
+  ],
+  "validated": true,
+  "planned": [
+   1346.7,
+   858.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f5 cNone seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0031",
+  "zone": 3,
+  "floor": 1,
+  "truth": [
+   907.995,
+   1019.995
+  ],
+  "validated": true,
+  "planned": [
+   908.0,
+   1020.0
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f1 c1 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0032",
+  "zone": 3,
+  "floor": 1,
+  "truth": [
+   907.995,
+   1019.995
+  ],
+  "validated": true,
+  "planned": [
+   906.7,
+   1018.7
+  ],
+  "dist": 2,
+  "verdict": "HIT",
+  "reason": "map target f1 c1 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0061",
+  "zone": 3,
+  "floor": 2,
+  "truth": [
+   906.665,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   906.7,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f2 c1 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0062",
+  "zone": 3,
+  "floor": 2,
+  "truth": [
+   906.665,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   906.7,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f2 c1 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0089",
+  "zone": 3,
+  "floor": 3,
+  "truth": [
+   906.665,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   906.7,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f3 c1 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0090",
+  "zone": 3,
+  "floor": 3,
+  "truth": [
+   906.665,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   906.7,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f3 c1 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0116",
+  "zone": 3,
+  "floor": 4,
+  "truth": [
+   906.665,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   906.7,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f4 c1 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0117",
+  "zone": 3,
+  "floor": 4,
+  "truth": [
+   906.665,
+   1058.665
+  ],
+  "validated": true,
+  "planned": [
+   906.7,
+   1058.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f4 c1 seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0121",
+  "zone": 3,
+  "floor": 5,
+  "truth": [
+   1346.665,
+   858.665
+  ],
+  "validated": true,
+  "planned": [
+   1346.7,
+   858.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f5 cNone seen once; need a second consistent observation"
+ },
+ {
+  "id": "run/20261116-061928/0122",
+  "zone": 3,
+  "floor": 5,
+  "truth": [
+   1346.665,
+   858.665
+  ],
+  "validated": true,
+  "planned": [
+   1346.7,
+   858.7
+  ],
+  "dist": 0,
+  "verdict": "HIT",
+  "reason": "map target f5 cNone seen once; need a second consistent observation"
+ }
+]

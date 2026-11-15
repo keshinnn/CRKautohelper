@@ -66,9 +66,16 @@ class Contracts(unittest.TestCase):
         pk = map_packet(); pk['evidence'] += [ev('冥界裂縫'), ev('危险度'), ev('可能發生的事件'), ev('確', 2100, 1290)]
         kinds = [R({'zone': 1, 'step': 0}).decide(pk)[0] for _ in range(2)]; self.assertEqual(kinds, ['pause', 'pause'])
 
-    def test_heal_panel_pauses_not_map(self):
+    def test_heal_panel_off_strategy_pauses(self):
         pk = map_packet(); pk['evidence'] += [ev('恢復'), ev('危险度'), ev('選擇恢復方式'), ev('恢復所有餅乾')]
         self.assertEqual(R({'zone': 1, 'step': 0}).decide(pk)[0], 'pause')
+
+    def test_heal_panel_on_strategy_taps_recover_after_two_observations(self):
+        strat = {'zones': [{'zone': 1, 'steps': [{'column': 2, 'type': 'battle'}, {'column': 3, 'type': 'heal'}]}]}
+        pk = map_packet(); pk['evidence'] += [ev('恢復', 2600, 100), ev('危险度'), ev('選擇恢復方式'), ev('恢復所有餅乾'), ev('15/15恢復', 2200, 1290)]
+        r = R({'zone': 1, 'step': 1, 'pending': {'type': 'heal', 'floor': 2}}); r.s = strat
+        self.assertEqual(r.decide(pk)[0], 'wait'); a = r.decide(pk)
+        self.assertEqual(a[0], 'tap'); self.assertGreater(a[1][1], 1200); self.assertEqual(r.state['step'], 2)
 
     def test_recruit_popup_joins(self):
         pk = map_packet(); pk['evidence'] += [ev('發現新夥伴！'), ev('加入', 1280, 1200)]

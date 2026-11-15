@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRK 冥界試煉 控制台</title>
+<style>
+:root{--bg:#f6f4f0;--card:#fff;--ink:#222;--mute:#777;--line:#e2ddd5;--auto:#2e7d32;--man:#e67e22;--pause:#c0392b;--acc:#5b4bb7}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 "Microsoft JhengHei","PingFang TC",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:12px 20px;background:#2b2140;color:#fff;display:flex;gap:16px;align-items:center}
+header h1{font-size:18px;margin:0;font-weight:600}
+main{display:grid;grid-template-columns:minmax(380px,1fr) 1.4fr;gap:16px;padding:16px 20px;max-width:1500px;margin:auto}
+@media(max-width:1000px){main{grid-template-columns:1fr}}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+h2{font-size:15px;margin:0 0 10px;color:#4a4060}
+button{font:inherit;padding:6px 14px;border-radius:7px;border:1px solid #bbb;background:#fff;cursor:pointer}
+button.pri{background:var(--acc);border-color:var(--acc);color:#fff}button.warn{background:var(--pause);border-color:var(--pause);color:#fff}
+button.man{background:var(--man);border-color:var(--man);color:#fff;font-size:16px;padding:10px 18px}
+button:disabled{opacity:.45;cursor:default}
+select,input[type=text],input[type=number]{font:inherit;padding:4px 6px;border:1px solid #ccc;border-radius:6px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:6px 0}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;color:#fff;font-weight:600}
+.m-auto{background:var(--auto)}.m-manual{background:var(--man)}.m-paused,.m-error{background:var(--pause)}.m-stopped,.m-idle{background:#888}
+#banner{display:none;margin:10px 0;padding:12px;border-radius:8px;background:#fff3e0;border:2px solid var(--man)}
+#frame{width:100%;border-radius:8px;border:1px solid var(--line);background:#111;min-height:120px}
+#log{font:12px/1.45 Consolas,monospace;background:#1d1b22;color:#ddd;border-radius:8px;padding:8px;height:230px;overflow:auto;white-space:pre-wrap}
+.mute{color:var(--mute);font-size:13px}
+.zone{border:1px solid var(--line);border-radius:8px;margin:10px 0;padding:8px 10px}
+.zone h3{font-size:14px;margin:0 0 6px;display:flex;gap:8px;align-items:center}
+table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #eee;padding:4px;vertical-align:top;text-align:left;font-size:14px}
+tr.manual{background:#fff3e0}tr.current{outline:2px solid var(--acc)}
+.chips{display:flex;flex-wrap:wrap;gap:3px}.chip{display:inline-flex;align-items:center;gap:3px;padding:1px 6px 1px 2px;border-radius:14px;background:#ede9f7;font-size:13px}
+.chip img{width:22px;height:22px;border-radius:50%;object-fit:cover}.chip b{cursor:pointer;color:#a33;margin-left:2px}
+#msgs{font-size:13px}.err{color:var(--pause)}.wrn{color:#a66b00}
+</style>
+</head>
+<body>
+<header><h1>CRK 冥界試煉 控制台</h1><span id="hdrMode" class="badge m-idle">讀取中</span><span id="hdrMsg"></span></header>
+<main>
+<div>
+ <section>
+  <h2>控制</h2>
+  <div class="row">攻略：<select id="runStrat"></select>
+   <button class="pri" id="bStart">開始／繼續</button>
+   <button id="bReset">從頭開始</button>
+   <button class="warn" id="bStop">停止</button></div>
+  <div class="row"><button id="bHalt">清除失敗鎖定</button><span class="mute">（同一層連續失敗超過上限時，程式會鎖定，調整後按這裡再開始）</span></div>
+  <div id="banner"><div style="font-size:16px;font-weight:600;margin-bottom:6px">🖐 手動關卡：請玩家接手</div>
+   <div id="bannerMsg"></div>
+   <div class="mute" style="margin:6px 0">程式在這段期間<b>不會點擊任何東西</b>。你打到勝利畫面時程式會自動接手；如果你已經自己離開勝利畫面，請按下面的按鈕。</div>
+   <button class="man" id="bResume">我已完成這關，交還程式</button></div>
+ </section>
+ <section style="margin-top:16px">
+  <h2>狀態</h2>
+  <div id="stat" class="mute"></div>
+  <img id="frame" alt="最新畫面">
+  <h2 style="margin-top:10px">紀錄</h2>
+  <div id="log"></div>
+ </section>
+</div>
+<section>
+ <h2>攻略編輯（人工輸入 → JSON）</h2>
+ <div class="row">開啟：<select id="editStrat"></select><button id="bNew">新攻略</button>
+  <button id="bImport">匯入 JSON</button><button id="bExport">下載 JSON</button><input type="file" id="fImport" accept=".json" hidden></div>
+ <div class="row">標題：<input type="text" id="title" style="flex:1"></div>
+ <div class="row">預設寶物：<span id="defT"></span></div>
+ <div class="row">失敗重試次數：<input type="number" id="retry" min="0" max="5" style="width:60px">
+  <label><input type="checkbox" id="ignMiss"> 測試時略過「未配料」提示</label></div>
+ <div id="zones"></div>
+ <div class="row"><button id="bAddZone">＋ 新增區域</button></div>
+ <div class="row">存檔名稱：<input type="text" id="saveName"><button class="pri" id="bSave">儲存</button><button id="bCheck">檢查</button></div>
+ <div id="msgs"></div>
+ <p class="mute">說明：每一層照順序列出。「路線欄」是地圖上由左到右第幾欄（1–4），BOSS 不用選。勾選「手動」的關卡，程式走到那一層時會暫停並通知你接手，打完後自動繼續。隊伍只需要列出要上場的餅乾（站位由遊戲決定）；寶物留空就用預設寶物。</p>
+</section>
+</main>
+<datalist id="dlCards"></datalist><datalist id="dlTreasures"></datalist>
+<script>
+const $=s=>document.querySelector(s);
+const TYPES={battle:'戰鬥',random:'隨機',heal:'恢復',boss:'BOSS'};
+let CAT={cards:[],treasures:[]}, S=null, ST={};
+async function api(path,body){const r=await fetch(path,body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+ const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||r.status);return j}
+function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+const MODES={auto:'自動執行中',manual:'等待玩家手動',paused:'已暫停',stopped:'已停止',error:'錯誤',idle:'未執行'};
+
+async function refresh(){
+ try{ST=await api('/api/status')}catch(e){return}
+ const mode=ST.running?(ST.mode||'auto'):(ST.mode&&ST.mode!=='auto'&&ST.mode!=='manual'?ST.mode:'idle');
+ $('#hdrMode').className='badge m-'+mode;$('#hdrMode').textContent=MODES[mode]||mode;$('#hdrMsg').textContent=ST.message||'';
+ const rs=ST.runState||{};
+ $('#stat').innerHTML=`區域 <b>${rs.zone??'-'}</b>　下一層 <b>${(rs.step??0)+1}</b>　${rs.halt?'<span class=err>鎖定：'+esc(rs.halt)+'</span>':''}<br>
+  最後更新 ${ST.age!=null?ST.age+' 秒前':'-'}　畫面狀態 ${esc(ST.state||'-')}`;
+ $('#banner').style.display=(ST.running&&ST.mode==='manual')?'block':'none';$('#bannerMsg').textContent=ST.message||'';
+ $('#bStart').disabled=$('#bReset').disabled=ST.running;$('#bStop').disabled=!ST.running;
+ $('#frame').src='/api/frame?t='+Date.now();
+ const lg=await api('/api/log').catch(()=>[]);const el=$('#log');const atEnd=el.scrollTop+el.clientHeight>=el.scrollHeight-20;
+ el.textContent=lg.join('\n');if(atEnd)el.scrollTop=el.scrollHeight;
+ markCurrent();
+}
+function markCurrent(){const rs=ST.runState||{};document.querySelectorAll('tr[data-z]').forEach(tr=>tr.classList.toggle('current',+tr.dataset.z===rs.zone&&+tr.dataset.i===rs.step))}
+
+async function loadLists(sel){const l=await api('/api/strategies');for(const id of ['#runStrat','#editStrat']){const s=$(id),v=s.value;s.innerHTML=l.map(n=>`<option>${esc(n)}</option>`).join('');s.value=sel||v||l[0]||''}}
+async function openStrat(name){if(!name)return newStrat();S=await api('/api/strategy?name='+encodeURIComponent(name));$('#saveName').value=name;render()}
+function newStrat(){S={format:'crk-belowland-strategy',version:1,meta:{title:'新攻略'},treasures:{default:[]},options:{retryLimit:2,ignoreMissingEquipment:false},zones:[{zone:1,steps:[{type:'battle',column:1,team:[]}]}]};$('#saveName').value='';render()}
+
+function chipList(list,kind,onDel){return `<span class="chips">${list.map((n,k)=>`<span class="chip"><img src="/img/${kind}/${encodeURIComponent(n)}" onerror="this.style.display='none'">${esc(n)}<b data-del="${k}" title="移除">×</b></span>`).join('')}</span>`}
+function teamOf(st){return typeof st.team==='string'?((S.teams||{})[st.team]||[]):(st.team||[])}
+function render(){
+ $('#title').value=(S.meta||{}).title||'';const o=S.options||{};$('#retry').value=o.retryLimit??2;$('#ignMiss').checked=!!o.ignoreMissingEquipment;
+ const dt=(S.treasures||{}).default||[];
+ $('#defT').innerHTML=chipList(dt,'treasure')+(dt.length<3?` <input type="text" list="dlTreasures" placeholder="加寶物" id="addDefT" style="width:200px">`:'');
+ $('#defT').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{dt.splice(+b.dataset.del,1);render()});
+ const a=$('#addDefT');if(a)a.onchange=()=>{if(a.value){S.treasures=S.treasures||{};(S.treasures.default=dt).push(a.value);render()}};
+ $('#zones').innerHTML=S.zones.map((z,zi)=>`<div class="zone"><h3>區域 <input type="number" min="1" value="${z.zone}" data-zone="${zi}" style="width:60px">
+  <button data-addstep="${zi}">＋ 一層</button><button data-delzone="${zi}">刪除區域</button></h3>
+  <table><tr><th>層</th><th>類型</th><th>路線欄</th><th>隊伍</th><th>寶物（空白＝預設）</th><th>手動</th><th>備註</th><th></th></tr>
+  ${z.steps.map((st,i)=>`<tr data-z="${z.zone}" data-i="${i}" class="${st.manual?'manual':''}"><td>${i+1}</td>
+   <td><select data-f="type">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${st.type===k?'selected':''}>${v}</option>`).join('')}</select></td>
+   <td>${st.type==='boss'?'—':`<select data-f="column">${[1,2,3,4].map(c=>`<option ${st.column===c?'selected':''}>${c}</option>`).join('')}</select>`}</td>
+   <td data-list="team">${st.type==='heal'?'—':chipList(teamOf(st),'card')+(teamOf(st).length<5?`<input type="text" list="dlCards" placeholder="加餅乾" style="width:90px" data-add="team">`:'')}</td>
+   <td data-list="treasures">${st.type==='heal'?'—':chipList(st.treasures||[],'treasure')+((st.treasures||[]).length<3?`<input type="text" list="dlTreasures" placeholder="加寶物" style="width:150px" data-add="treasures">`:'')}</td>
+   <td><input type="checkbox" data-f="manual" ${st.manual?'checked':''}></td>
+   <td><input type="text" data-f="note" value="${esc(st.note||'')}" style="width:110px"></td>
+   <td><button data-up>↑</button><button data-delstep>×</button></td></tr>`).join('')}</table></div>`).join('');
+ // wire
+ document.querySelectorAll('[data-zone]').forEach(e=>e.onchange=()=>{S.zones[+e.dataset.zone].zone=+e.value});
+ document.querySelectorAll('[data-addstep]').forEach(b=>b.onclick=()=>{const st=S.zones[+b.dataset.addstep].steps;const last=st[st.length-1]||{};st.push({type:'battle',column:last.column||1,team:[]});render()});
+ document.querySelectorAll('[data-delzone]').forEach(b=>b.onclick=()=>{if(confirm('刪除整個區域？')){S.zones.splice(+b.dataset.delzone,1);render()}});
+ document.querySelectorAll('tr[data-z]').forEach(tr=>{const z=S.zones.find(z=>z.zone===+tr.dataset.z),i=+tr.dataset.i,st=z.steps[i];
+  tr.querySelectorAll('[data-f]').forEach(e=>e.onchange=()=>{const f=e.dataset.f;
+   if(f==='manual')st.manual=e.checked||undefined;else if(f==='column')st.column=+e.value;else if(f==='note')st.note=e.value||undefined;
+   else{st.type=e.value;if(st.type==='boss')st.column=null;else if(!st.column)st.column=1;if(st.type==='heal'){delete st.team;delete st.treasures}}
+   render()});
+  tr.querySelectorAll('[data-add]').forEach(e=>e.onchange=()=>{const k=e.dataset.add;if(!e.value)return;if(k==='team'){const t=teamOf(st).slice();t.push(e.value);st.team=t}else(st.treasures=st.treasures||[]).push(e.value);render()});
+  tr.querySelectorAll('[data-list] [data-del]').forEach(b=>b.onclick=()=>{const k=b.closest('[data-list]').dataset.list;
+   if(k==='team'){const t=teamOf(st).slice();t.splice(+b.dataset.del,1);st.team=t}else{st.treasures.splice(+b.dataset.del,1);if(!st.treasures.length)delete st.treasures}render()});
+  tr.querySelector('[data-up]').onclick=()=>{if(i>0){[z.steps[i-1],z.steps[i]]=[z.steps[i],z.steps[i-1]];render()}};
+  tr.querySelector('[data-delstep]').onclick=()=>{z.steps.splice(i,1);render()};
+ });
+ markCurrent();
+}
+function collect(){S.meta=S.meta||{};S.meta.title=$('#title').value;S.options={...(S.options||{}),retryLimit:+$('#retry').value,ignoreMissingEquipment:$('#ignMiss').checked};return S}
+function showMsgs(r,ok){$('#msgs').innerHTML=(ok?`<div>${esc(ok)}</div>`:'')+(r.errors||[]).map(e=>`<div class=err>✗ ${esc(e)}</div>`).join('')+(r.warnings||[]).map(e=>`<div class=wrn>! ${esc(e)}</div>`).join('')}
+
+$('#editStrat').onchange=e=>openStrat(e.target.value);
+$('#bNew').onclick=newStrat;
+$('#bAddZone').onclick=()=>{const n=Math.max(0,...S.zones.map(z=>z.zone))+1;S.zones.push({zone:n,steps:[{type:'battle',column:1,team:[]}]});render()};
+$('#bCheck').onclick=async()=>showMsgs(await api('/api/validate',collect()),'');
+$('#bSave').onclick=async()=>{const name=$('#saveName').value.trim();if(!name)return alert('請輸入存檔名稱');
+ try{const r=await api('/api/strategy',{name,strategy:collect()});showMsgs(r,'已儲存：'+name);await loadLists(name)}catch(e){showMsgs({errors:[e.message]},'')}};
+$('#bExport').onclick=()=>{const b=new Blob([JSON.stringify(collect(),null,1)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=($('#saveName').value||'strategy')+'.json';a.click()};
+$('#bImport').onclick=()=>$('#fImport').click();
+$('#fImport').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{S=JSON.parse(await f.text());$('#saveName').value=f.name.replace(/\.json$/,'');render();showMsgs(await api('/api/validate',S),'已匯入，記得按儲存')}catch(err){alert('JSON 格式錯誤：'+err.message)}};
+async function start(reset){if(reset&&!confirm('從頭開始會清除目前進度紀錄（遊戲內進度不受影響），確定？'))return;
+ try{await api('/api/start',{name:$('#runStrat').value,reset});setTimeout(refresh,800)}catch(e){alert(e.message)}}
+$('#bStart').onclick=()=>start(false);$('#bReset').onclick=()=>start(true);
+$('#bStop').onclick=async()=>{await api('/api/stop',{});setTimeout(refresh,800)};
+$('#bResume').onclick=async()=>{await api('/api/resume',{});setTimeout(refresh,800)};
+$('#bHalt').onclick=async()=>{await api('/api/clearhalt',{});refresh()};
+
+(async()=>{CAT=await api('/api/catalog');
+ $('#dlCards').innerHTML=CAT.cards.map(c=>`<option value="${esc(c)}">`).join('');
+ $('#dlTreasures').innerHTML=CAT.treasures.map(t=>`<option value="${esc(t.name)}">`).join('');
+ await loadLists();await openStrat($('#editStrat').value);refresh();setInterval(refresh,2000)})();
+</script>
+</body>
+</html>

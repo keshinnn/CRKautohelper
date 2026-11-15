@@ -24,5 +24,8 @@
 | 03:41–04:00 | 離線自我檢查；重現 Codex 回放與既有測試 | Windows job agent（`bot/agent.py`） | `bot/selfcheck/REPORT.md` |
 | 04:06–04:45 | 對齊 V2 安全契約、保留集影片影子測試、OCR 效能比較 | 本機 graphify 圖譜（`graphify-out/graph.json`）、V2 `bounded_ocr.py` | `bot/selfcheck/test_contracts.py`、`shadow-buAwy1zf2LI/`、`decision_replay_result-win*.json` |
 | 04:50–05:55 | 延遲尾端剖析（cProfile）；關閉 V1 模板後備並驗證 809/809 等價；撤回 960 OCR 預設；保留集面板誤判防護 | cProfile、保留集影子測試 v2/v3 | `bot/selfcheck/REPORT.md` 第 10–11 節 |
+| 05:55–06:35 | 實機區域 1–3 全自動通關；手動關卡交接；本機網頁控制台 | MuMu 實機（ADB）、內建瀏覽器 | `bot/webui.py`、`bot/selfcheck/test_manual.py` |
+| 06:42–07:10 | 畫面辨識模型：765 張人工核對標註集、文字＋影像 kNN 融合、held-out 評估；地圖實機 30/30；寶物讀標題後備 | 縮圖表目視標註、`screens_eval.py` | `bot/screen_model.py`、`bot/selfcheck/screens/`、REPORT 第 13 節 |
+| 07:15–07:59 | 新模型實機驗收：重新入場，區域 1–3 15 層全自動（含 BOSS 失敗重試）；ADB 卡住自動恢復 | 網頁控制台啟動 runner | REPORT 第 14 節 |
 
-說明：Graphify 雲端工作區目前沒有已啟用的 repo，改查本機 `graphify-out/`。實機截圖、錄影、執行狀態未上傳。回溯點：分支 `rollback/pre-claude-20261116-branch`（`2e24683`，第一次推送前）、`rollback/pre-claude-20261116-r2`（`0edae19`，第二次推送前）；tag 推送被連線中斷，改用分支。
+說明：Graphify 雲端工作區目前沒有已啟用的 repo，改查本機 `graphify-out/`。實機截圖、錄影、執行狀態未上傳。回溯點：分支 `rollback/pre-claude-20261116-branch`（`2e24683`，第一次推送前）、`rollback/pre-claude-20261116-r2`（`0edae19`，第二次推送前）、`rollback/pre-claude-20261116-r3`（`4369aa2`，第三次推送前）；tag 推送被連線中斷，改用分支。
