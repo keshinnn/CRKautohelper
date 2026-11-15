@@ -12,8 +12,9 @@ _BOUND = None
 def _bounded_ocr():
     """Optional: reuse Codex's measured V2 bounded OCR preprocessing (CRK_OCR_BOUND=736|960|1280)."""
     global _BOUND
-    # Default 960: decision replay 38/38 unchanged, observe p50 2215 -> 1344 ms (bench_ocr.py, 2026-11-16). 736 lost accuracy.
-    side = os.environ.get('CRK_OCR_BOUND', '960')
+    # Off by default. 960 kept the 38-frame MuMu replay at 38/38, but on the held-out S4 video it dropped the small
+    # result header '區域Z第F層' and '離開' on 38 victory frames (shadow v2, 2026-11-16). Opt in with CRK_OCR_BOUND=960.
+    side = os.environ.get('CRK_OCR_BOUND', '0')
     if side not in ('', '0') and _BOUND is None:
         v2 = os.environ.get('CRK_V2_ROOT', r'C:/Users/User/Documents/Codex/CRK-Helper-V2')
         try:
@@ -25,8 +26,23 @@ def _bounded_ocr():
     return _BOUND
 
 
+_TEMPLATE_PATCHED = False
+def _skip_flow_template_fallback():
+    """V1 flow_vision ends UNKNOWN screens with an 11-template multi-scale matchTemplate (~3.5 s/frame, 80% of observe time).
+    Measured 2026-11-16 on 70 real UNKNOWN/loading frames (S4 video + MuMu S8): it never produced a state the
+    OCR rules had missed (only FAILURE, already caught by text). Disable with CRK_FLOW_TEMPLATES=1."""
+    global _TEMPLATE_PATCHED
+    if _TEMPLATE_PATCHED or os.environ.get('CRK_FLOW_TEMPLATES') == '1': return
+    import flow_vision
+    from pathlib import Path as _P
+    class _NoTemplates(type(_P())):
+        def __truediv__(self, key):
+            return super().__truediv__('__templates_disabled__.json' if key == 'templates.json' else key)
+    flow_vision.Path = _NoTemplates; _TEMPLATE_PATCHED = True
+
+
 def observe_image(image):
-    _bounded_ocr()
+    _bounded_ocr(); _skip_flow_template_fallback()
     from observation import inspect_capture
     buf = io.BytesIO(); image.save(buf, format='PNG', compress_level=1); raw = buf.getvalue()
     digest = hashlib.sha256(raw).hexdigest()

@@ -23,5 +23,6 @@
 | 03:20–03:40 | 寶物裝備改用 V1 `TreasureModel`，OCR 詳情標題核對 | V1 `ml/treasure_model.py` | `bot/treasure.py` |
 | 03:41–04:00 | 離線自我檢查；重現 Codex 回放與既有測試 | Windows job agent（`bot/agent.py`） | `bot/selfcheck/REPORT.md` |
 | 04:06–04:45 | 對齊 V2 安全契約、保留集影片影子測試、OCR 效能比較 | 本機 graphify 圖譜（`graphify-out/graph.json`）、V2 `bounded_ocr.py` | `bot/selfcheck/test_contracts.py`、`shadow-buAwy1zf2LI/`、`decision_replay_result-win*.json` |
+| 04:50–05:55 | 延遲尾端剖析（cProfile）；關閉 V1 模板後備並驗證 809/809 等價；撤回 960 OCR 預設；保留集面板誤判防護 | cProfile、保留集影子測試 v2/v3 | `bot/selfcheck/REPORT.md` 第 10–11 節 |
 
-說明：Graphify 雲端工作區目前沒有已啟用的 repo，改查本機 `graphify-out/`。實機截圖、錄影、執行狀態未上傳。推送前於 `2e24683` 建立回溯點 tag `rollback/pre-claude-20261116`。
+說明：Graphify 雲端工作區目前沒有已啟用的 repo，改查本機 `graphify-out/`。實機截圖、錄影、執行狀態未上傳。回溯點：分支 `rollback/pre-claude-20261116-branch`（`2e24683`，第一次推送前）、`rollback/pre-claude-20261116-r2`（`0edae19`，第二次推送前）；tag 推送被連線中斷，改用分支。

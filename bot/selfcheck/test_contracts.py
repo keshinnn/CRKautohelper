@@ -62,6 +62,22 @@ class Contracts(unittest.TestCase):
               'evidence': [ev('第1層戰鬥'), ev('危险度'), ev('套用效果'), ev('可獲得'), ev('進入', 2100, 1290), ev('續', 1260, 990)]}
         a = R({'zone': 1, 'step': 0}).decide(pk); self.assertEqual(a[0], 'tap'); self.assertLess(abs(a[1][0] - 1285), 60)
 
+    def test_rift_panel_without_floor_pauses_not_map(self):
+        pk = map_packet(); pk['evidence'] += [ev('冥界裂縫'), ev('危险度'), ev('可能發生的事件'), ev('確', 2100, 1290)]
+        kinds = [R({'zone': 1, 'step': 0}).decide(pk)[0] for _ in range(2)]; self.assertEqual(kinds, ['pause', 'pause'])
+
+    def test_heal_panel_pauses_not_map(self):
+        pk = map_packet(); pk['evidence'] += [ev('恢復'), ev('危险度'), ev('選擇恢復方式'), ev('恢復所有餅乾')]
+        self.assertEqual(R({'zone': 1, 'step': 0}).decide(pk)[0], 'pause')
+
+    def test_recruit_popup_joins(self):
+        pk = map_packet(); pk['evidence'] += [ev('發現新夥伴！'), ev('加入', 1280, 1200)]
+        a = R({'zone': 1, 'step': 0}).decide(pk); self.assertEqual(a[0], 'tap'); self.assertLess(abs(a[1][1] - 1215), 40)
+
+    def test_expedition_menu_over_map_pauses(self):
+        pk = map_packet(); pk['evidence'] += [ev('繼續'), ev('儲存並前往大廳'), ev('結束探險')]
+        self.assertEqual(R({'zone': 1, 'step': 0}).decide(pk)[0], 'pause')
+
     def test_loading_waits(self):
         pk = {'flow': {'state': 'UNKNOWN', 'targets': []}, 'evidence': [ev('讀取中...')], 'progress': {}}
         self.assertEqual(R({'zone': 1, 'step': 0}).decide(pk)[0], 'wait')

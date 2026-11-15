@@ -3,10 +3,10 @@
   "frames": 38,
   "correct": 38,
   "unknownButWaited": 4,
-  "obsMsP50": 2215,
-  "obsMsP95": 5394,
-  "obsMsMax": 5465,
-  "ocrBound": null
+  "obsMsP50": 956,
+  "obsMsP95": 3181,
+  "obsMsMax": 4140,
+  "ocrBound": "0"
  },
  "rows": [
   {
@@ -26,7 +26,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 2838
+   "obsMs": 4140
   },
   {
    "file": "bot/runs/20261116-020251/0001-full.png",
@@ -51,7 +51,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 5268
+   "obsMs": 1189
   },
   {
    "file": "bot/runs/20261116-020348/0003-full.png",
@@ -76,7 +76,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 1419
+   "obsMs": 1698
   },
   {
    "file": "bot/runs/20261116-020414/0002-full.png",
@@ -101,7 +101,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 1176
+   "obsMs": 1504
   },
   {
    "file": "bot/runs/20261116-020934/0002-full.png",
@@ -126,7 +126,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 1028
+   "obsMs": 1326
   },
   {
    "file": "bot/runs/20261116-021024/0002-full.png",
@@ -151,7 +151,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 5117
+   "obsMs": 1092
   },
   {
    "file": "bot/runs/20261116-021024/0003-full.png",
@@ -176,7 +176,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 4945
+   "obsMs": 778
   },
   {
    "file": "bot/runs/20261116-021024/0004-full.png",
@@ -201,7 +201,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 4967
+   "obsMs": 782
   },
   {
    "file": "bot/runs/20261116-021024/0005-full.png",
@@ -226,7 +226,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 4957
+   "obsMs": 782
   },
   {
    "file": "bot/runs/20261116-021108/0002-full.png",
@@ -251,7 +251,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 1257
+   "obsMs": 1453
   },
   {
    "file": "bot/runs/20261116-021405/0002-full.png",
@@ -270,7 +270,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 5069
+   "obsMs": 956
   },
   {
    "file": "bot/runs/20261116-022030/0002-full.png",
@@ -289,7 +289,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 5465
+   "obsMs": 1396
   },
   {
    "file": "bot/runs/20261116-022030/0004-full.png",
@@ -314,7 +314,7 @@
    "ok": true,
    "secondObservationSimulated": true,
    "unknownWait": false,
-   "obsMs": 2560
+   "obsMs": 3181
   },
   {
    "file": "bot/runs/20261116-022316/0002-full.png",
@@ -333,7 +333,7 @@
    "ok": true,
    "secondObservationSimulated": true,
    "unknownWait": false,
-   "obsMs": 2215
+   "obsMs": 2706
   },
   {
    "file": "bot/runs/20261116-023054/0005-full.png",
@@ -352,7 +352,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 5394
+   "obsMs": 1338
   },
   {
    "file": "bot/runs/20261116-023054/0006-full.png",
@@ -371,7 +371,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": true,
-   "obsMs": 5011
+   "obsMs": 795
   },
   {
    "file": "bot/runs/20261116-023054/0008-full.png",
@@ -390,7 +390,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": true,
-   "obsMs": 4908
+   "obsMs": 741
   },
   {
    "file": "bot/runs/20261116-023054/0013-full.png",
@@ -409,7 +409,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": true,
-   "obsMs": 4958
+   "obsMs": 803
   },
   {
    "file": "bot/runs/20261116-023054/0030-full.png",
@@ -428,7 +428,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": true,
-   "obsMs": 4815
+   "obsMs": 650
   },
   {
    "file": "bot/runs/20261116-023054/0031-full.png",
@@ -446,11 +446,11 @@
     ],
     "failure: reveal buttons"
    ],
-   "v1State": "FAILURE",
+   "v1State": "UNKNOWN",
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 4832
+   "obsMs": 695
   },
   {
    "file": "bot/runs/20261116-023515/0002-full.png",
@@ -469,7 +469,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 5201
+   "obsMs": 1053
   },
   {
    "file": "bot/runs/20261116-023515/0003-full.png",
@@ -494,7 +494,7 @@
    "ok": true,
    "secondObservationSimulated": true,
    "unknownWait": false,
-   "obsMs": 1654
+   "obsMs": 2115
   },
   {
    "file": "bot/shots/015944.png",
@@ -513,7 +513,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 5061
+   "obsMs": 897
   },
   {
    "file": "bot/shots/020337.png",
@@ -538,7 +538,7 @@
    "ok": true,
    "secondObservationSimulated": true,
    "unknownWait": false,
-   "obsMs": 1936
+   "obsMs": 2408
   },
   {
    "file": "bot/shots/031525.png",
@@ -563,7 +563,7 @@
    "ok": true,
    "secondObservationSimulated": true,
    "unknownWait": false,
-   "obsMs": 1684
+   "obsMs": 2140
   },
   {
    "file": "bot/shots/031637.png",
@@ -588,7 +588,7 @@
    "ok": true,
    "secondObservationSimulated": true,
    "unknownWait": false,
-   "obsMs": 1470
+   "obsMs": 1877
   },
   {
    "file": "bot/shots/032003.png",
@@ -607,7 +607,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 1572
+   "obsMs": 1958
   },
   {
    "file": "bot/shots/023437.png",
@@ -628,11 +628,11 @@
     ],
     "failure: retry limit reached -> 離開"
    ],
-   "v1State": "FAILURE",
+   "v1State": "UNKNOWN",
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 5200
+   "obsMs": 1099
   },
   {
    "file": "bot/runs/20261116-021405/0003-full.png",
@@ -651,7 +651,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 666
+   "obsMs": 779
   },
   {
    "file": "bot/runs/20261116-021405/0008-full.png",
@@ -670,7 +670,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 564
+   "obsMs": 684
   },
   {
    "file": "bot/runs/20261116-021405/0014-full.png",
@@ -689,7 +689,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 670
+   "obsMs": 823
   },
   {
    "file": "bot/runs/20261116-021405/0019-full.png",
@@ -708,7 +708,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 514
+   "obsMs": 630
   },
   {
    "file": "bot/runs/20261116-021405/0024-full.png",
@@ -727,7 +727,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 517
+   "obsMs": 633
   },
   {
    "file": "bot/runs/20261116-021702/0004-full.png",
@@ -746,7 +746,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 520
+   "obsMs": 618
   },
   {
    "file": "bot/runs/20261116-023054/0010-full.png",
@@ -765,7 +765,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 750
+   "obsMs": 889
   },
   {
    "file": "bot/runs/20261116-023054/0016-full.png",
@@ -784,7 +784,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 629
+   "obsMs": 748
   },
   {
    "file": "bot/runs/20261116-023054/0021-full.png",
@@ -803,7 +803,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 741
+   "obsMs": 888
   },
   {
    "file": "bot/runs/20261116-023054/0026-full.png",
@@ -822,7 +822,7 @@
    "ok": true,
    "secondObservationSimulated": false,
    "unknownWait": false,
-   "obsMs": 618
+   "obsMs": 846
   }
  ]
 }

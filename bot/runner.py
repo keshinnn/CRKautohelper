@@ -54,15 +54,33 @@ def box_center(b):
     return (b[0] + b[2] / 2, b[1] + b[3] / 2)
 
 
+def result_state(T):
+    """Result banner '區域Z第F層' + 勝利/失敗 (replaces V1's template fallback, which only ever contributed FAILURE)."""
+    header = any(re.search(r'區域\d+第\d+[層唇]', t) for t in T)
+    timer = any(re.fullmatch(r'\d{2}:\d{2}\.\d{2}', t) for t in T)   # result-screen clear time, e.g. 00:51.82
+    if not (header or timer): return None
+    if any(t in ('失敗', '失败') for t in T): return 'FAILURE'
+    if any(t == '勝利' for t in T): return 'VICTORY'
+    return None
+
+
 def preview_panel(T):
-    """Node preview side panel, independent of V1's title regex (held-out S4 video showed V1 calling these MAP)."""
+    """Right-hand node panel open over the map (held-out S4 video: V1 called all of these MAP).
+    Any panel shows 危險度; the map alone never does. Subtype from its own labels."""
     j = '\n'.join(T)
-    if not (any(t == '進入' for t in T) and '套用效果' in j and '可獲得' in j and ('危險度' in j or '危险度' in j or '限制時間' in j)):
-        return None
-    if '冥界裂' in j: return 'RIFT'
-    if 'BOSS' in j.upper(): return 'BOSS'
-    if any(t.startswith('激') for t in T): return 'ELITE'
-    return 'BATTLE'
+    if not ('危險度' in j or '危险度' in j or '危度' in j): return None
+    if '可能發生的事件' in j or '冥界裂' in j: return 'RIFT'
+    if '恢復方式' in j or '恢復所有' in j or '所選餅乾' in j: return 'HEAL'
+    if any(t == '進入' for t in T) or '套用效果' in j:
+        if 'BOSS' in j.upper(): return 'BOSS'
+        if any(t.startswith('激') for t in T): return 'ELITE'
+        return 'BATTLE'
+    return 'UNKNOWN_PANEL'
+
+
+def recruit_popup(T):
+    j = '\n'.join(T)
+    return ('發現新' in j or '加入了' in j) and any(t == '加入' for t in T)
 
 
 def classify(p):
@@ -73,6 +91,9 @@ def classify(p):
     if '最高分數' in joined and '最高過關區域' in joined and find_text(p, '進入'): return 'LOBBY'
     if any(re.fullmatch(r'第(\d+)[層唇]冥界裂[縫缝]', t) for t in T): return 'RIFT_RESOLVING' if '確認結果' in joined else 'PREVIEW_RIFT'
     if state in ('NODE_BATTLE', 'NODE_BOSS'): return 'PREVIEW_' + state[5:]
+    if state == 'UNKNOWN' and result_state(T): return result_state(T)
+    if any('結束探' in t or '前往大廳' in t for t in T): return 'EXPEDITION_MENU'
+    if recruit_popup(T): return 'RECRUIT'
     pv = preview_panel(T) if state in ('MAP', 'UNKNOWN') else None
     if pv: return 'PREVIEW_' + pv
     if any('讀取中' in t for t in T): return 'LOADING'
@@ -140,7 +161,16 @@ class Runner:
             if rows: return ('tap', center_of(rows[-1]), f'rift floor {rift.group(1)} verified twice -> 確認')
             g = green_button(self.last_img, (1800, 1150, 2560, 1440))
             return ('tap', g, 'rift -> confirm (green)') if g else ('wait', 'rift: confirm not visible yet')
+        if any('結束探' in t or '前往大廳' in t for t in T):
+            return ('pause', 'expedition menu (繼續/前往大廳/結束探險) is open; never act behind it')
+        if recruit_popup(T):
+            rows = find_text(p, '加入')
+            return ('tap', center_of(rows[-1]), 'recruit popup -> 加入 (no choice offered)')
         pv = preview_panel(T) if state in ('MAP', 'UNKNOWN') else None   # dialogs over the panel keep their own state
+        if pv in ('HEAL', 'UNKNOWN_PANEL'):
+            return ('pause', f'node panel {pv} open: not automated yet (never plan map taps behind a panel)')
+        if pv == 'RIFT' and not rift:
+            return ('pause', 'rift panel open but its floor is unreadable; cannot verify against strategy')
         if pv and pv != 'RIFT':
             state = 'NODE_BOSS' if pv == 'BOSS' else 'NODE_BATTLE'   # never plan map taps behind an open preview
             if not [t for t in f.get('targets', []) if t.get('target') == 'enter']:
@@ -148,6 +178,8 @@ class Runner:
                 if rows:
                     xs = [q[0] for q in rows[-1]['box']]; ys = [q[1] for q in rows[-1]['box']]
                     f = {**f, 'targets': [{'target': 'enter', 'box': [min(xs), min(ys), max(xs) - min(xs), max(ys) - min(ys)]}]}; p = {**p, 'flow': f}
+        if state == 'UNKNOWN' and result_state(T):
+            state = result_state(T)
         if any('讀取中' in t for t in T):
             return ('wait', 'loading screen')
         if state == 'UNKNOWN' and any(t in ('隊伍設定', '隧伍設定') for t in T) and ('登場' in joined or 'BOSS' in joined or '前排' in joined):
