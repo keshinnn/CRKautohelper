@@ -1,0 +1,902 @@
+[
+ {
+  "case": 1,
+  "id": "zone-1-first-battle-random-fixed",
+  "size": [
+   2290,
+   1293
+  ],
+  "geometry": "random:78e11",
+  "intent": "z1f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 2,
+  "id": "zone-1-first-battle-random-pre-change",
+  "size": [
+   1643,
+   723
+  ],
+  "geometry": "random:a1f43",
+  "intent": "z1f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 3,
+  "id": "zone-1-first-battle-random-post-change",
+  "size": [
+   2345,
+   1064
+  ],
+  "geometry": "random:786fa",
+  "intent": "z1f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 4,
+  "id": "zone-2-first-battle-random-fixed",
+  "size": [
+   1471,
+   777
+  ],
+  "geometry": "random:6ff79",
+  "intent": "z2f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 5,
+  "id": "zone-2-first-battle-random-pre-change",
+  "size": [
+   2094,
+   948
+  ],
+  "geometry": "random:0287f",
+  "intent": "z2f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 6,
+  "id": "zone-2-first-battle-random-post-change",
+  "size": [
+   1196,
+   631
+  ],
+  "geometry": "random:aa0bd",
+  "intent": "z2f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 7,
+  "id": "zone-3-first-battle-random-fixed",
+  "size": [
+   2481,
+   1347
+  ],
+  "geometry": "random:ab521",
+  "intent": "z3f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 8,
+  "id": "zone-3-first-battle-random-pre-change",
+  "size": [
+   2345,
+   1420
+  ],
+  "geometry": "random:a673a",
+  "intent": "z3f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 9,
+  "id": "zone-3-first-battle-random-post-change",
+  "size": [
+   2071,
+   1132
+  ],
+  "geometry": "random:7ddd0",
+  "intent": "z3f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 10,
+  "id": "zone-8-first-battle-random-fixed",
+  "size": [
+   2009,
+   1010
+  ],
+  "geometry": "random:2c71d",
+  "intent": "z8f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 11,
+  "id": "zone-8-first-battle-random-pre-change",
+  "size": [
+   1103,
+   553
+  ],
+  "geometry": "random:be8fd",
+  "intent": "z8f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 12,
+  "id": "zone-8-first-battle-random-post-change",
+  "size": [
+   1677,
+   1051
+  ],
+  "geometry": "random:6fca1",
+  "intent": "z8f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 13,
+  "id": "zone-9-first-battle-random-fixed",
+  "size": [
+   996,
+   541
+  ],
+  "geometry": "random:32e1d",
+  "intent": "z9f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 14,
+  "id": "zone-9-first-battle-random-pre-change",
+  "size": [
+   1469,
+   792
+  ],
+  "geometry": "random:be5e1",
+  "intent": "z9f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 15,
+  "id": "zone-9-first-battle-random-post-change",
+  "size": [
+   1805,
+   1401
+  ],
+  "geometry": "random:1c89a",
+  "intent": "z9f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 16,
+  "id": "dev-primary-zone2-floor2-col3-higher-random-fixed",
+  "size": [
+   1342,
+   552
+  ],
+  "geometry": "random:38a98",
+  "intent": "z2f2c3-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 17,
+  "id": "dev-primary-zone2-floor2-col3-higher-random-pre-change",
+  "size": [
+   2467,
+   1302
+  ],
+  "geometry": "random:3aa54",
+  "intent": "z2f2c3-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 18,
+  "id": "dev-primary-zone2-floor2-col3-higher-random-post-change",
+  "size": [
+   1997,
+   1146
+  ],
+  "geometry": "random:ae230",
+  "intent": "z2f2c3-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 19,
+  "id": "dev-primary-zone3-floor3-col1-higher-random-fixed",
+  "size": [
+   1873,
+   1370
+  ],
+  "geometry": "random:15abf",
+  "intent": "z3f3c1-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 20,
+  "id": "dev-primary-zone3-floor3-col1-higher-random-pre-change",
+  "size": [
+   1255,
+   689
+  ],
+  "geometry": "random:68811",
+  "intent": "z3f3c1-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 21,
+  "id": "dev-primary-zone3-floor3-col1-higher-random-post-change",
+  "size": [
+   1734,
+   1187
+  ],
+  "geometry": "random:379f9",
+  "intent": "z3f3c1-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 22,
+  "id": "dev-primary-zone4-floor2-col3-random-fixed",
+  "size": [
+   2383,
+   1372
+  ],
+  "geometry": "random:9dded",
+  "intent": "z4f2c3-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 23,
+  "id": "dev-primary-zone4-floor2-col3-random-pre-change",
+  "size": [
+   1101,
+   668
+  ],
+  "geometry": "random:99251",
+  "intent": "z4f2c3-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 24,
+  "id": "dev-primary-zone4-floor2-col3-random-post-change",
+  "size": [
+   2275,
+   1203
+  ],
+  "geometry": "random:c9562",
+  "intent": "z4f2c3-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 25,
+  "id": "dev-primary-zone6-floor1-col2-random-fixed",
+  "size": [
+   1145,
+   721
+  ],
+  "geometry": "random:a797f",
+  "intent": "z6f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 26,
+  "id": "dev-primary-zone6-floor1-col2-random-pre-change",
+  "size": [
+   2105,
+   871
+  ],
+  "geometry": "random:311e6",
+  "intent": "z6f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 27,
+  "id": "dev-primary-zone6-floor1-col2-random-post-change",
+  "size": [
+   2275,
+   1186
+  ],
+  "geometry": "random:88f51",
+  "intent": "z6f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 28,
+  "id": "dev-primary-zone10-floor1-col2-random-fixed",
+  "size": [
+   1203,
+   864
+  ],
+  "geometry": "random:91486",
+  "intent": "z10f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 29,
+  "id": "dev-primary-zone10-floor1-col2-random-pre-change",
+  "size": [
+   1187,
+   703
+  ],
+  "geometry": "random:29ca4",
+  "intent": "z10f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 30,
+  "id": "dev-primary-zone10-floor1-col2-random-post-change",
+  "size": [
+   1217,
+   625
+  ],
+  "geometry": "random:5287a",
+  "intent": "z10f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 31,
+  "id": "dev-L0-zone6-floor1-col2-select-1773-random-fixed",
+  "size": [
+   966,
+   740
+  ],
+  "geometry": "random:8faa1",
+  "intent": "z6f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 32,
+  "id": "dev-L0-zone6-floor1-col2-select-1773-random-pre-change",
+  "size": [
+   1152,
+   597
+  ],
+  "geometry": "random:c42aa",
+  "intent": "z6f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 33,
+  "id": "dev-L0-zone6-floor1-col2-select-1773-random-post-change",
+  "size": [
+   1486,
+   1014
+  ],
+  "geometry": "random:580a7",
+  "intent": "z6f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 34,
+  "id": "dev-L0-zone6-floor1-col2-resume-1781-random-fixed",
+  "size": [
+   1781,
+   915
+  ],
+  "geometry": "random:ded71",
+  "intent": "z6f1c2-resume",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 35,
+  "id": "dev-L0-zone6-floor1-col2-resume-1781-random-pre-change",
+  "size": [
+   1168,
+   594
+  ],
+  "geometry": "random:9e4b8",
+  "intent": "z6f1c2-resume",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 36,
+  "id": "dev-L0-zone6-floor1-col2-resume-1781-random-post-change",
+  "size": [
+   1457,
+   1035
+  ],
+  "geometry": "random:afaaa",
+  "intent": "z6f1c2-resume",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 37,
+  "id": "dev-L0-zone6-floor3-col3-select-1932-random-fixed",
+  "size": [
+   1256,
+   645
+  ],
+  "geometry": "random:c17f4",
+  "intent": "z6f3c3-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 38,
+  "id": "dev-L0-zone6-floor3-col3-select-1932-random-pre-change",
+  "size": [
+   2137,
+   1241
+  ],
+  "geometry": "random:ae4fb",
+  "intent": "z6f3c3-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 39,
+  "id": "dev-L0-zone6-floor3-col3-select-1932-random-post-change",
+  "size": [
+   1786,
+   1227
+  ],
+  "geometry": "random:48f4e",
+  "intent": "z6f3c3-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 40,
+  "id": "dev-earlier-L0-zone5-floor1-col1-random-fixed",
+  "size": [
+   1885,
+   793
+  ],
+  "geometry": "random:f153f",
+  "intent": "z5f1c1-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 41,
+  "id": "dev-earlier-L0-zone5-floor1-col1-random-pre-change",
+  "size": [
+   2481,
+   1135
+  ],
+  "geometry": "random:bf6cf",
+  "intent": "z5f1c1-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 42,
+  "id": "dev-earlier-L0-zone5-floor1-col1-random-post-change",
+  "size": [
+   1466,
+   1087
+  ],
+  "geometry": "random:1e40a",
+  "intent": "z5f1c1-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 43,
+  "id": "dev-earlier-L0-zone8-floor1-col4-random-fixed",
+  "size": [
+   2249,
+   1408
+  ],
+  "geometry": "random:b1145",
+  "intent": "z8f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 44,
+  "id": "dev-earlier-L0-zone8-floor1-col4-random-pre-change",
+  "size": [
+   1706,
+   785
+  ],
+  "geometry": "random:f0e0e",
+  "intent": "z8f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 45,
+  "id": "dev-earlier-L0-zone8-floor1-col4-random-post-change",
+  "size": [
+   1958,
+   1107
+  ],
+  "geometry": "random:22f13",
+  "intent": "z8f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 46,
+  "id": "dev-earlier-0Q-zone4-floor1-col4-random-fixed",
+  "size": [
+   1697,
+   1075
+  ],
+  "geometry": "random:8d3d9",
+  "intent": "z4f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 47,
+  "id": "dev-earlier-0Q-zone4-floor1-col4-random-pre-change",
+  "size": [
+   1886,
+   1065
+  ],
+  "geometry": "random:22577",
+  "intent": "z4f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 48,
+  "id": "dev-earlier-0Q-zone4-floor1-col4-random-post-change",
+  "size": [
+   1209,
+   730
+  ],
+  "geometry": "random:77b4f",
+  "intent": "z4f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 49,
+  "id": "dev-LX46-zone1-floor1-col1-resume-random-fixed",
+  "size": [
+   1590,
+   1079
+  ],
+  "geometry": "random:cd176",
+  "intent": "z1f1c1-resume",
+  "results": [
+   "NO_PLAN:no floor anchor on screen (gate/current/",
+   "NO_PLAN:no floor anchor on screen (gate/current/"
+  ],
+  "ok": false
+ },
+ {
+  "case": 50,
+  "id": "dev-LX46-zone1-floor1-col1-resume-random-pre-change",
+  "size": [
+   1796,
+   1384
+  ],
+  "geometry": "random:9eaf8",
+  "intent": "z1f1c1-resume",
+  "results": [
+   "NO_PLAN:no floor anchor on screen (gate/current/",
+   "NO_PLAN:no floor anchor on screen (gate/current/"
+  ],
+  "ok": false
+ },
+ {
+  "case": 51,
+  "id": "dev-LX46-zone1-floor1-col1-resume-random-post-change",
+  "size": [
+   1709,
+   1097
+  ],
+  "geometry": "random:3ca2f",
+  "intent": "z1f1c1-resume",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 52,
+  "id": "dev-LX46-zone2-floor1-col2-select-random-fixed",
+  "size": [
+   1710,
+   1229
+  ],
+  "geometry": "random:be126",
+  "intent": "z2f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 53,
+  "id": "dev-LX46-zone2-floor1-col2-select-random-pre-change",
+  "size": [
+   1290,
+   1005
+  ],
+  "geometry": "random:a2622",
+  "intent": "z2f1c2-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 54,
+  "id": "dev-LX46-zone2-floor1-col2-select-random-post-change",
+  "size": [
+   1475,
+   640
+  ],
+  "geometry": "random:c350a",
+  "intent": "z2f1c2-select",
+  "results": [
+   "NO_PLAN:no floor anchor on screen (gate/current/",
+   "NO_PLAN:no floor anchor on screen (gate/current/"
+  ],
+  "ok": false
+ },
+ {
+  "case": 55,
+  "id": "dev-LX46-zone3-floor1-col4-select-random-fixed",
+  "size": [
+   1446,
+   854
+  ],
+  "geometry": "random:fdde2",
+  "intent": "z3f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 56,
+  "id": "dev-LX46-zone3-floor1-col4-select-random-pre-change",
+  "size": [
+   2167,
+   1141
+  ],
+  "geometry": "random:bfe5d",
+  "intent": "z3f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 57,
+  "id": "dev-LX46-zone3-floor1-col4-select-random-post-change",
+  "size": [
+   1462,
+   690
+  ],
+  "geometry": "random:55477",
+  "intent": "z3f1c4-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 58,
+  "id": "dev-LX46-zone4-floor2-col1-select-random-fixed",
+  "size": [
+   2306,
+   1417
+  ],
+  "geometry": "random:26825",
+  "intent": "z4f2c1-select",
+  "results": [
+   "NO_PLAN:no floor anchor on screen (gate/current/",
+   "HIT"
+  ],
+  "ok": true
+ },
+ {
+  "case": 59,
+  "id": "dev-LX46-zone4-floor2-col1-select-random-pre-change",
+  "size": [
+   1067,
+   752
+  ],
+  "geometry": "random:158d9",
+  "intent": "z4f2c1-select",
+  "results": [
+   "NO_PLAN:no floor anchor on screen (gate/current/",
+   "NO_PLAN:no floor anchor on screen (gate/current/"
+  ],
+  "ok": false
+ },
+ {
+  "case": 60,
+  "id": "dev-LX46-zone4-floor2-col1-select-random-post-change",
+  "size": [
+   1329,
+   732
+  ],
+  "geometry": "random:80676",
+  "intent": "z4f2c1-select",
+  "results": [
+   "HIT",
+   "HIT"
+  ],
+  "ok": true
+ }
+]

@@ -1,0 +1,828 @@
+{
+ "summary": {
+  "frames": 38,
+  "correct": 38,
+  "unknownButWaited": 3,
+  "obsMsP50": 1344,
+  "obsMsP95": 4984,
+  "obsMsMax": 5162,
+  "ocrBound": "960"
+ },
+ "rows": [
+  {
+   "file": "bot/runs/20261116-020123/0001-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "pause",
+    "tap": null,
+    "note": "roster selection is manual"
+   },
+   "decided": [
+    "pause",
+    null,
+    "遠征隊名單畫面：請手動選好 15 隻"
+   ],
+   "v1State": "EXPEDITION_ROSTER",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 2240
+  },
+  {
+   "file": "bot/runs/20261116-020251/0001-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     2311,
+     1327
+    ],
+    "note": "lobby 進入"
+   },
+   "decided": [
+    "tap",
+    [
+     2313,
+     1329
+    ],
+    "enter expedition"
+   ],
+   "v1State": "UNKNOWN",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 5162
+  },
+  {
+   "file": "bot/runs/20261116-020348/0003-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     1280,
+     1012
+    ],
+    "note": "node entry confirm 繼續"
+   },
+   "decided": [
+    "tap",
+    [
+     1281,
+     1013
+    ],
+    "confirm node entry"
+   ],
+   "v1State": "NODE_ENTRY_CONFIRM",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 1168
+  },
+  {
+   "file": "bot/runs/20261116-020414/0002-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     197,
+     1336
+    ],
+    "note": "battle-ready: team not yet set -> 隊伍設定"
+   },
+   "decided": [
+    "tap",
+    [
+     197,
+     1336
+    ],
+    "open team settings"
+   ],
+   "v1State": "BATTLE_READY",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 927
+  },
+  {
+   "file": "bot/runs/20261116-020934/0002-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     2168,
+     1307
+    ],
+    "note": "battle-ready: team set -> 戰鬥開始"
+   },
+   "decided": [
+    "tap",
+    [
+     2168,
+     1308
+    ],
+    "battle start (green button)"
+   ],
+   "v1State": "BATTLE_READY",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 844
+  },
+  {
+   "file": "bot/runs/20261116-021024/0002-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     1533,
+     1014
+    ],
+    "note": "underfilled -> 開始"
+   },
+   "decided": [
+    "tap",
+    [
+     1533,
+     1014
+    ],
+    "underfilled team confirm -> start (strategy uses fewer than 5)"
+   ],
+   "v1State": "BATTLE_READY",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 789
+  },
+  {
+   "file": "bot/runs/20261116-021024/0003-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     1533,
+     1014
+    ],
+    "note": "underfilled -> 開始"
+   },
+   "decided": [
+    "tap",
+    [
+     1533,
+     1014
+    ],
+    "underfilled team confirm -> start (strategy uses fewer than 5)"
+   ],
+   "v1State": "BATTLE_READY",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 765
+  },
+  {
+   "file": "bot/runs/20261116-021024/0004-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     1533,
+     1014
+    ],
+    "note": "underfilled -> 開始"
+   },
+   "decided": [
+    "tap",
+    [
+     1533,
+     1014
+    ],
+    "underfilled team confirm -> start (strategy uses fewer than 5)"
+   ],
+   "v1State": "BATTLE_READY",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 761
+  },
+  {
+   "file": "bot/runs/20261116-021024/0005-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     1533,
+     1014
+    ],
+    "note": "underfilled -> 開始"
+   },
+   "decided": [
+    "tap",
+    [
+     1533,
+     1014
+    ],
+    "underfilled team confirm -> start (strategy uses fewer than 5)"
+   ],
+   "v1State": "BATTLE_READY",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 763
+  },
+  {
+   "file": "bot/runs/20261116-021108/0002-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     1494,
+     1091
+    ],
+    "note": "missing equipment -> 確認 (testing policy)"
+   },
+   "decided": [
+    "tap",
+    [
+     1495,
+     1092
+    ],
+    "missing toppings/biscuit popup -> confirm (user: ignore during testing)"
+   ],
+   "v1State": "MISSING_EQUIPMENT",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 623
+  },
+  {
+   "file": "bot/runs/20261116-021405/0002-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "loading"
+   },
+   "decided": [
+    "wait",
+    null,
+    "loading screen"
+   ],
+   "v1State": "UNKNOWN",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 4872
+  },
+  {
+   "file": "bot/runs/20261116-022030/0002-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "loading"
+   },
+   "decided": [
+    "wait",
+    null,
+    "loading screen"
+   ],
+   "v1State": "UNKNOWN",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 4866
+  },
+  {
+   "file": "bot/runs/20261116-022030/0004-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     2160,
+     1294
+    ],
+    "note": "rift preview floor2 -> 確認"
+   },
+   "decided": [
+    "tap",
+    [
+     2161,
+     1296
+    ],
+    "rift floor 2 verified twice -> 確認"
+   ],
+   "v1State": "MAP",
+   "ok": true,
+   "secondObservationSimulated": true,
+   "unknownWait": false,
+   "obsMs": 2316
+  },
+  {
+   "file": "bot/runs/20261116-022316/0002-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "rift resolving"
+   },
+   "decided": [
+    "wait",
+    null,
+    "rift: confirm not visible yet"
+   ],
+   "v1State": "MAP",
+   "ok": true,
+   "secondObservationSimulated": true,
+   "unknownWait": false,
+   "obsMs": 2389
+  },
+  {
+   "file": "bot/runs/20261116-023054/0005-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "loading"
+   },
+   "decided": [
+    "wait",
+    null,
+    "loading screen"
+   ],
+   "v1State": "UNKNOWN",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 4907
+  },
+  {
+   "file": "bot/runs/20261116-023054/0006-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "BOSS登場 animation"
+   },
+   "decided": [
+    "wait(unknown)",
+    null,
+    "UNKNOWN"
+   ],
+   "v1State": "UNKNOWN",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": true,
+   "obsMs": 4660
+  },
+  {
+   "file": "bot/runs/20261116-023054/0008-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait(unknown)",
+    null,
+    "UNKNOWN"
+   ],
+   "v1State": "UNKNOWN",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": true,
+   "obsMs": 4678
+  },
+  {
+   "file": "bot/runs/20261116-023054/0013-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait",
+    null,
+    "battle in progress"
+   ],
+   "v1State": "BATTLE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 364
+  },
+  {
+   "file": "bot/runs/20261116-023054/0030-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle timed out animation"
+   },
+   "decided": [
+    "wait(unknown)",
+    null,
+    "UNKNOWN"
+   ],
+   "v1State": "UNKNOWN",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": true,
+   "obsMs": 4579
+  },
+  {
+   "file": "bot/runs/20261116-023054/0031-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": null,
+    "note": "failure: reveal buttons (any tap)"
+   },
+   "decided": [
+    "tap",
+    [
+     1280,
+     1100
+    ],
+    "failure: reveal buttons"
+   ],
+   "v1State": "FAILURE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 4656
+  },
+  {
+   "file": "bot/runs/20261116-023515/0002-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "loading"
+   },
+   "decided": [
+    "wait",
+    null,
+    "loading screen"
+   ],
+   "v1State": "UNKNOWN",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 4828
+  },
+  {
+   "file": "bot/runs/20261116-023515/0003-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     1200,
+     763
+    ],
+    "note": "map: resume floor2 col2 in-progress node (no halt)"
+   },
+   "decided": [
+    "tap",
+    [
+     1200,
+     763
+    ],
+    "map node z1 f2 c2 (strategy_column, 2 consistent observations)"
+   ],
+   "v1State": "MAP",
+   "ok": true,
+   "secondObservationSimulated": true,
+   "unknownWait": false,
+   "obsMs": 1948
+  },
+  {
+   "file": "bot/shots/015944.png",
+   "split": "dev",
+   "truth": {
+    "kind": "pause",
+    "tap": null,
+    "note": "lobby 0/15 roster not set"
+   },
+   "decided": [
+    "pause",
+    null,
+    "遠征隊尚未選滿 15 隻（None）"
+   ],
+   "v1State": "UNKNOWN",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 4962
+  },
+  {
+   "file": "bot/shots/020337.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     1201,
+     1020
+    ],
+    "note": "map: floor1 col2"
+   },
+   "decided": [
+    "tap",
+    [
+     1201,
+     1020
+    ],
+    "map node z1 f1 c2 (strategy_column, 2 consistent observations)"
+   ],
+   "v1State": "MAP",
+   "ok": true,
+   "secondObservationSimulated": true,
+   "unknownWait": false,
+   "obsMs": 1344
+  },
+  {
+   "file": "bot/shots/031525.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     1200,
+     762
+    ],
+    "note": "map: resume floor2 col2"
+   },
+   "decided": [
+    "tap",
+    [
+     1200,
+     763
+    ],
+    "map node z1 f2 c2 (strategy_column, 2 consistent observations)"
+   ],
+   "v1State": "MAP",
+   "ok": true,
+   "secondObservationSimulated": true,
+   "unknownWait": false,
+   "obsMs": 1655
+  },
+  {
+   "file": "bot/shots/031637.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     1200,
+     545
+    ],
+    "note": "map: resume floor2 col2"
+   },
+   "decided": [
+    "tap",
+    [
+     1200,
+     563
+    ],
+    "map node z1 f2 c2 (resume_in_progress_node(label), 2 consistent observations)"
+   ],
+   "v1State": "MAP",
+   "ok": true,
+   "secondObservationSimulated": true,
+   "unknownWait": false,
+   "obsMs": 1535
+  },
+  {
+   "file": "bot/shots/032003.png",
+   "split": "dev",
+   "truth": {
+    "kind": "team",
+    "tap": null,
+    "note": "team select -> set team"
+   },
+   "decided": [
+    "team",
+    null,
+    "set team 煙燻 + treasures"
+   ],
+   "v1State": "TEAM_SELECT",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 1640
+  },
+  {
+   "file": "bot/shots/023437.png",
+   "split": "dev",
+   "truth": {
+    "kind": "tap",
+    "tap": [
+     2341,
+     1301
+    ],
+    "note": "failure -> 離開 (retryLimit 0) or 再一次"
+   },
+   "decided": [
+    "tap",
+    [
+     2344,
+     1301
+    ],
+    "failure: retry limit reached -> 離開"
+   ],
+   "v1State": "FAILURE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 4984
+  },
+  {
+   "file": "bot/runs/20261116-021405/0003-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait",
+    null,
+    "battle in progress"
+   ],
+   "v1State": "BATTLE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 400
+  },
+  {
+   "file": "bot/runs/20261116-021405/0008-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait",
+    null,
+    "battle in progress"
+   ],
+   "v1State": "BATTLE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 395
+  },
+  {
+   "file": "bot/runs/20261116-021405/0014-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait",
+    null,
+    "battle in progress"
+   ],
+   "v1State": "BATTLE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 284
+  },
+  {
+   "file": "bot/runs/20261116-021405/0019-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait",
+    null,
+    "battle in progress"
+   ],
+   "v1State": "BATTLE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 274
+  },
+  {
+   "file": "bot/runs/20261116-021405/0024-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait",
+    null,
+    "battle in progress"
+   ],
+   "v1State": "BATTLE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 303
+  },
+  {
+   "file": "bot/runs/20261116-021702/0004-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait",
+    null,
+    "battle in progress"
+   ],
+   "v1State": "BATTLE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 354
+  },
+  {
+   "file": "bot/runs/20261116-023054/0010-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait",
+    null,
+    "battle in progress"
+   ],
+   "v1State": "BATTLE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 467
+  },
+  {
+   "file": "bot/runs/20261116-023054/0016-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait",
+    null,
+    "battle in progress"
+   ],
+   "v1State": "BATTLE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 399
+  },
+  {
+   "file": "bot/runs/20261116-023054/0021-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait",
+    null,
+    "battle in progress"
+   ],
+   "v1State": "BATTLE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 385
+  },
+  {
+   "file": "bot/runs/20261116-023054/0026-full.png",
+   "split": "dev",
+   "truth": {
+    "kind": "wait",
+    "tap": null,
+    "note": "battle"
+   },
+   "decided": [
+    "wait",
+    null,
+    "battle in progress"
+   ],
+   "v1State": "BATTLE",
+   "ok": true,
+   "secondObservationSimulated": false,
+   "unknownWait": false,
+   "obsMs": 437
+  }
+ ]
+}

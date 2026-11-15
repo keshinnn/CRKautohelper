@@ -1,0 +1,603 @@
+[
+ {
+  "file": "bot/runs/20261116-020123/0001-full.png",
+  "truth": {
+   "kind": "pause",
+   "tap": null,
+   "note": "roster selection is manual"
+  },
+  "context": {
+   "zone": null,
+   "step": 0,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-020251/0001-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    2311,
+    1327
+   ],
+   "note": "lobby 進入"
+  },
+  "context": {
+   "zone": null,
+   "step": 0,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-020348/0003-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    1280,
+    1012
+   ],
+   "note": "node entry confirm 繼續"
+  },
+  "context": {
+   "zone": 1,
+   "step": 0,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-020414/0002-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    197,
+    1336
+   ],
+   "note": "battle-ready: team not yet set -> 隊伍設定"
+  },
+  "context": {
+   "zone": 1,
+   "step": 0,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-020934/0002-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    2168,
+    1307
+   ],
+   "note": "battle-ready: team set -> 戰鬥開始"
+  },
+  "context": {
+   "zone": 1,
+   "step": 0,
+   "pending": null,
+   "teamSetFor": [
+    1,
+    0
+   ]
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021024/0002-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    1533,
+    1014
+   ],
+   "note": "underfilled -> 開始"
+  },
+  "context": {
+   "zone": 1,
+   "step": 0,
+   "pending": null,
+   "teamSetFor": [
+    1,
+    0
+   ]
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021024/0003-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    1533,
+    1014
+   ],
+   "note": "underfilled -> 開始"
+  },
+  "context": {
+   "zone": 1,
+   "step": 0,
+   "pending": null,
+   "teamSetFor": [
+    1,
+    0
+   ]
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021024/0004-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    1533,
+    1014
+   ],
+   "note": "underfilled -> 開始"
+  },
+  "context": {
+   "zone": 1,
+   "step": 0,
+   "pending": null,
+   "teamSetFor": [
+    1,
+    0
+   ]
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021024/0005-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    1533,
+    1014
+   ],
+   "note": "underfilled -> 開始"
+  },
+  "context": {
+   "zone": 1,
+   "step": 0,
+   "pending": null,
+   "teamSetFor": [
+    1,
+    0
+   ]
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021108/0002-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    1494,
+    1091
+   ],
+   "note": "missing equipment -> 確認 (testing policy)"
+  },
+  "context": {
+   "zone": 1,
+   "step": 0,
+   "pending": null,
+   "teamSetFor": [
+    1,
+    0
+   ]
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021405/0002-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "loading"
+  },
+  "context": {
+   "zone": 1,
+   "step": 0,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-022030/0002-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "loading"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-022030/0004-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    2160,
+    1294
+   ],
+   "note": "rift preview floor2 -> 確認"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-022316/0002-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "rift resolving"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023054/0005-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "loading"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023054/0006-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "BOSS登場 animation"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023054/0008-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023054/0013-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023054/0030-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle timed out animation"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023054/0031-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": null,
+   "note": "failure: reveal buttons (any tap)"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023515/0002-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "loading"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023515/0003-full.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    1200,
+    763
+   ],
+   "note": "map: resume floor2 col2 in-progress node (no halt)"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/shots/015944.png",
+  "truth": {
+   "kind": "pause",
+   "tap": null,
+   "note": "lobby 0/15 roster not set"
+  },
+  "context": {
+   "zone": null,
+   "step": 0,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/shots/020337.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    1201,
+    1020
+   ],
+   "note": "map: floor1 col2"
+  },
+  "context": {
+   "zone": 1,
+   "step": 0,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/shots/031525.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    1200,
+    762
+   ],
+   "note": "map: resume floor2 col2"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/shots/031637.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    1200,
+    545
+   ],
+   "note": "map: resume floor2 col2"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/shots/032003.png",
+  "truth": {
+   "kind": "team",
+   "tap": null,
+   "note": "team select -> set team"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/shots/023437.png",
+  "truth": {
+   "kind": "tap",
+   "tap": [
+    2341,
+    1301
+   ],
+   "note": "failure -> 離開 (retryLimit 0) or 再一次"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021405/0003-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021405/0008-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021405/0014-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021405/0019-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021405/0024-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-021702/0004-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023054/0010-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023054/0016-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023054/0021-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ },
+ {
+  "file": "bot/runs/20261116-023054/0026-full.png",
+  "truth": {
+   "kind": "wait",
+   "tap": null,
+   "note": "battle"
+  },
+  "context": {
+   "zone": 1,
+   "step": 1,
+   "pending": null
+  },
+  "split": "dev"
+ }
+]

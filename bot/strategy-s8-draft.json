@@ -1,0 +1,160 @@
+{
+ "format": "crk-belowland-strategy",
+ "version": 1,
+ "meta": {
+  "title": "冥界的試煉 S8 困難 百合版本 15隻推到11-5",
+  "status": "DRAFT_TRANSCRIBED_BY_CLAUDE_FOR_TESTING_ONLY",
+  "notes": "測試用草稿；正式攻略請以網頁人工輸入的 JSON 為準"
+ },
+ "treasures": {
+  "default": [
+   "老朝聖者的致勝秘笈",
+   "蘊含紅色魔力的哨子",
+   "做夢熊熊果凍的閃爍果凍鐘錶"
+  ]
+ },
+ "teams": {
+  "花圈隊水": [
+   "奶油蘇打",
+   "薄荷醇",
+   "水母",
+   "船長",
+   "芒果"
+  ],
+  "花圈隊草": [
+   "金桂",
+   "百合",
+   "阿福花",
+   "風鈴草",
+   "芒果"
+  ]
+ },
+ "zones": [
+  {
+   "zone": 1,
+   "route": "2222",
+   "steps": [
+    {
+     "column": 2,
+     "type": "battle",
+     "team": [
+      "金桂"
+     ]
+    },
+    {
+     "column": 2,
+     "type": "random",
+     "team": [
+      "煙燻"
+     ]
+    },
+    {
+     "column": 2,
+     "type": "battle",
+     "team": [
+      "氣泡"
+     ]
+    },
+    {
+     "column": 2,
+     "type": "battle",
+     "team": [
+      "阿福花"
+     ]
+    },
+    {
+     "column": null,
+     "type": "boss",
+     "team": [
+      "莫札"
+     ]
+    }
+   ]
+  },
+  {
+   "zone": 2,
+   "route": "3334",
+   "steps": [
+    {
+     "column": 3,
+     "type": "battle",
+     "team": [
+      "薄荷醇"
+     ]
+    },
+    {
+     "column": 3,
+     "type": "battle",
+     "team": [
+      "金桂"
+     ]
+    },
+    {
+     "column": 3,
+     "type": "battle",
+     "team": [
+      "莫札",
+      "煙燻"
+     ]
+    },
+    {
+     "column": 4,
+     "type": "heal"
+    },
+    {
+     "column": null,
+     "type": "boss",
+     "team": [
+      "金桂",
+      "風鈴草"
+     ]
+    }
+   ]
+  },
+  {
+   "zone": 3,
+   "route": "1111",
+   "steps": [
+    {
+     "column": 1,
+     "type": "battle",
+     "team": [
+      "煙燻",
+      "木乃伊"
+     ]
+    },
+    {
+     "column": 1,
+     "type": "random",
+     "team": [
+      "薄荷醇"
+     ]
+    },
+    {
+     "column": 1,
+     "type": "battle",
+     "team": [
+      "金桂",
+      "風鈴草"
+     ]
+    },
+    {
+     "column": 1,
+     "type": "heal"
+    },
+    {
+     "column": null,
+     "type": "boss",
+     "team": [
+      "薄荷醇",
+      "氣泡"
+     ]
+    }
+   ]
+  }
+ ],
+ "options": {
+  "retryLimit": 0,
+  "ignoreMissingEquipment": true
+ }
+}

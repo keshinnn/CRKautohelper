@@ -1,0 +1,516 @@
+{
+ "summary": {
+  "cardStrips_heldout": 8,
+  "cardStrips_ok": 8,
+  "treasure_titled": 25,
+  "treasure_correct": 14,
+  "treasure_supported": 0
+ },
+ "cards": [
+  {
+   "file": "grab-row0.png",
+   "templateSource": true,
+   "detected": [
+    "百合",
+    "芒果",
+    "船長",
+    "水母",
+    "莫札",
+    "風鈴草",
+    "金桂",
+    "薄荷醇"
+   ],
+   "checked": [
+    "芒果"
+   ],
+   "contiguousOrder": true,
+   "pitchOk": true,
+   "allVisibleDetected": true,
+   "minScore": 1.0
+  },
+  {
+   "file": "grab-row1.png",
+   "templateSource": true,
+   "detected": [
+    "薄荷醇",
+    "煙燻",
+    "木乃伊",
+    "奶油蘇打",
+    "氣泡",
+    "巴斯克",
+    "阿福花",
+    "茉莉"
+   ],
+   "checked": [],
+   "contiguousOrder": true,
+   "pitchOk": true,
+   "allVisibleDetected": true,
+   "minScore": 0.995
+  },
+  {
+   "file": "grab-row2.png",
+   "templateSource": false,
+   "detected": [
+    "薄荷醇",
+    "煙燻",
+    "木乃伊",
+    "奶油蘇打",
+    "氣泡",
+    "巴斯克",
+    "阿福花",
+    "茉莉"
+   ],
+   "checked": [],
+   "contiguousOrder": true,
+   "pitchOk": true,
+   "allVisibleDetected": true,
+   "minScore": 0.995
+  },
+  {
+   "file": "grab-t1.png",
+   "templateSource": false,
+   "detected": [
+    "百合",
+    "芒果",
+    "船長",
+    "水母",
+    "莫札",
+    "風鈴草",
+    "金桂",
+    "薄荷醇"
+   ],
+   "checked": [],
+   "contiguousOrder": true,
+   "pitchOk": true,
+   "allVisibleDetected": true,
+   "minScore": 0.988
+  },
+  {
+   "file": "grab-t2.png",
+   "templateSource": false,
+   "detected": [
+    "薄荷醇",
+    "煙燻",
+    "木乃伊",
+    "奶油蘇打",
+    "氣泡",
+    "巴斯克",
+    "阿福花",
+    "茉莉"
+   ],
+   "checked": [
+    "煙燻"
+   ],
+   "contiguousOrder": true,
+   "pitchOk": true,
+   "allVisibleDetected": true,
+   "minScore": 0.989
+  },
+  {
+   "file": "grab-t3.png",
+   "templateSource": false,
+   "detected": [
+    "薄荷醇",
+    "煙燻",
+    "木乃伊",
+    "奶油蘇打",
+    "氣泡",
+    "巴斯克",
+    "阿福花",
+    "茉莉"
+   ],
+   "checked": [
+    "煙燻"
+   ],
+   "contiguousOrder": true,
+   "pitchOk": true,
+   "allVisibleDetected": true,
+   "minScore": 0.989
+  },
+  {
+   "file": "grab-c1.png",
+   "templateSource": false,
+   "detected": [
+    "百合",
+    "芒果",
+    "船長",
+    "水母",
+    "莫札",
+    "風鈴草",
+    "金桂",
+    "薄荷醇"
+   ],
+   "checked": [],
+   "contiguousOrder": true,
+   "pitchOk": true,
+   "allVisibleDetected": true,
+   "minScore": 0.988
+  },
+  {
+   "file": "grab-e2.png",
+   "templateSource": false,
+   "detected": [
+    "百合",
+    "芒果",
+    "船長",
+    "水母",
+    "莫札",
+    "風鈴草",
+    "金桂",
+    "薄荷醇"
+   ],
+   "checked": [],
+   "contiguousOrder": true,
+   "pitchOk": true,
+   "allVisibleDetected": true,
+   "minScore": 0.988
+  },
+  {
+   "file": "020439.png",
+   "templateSource": false,
+   "detected": [
+    "百合",
+    "芒果",
+    "船長",
+    "水母",
+    "莫札",
+    "風鈴草",
+    "金桂",
+    "薄荷醇"
+   ],
+   "checked": [
+    "芒果"
+   ],
+   "contiguousOrder": true,
+   "pitchOk": true,
+   "allVisibleDetected": true,
+   "minScore": 1.0
+  },
+  {
+   "file": "032003.png",
+   "templateSource": false,
+   "detected": [
+    "百合",
+    "芒果",
+    "船長",
+    "水母",
+    "莫札",
+    "風鈴草",
+    "金桂",
+    "薄荷醇"
+   ],
+   "checked": [
+    "金桂"
+   ],
+   "contiguousOrder": true,
+   "pitchOk": true,
+   "allVisibleDetected": true,
+   "minScore": 0.987
+  }
+ ],
+ "treasures": [
+  {
+   "ocrTitle": "光之神赐予的甜美花環",
+   "truth": "光之神賜予的甜美花環",
+   "titleSimilarity": 1.0,
+   "predicted": "光之神賜予的甜美花環",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "奔夢列車長的星光哨子",
+   "truth": "奔夢列車長的星光哨子",
+   "titleSimilarity": 1.0,
+   "predicted": "奔夢列車長的星光哨子",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "無畏勇者的莓果頂",
+   "truth": "無畏勇者的莓果項鍊",
+   "titleSimilarity": 0.82,
+   "predicted": "無畏勇者的莓果項鍊",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "偉大聖的寶石",
+   "truth": "偉大聖賢的寶石",
+   "titleSimilarity": 0.92,
+   "predicted": "偉大聖賢的寶石",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "朝聖者村長的熊熊火炬",
+   "truth": "朝聖者村長的熊熊火炬",
+   "titleSimilarity": 1.0,
+   "predicted": "朝聖者村長的熊熊火炬",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "老朝聖者的致勝秘笈",
+   "truth": "老朝聖者的致勝秘笈",
+   "titleSimilarity": 1.0,
+   "predicted": "老朝聖者的致勝秘笈",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "榴海盗的圆鼓鼓紅鹤泳圈",
+   "truth": "榴槤海盜的圓鼓鼓紅鶴泳圈",
+   "titleSimilarity": 0.87,
+   "predicted": "榴槤海盜的圓鼓鼓紅鶴泳圈",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "牛奶村的極凍火炬",
+   "truth": "牛奶村的極凍火炬",
+   "titleSimilarity": 1.0,
+   "predicted": "牛奶村的極凍火炬",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "门志不的士團動章",
+   "truth": null,
+   "titleSimilarity": 0.67,
+   "predicted": "鬥志不滅的騎士團勳章",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "有點巽的珠實盒",
+   "truth": null,
+   "titleSimilarity": 0.67,
+   "predicted": "有點詭異的珠寶盒",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "渡者的心動魄刀",
+   "truth": "擺渡者的驚心動魄鐮刀",
+   "titleSimilarity": 0.82,
+   "predicted": "擺渡者的驚心動魄鐮刀",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "充滿探家精神的單片眼鏡",
+   "truth": "充滿探險家精神的單片眼鏡",
+   "titleSimilarity": 0.96,
+   "predicted": "充滿探險家精神的單片眼鏡",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "咒墓穴的封印",
+   "truth": "詛咒墓穴的封印蠟燭",
+   "titleSimilarity": 0.8,
+   "predicted": "蘊含紅色魔力的哨子",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "被凈化的神聖石榴神木樹枝",
+   "truth": "被淨化的神聖石榴神木樹枝",
+   "titleSimilarity": 1.0,
+   "predicted": "蘊含紅色魔力的哨子",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "小小尖角的防黏液",
+   "truth": "小小尖角蟲的防禦黏液",
+   "titleSimilarity": 0.89,
+   "predicted": "小小尖角蟲的防禦黏液",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "散發約香氣的解藥",
+   "truth": "散發隱約香氣的解藥",
+   "titleSimilarity": 0.94,
+   "predicted": "蘊含紅色魔力的哨子",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "盲眼治愈師的手杖",
+   "truth": "盲眼治癒師的手杖",
+   "titleSimilarity": 1.0,
+   "predicted": "蘊含紅色魔力的哨子",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "怒圖書館員的魔法斗篷",
+   "truth": "憤怒圖書館員的魔法斗篷",
+   "titleSimilarity": 0.95,
+   "predicted": "蘊含紅色魔力的哨子",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "承装黑暗的器皿",
+   "truth": "承裝黑暗的器皿",
+   "titleSimilarity": 1.0,
+   "predicted": "承裝黑暗的器皿",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "白糖天鹅的閃亮羽毛",
+   "truth": "白糖天鵝的閃亮羽毛",
+   "titleSimilarity": 1.0,
+   "predicted": "蘊含紅色魔力的哨子",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "神秘大自然的奇效解藥",
+   "truth": "神秘大自然的奇效解藥",
+   "titleSimilarity": 1.0,
+   "predicted": "秘密教團的神聖銀叉",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "時間管理局的滴答果凍鐘",
+   "truth": "時間管理局的滴答果凍鐘錶",
+   "titleSimilarity": 0.96,
+   "predicted": "蘊含紅色魔力的哨子",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "凝聚國王熱情的莓果頂",
+   "truth": "凝聚國王熱情的莓果項鍊",
+   "titleSimilarity": 0.86,
+   "predicted": "凝聚國王熱情的莓果項鍊",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "追風者逐黑暗的斗篷",
+   "truth": "追風者驅逐黑暗的斗篷",
+   "titleSimilarity": 0.95,
+   "predicted": "追風者驅逐黑暗的斗篷",
+   "supported": false,
+   "correct": true
+  },
+  {
+   "ocrTitle": "書店街頭鹰的單片眼鏡",
+   "truth": "書店街貓頭鷹的單片眼鏡",
+   "titleSimilarity": 0.86,
+   "predicted": "神秘大自然的奇效解藥",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "蕴含紅色魔力的哨子",
+   "truth": "蘊含紅色魔力的哨子",
+   "titleSimilarity": 1.0,
+   "predicted": "神秘大自然的奇效解藥",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "住著小乾的橡实水晶球",
+   "truth": null,
+   "titleSimilarity": 0.2,
+   "predicted": "神秘大自然的奇效解藥",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "小小朝聖者的玩具彈弓",
+   "truth": null,
+   "titleSimilarity": 0.42,
+   "predicted": "神秘大自然的奇效解藥",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "雷神的靈符咒",
+   "truth": "雷神的靈驗符咒",
+   "titleSimilarity": 0.92,
+   "predicted": "凝聚國王熱情的莓果項鍊",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "喜滿滿的橡實禮盒",
+   "truth": null,
+   "titleSimilarity": 0.25,
+   "predicted": "凝聚國王熱情的莓果項鍊",
+   "supported": false,
+   "correct": false
+  },
+  {
+   "ocrTitle": "渡者的镰刀",
+   "truth": null,
+   "titleSimilarity": 0.67,
+   "predicted": "凝聚國王熱情的莓果項鍊",
+   "supported": false,
+   "correct": false
+  }
+ ],
+ "grid": [
+  {
+   "file": "grab-c2.png",
+   "supportedIcons": 12,
+   "names": [
+    "光之神賜予的甜美花環",
+    "奔夢列車長的星光哨子",
+    "無畏勇者的莓果項鍊",
+    "偉大聖賢的寶石",
+    "朝聖者村長的熊熊火炬",
+    "老朝聖者的致勝秘笈",
+    "榴槤海盜的圓鼓鼓紅鶴泳圈",
+    "牛奶村的極凍火炬",
+    "鬥志不滅的騎士團勳章",
+    "有點詭異的珠寶盒",
+    "擺渡者的驚心動魄鐮刀",
+    "充滿探險家精神的單片眼鏡"
+   ]
+  },
+  {
+   "file": "grab-c3.png",
+   "supportedIcons": 12,
+   "names": [
+    "光之神賜予的甜美花環",
+    "奔夢列車長的星光哨子",
+    "無畏勇者的莓果項鍊",
+    "偉大聖賢的寶石",
+    "朝聖者村長的熊熊火炬",
+    "老朝聖者的致勝秘笈",
+    "榴槤海盜的圓鼓鼓紅鶴泳圈",
+    "牛奶村的極凍火炬",
+    "鬥志不滅的騎士團勳章",
+    "有點詭異的珠寶盒",
+    "擺渡者的驚心動魄鐮刀",
+    "充滿探險家精神的單片眼鏡"
+   ]
+  },
+  {
+   "file": "grab-e1.png",
+   "supportedIcons": 11,
+   "names": [
+    "光之神賜予的甜美花環",
+    "奔夢列車長的星光哨子",
+    "無畏勇者的莓果項鍊",
+    "偉大聖賢的寶石",
+    "朝聖者村長的熊熊火炬",
+    "榴槤海盜的圓鼓鼓紅鶴泳圈",
+    "牛奶村的極凍火炬",
+    "鬥志不滅的騎士團勳章",
+    "有點詭異的珠寶盒",
+    "擺渡者的驚心動魄鐮刀",
+    "充滿探險家精神的單片眼鏡"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,316 @@
+"""CRK Belowland runner (MuMu/ADB). observe -> decide -> act -> re-observe.
+Map taps are reversible (they only open a preview); the irreversible 進入 is gated by an
+OCR-verified preview floor. Unknown screens wait briefly, then pause with the frame saved.
+usage: runner.py <strategy.json> [--steps N] [--dry] [--reset]"""
+import json, re, sys, time
+from pathlib import Path
+HERE = Path(__file__).parent; sys.path.insert(0, str(HERE))
+from adb_bridge import Device
+from observe import observe_image
+from navigator import plan_map_tap, verify_preview, header_progress
+
+STATE_FILE = HERE / 'run-state.json'
+
+
+def norm(t):
+    return re.sub(r'\s+', '', t or '').translate(str.maketrans({'战': '戰', '斗': '鬥', '门': '鬥', '进': '進', '确': '確', '认': '認', '继': '繼', '续': '續', '区': '區', '层': '層', '试': '試', '胜': '勝', '败': '敗'}))
+
+
+def texts(p, min_score=.8):
+    return [(norm(r['text']), r) for r in p['evidence'] if r['score'] >= min_score]
+
+
+def find_text(p, pattern, min_score=.85):
+    rows = [r for t, r in texts(p, min_score) if re.fullmatch(pattern, t)]
+    return rows
+
+
+def center_of(row):
+    xs = [q[0] for q in row['box']]; ys = [q[1] for q in row['box']]
+    return ((min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2)
+
+
+def green_button(img, region):
+    import cv2, numpy as np
+    x0, y0, x1, y1 = region
+    a = cv2.cvtColor(np.asarray(img.convert('RGB'))[y0:y1, x0:x1], cv2.COLOR_RGB2HSV)
+    m = ((a[..., 0] >= 30) & (a[..., 0] <= 72) & (a[..., 1] >= 125) & (a[..., 2] >= 135)).astype('uint8')
+    n, lab, stats, cent = cv2.connectedComponentsWithStats(m)
+    best = max(range(1, n), key=lambda i: stats[i, 4], default=None)
+    if best is None or stats[best, 4] < 15000: return None
+    return (x0 + cent[best][0], y0 + cent[best][1])
+
+
+def patch_changed(a, b, pt, r=110, limit=12.0):
+    """Freshness guard: compare the analysed frame and a fresh capture around the tap point."""
+    import numpy as np
+    x, y = pt
+    pa = np.asarray(a.convert('L').crop((x - r, y - r, x + r, y + r)).resize((44, 44))).astype(float)
+    pb = np.asarray(b.convert('L').crop((x - r, y - r, x + r, y + r)).resize((44, 44))).astype(float)
+    return float(np.abs(pa - pb).mean()) > limit
+
+
+def box_center(b):
+    return (b[0] + b[2] / 2, b[1] + b[3] / 2)
+
+
+def preview_panel(T):
+    """Node preview side panel, independent of V1's title regex (held-out S4 video showed V1 calling these MAP)."""
+    j = '\n'.join(T)
+    if not (any(t == '進入' for t in T) and '套用效果' in j and '可獲得' in j and ('危險度' in j or '危险度' in j or '限制時間' in j)):
+        return None
+    if '冥界裂' in j: return 'RIFT'
+    if 'BOSS' in j.upper(): return 'BOSS'
+    if any(t.startswith('激') for t in T): return 'ELITE'
+    return 'BATTLE'
+
+
+def classify(p):
+    """Canonical screen class used by the runner (same rules/order as Runner.decide), for offline evaluation."""
+    f = p['flow']; state = f['state']; T = [t for t, _ in texts(p)]; joined = '\n'.join(T)
+    if '確定要開始' in joined and find_text(p, '開始'): return 'UNDERFILLED_CONFIRM'
+    if state == 'EXPEDITION_ROSTER': return 'ROSTER'
+    if '最高分數' in joined and '最高過關區域' in joined and find_text(p, '進入'): return 'LOBBY'
+    if any(re.fullmatch(r'第(\d+)[層唇]冥界裂[縫缝]', t) for t in T): return 'RIFT_RESOLVING' if '確認結果' in joined else 'PREVIEW_RIFT'
+    if state in ('NODE_BATTLE', 'NODE_BOSS'): return 'PREVIEW_' + state[5:]
+    pv = preview_panel(T) if state in ('MAP', 'UNKNOWN') else None
+    if pv: return 'PREVIEW_' + pv
+    if any('讀取中' in t for t in T): return 'LOADING'
+    if state == 'UNKNOWN' and any(t in ('隊伍設定', '隧伍設定') for t in T) and ('登場' in joined or 'BOSS' in joined or '前排' in joined): return 'BATTLE_READY'
+    if state in ('MAP', 'NODE_ENTRY_CONFIRM', 'BATTLE_READY', 'TEAM_SELECT', 'TREASURE_SELECT', 'MISSING_EQUIPMENT', 'BATTLE', 'VICTORY', 'FAILURE', 'AREA_REWARD'): return state
+    return 'UNKNOWN'
+
+
+class Runner:
+    def __init__(self, strategy, dry=False):
+        self.s = strategy; self.dry = dry; self.d = Device()
+        self.state = json.loads(STATE_FILE.read_text(encoding='utf-8')) if STATE_FILE.exists() else {'zone': None, 'step': 0, 'pending': None}
+        self.log_dir = HERE / 'runs' / time.strftime('%Y%m%d-%H%M%S'); self.log_dir.mkdir(parents=True)
+        self.unknown_since = None; self.n = 0
+
+    def save(self):
+        STATE_FILE.write_text(json.dumps(self.state, ensure_ascii=False, indent=1), encoding='utf-8')
+
+    def zone_steps(self, zone):
+        z = next((z for z in self.s['zones'] if z['zone'] == zone), None)
+        return z['steps'] if z else None
+
+    def current_step(self):
+        steps = self.zone_steps(self.state['zone'])
+        if steps is None or self.state['step'] >= len(steps):
+            return None
+        st = dict(steps[self.state['step']]); st['floor'] = self.state['step'] + 1
+        if st['type'] == 'boss': st['column'] = None
+        return st
+
+    def team_of(self, st):
+        t = st.get('team')
+        if isinstance(t, str): t = self.s.get('teams', {}).get(t)
+        return list(t) if t else None
+
+    # ---------- decisions ----------
+    def decide(self, p):
+        f = p['flow']; state = f['state']; T = [t for t, _ in texts(p)]
+        if self.state.get('halt') and state not in ('BATTLE', 'VICTORY', 'FAILURE'):
+            return ('pause', self.state['halt'] + '（請調整後清除 halt 再繼續）')
+        joined = '\n'.join(T)
+        if '確定要開始' in joined and find_text(p, '開始'):
+            return ('tap', center_of(find_text(p, '開始')[-1]), 'underfilled team confirm -> start (strategy uses fewer than 5)')
+        if state == 'EXPEDITION_ROSTER':
+            return ('pause', '遠征隊名單畫面：請手動選好 15 隻')
+        # entry screen (season lobby)
+        if '最高分數' in joined and '最高過關區域' in joined and find_text(p, '進入'):
+            roster = next((t for t in T if re.fullmatch(r'\+?\d+/15.*', t)), None)
+            if not roster or not roster.lstrip('+').startswith('15/15'):
+                return ('pause', f'遠征隊尚未選滿 15 隻（{roster}）')
+            return ('tap', center_of(find_text(p, '進入')[0]), 'enter expedition')
+        rift = next((re.fullmatch(r'第(\d+)[層唇]冥界裂[縫缝]', t) for t in T if re.fullmatch(r'第(\d+)[層唇]冥界裂[縫缝]', t)), None)
+        if rift and '確認結果' in joined:
+            return ('wait', 'rift resolving (確認結果中)')
+        if rift:
+            st = self.current_step()
+            if not st or int(rift.group(1)) != st['floor']:
+                return ('pause', f'rift preview floor {rift.group(1)} != strategy floor {st and st["floor"]}')
+            seen = self.state.get('previewSeen')
+            self.state['previewSeen'] = {'floor': int(rift.group(1)), 'state': 'RIFT', 'at': time.time()}
+            if not (seen and seen['floor'] == int(rift.group(1)) and seen['state'] == 'RIFT' and time.time() - seen['at'] <= 8):
+                return ('wait', f'rift preview floor {rift.group(1)} seen once; need a second consistent preview')
+            rows = sorted(find_text(p, '確(認|定)?'), key=lambda r: center_of(r)[1])
+            if rows: self.state['previewSeen'] = None; self.state.pop('mapTaps', None)
+            if rows: return ('tap', center_of(rows[-1]), f'rift floor {rift.group(1)} verified twice -> 確認')
+            g = green_button(self.last_img, (1800, 1150, 2560, 1440))
+            return ('tap', g, 'rift -> confirm (green)') if g else ('wait', 'rift: confirm not visible yet')
+        pv = preview_panel(T) if state in ('MAP', 'UNKNOWN') else None   # dialogs over the panel keep their own state
+        if pv and pv != 'RIFT':
+            state = 'NODE_BOSS' if pv == 'BOSS' else 'NODE_BATTLE'   # never plan map taps behind an open preview
+            if not [t for t in f.get('targets', []) if t.get('target') == 'enter']:
+                rows = find_text(p, '進入')
+                if rows:
+                    xs = [q[0] for q in rows[-1]['box']]; ys = [q[1] for q in rows[-1]['box']]
+                    f = {**f, 'targets': [{'target': 'enter', 'box': [min(xs), min(ys), max(xs) - min(xs), max(ys) - min(ys)]}]}; p = {**p, 'flow': f}
+        if any('讀取中' in t for t in T):
+            return ('wait', 'loading screen')
+        if state == 'UNKNOWN' and any(t in ('隊伍設定', '隧伍設定') for t in T) and ('登場' in joined or 'BOSS' in joined or '前排' in joined):
+            state = 'BATTLE_READY'
+        if state == 'MAP' and self.state.get('halt'):
+            return ('pause', self.state['halt'] + '（請調整隊伍／配料後清除 halt 再繼續）')
+        if state == 'MAP':
+            hp = header_progress(p['evidence'])
+            zone = hp[0] if hp else p['progress'].get('displayedZone')
+            if zone is None:
+                return ('wait', 'map zone unknown')
+            if self.state['zone'] != zone:
+                self.state.update(zone=zone, step=(hp[1] - 1) if hp else 0, pending=None)
+            st = self.current_step()
+            if st is None:
+                return ('pause', f'區域 {zone} 第 {self.state["step"]+1} 步沒有攻略資料')
+            plan = plan_map_tap(p, st)
+            if plan['point'] is None:
+                if plan.get('scroll') and self.state.get('scrolls', 0) < 4:
+                    self.state['scrolls'] = self.state.get('scrolls', 0) + 1
+                    W, H = self.d.size[1], self.d.size[0]  # landscape
+                    return ('swipe', (W*0.5, H*0.7, W*0.5, H*0.35) if plan['scroll'] == 'down' else (W*0.5, H*0.35, W*0.5, H*0.7), plan['reason'])
+                return ('pause', 'map: ' + plan['reason'])
+            self.state['scrolls'] = 0
+            cand = {'floor': st['floor'], 'column': st['column'], 'point': [round(v, 1) for v in plan['point']], 'at': time.time()}
+            prev = self.state.get('mapCandidate')
+            stable = prev and prev['floor'] == cand['floor'] and prev['column'] == cand['column'] and \
+                abs(prev['point'][0] - cand['point'][0]) <= 6 and abs(prev['point'][1] - cand['point'][1]) <= 6 and cand['at'] - prev['at'] <= 8
+            self.state['mapCandidate'] = cand
+            if not stable:
+                return ('wait', f'map target f{st["floor"]} c{st["column"]} seen once; need a second consistent observation')
+            taps = self.state.setdefault('mapTaps', {}); key = f"{zone}-{st['floor']}"
+            if taps.get(key, 0) >= 2:
+                return ('pause', f'map tap for floor {st["floor"]} sent twice without a preview; stop (no blind re-tapping)')
+            taps[key] = taps.get(key, 0) + 1; self.state['mapCandidate'] = None
+            self.state['pending'] = {'zone': zone, 'step': self.state['step'], 'floor': st['floor'], 'type': st['type'], 'column': st['column'], 'nodeId': plan.get('nodeId')}
+            return ('tap', plan['point'], f'map node z{zone} f{st["floor"]} c{st["column"]} ({plan["reason"]}, 2 consistent observations)')
+        if state in ('NODE_BATTLE', 'NODE_BOSS'):
+            st = self.current_step()
+            if st is None: return ('pause', 'preview without strategy step')
+            v = verify_preview(p, st)
+            if not v['ok']:
+                return ('pause', 'preview mismatch: ' + v['reason'])
+            want = {'battle': 'NODE_BATTLE', 'boss': 'NODE_BOSS', 'random': None}.get(st['type'], 'NODE_BATTLE')
+            if want and state != want:
+                return ('pause', f'preview type {state} does not match strategy step type {st["type"]}')
+            seen = self.state.get('previewSeen')
+            self.state['previewSeen'] = {'floor': v['floor'], 'state': state, 'at': time.time()}
+            if not (seen and seen['floor'] == v['floor'] and seen['state'] == state and time.time() - seen['at'] <= 8):
+                return ('wait', f'preview floor {v["floor"]} seen once; need a second consistent preview before 進入')
+            self.state['previewSeen'] = None; self.state.pop('mapTaps', None)
+            return ('tap', box_center(v['enter']['box']), f'enter floor {v["floor"]} (2 consistent previews)')
+        if state == 'NODE_ENTRY_CONFIRM':
+            rows = find_text(p, '(繼?續|確認|確定)')
+            return ('tap', center_of(rows[-1]), 'confirm node entry') if rows else ('pause', 'entry confirm button not found')
+        if state == 'BATTLE_READY':
+            st = self.current_step(); key = [self.state['zone'], self.state['step']]
+            if st and self.team_of(st) and self.state.get('teamSetFor') != key:
+                ts = [t for t in f.get('targets', []) if t['target'] == 'teamSettings']
+                pt = box_center(ts[0]['box']) if ts else (center_of(find_text(p, '隊伍設定|隧伍設定')[0]) if find_text(p, '隊伍設定|隧伍設定') else None)
+                return ('tap', pt, 'open team settings') if pt else ('pause', 'team settings button not found')
+            start = [t for t in f.get('targets', []) if t['target'] == 'battleStart']
+            if len(start) == 1: return ('tap', box_center(start[0]['box']), 'battle start')
+            rows = find_text(p, '(戰鬥|鬥)?開始')
+            if rows: return ('tap', center_of(rows[-1]), 'battle start (text)')
+            g = green_button(self.last_img, (1800, 1150, 2560, 1440))
+            return ('tap', g, 'battle start (green button)') if g else ('pause', 'battle start button not found')
+        if state == 'TEAM_SELECT':
+            st = self.current_step(); team = self.team_of(st) if st else None
+            if not team: return ('pause', 'team select without strategy team')
+            clear = [t for t in f.get('targets', []) if t['target'] == 'clearAll']
+            if not clear: return ('pause', 'clear-all button not verified')
+            treasures = st.get('treasures') or self.s.get('treasures', {}).get('default', [])
+            return ('team', {'team': team, 'treasures': treasures, 'clear': box_center(clear[0]['box'])}, 'set team ' + ','.join(team) + ' + treasures')
+        if state == 'BATTLE':
+            auto = f.get('autoSkills') or {}
+            if auto.get('verified') and auto.get('enabled') is False:
+                return ('tap', box_center(auto['box']), 'enable auto skills')
+            return ('wait', 'battle in progress')
+        if state == 'VICTORY':
+            hdr = next((re.search(r'區域(\d+)第(\d+)[層唇]', t) for t in T if re.search(r'區域(\d+)第(\d+)[層唇]', t)), None)
+            if hdr:
+                self.state.update(zone=int(hdr.group(1)), step=int(hdr.group(2)), pending=None)   # idempotent: floor F done -> next step index F
+            rows = find_text(p, '離開')
+            return ('tap', center_of(rows[-1]), f'victory {hdr.group(0) if hdr else ""} -> 離開') if rows else ('wait', 'victory: waiting for 離開 button')
+        if state == 'FAILURE':
+            st = self.current_step() or {}; key = f"{self.state['zone']}-{self.state['step']}"
+            fails = self.state.setdefault('failures', {}); limit = st.get('attempts') or self.s.get('options', {}).get('retryLimit', 2)
+            retry, leave = find_text(p, '再一次'), find_text(p, '離開')
+            if not retry and not leave:
+                return ('tap', (1280, 1100), 'failure: reveal buttons')
+            if self.state.get('lastFailureFrame') == p['flow'].get('frameId'):
+                return ('wait', 'failure: same frame')
+            fails[key] = fails.get(key, 0) + 1
+            if fails[key] <= limit and retry:
+                self.state['teamSetFor'] = [self.state['zone'], self.state['step']]   # retry keeps the same team
+                return ('tap', center_of(retry[-1]), f'failure #{fails[key]} -> 再一次 (limit {limit})')
+            self.state['halt'] = f'區域{self.state["zone"]} 第{self.state["step"]+1}步 已失敗 {fails[key]} 次'
+            return ('tap', center_of(leave[-1]), 'failure: retry limit reached -> 離開') if leave else ('pause', self.state['halt'])
+        if state == 'AREA_REWARD':
+            r = f.get('rewardContinuation') or {}
+            pt = box_center(r['box']) if r.get('verified') else (self.d.size[1]*0.5, self.d.size[0]*0.9)
+            self.state.update(zone=(self.state['zone'] or 0) + 1, step=0, pending=None)
+            return ('tap', pt, 'area reward -> continue')
+        if state == 'MISSING_EQUIPMENT' and self.s.get('options', {}).get('ignoreMissingEquipment', True):
+            rows = sorted(find_text(p, '確(認|定)?'), key=lambda r: center_of(r)[1])
+            return ('tap', center_of(rows[-1]), 'missing toppings/biscuit popup -> confirm (user: ignore during testing)') if rows else ('pause', 'missing-equipment confirm not found')
+        if state in ('TREASURE_SELECT', 'MISSING_EQUIPMENT', 'EXPEDITION_ROSTER'):
+            return ('pause', f'{state} 需要處理（尚未自動化）')
+        return ('unknown', state)
+
+    # ---------- loop ----------
+    def step(self):
+        self.n += 1
+        img, at = self.d.capture(); self.last_img = img; t0 = time.perf_counter(); p = observe_image(img)
+        obs_ms = round((time.perf_counter() - t0) * 1000)
+        action = self.decide(p); kind = action[0]
+        if kind == 'unknown':
+            self.unknown_since = self.unknown_since or time.time()
+            kind = 'pause' if time.time() - self.unknown_since > 20 else 'wait'
+            action = (kind, f'unrecognized screen ({action[1]})')
+        else:
+            self.unknown_since = None
+        rec = {'n': self.n, 'at': at, 'state': p['flow']['state'], 'obsMs': obs_ms, 'action': [str(a) if not isinstance(a, (int, float, str, list, tuple)) else a for a in action],
+               'run': dict(self.state), 'texts': [t for t, _ in texts(p, .85)][:40]}
+        img.convert('RGB').resize((1280, 720)).save(self.log_dir / f'{self.n:04d}.jpg', quality=80)
+        if kind in ('pause', 'wait') or kind == 'unknown': img.save(self.log_dir / f'{self.n:04d}-full.png', compress_level=1)
+        (self.log_dir / f'{self.n:04d}.json').write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding='utf-8')
+        print(json.dumps({k: rec[k] for k in ('n', 'state', 'obsMs', 'action', 'run')}, ensure_ascii=False), flush=True)
+        if not self.dry:
+            if kind == 'tap':
+                fresh, _ = self.d.capture()
+                if patch_changed(img, fresh, action[1]):
+                    print(json.dumps({'n': self.n, 'skipped': 'screen changed at tap point since analysis; re-observe'}, ensure_ascii=False), flush=True)
+                    self.save(); return 'wait'
+                self.d.tap(*action[1]); time.sleep(1.5)
+            elif kind == 'swipe': self.d.swipe(*action[1], ms=600); time.sleep(1.2)
+            elif kind == 'wait': time.sleep(2.0)
+            elif kind == 'team':
+                from team import set_team
+                r = set_team(self.d, action[1]['team'], action[1]['clear'], log=lambda m: print(m, flush=True))
+                print(json.dumps(r, ensure_ascii=False), flush=True)
+                if not r['ok']: self.save(); return 'pause'
+                wanted_t = action[1].get('treasures') or []
+                if wanted_t:
+                    from treasure import equip
+                    self.d.tap(141, 380); time.sleep(1.5)        # first treasure slot -> 裝備寶物 modal
+                    tr = equip(self.d, wanted_t, log=lambda m: print(m, flush=True))
+                    print(json.dumps(tr, ensure_ascii=False), flush=True)
+                    self.d.tap(2300, 105); time.sleep(1.2)       # close modal
+                    if not tr['ok']: self.save(); return 'pause'
+                self.d.tap(2480, 75); time.sleep(1.5)   # close team screen (top-right X)
+                self.state['teamSetFor'] = [self.state['zone'], self.state['step']]
+        self.save()
+        return kind
+
+
+if __name__ == '__main__':
+    args = sys.argv[1:]; strategy = json.loads(Path(args[0]).read_text(encoding='utf-8'))
+    steps = int(args[args.index('--steps') + 1]) if '--steps' in args else 1
+    if '--reset' in args and STATE_FILE.exists(): STATE_FILE.write_text('{"zone": null, "step": 0, "pending": null}', encoding='utf-8')
+    r = Runner(strategy, dry='--dry' in args); print('log', r.log_dir, flush=True)
+    stop = HERE / 'jobs' / 'STOP_RUN'; t_start = time.time()
+    for _ in range(steps):
+        if stop.exists() and stop.stat().st_mtime > t_start: print('stopped by STOP_RUN'); break
+        if r.step() == 'pause': break

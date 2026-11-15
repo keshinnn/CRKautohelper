@@ -1,0 +1,27 @@
+{
+ "v2-node-tests": {
+  "exit": 0,
+  "seconds": 85,
+  "log": "v2-node-tests-20261116-035150.log"
+ },
+ "v2-research-node-tests": {
+  "exit": 0,
+  "seconds": 0,
+  "log": "v2-research-node-tests-20261116-035150.log"
+ },
+ "v1-node-tests": {
+  "exit": 0,
+  "seconds": 7,
+  "log": "v1-node-tests-20261116-035150.log"
+ },
+ "v1-python-tests": {
+  "exit": 0,
+  "seconds": 57,
+  "log": "v1-python-tests-20261116-035150.log"
+ },
+ "v2-rift-replay-repro": {
+  "exit": 0,
+  "seconds": 17,
+  "log": "v2-rift-replay-repro-20261116-035150.log"
+ }
+}
