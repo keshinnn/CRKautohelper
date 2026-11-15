@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "scope": "approved_A0_A1_candidate_PoC_and_A2_offline_research",
+  "modelArchitectureProposal": "yolo26n",
+  "modelWeightsSha256": null,
+  "inputSize": 640,
+  "precision": "FP32",
+  "seed": 20261108,
+  "maxEpochs": 50,
+  "maxGpuSeconds": 14400,
+  "maxTrainingRuns": 1,
+  "trainingRunsConsumed": 0,
+  "datasetTargets": {"train": 240, "val": 80, "test": 80},
+  "trainingAdmission": "NO_GO",
+  "missing": ["certified_source_isolated_labels", "boundary_QA20", "isolated_train_export_environment", "approved_compute_readiness"],
+  "confidenceOperatingPoint": null,
+  "formalVerifierChangesAuthorized": false,
+  "nativeActionsAuthorized": false
+}

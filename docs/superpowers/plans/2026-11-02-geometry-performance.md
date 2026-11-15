@@ -32,6 +32,6 @@
 
 原193張新鮮、單worker、暖機10張，5/5閉環通過，因果CPU p95=3519.40ms（353b2c9=5842.53ms），G4仍OPEN。新45張剖析NCC由1026297降至207907，完成候選搜尋累積34.86→11.87秒，orange15.28→6.64秒；inclusive含插樁，非驗收效能。
 
-在原最慢57943同幀重新量測，四次completed搜尋內的RGB／gray／模板／incumbent完全相同分類請求合計4086，逐次呼叫內只有1772組不同輸入；不得將跨呼叫或跨影格相同像素當允許重用。只在completed_node_candidates單次呼叫的local dictionary重用純分類tuple／None，key含實際RGB bytes、shape、dtype及當時incumbent；模板與必要家族在該呼叫內固定。上限1024筆，滿後繼續原運算，不改結果。每次搜尋重新建立，沒有跨影格／跨來源快取，沒有重用座標、peer、green mask或proof。
+在原最慢57943同幀重新量測，全部分類請求4086→1772，其中四次completed搜尋3988→1674，另外兩次orange核心98次不重用。不同輸入依各次呼叫的RGB／gray／模板／incumbent分開計算；不得將跨呼叫或跨影格相同像素當允許重用。只在completed_node_candidates單次呼叫的local dictionary重用純分類tuple／None，key含實際RGB bytes、shape、dtype及當時incumbent；模板與必要家族在該呼叫內固定。上限1024筆，滿後繼續原運算，不改結果。每次搜尋重新建立，沒有跨影格／跨來源快取，沒有重用座標、peer、green mask或proof。
 
 先建立實際完成前驅測試，觀察RED（110個重複分類），再實作；GREEN保留完成路徑與像素proof，第二次相同搜尋仍重新分類。之後原45張逐欄比較、完整單元、同193隔離基準與當版必要回歸。若效益不足，保留實測並評估，不再猜測新增快取。來源幾何函式的全域相同key診斷沒有frame id，僅是潛在重複的上界，不能當成同幀重用授權。

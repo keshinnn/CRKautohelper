@@ -17,23 +17,70 @@ def _english_ordinary_crop(image,evidence):
     x,y,w,h=_box(labels[0])
     if h<=0 or h>image.height*.1 or x+w>=image.width:return []
     left,top=int(x+w),max(0,int(y-h*.15))
-    right,bottom=max(left,int(image.width-h)),min(image.height,int(y+h*1.15))
-    if min(right-left,bottom-top)<=0:return []
-    crop=image.crop((left,top,right,bottom))
+    bottom=min(image.height,int(y+h*1.15))
     import text_reader
     runtime=getattr(text_reader,'_v2_bounded_ocr_runtime',None)
     if not runtime or not runtime.enabled:return []
-    sizes=[(max(24,round(crop.width/crop.height*40*ratio)),40) for ratio in [.65,.8,.95]]
-    pixels=[np.asarray(crop.convert('RGB').resize(size,Image.Resampling.LANCZOS))[:,:,::-1].copy() for size in sizes]
-    readings,elapsed=runtime.reader.text_rec(pixels)
-    runtime.recognition_crops.append({'inputSize':list(crop.size),'source':'difficulty_adjacent_english_line','variants':[{'text':text,'score':float(score),'analysisSize':list(size)} for size,(text,score) in zip(sizes,readings)],'elapsedMs':float(elapsed)*1000})
-    # Difficulty stars are part of the actual observed line. Keep them and
-    # the original recognizer score; reject every other prefix/suffix.
-    matches=[(text,float(score),size) for size,(text,score) in zip(sizes,readings) if re.fullmatch(r'\*{0,2}Normal',text.strip(),re.I) and float(score)>=.95]
-    if not matches:return []
-    text,score,analysis_size=max(matches,key=lambda row:row[1])
-    return [{'text':text,'score':score,'box':[[left,top],[right,top],[right,bottom],[left,bottom]],
-        'boxSource':'original_line_crop_extent','source':'difficulty_adjacent_english_normal_original_crop','cropBox':[left,top,right-left,bottom-top],'analysisSize':list(analysis_size)}]
+    for right in dict.fromkeys([max(left,int(image.width-h)),image.width]):
+        if min(right-left,bottom-top)<=0:continue
+        crop=image.crop((left,top,right,bottom))
+        sizes=[(max(24,round(crop.width/crop.height*40*ratio)),40) for ratio in [.65,.8,.95]]
+        pixels=[np.asarray(crop.convert('RGB').resize(size,Image.Resampling.LANCZOS))[:,:,::-1].copy() for size in sizes]
+        readings,elapsed=runtime.reader.text_rec(pixels)
+        runtime.recognition_crops.append({'inputSize':list(crop.size),'source':'difficulty_adjacent_english_line','variants':[{'text':text,'score':float(score),'analysisSize':list(size)} for size,(text,score) in zip(sizes,readings)],'elapsedMs':float(elapsed)*1000})
+        # The old margin can cut off a glyph after anisotropic resizing. Keep
+        # a qualifying incumbent, otherwise read the whole bounded source line.
+        matches=[(text,float(score),size) for size,(text,score) in zip(sizes,readings) if re.fullmatch(r'\*{0,2}Normal',text.strip(),re.I) and float(score)>=.95]
+        if not matches:continue
+        text,score,analysis_size=max(matches,key=lambda row:row[1])
+        extra={'cropExtentMethod':'full_source_right_edge'} if right==image.width else {}
+        return [{'text':text,'score':score,'box':[[left,top],[right,top],[right,bottom],[left,bottom]],
+            'boxSource':'original_line_crop_extent','source':'difficulty_adjacent_english_normal_original_crop','cropBox':[left,top,right-left,bottom-top],'analysisSize':list(analysis_size),**extra}]
+    return []
+
+
+def _enter_original_crop(image,evidence):
+    rows=[r for r in evidence if r.get('text','').strip().casefold()=='enter' and .85<=r.get('score',0)<.95 and _box(r) and _box(r)[0]>image.width*.5]
+    if len(rows)!=1:return []
+    r=rows[0];x,y,w,h=_box(r)
+    if not (y>image.height*.5 and x+w<=image.width and y+h<=image.height and min(w,h)>0):return []
+    import text_reader
+    runtime=getattr(text_reader,'_v2_bounded_ocr_runtime',None)
+    if not runtime or not runtime.enabled:return []
+    crop=(int(x),int(y),int(x+w),int(y+h))
+    readings=runtime.read_line_variants(image.crop(crop),5)
+    valid=[e for e in readings if e.get('text','').strip().casefold()=='enter' and .95<=e.get('score',0)<=1]
+    if not valid:return []
+    best=max(valid,key=lambda e:e['score'])
+    return [{**best,'box':r['box'],'source':'enter_label_original_crop','originalEvidence':r,
+        'cropBox':[crop[0],crop[1],crop[2]-crop[0],crop[3]-crop[1]],'sourcePixelSha256':hashlib.sha256(image.convert('RGB').tobytes()).hexdigest(),'sourceSize':list(image.size)}]
+
+
+def _timer_line_original_crop(image,evidence):
+    labels=[r for r in evidence if r.get('text','').strip().casefold()=='time limit' and .95<=r.get('score',0)<=1 and _box(r) and _box(r)[0]>image.width*.5]
+    if len(labels)!=1:return []
+    label=labels[0];x,y,w,h=_box(label)
+    if not (0<h<image.height*.1 and 0<=y<y+h<=image.height and x+w<image.width):return []
+    # A qualified contradictory clock cannot be replaced by a rereading.
+    for r in evidence:
+        b=_box(r)
+        if b and b[0]>x+w and abs(b[1]+b[3]/2-y-h/2)<=h and .95<=r.get('score',0)<=1 and re.fullmatch(r'\d{2}:\d{2}',r.get('text','').strip()) and r['text'].strip()!='03:00':return []
+    left,top,right,bottom=int(x+w),max(0,int(y-h*.2)),image.width,min(image.height,int(y+h*1.2))
+    if min(right-left,bottom-top)<=0:return []
+    import text_reader
+    runtime=getattr(text_reader,'_v2_bounded_ocr_runtime',None)
+    if not runtime or not runtime.enabled:return []
+    crop=image.crop((left,top,right,bottom));local=runtime.previous_read(crop.resize((crop.width*3,crop.height*3),Image.Resampling.LANCZOS))
+    clocks=[r for r in local if .95<=r.get('score',0)<=1 and re.fullmatch(r'\d{2}:\d{2}',r.get('text','').strip())]
+    if len(clocks)!=1 or clocks[0]['text'].strip()!='03:00':return []
+    matches=[r for r in clocks if _box(r)]
+    if len(matches)!=1:return []
+    r=matches[0];q=np.asarray(r['box'],dtype=float)
+    if (q<0).any() or (q[:,0]>crop.width*3).any() or (q[:,1]>crop.height*3).any():return []
+    projected=q/3+np.array([left,top])
+    return [{**r,'text':r['text'].strip(),'box':projected.tolist(),'source':'time_limit_adjacent_timer_original_crop',
+        'cropBox':[left,top,right-left,bottom-top],'detectorScale':3,'originalPixelReading':r,'originalPixelReadings':local,'timeLimitEvidence':label,
+        'sourcePixelSha256':hashlib.sha256(image.convert('RGB').tobytes()).hexdigest(),'sourceSize':list(image.size)}]
 
 
 def _timer_original_crop(image,evidence):
@@ -119,11 +166,13 @@ def inspect_preview_context(image,packet):
     if not 1<=progress['displayedZone']<=10:return unknown
     evidence=packet.get('evidence',[])
     enters=[r for r in evidence if re.sub(r'\s+','',r.get('text','')).casefold() in ('進入','enter') and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>width*.5]
+    if not enters:enters=_enter_original_crop(image,evidence)
     timers=[r for r in evidence if r.get('text')=='03:00' and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>width*.5]
     ordinary=[r for r in evidence if '普通' in r.get('text','') and r.get('score',0)>=.65 and _box(r) and _box(r)[0]>width*.5]
     english_difficulty=[r for r in evidence if r.get('text','').strip().casefold()=='difficulty' and r.get('score',0)>=.95 and _box(r) and _box(r)[0]>width*.5]
     if not timers and len(enters)==1 and (len(ordinary)==1 or len(english_difficulty)==1):
         timers=_timer_original_crop(image,evidence)
+        if not timers:timers=_timer_line_original_crop(image,evidence)
     if not ordinary and len(enters)==1 and len(timers)==1 and enters[0].get('text','').strip().casefold()=='enter':
         ordinary=_english_ordinary_crop(image,evidence)
     if len(enters)!=1 or len(timers)!=1 or len(ordinary)!=1:return unknown

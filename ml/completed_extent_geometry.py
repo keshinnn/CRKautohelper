@@ -23,7 +23,9 @@ def recover_completed_extents(image,m,binding):
                 and not n.get('checkProposal') and not n.get('completedRefinement') and .48<=n.get('score',0)<=1]
     if not candidates:return m
     subset={**m,'nodes':candidates,'absoluteFloorKnown':False}
-    actions=inspect_map_actions(rgb,{'binding':binding,'mapReview':subset})
+    # Current-action sampling must not bypass a necessary physical extent
+    # refinement. Geometry retains the established baseline decision.
+    actions=inspect_map_actions(rgb,{'binding':binding,'mapReview':subset},complete_check_grid=False)
     bad=[n for n in candidates if actions.get('nodes',{}).get(n['id'],{}).get('checkMaskIoU',1)<.8]
     if not bad:return m
     rect=m.get('aspectRectification') or {};normal_size=rect.get('rectifiedInputSize',list(rgb.size))

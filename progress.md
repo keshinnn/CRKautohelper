@@ -1,3 +1,47 @@
+# 第52／53組預覽身份聚焦（2026-11-04）
+
+一次有界實驗後依停止條件結束，沒有安全局部補丁，產品程式0改動。context32／38張已被Node接受等待，Python identity仍0；首張context比例參考不足3，末端候選不足／未成四列，registration因無當前ID就拒絕。來源錨點350～967ms未過期；不是Node身份拒絕或單純缺兩張影格。
+
+報告：docs/reports/crk-helper-v2-preview-52-53-diagnosis.md；逐幀及實驗證據：artifacts/preview-52-53-focus-20261104-01/summary.json。隔離RED3方法（2預期失敗、1通過），沒有新完整閉環或大回歸；基準48/60僅保留。55～57外框繼續OPEN、舊證據未改。不得自動用舊座標／放寬閘門繞過本次阻塞；G4與P5限制維持。
+
+---
+
+# 第55～57組IoU聚焦診斷（2026-11-04）
+
+依使用者停止條件，本項修補停止，未找到可同時維持IoU及身份閘門的通用補丁，產品程式0改動。原始候選IoU約.94，橢圓→58×58模板畫布精修後約.88；投影矩陣不是此誤差來源。回退框與外輪廓試驗均未通過原身份閘門，不採用常數縮框。隔離RED共5方法，3預期失敗、2通過；未新跑完整閉環或大回歸，既有48/60僅作基準。
+
+報告：docs/reports/crk-helper-v2-iou-55-57-diagnosis.md；證據：artifacts/iou-focus-20261104-01/summary.json。下一前置是完整外緣與圖示實體的唯一對應證據；56另有預覽逾時。本輪沒有改OCR／預覽／效能，也沒有P5授權。
+
+---
+
+# 最新集中修復回歸（2026-11-04）
+
+開發60當版全部重新執行：48通過／12失敗；基準47／13。新增通過[51]；原成功退步[]。當版dirty source 223檔hash識別，未以base HEAD冒充未修改。單元{'python': 264, 'node': 133}；原生／固定／負例結果見完整報告。G4仍OPEN，效能1500ms未證明達標，保留集未跑，P5未授權。
+
+完整報告：`docs/reports/crk-helper-v2-concentrated-repair.md`；證據：`artifacts/concentrated-repair-20261103-02/final-summary.json`。以下保留歷史，不代表新版本結果。
+
+---
+
+# 最新：60組凍結離線探索已完成（2026-11-03）
+
+74ad37d、214檔／141依賴未變。前42同版回歸＋新18獨立首次執行＝**47通過／13失敗／0未嘗試**。新18：5PASS／13FAIL，2350張新鮮，UNKNOWN即停剩209張未處理；新11虛擬點擊、0native。13終止分布UNKNOWN3／ANCHOR_MISSING3／CURRENT_POSITION_UNPROVEN1／PREVIEW_TIMEOUT5／EVIDENCE_UNVERIFIED1；55～57另有IoU未達0.90，不重複加總。未修改產品演算法、門檻或資料；未重跑大回歸或效能。4033ms仍不符G4，保留集未執行，P5未授權。
+
+結果與共通修正建議：`docs/reports/crk-helper-v2-offline-exploration-60.md`；獨立正式驗收：`docs/reports/crk-helper-v2-g4-status.md`；機器稽核：`artifacts/exploration-20261102-01/audit-summary.json`。以下舊狀態保留歷史，不代表本輪未測數量或現行探索中止條件。
+
+---
+
+# Latest strategy — frozen independent offline exploration43..60
+
+User explicitly supersedes case/performance batch-stop policy, but retains every runtime safety gate. Frozen74ad37d214files; no optimization/codechanges/no P5. Restorebundle probe passed; docs/failure evidence archived in artifacts/exploration-20261102-01/checkpoint. Independent sequential one-case subprocesses, no cache, failures recorded then continue. Current controller49762; state artifacts/exploration-20261102-01/exploration.json. Case43 PASS103fresh IoU.913042,44active. Prior42sameversion evidence reused without long reruns. Complete18then aggregate60functionaldistribution separatelyfromG4; noreservedinferenceyet.
+
+---
+
+# Latest 2026-11-02 — performance guard STOP, no43+
+
+74ad37d (214owned/141external) Node127/Python245, focus3/560fresh, full42/2114fresh, native20/1551fresh, fixed15/381fresh, neg30+2controls/57fresh PASS; native1551/7actualmanualreview30groups46cards0newwrong0lost; integrity4606sources3654bundles18270files80tx;stress42 PASS. Current193fresh5/5functional PASS but combinedCPU p95=4033.0573ms >3561.1398guard and1500G4; currentcontroller86749 actualexit1, sourcefrozen, no43..60/noheld/noP5. Source/deps/frozen60+30unchanged. Reports docs/validation/2026-11-02-performance-optimization-stop.md and docs/reports/crk-helper-v2-development-60-report.md. Intermediatec235f6a3519ms is not currentperformance. No new source edits after stop.
+
+---
+
 # SDD ledger — plan: C:/Users/User/Documents/Codex/CRK-Helper-V2/docs/superpowers/plans/2026-10-24-crk-helper-v2-p0-p3-plan.md
 
 Scope: user conditionally approved P0–P3; P4 phased A/B/C; P5 not approved.
@@ -437,3 +481,6 @@ M1 formallyAUTHORIZED afterHighanalysis. Implementation9944a9d: onlyfast_map_can
 2026-10-28 userdirectsfinishremaining afterM1scope42report; supersedesWAIT_SCOPE42fornecessaryboundedcandidatefix, preservesnofullrewrite/no safetyrelax/no native. Newboundedcoverage source5e2c740, oldM1API/testsunchanged, explicitV2coverage standardfloorceilonepixel+entireM1prefix+uniqueincremental/Canny1. ReviewIcacheidentityfixedrealCLIRED5fails->GREENbothdirections/reuse. Preliminary3562case42PASS265fresh/1virtual/PREVIEW_CONFIRMED; NOTfinal5e2acceptance. Final5e2case42-fresh-02session30820running; controller76069artifacts/coverage-20261028-01/continue-coverage.py automaticallyorderedcurrentprefix41/native20/fixed15/negative30/units/native1551sevenmanualchangedgate/stress/paired&193performance then43..60. No protectedml/lib/scripts/tests/data orHEADeditswhileactive. Fullplan+ledgerdocs/superpowers/plans/2026-10-28-bounded-coverage.md, .superpowers/sdd/2026-10-28-coverage/progress.md. S3twofreshphysicalGTnowpass.951/.931IoU, EFdecoratorsremovedassertionsunchanged; keepdefectfinalstatuspendingcurrentnative/pixelproof. No new60/held/G4/P5claim. All60beforeheld30; nativechangedgate requiresparentmanualpixelreview nohumanapprovalunlessnewmajorissue.
 2026-10-28 coverage CURRENT BLOCKER: see docs/validation/2026-10-28-coverage-regression-case31.md. Full prefix41 fresh completed but case31 regressed G2 IoU .8889; original batch fails. Suffix32..41 separately graded10/10, focus42passed. Current aggregate41pass1fail18untested, not60done. No43/native/held. Stop at explicit integration scope boundary; need approval to separate baseline routing from coverage augmentation in Observer/aspect call interface. No production edit after failure. All current failure and hashes retained; full source5e2 unchanged. Do not rerun old controller or relabel failure as pass.
 2026-11-02 ACTIVE continuation: user alreadyapproved localphaseintegration. Source99f5121 under freshfocus31/41/42(560frames), fullPython234, onefreshreview. See .superpowers/sdd/2026-10-28-phase-observation/progress.md and docs/validation/2026-11-02-phase-observation-status.md. Do not revert tooldcoverage5e2stop/requestapprovalagain. Do not modifyownedsourceorHEADwhilecurrentjobsactive. Frozen60/30 unchanged;43..60afternecessaryregressions;noP5.
+使用者已明確要求暫停：請先讀 artifacts/phase-routing-parity-20261102-01/user-pause.json。僅在使用者再次明確說繼續後恢復；當前停在未完成的取整邊界壓力測試，前42組等已完成證據保留。
+最新：使用者恢復後已完成壓力測試與隔離基準，因嚴重效能退步停止。先讀 docs/validation/2026-11-02-route-parity-performance-stop.md；p95=5842.53ms，第43～60與保留集尚未執行。停止後未改程式。
+2026-11-02續修：c235f6a等價分類提前淘汰，Node127／Python243、同45張語義一致、原193張5/5閉環；隔離因果CPU p95 5842.53→3519.40ms，G4仍OPEN。依新剖析增加單次completed搜尋內精確分類重用，RED110重複→GREEN，45張仍逐欄一致；Python245／Node127全套通過；74ad37d的31／41／42聚焦560張全新分析、三組單次虛擬點擊皆PREVIEW_CONFIRMED，開始前42組全回歸。74ad37d前42組已獨立完整通過（2114新鮮、0 raw cache、42次單次虛擬點擊／0 native），正在原生20及其他必要閘門，不沿用353b2c9紀錄。證據artifacts/geometry-perf-20261102-01及geometry-reuse-20261102-01；未實機操作。

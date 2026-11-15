@@ -92,6 +92,8 @@ class BoundedOCRRuntime:
     def _read_with_progress(self,image):
         rows=self._reread_map_title(image,normalize_evidence(self.previous_read(image)))
         rows=self._reread_map_context(image,rows)
+        from english_context_evidence import reread_english_context
+        rows=reread_english_context(self,image,rows)
         header=text_reader.map_header_from_evidence(rows)
         if header['displayedZone'] is not None or header['conflictingEvidence']:return rows
         remaining=[r for r in rows if ('剩餘時間' in r.get('text','') or re.fullmatch(r'Ends\s+in:\s*\d+D\s+\d{2}:\d{2}:\d{2}',r.get('text','').strip(),re.I)) and r.get('score',0)>=.85]

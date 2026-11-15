@@ -19,16 +19,21 @@ def _check_masks():
             masks.append(_green(np.array(im.convert('RGB').resize((58,58)))[12:46,12:46]))
     return masks
 
-def _neutral_overlay_check(q):
+def _neutral_overlay_check(q,*,complete_grid=False):
     """Two agreeing saturation levels must retain the same reviewed shape."""
+    if type(complete_grid) is not bool:raise ValueError('BOOLEAN_COMPLETE_GRID_REQUIRED')
     hsv=cv2.cvtColor(q,cv2.COLOR_RGB2HSV);levels=[]
     for saturation in [60,80,100,120]:
         mask=((hsv[:,:,0]>35)&(hsv[:,:,0]<85)&(hsv[:,:,1]>saturation)&(hsv[:,:,2]>130)).astype('uint8')
         if .04<float(mask.mean())<.30:levels.append((saturation,mask))
-    best=None
-    for reference in _check_masks():
-        for dx in [-2,0,2]:
-            for dy in [-2,0,2]:
+    legacy=[(dx,dy) for dx in [-2,0,2] for dy in [-2,0,2]]
+    missing=[(dx,dy) for dx in range(-2,3) for dy in range(-2,3) if (dx,dy) not in legacy]
+    # Retain a qualifying incumbent. Only fill integer positions omitted by
+    # the original grid; radius and both independent .80 gates are unchanged.
+    for offsets in ([legacy,missing] if complete_grid else [legacy]):
+        best=None
+        for reference in _check_masks():
+            for dx,dy in offsets:
                 shifted=cv2.warpAffine(reference,np.float32([[1,0,dx],[0,1,dy]]),(34,34));scores=[]
                 for saturation,mask in levels:
                     union=np.logical_or(shifted,mask).sum()
@@ -36,10 +41,13 @@ def _neutral_overlay_check(q):
                 scores.sort(reverse=True)
                 if len(scores)>=2 and scores[1][0]>=.8 and (best is None or scores[1][0]>best['score']):
                     best={'score':scores[1][0],'alignmentPx':[dx,dy],'saturationLevels':[x[1] for x in scores[:2]],'maskIoUs':[x[0] for x in scores[:2]],'minimumTemplateIoU':.8,'method':'same_check_shape_at_two_neutral_overlay_color_levels'}
-    return best
+                    if offsets is missing:best.update(alignmentSearch='integer_completion_within_original_radius_2',alignmentRadius=2)
+        if best is not None:return best
+    return None
 
 
-def inspect_map_actions(image,packet):
+def inspect_map_actions(image,packet,*,complete_check_grid=True):
+    if type(complete_check_grid) is not bool:raise ValueError('BOOLEAN_COMPLETE_GRID_REQUIRED')
     unknown={'verified':False,'nodes':{},'current':None,'actionsExecuted':False}
     rgb=np.array(image.convert('RGB'));digest=hashlib.sha256(rgb.tobytes()).hexdigest()
     m=packet.get('mapReview') or {}
@@ -64,7 +72,7 @@ def inspect_map_actions(image,packet):
                         if union:score=max(score,float(np.logical_and(shifted,check).sum()/union))
         original_score=score;overlay=None
         if score<.8:
-            overlay=_neutral_overlay_check(q)
+            overlay=_neutral_overlay_check(q,complete_grid=complete_check_grid)
             if overlay:score=overlay['score']
         completed=score>=.8
         nodes[n['id']]={'verified':True,'available':n.get('type')=='battle' and orange>=.2 and not completed,'completed':completed,'orangeCoverage':orange,'checkMaskIoU':score,'originalCheckMaskIoU':original_score,'neutralOverlayCheck':overlay,'box':list(box)}

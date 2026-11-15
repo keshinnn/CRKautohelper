@@ -151,26 +151,30 @@ def _cyan_component(image, box):
 def _gate_pixel_geometry(image, box, root, digest):
     measured=_cyan_component(image,box)
     if measured is None:return None
-    raw=(root/'data/map/node-exit.png').read_bytes()
-    reference=Image.open(io.BytesIO(raw)).convert('RGB')
-    extent=_cyan_component(reference,[0,0,*reference.size])
-    if extent is None:return None
-    x,y,w,h=measured;rx,ry,rw,rh=extent
-    actual=cv2.resize(np.asarray(image.crop((x,y,x+w,y+h))),(rw,rh),interpolation=cv2.INTER_AREA)
-    expected=np.asarray(reference.crop((rx,ry,rx+rw,ry+rh)))
-    correlation=float(cv2.matchTemplate(cv2.cvtColor(actual,cv2.COLOR_RGB2GRAY),cv2.cvtColor(expected,cv2.COLOR_RGB2GRAY),cv2.TM_CCOEFF_NORMED)[0,0])
-    score=.7*correlation+.3*(1-np.abs(actual.astype(float)-expected).mean()/255)
-    if not .9<=score<=1:return None
-    sx,sy=w/rw,h/rh
-    result=[x-rx*sx,y-ry*sy,reference.width*sx,reference.height*sy]
-    if (min(result[:2])<0 or result[0]+result[2]>image.width or result[1]+result[3]>image.height
-            or not .85*box[2]<=result[2]<=1.15*box[2] or not .85*box[3]<=result[3]<=1.15*box[3]):return None
-    return result,{
-        'method':'same_frame_cyan_gate_arrow_and_original_template_extent',
-        'pixelSha256':digest,'sourceInnerBox':measured,'templateInnerBox':extent,
-        'templateSize':list(reference.size),'templateImageSha256':hashlib.sha256(raw).hexdigest(),
-        'innerScore':float(score),'actionsExecuted':False,
-    }
+    # Both families already belong to the unchanged V1 catalog. Preserve a
+    # qualifying primary; a different artwork must supply its own .90 proof.
+    for filename in ['node-exit.png','node-b-exit.png']:
+        path=root/'data/map'/filename
+        if not path.is_file():continue
+        raw=path.read_bytes();reference=Image.open(io.BytesIO(raw)).convert('RGB')
+        extent=_cyan_component(reference,[0,0,*reference.size])
+        if extent is None:continue
+        x,y,w,h=measured;rx,ry,rw,rh=extent
+        actual=cv2.resize(np.asarray(image.crop((x,y,x+w,y+h))),(rw,rh),interpolation=cv2.INTER_AREA)
+        expected=np.asarray(reference.crop((rx,ry,rx+rw,ry+rh)))
+        correlation=float(cv2.matchTemplate(cv2.cvtColor(actual,cv2.COLOR_RGB2GRAY),cv2.cvtColor(expected,cv2.COLOR_RGB2GRAY),cv2.TM_CCOEFF_NORMED)[0,0])
+        score=.7*correlation+.3*(1-np.abs(actual.astype(float)-expected).mean()/255)
+        if not .9<=score<=1:continue
+        sx,sy=w/rw,h/rh;result=[x-rx*sx,y-ry*sy,reference.width*sx,reference.height*sy]
+        if (min(result[:2])<0 or result[0]+result[2]>image.width or result[1]+result[3]>image.height
+                or not .85*box[2]<=result[2]<=1.15*box[2] or not .85*box[3]<=result[3]<=1.15*box[3]):continue
+        return result,{
+            'method':'same_frame_cyan_gate_arrow_and_original_template_extent',
+            'pixelSha256':digest,'sourceInnerBox':measured,'templateInnerBox':extent,
+            'templateSize':list(reference.size),'templateImageSha256':hashlib.sha256(raw).hexdigest(),
+            'innerScore':float(score),'actionsExecuted':False,
+        }
+    return None
 
 
 def _orange_node_pixel_geometry(image, box, root, digest, allow_icon_core=False):
