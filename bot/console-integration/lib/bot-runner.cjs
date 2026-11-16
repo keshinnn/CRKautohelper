@@ -16,13 +16,14 @@ function suggestCard(character, labels) {
   return labels.includes(n) ? n : null;
 }
 
-function cardFor(character, labels, map) {
+function cardFor(character, labels, map, bank = {}) {
+  if (bank[character.id]) return { card: character.id, how: 'bank' };   // confirmed in-game card (bot/cards/bank.json)
   if (map[character.id] && labels.includes(map[character.id])) return { card: map[character.id], how: 'map' };
   const s = suggestCard(character, labels);
   return s ? { card: s, how: 'name' } : { card: null, how: 'none' };
 }
 
-function toStrategy(config, { labels = [], map = {}, treasureNames = null } = {}) {
+function toStrategy(config, { labels = [], map = {}, treasureNames = null, bank = {} } = {}) {
   const errors = [], warnings = [];
   const chars = new Map(config.characters.map(c => [c.id, c]));
   const trs = new Map(config.treasures.map(t => [t.id, t.name]));
@@ -40,7 +41,7 @@ function toStrategy(config, { labels = [], map = {}, treasureNames = null } = {}
         const team = [];
         for (const t of l.team) {
           const c = chars.get(t.characterId); if (!c) continue;
-          const { card } = cardFor(c, labels, map);
+          const { card } = cardFor(c, labels, map, bank);
           if (card) team.push(card); else if (!l.manualPlay) errors.push(`${where}：「${c.name}」還沒有對應的角色卡片`);
         }
         if (!l.team.length && !l.manualPlay) errors.push(`${where}：尚未選角（或勾選「本關由玩家手動遊玩」）`);
@@ -92,7 +93,45 @@ class BotRunner {
     const m = this.read(path.join(this.root, 'data', 'treasures', 'manifest.json'), { treasures: [] });
     return m.treasures.map(t => t.name);
   }
-  plan(config) { return toStrategy(config, { labels: this.labels(), map: this.cardMap(), treasureNames: this.treasureNames() }); }
+  plan(config) { return toStrategy(config, { labels: this.labels(), map: this.cardMap(), treasureNames: this.treasureNames(), bank: this.bank() }); }
+  // ---- confirmed card bank + inbox of unknown cards seen in the game ----
+  bank() { return (this.read(this.p('cards', 'bank.json'), { cards: {} }).cards) || {}; }
+  bankImage(id) {
+    const row = this.bank()[id]; const f = row && row.files && row.files[0] && row.files[0].file;
+    return f && /^bank\/[\w.-]+\.png$/.test(f) ? this.p('cards', f) : null;
+  }
+  inbox() {
+    const dir = this.p('cards', 'inbox'); if (!fs.existsSync(dir)) return [];
+    return fs.readdirSync(dir).filter(f => /^[0-9a-f]{16}\.png$/.test(f)).map(f => {
+      const meta = this.read(path.join(dir, f.replace(/\.png$/, '.json')), null);
+      return { file: f, at: fs.statSync(path.join(dir, f)).mtimeMs, suggestions: meta ? meta.suggestions : null,
+        modelId: meta ? meta.modelId || null : null, modelReason: meta ? meta.reason || '' : '' };
+    }).sort((a, b) => b.at - a.at);
+  }
+  inboxImage(file) { return /^[0-9a-f]{16}\.png$/.test(file) && fs.existsSync(this.p('cards', 'inbox', file)) ? this.p('cards', 'inbox', file) : null; }
+  confirmCard(file, character) {
+    if (this.running()) throw new Error('請先停止自動通關再確認卡片');
+    const src = this.inboxImage(file); if (!src) throw new Error('找不到這張卡片');
+    if (!character || !/^[a-zA-Z0-9_-]{1,80}$/.test(character.id)) throw new Error('請選擇角色');
+    const data = this.read(this.p('cards', 'bank.json'), { format: 'crk-mumu-card-bank-v1', cards: {} }); data.cards = data.cards || {};
+    fs.mkdirSync(this.p('cards', 'bank'), { recursive: true });
+    const rel = `bank/${character.id}-${file}`; fs.copyFileSync(src, this.p('cards', rel));
+    const row = data.cards[character.id] || { name: chineseName(character.name), english: String(character.name).split(' / ')[1] || '', aliases: [], files: [] };
+    row.files.push({ file: rel, source: 'MuMu team strip, unknown-card inbox', confirmedBy: 'user in console ' + new Date(this.now()).toISOString().slice(0, 10) });
+    data.cards[character.id] = row;
+    fs.writeFileSync(this.p('cards', 'bank.json'), JSON.stringify(data, null, 1));
+    this.moveOut(file, 'confirmed'); return { ok: true, id: character.id };
+  }
+  dismissCard(file) { if (!this.inboxImage(file)) throw new Error('找不到這張卡片'); this.moveOut(file, 'dismissed'); return { ok: true }; }
+  moveOut(file, sub) {
+    const dir = this.p('cards', 'inbox'), to = path.join(dir, sub); fs.mkdirSync(to, { recursive: true });
+    for (const f of [file, file.replace(/\.png$/, '.json')]) if (fs.existsSync(path.join(dir, f))) fs.renameSync(path.join(dir, f), path.join(to, f));
+  }
+  suggest() {
+    if (this.suggesting && this.suggesting.exitCode === null) return { ok: true, running: true };
+    this.suggesting = this.spawnFn(this.python, ['-B', this.p('card_suggest.py')], { cwd: this.root, stdio: 'ignore', windowsHide: true, env: { ...process.env, PYTHONUTF8: '1' } });
+    return { ok: true, running: true };
+  }
   running() {
     if (this.proc && this.proc.exitCode === null && !this.proc.killed) return true;
     const s = this.read(this.p('status.json'), {});   // a runner started elsewhere (agent / bot/webui.py)
@@ -105,7 +144,12 @@ class BotRunner {
     const mode = running ? (s.mode === 'manual' ? 'manual' : 'auto') : (['paused', 'error', 'stopped'].includes(s.mode) ? s.mode : 'idle');
     const out = { mode, running, message: s.message || '', screen: s.state || '', age, zone: run.zone ?? null, step: run.step ?? null,
       halt: run.halt || '', manual: run.manual || null, frame: s.frame ? true : false, n: s.n || 0 };
-    if (config) { const p = this.plan(config); out.ready = !p.errors.length; out.errors = p.errors.slice(0, 8); out.warnings = p.warnings.slice(0, 5); }
+    if (config) {
+      const p = this.plan(config); out.ready = !p.errors.length; out.errors = p.errors.slice(0, 8); out.warnings = p.warnings.slice(0, 5);
+      const z = p.strategy.zones.find(z => z.zone === (out.zone || config.options.startZone));
+      out.route = z ? { zone: z.zone, floors: z.steps.map((s, i) => ({ floor: i + 1, type: s.type, manual: !!s.manual,
+        state: out.zone === z.zone ? (i < (out.step || 0) ? 'done' : i === (out.step || 0) ? 'current' : 'next') : 'next' })) } : null;
+    }
     return out;
   }
   start(config, { reset = false } = {}) {

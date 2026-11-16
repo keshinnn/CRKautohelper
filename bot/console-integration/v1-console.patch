@@ -1,6 +1,6 @@
 --- a/server.cjs
 +++ b/server.cjs
-@@ -1,112 +1,130 @@
+@@ -1,112 +1,135 @@
 -'use strict';
 -const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 -const Schema=require('./web/config.js'),Auth=require('./lib/auth.cjs'),{Vision}=require('./lib/vision.cjs'),{FlowEngine}=require('./lib/flow.cjs');
@@ -207,7 +207,12 @@
 +  if(p==='/api/bot/status'&&req.method==='GET'){json(res,200,bot.status(config));return;}
 +  if(p==='/api/bot/log'&&req.method==='GET'){json(res,200,bot.log());return;}
 +  if(p==='/api/bot/frame'&&req.method==='GET'){const f=bot.frameFile();if(!f){json(res,404,{error:'尚無遊戲畫面'});return;}res.writeHead(200,{'Content-Type':'image/jpeg','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});fs.createReadStream(f).pipe(res);return;}
-+  if(p==='/api/bot/cards'&&req.method==='GET'){const labels=bot.labels(),map=bot.cardMap(),roster=[...config.initialRoster,...(config.extraRoster||[])].map(id=>config.characters.find(c=>c.id===id)).filter(Boolean).map(c=>({id:c.id,name:c.name,...cardFor(c,labels,map)}));json(res,200,{labels,roster});return;}
++  if(p==='/api/bot/cards'&&req.method==='GET'){const labels=bot.labels(),map=bot.cardMap(),bank=bot.bank(),roster=[...config.initialRoster,...(config.extraRoster||[])].map(id=>config.characters.find(c=>c.id===id)).filter(Boolean).map(c=>({id:c.id,name:c.name,inBank:!!bank[c.id],...cardFor(c,labels,map,bank)}));json(res,200,{labels,roster,bankCount:Object.keys(bank).length,inbox:bot.inbox()});return;}
++  if(p.startsWith('/api/bot/bank-image/')&&req.method==='GET'){const f=bot.bankImage(p.slice('/api/bot/bank-image/'.length));if(!f||!fs.existsSync(f)){json(res,404,{error:'找不到卡片'});return;}res.writeHead(200,{'Content-Type':'image/png','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});fs.createReadStream(f).pipe(res);return;}
++  if(p.startsWith('/api/bot/inbox-image/')&&req.method==='GET'){const f=bot.inboxImage(p.slice('/api/bot/inbox-image/'.length));if(!f){json(res,404,{error:'找不到卡片'});return;}res.writeHead(200,{'Content-Type':'image/png','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});fs.createReadStream(f).pipe(res);return;}
++  if(req.method==='POST'&&p==='/api/bot/inbox/confirm'){const b=await body(req,4096),c=config.characters.find(c=>c.id===b.characterId);if(!c){json(res,400,{error:'請選擇角色'});return;}json(res,200,bot.confirmCard(String(b.file||''),c));return;}
++  if(req.method==='POST'&&p==='/api/bot/inbox/dismiss'){const b=await body(req,4096);json(res,200,bot.dismissCard(String(b.file||'')));return;}
++  if(req.method==='POST'&&p==='/api/bot/inbox/suggest'){await body(req,4096);json(res,202,bot.suggest());return;}
 +  if(p==='/api/bot/cards'&&req.method==='PUT'){const b=await body(req,65536);json(res,200,{map:bot.saveCardMap(b.map)});return;}
 +  if(p.startsWith('/api/bot/card/')&&req.method==='GET'){let label;try{label=decodeURIComponent(p.slice('/api/bot/card/'.length));}catch{label='';}const f=bot.cardImage(label);if(!f||!fs.existsSync(f)){json(res,404,{error:'找不到角色卡片'});return;}res.writeHead(200,{'Content-Type':'image/png','Cache-Control':'private, max-age=3600','X-Content-Type-Options':'nosniff'});fs.createReadStream(f).pipe(res);return;}
 +  if(req.method==='POST'&&['/api/bot/start','/api/bot/stop','/api/bot/resume','/api/bot/clear-halt'].includes(p)){

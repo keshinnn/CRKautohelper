@@ -1,0 +1,150 @@
+{
+"counts": {
+"right": 149,
+"right: official art": 39,
+"right: costume/event art": 91,
+"right: user/in-game card ref": 19,
+"skipped": 2,
+"out-abstain": 14,
+"in-abstain": 3
+},
+"wrong": [],
+"abstain": [
+[
+"氣泡水饼乾",
+"棉花",
+0.312,
+0.004,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"月免饼乾",
+"火龍果龍族",
+0.415,
+0.025,
+0,
+"ambiguous, no geometric support"
+],
+[
+"可可饼乾",
+"風味章魚餅乾",
+0.346,
+0.016,
+16,
+"low score, ambiguous"
+],
+[
+"莱姆餅乾",
+"萊姆",
+0.803,
+0.551,
+0,
+"no geometric support"
+],
+[
+"be饼乾",
+"花小龍",
+0.276,
+0.018,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"Jimin餠乾",
+"鮮奶油貂",
+0.321,
+0.009,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"Jung",
+"濃縮奶油",
+0.276,
+0.024,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"佐依饼乾",
+"黑棗汁",
+0.359,
+0.021,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"艾法芭餅乾",
+"肌肉",
+0.341,
+0.024,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"索尼克饼乾",
+"雪酪",
+0.293,
+0.032,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"JGA餅乾",
+"麻辣",
+0.276,
+0.017,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"RM餅乾",
+"花小龍",
+0.309,
+0.028,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"Jin饼乾",
+"紫丁香",
+0.28,
+0.038,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"V饼乾",
+"黑藍寶石",
+0.297,
+0.015,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"塔爾斯鲜乾",
+"花小龍",
+0.277,
+0.008,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"米拉餅乾",
+"雪酪",
+0.36,
+0.048,
+0,
+"low score, ambiguous, no geometric support"
+],
+[
+"鲁米饼乾",
+"花小龍",
+0.307,
+0.017,
+0,
+"low score, ambiguous, no geometric support"
+]
+]
+}

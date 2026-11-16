@@ -1,18 +1,73 @@
-.bot-card .bot-message{margin:0 0 4px;font-size:15px;line-height:1.6}
-.bot-badge[data-mode="auto"]{color:#bfe8a8}.bot-badge[data-mode="manual"]{color:#ffd28a}.bot-badge[data-mode="paused"],.bot-badge[data-mode="error"]{color:#ffaeae}
-.bot-badge::before{content:"● ";font-size:10px}.bot-badge[data-mode="idle"]::before,.bot-badge[data-mode="stopped"]::before{content:"○ "}
-.bot-handover{margin-top:14px;padding:16px;border:2px solid #d9a441;border-radius:8px;background:#2a2213}
-.bot-handover h3{margin:0 0 6px;font-size:16px}
-.bot-handover .btn{margin-top:8px}
-.bot-problems{margin-top:12px}.bot-problems ul{margin:4px 0 10px;padding-left:20px;line-height:1.7}
-.bot-halt{border-left:3px solid #ffaeae;padding-left:12px}
-.bot-recent summary{cursor:pointer;color:var(--muted);font-size:12px}
-.bot-log{margin:8px 0 0;padding-left:0;list-style:none;font-family:monospace;font-size:12px;line-height:1.7;max-height:260px;overflow:auto}
-.bot-log-pause,.bot-log-note{color:#ffaeae}.bot-log-manual{color:#ffd28a}
-.bot-cards{display:grid;gap:8px}
-.bot-card-row{display:grid;grid-template-columns:48px minmax(120px,1fr) minmax(120px,180px) minmax(90px,auto);gap:10px;align-items:center}
-.bot-card-img{width:48px;height:48px;object-fit:cover;border-radius:6px;background:#10171d}
-.bot-card-name{overflow-wrap:anywhere}
-.level-manual-play{display:inline-block;margin-top:4px;padding:2px 7px;border-radius:5px;border:1px solid #d9a441;color:#ffd28a;font-size:11px}
+/* 自動通關 — follows the CRUMB monochrome system (monochrome.css): greys, white primary, 14px cards, soft inner light.
+   One bold moment only: when it is the player's turn, the hand-over plate inverts to white. */
+.bot-card .pad{display:grid;gap:18px}
+.bot-body{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(240px,1fr);gap:28px;align-items:start}
+.bot-state-label{font-size:30px;font-weight:500;letter-spacing:-.01em;line-height:1.25;color:#f2f2f2}
+.bot-card .bot-message{margin:6px 0 0;font-size:15px;line-height:1.7;color:#d6d6d6;max-width:62ch}
+.bot-where{margin:4px 0 0}
+.bot-badge{display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:999px;border:1px solid #3a3a3a;background:#141414;color:#d8d8d8;font-size:12px}
+.bot-badge::before{content:"";width:8px;height:8px;border-radius:50%;border:1.5px solid currentColor;box-sizing:border-box}
+.bot-badge[data-mode="auto"]::before{background:#fff;border-color:#fff;box-shadow:0 0 10px #ffffffb0;animation:bot-breathe 2.4s ease-in-out infinite}
+.bot-badge[data-mode="manual"]{background:#f2f2f2;color:#111;border-color:#fff}.bot-badge[data-mode="manual"]::before{background:#111;border-color:#111}
+.bot-badge[data-mode="paused"],.bot-badge[data-mode="error"]{color:#ffb5b5;border-color:#6b4646}
+@keyframes bot-breathe{50%{box-shadow:0 0 2px #ffffff40;opacity:.55}}
+/* route: the zone's floors as a sequence (real order, so numbered) */
+.bot-route-head{margin:22px 0 8px}
+.bot-route{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.bot-floor{display:grid;justify-items:center;gap:2px;min-width:58px;padding:8px 6px 7px;border:1px solid #333;border-radius:11px;background:#0d0d0d;color:#9a9a9a}
+.bot-floor-n{font-size:17px;font-weight:600;line-height:1.1}
+.bot-floor-t{font-size:11px}
+.bot-floor.is-done{background:#1b1b1b;border-color:#3d3d3d;color:#cfcfcf}
+.bot-floor.is-done .bot-floor-n::after{content:" ✓";font-size:12px}
+.bot-floor.is-current{border-color:#f2f2f2;color:#fff;box-shadow:0 0 0 1px #ffffff30,0 0 18px #ffffff1f}
+.bot-floor.is-manual{border-style:dashed}
+.bot-floor.is-current.is-manual{background:#f2f2f2;color:#111;border-style:solid}
+.bot-floor.is-boss .bot-floor-n{letter-spacing:.05em}
+/* actions */
+.bot-controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0}
+.bot-controls .btn.primary{grid-column:1/-1;min-height:52px;font-size:16px}
+.bot-ctrl-help{margin:12px 0 0;line-height:1.7}
+/* the player's turn: inverted plate */
+.bot-handover{display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:center;padding:20px 22px;border-radius:14px;
+  background:linear-gradient(160deg,#ffffff,#e4e4e4);color:#111;box-shadow:0 0 34px #ffffff26,inset 0 1px 0 #fff}
+.bot-handover h3{margin:0;font-size:19px;font-weight:600;color:#000}
+.bot-handover p{margin:0;color:#3a3a3a}.bot-handover p.tiny{color:#4a4a4a}
+.bot-handover .btn{grid-column:2;grid-row:1/4;margin:0;background:#111;color:#fff;border-color:#111;box-shadow:none;min-height:50px}
+.bot-handover .btn:hover:not(:disabled){background:#000;color:#fff}
+.bot-card[data-mode="manual"]{border-color:#bdbdbd}
+/* blocking problems / lock */
+.bot-problems{padding:16px 18px;border:1px solid #4a3a3a;border-radius:12px;background:#140f0f}
+.bot-problems .error{margin:0 0 6px;font-size:14px}
+.bot-problems ul{margin:0 0 12px;padding-left:20px;line-height:1.8;color:#d7d7d7}
+.bot-problems .controls{margin:0}
+.bot-halt{margin:0;padding:16px 18px;border-radius:12px;border:1px solid #6b4646;background:#140f0f}
+.bot-halt p:first-child{margin:0;color:#ffb5b5}
+/* recent actions */
+.bot-recent{border-top:1px solid #262626;padding-top:12px}
+.bot-recent summary{cursor:pointer;color:#aaa;font-size:13px}
+.bot-log{margin:10px 0 0;padding:10px 12px;list-style:none;font-size:13px;line-height:1.75;max-height:280px;overflow:auto;border-radius:10px;background:#0a0a0a;border:1px solid #262626;color:#cfcfcf}
+.bot-log li{padding:1px 0;border-bottom:1px solid #161616}
+.bot-log-pause,.bot-log-note{color:#ffb5b5}.bot-log-manual{color:#fff;font-weight:600}
+/* roster page: confirmed in-game cards */
+.bot-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.bot-card-row{display:grid;grid-template-columns:52px minmax(0,1fr);grid-template-areas:"img name" "img state" "sel sel";gap:2px 12px;align-items:center;padding:12px;border:1px solid #333;border-radius:12px;background:linear-gradient(150deg,#191919,#0f0f0f)}
+.bot-card-row>img{grid-area:img;width:52px;height:62px;object-fit:cover;object-position:top;border-radius:8px;background:#222}
+.bot-card-row>img[hidden]{display:block!important;visibility:hidden}
+.bot-card-name{grid-area:name;font-size:14px;color:#eee;overflow-wrap:anywhere}
+.bot-card-ok,.bot-card-missing{grid-area:state;font-size:12px}
+.bot-card-ok{color:#e8e8e8}.bot-card-ok::before{content:"● ";color:#fff}
+.bot-card-missing{color:#ffb5b5}.bot-card-missing::before{content:"○ "}
+.bot-card-row select{grid-area:sel;margin-top:8px;width:100%}
+.bot-card-row:has(.bot-card-ok){border-color:#4a4a4a}
+/* inbox of unknown cards */
+.bot-inbox-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid #2a2a2a}
+.bot-inbox-head h3{margin:0;font-size:15px;font-weight:500;color:#eee}
+.bot-inbox{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
+.bot-inbox-item{display:grid;gap:8px;padding:12px;border:1px dashed #555;border-radius:14px;background:#0e0e0e}
+.bot-inbox-img{width:132px;justify-self:center;border-radius:10px;box-shadow:0 8px 24px #000a}
+.bot-inbox-item select{width:100%}
+.bot-inbox-item .controls{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.level-manual-play{display:inline-block;margin-top:4px;padding:2px 9px;border-radius:999px;border:1px dashed #9a9a9a;color:#eee;font-size:11px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media (max-width:640px){.bot-card-row{grid-template-columns:40px 1fr}.bot-card-row select{grid-column:1/-1}}
+@media (max-width:900px){.bot-body{grid-template-columns:1fr}.bot-handover{grid-template-columns:1fr}.bot-handover .btn{grid-column:1/-1;grid-row:auto}}
+@media (prefers-reduced-motion:reduce){.bot-badge::before{animation:none!important}}

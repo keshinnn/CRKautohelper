@@ -59,22 +59,28 @@ test('自動通關卡：手動關卡顯示接手區塊，按鈕送出交還；�
   assert.ok(calls.some(c => c.url === '/api/bot/clear-halt'));
 });
 
-test('角色卡片對應：列出名單、可選擇並儲存', async () => {
+test('遊戲內角色卡片：已確認／舊版對應／待確認新卡片，確認送出角色', async () => {
   const { w, calls } = page();
+  w.eval(`var C={characters:[{id:'osm',name:'金桂 / Golden Osmanthus Cookie'},{id:'x',name:'神秘 / Mystery Cookie'},{id:'y',name:'其他 / Other'}],initialRoster:['osm','x'],extraRoster:[]};`);
   w.mockApi = async (url, method = 'GET', body) => {
     calls.push({ url, method, body });
     if (url === '/api/bot/status') return { mode: 'idle', running: false, ready: true, errors: [], warnings: [] };
-    if (url === '/api/bot/cards' && method === 'GET') return { labels: ['金桂', '氣泡'], roster: [{ id: 'osm', name: '金桂 / Golden Osmanthus Cookie', card: '金桂', how: 'name' }, { id: 'x', name: '神秘', card: null, how: 'none' }] };
+    if (url === '/api/bot/cards' && method === 'GET') return { labels: ['氣泡'], roster: [{ id: 'osm', name: '金桂 / Golden Osmanthus Cookie', inBank: true, card: 'osm', how: 'bank' }, { id: 'x', name: '神秘', inBank: false, card: null, how: 'none' }],
+      inbox: [{ file: '0123456789abcdef.png', suggestions: [{ id: 'y', name: '其他', similarity: 0.71 }] }] };
     return { ok: true, map: {} };
   };
   w.eval(fs.readFileSync(path.join(__dirname, '../web/bot-runner.js'), 'utf8'));
   w.document.querySelector('[data-page="roster"]').dispatchEvent(new w.Event('click', { bubbles: true }));
-  await new Promise(r => setImmediate(r)); await new Promise(r => setImmediate(r));
-  const sels = w.document.querySelectorAll('#botCards select');
-  assert.equal(sels.length, 2); assert.equal(sels[0].value, '金桂'); assert.equal(sels[1].value, '');
-  assert.ok(w.document.querySelector('label[for="botCard-x"]'));
-  sels[1].value = '氣泡'; sels[1].onchange();
-  const save = [...w.document.querySelectorAll('#botCards button')].find(b => /儲存/.test(b.textContent));
-  assert.equal(save.disabled, false); await save.onclick();
-  const put = calls.find(c => c.method === 'PUT'); assert.deepEqual(JSON.parse(JSON.stringify(put.body)), { map: { osm: '金桂', x: '氣泡' } });
+  for (let i = 0; i < 4; i++) await new Promise(r => setImmediate(r));
+  const d = w.document, rows = d.querySelectorAll('#botCards .bot-card-row');
+  assert.equal(rows.length, 2);
+  assert.match(rows[0].textContent, /已確認/); assert.match(rows[0].querySelector('img').src, /bank-image\/osm/);
+  assert.match(rows[1].textContent, /需要遊戲內卡片/);
+  const item = d.querySelector('.bot-inbox-item'); assert.ok(item);
+  const sel = item.querySelector('select'); assert.equal(sel.querySelector('optgroup').label, '模型判定與相似角色');
+  assert.equal(sel.value, '');   // never preselects a model guess
+  const ok = [...item.querySelectorAll('button')].find(b => b.textContent === '確認');
+  await ok.onclick(); assert.match(w.lastError || '', /請先選擇角色/);
+  sel.value = 'y'; await ok.onclick();
+  const c = calls.find(c => c.url === '/api/bot/inbox/confirm'); assert.deepEqual(JSON.parse(JSON.stringify(c.body)), { file: '0123456789abcdef.png', characterId: 'y' });
 });

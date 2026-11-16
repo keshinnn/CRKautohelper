@@ -121,3 +121,22 @@ test('HTTP：/api/bot/* 需控制啟用，狀態含攻略檢查', async () => {
     } finally { server.closeAllConnections?.(); await new Promise(r => server.close(r)); }
   }
 });
+
+test('卡片庫：已確認卡片優先，新卡片需使用者確認才入庫', () => {
+  const root = tempRoot();
+  const b = new BotRunner({ root, python: 'py', spawnFn: () => ({ exitCode: null }) });
+  fs.writeFileSync(path.join(root, 'bot', 'cards', 'bank.json'), JSON.stringify({ cards: { soda: { name: '氣泡水', files: [{ file: 'bank/soda-s8.png' }] } } }));
+  let r = toStrategy(sampleConfig(), { labels: LABELS, map: {}, bank: b.bank() });
+  assert.deepEqual(r.errors, []);
+  const c = sampleConfig(); c.zones[0].levels[0].team = [{ characterId: 'soda', buildId: '' }];
+  r = toStrategy(c, { labels: LABELS, map: {}, bank: b.bank() }); assert.deepEqual(r.strategy.zones[0].steps[0].team, ['soda']);
+  const inbox = path.join(root, 'bot', 'cards', 'inbox'); fs.mkdirSync(inbox, { recursive: true });
+  fs.writeFileSync(path.join(inbox, '0123456789abcdef.png'), 'x'); fs.writeFileSync(path.join(inbox, 'fedcba9876543210.png'), 'y');
+  assert.equal(b.inbox().length, 2);
+  assert.throws(() => b.confirmCard('../x.png', { id: 'men', name: '薄荷醇 / Menthol Cookie' }), /找不到/);
+  b.confirmCard('0123456789abcdef.png', { id: 'men', name: '薄荷醇 / Menthol Cookie' });
+  assert.equal(b.bank().men.files[0].file, 'bank/men-0123456789abcdef.png');
+  assert.ok(fs.existsSync(path.join(root, 'bot', 'cards', 'bank', 'men-0123456789abcdef.png')));
+  b.dismissCard('fedcba9876543210.png'); assert.equal(b.inbox().length, 0);
+  assert.equal(b.bankImage('men'), path.join(root, 'bot', 'cards', 'bank/men-0123456789abcdef.png'));
+});

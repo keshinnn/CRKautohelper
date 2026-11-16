@@ -1,0 +1,218 @@
+{
+ "format": "crk-mumu-card-bank-v1",
+ "note": "MuMu team-select card crops (2560x1440, 254x304) keyed by catalog id. Only confirmed crops live here; the runner never accepts a card that is not in this bank.",
+ "cards": {
+  "cookie-002": {
+   "name": "聖百合",
+   "english": "White Lily Cookie",
+   "aliases": [
+    "百合"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-002-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-125": {
+   "name": "芒果",
+   "english": "Mango Cookie",
+   "aliases": [
+    "芒果"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-125-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-124": {
+   "name": "艦長",
+   "english": "Captain Caviar Cookie",
+   "aliases": [
+    "船長"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-124-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-094": {
+   "name": "蕾絲水母",
+   "english": "Frilled Jellyfish Cookie",
+   "aliases": [
+    "水母"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-094-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-159": {
+   "name": "莫札瑞拉起司",
+   "english": "Mozzarella Cookie",
+   "aliases": [
+    "莫札"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-159-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ],
+   "catalogName": "默茲瑞拉"
+  },
+  "cookie-141": {
+   "name": "金桂",
+   "english": "Golden Osmanthus Cookie",
+   "aliases": [
+    "金桂"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-141-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-132": {
+   "name": "薄荷醇",
+   "english": "Menthol Cookie",
+   "aliases": [
+    "薄荷醇"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-132-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-103": {
+   "name": "煙燻起司",
+   "english": "Smoked Cheese Cookie",
+   "aliases": [
+    "煙燻"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-103-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-120": {
+   "name": "義大利寬麵",
+   "english": "Fettuccine Cookie",
+   "aliases": [
+    "木乃伊"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-120-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-092": {
+   "name": "奶油蘇打",
+   "english": "Cream Soda Cookie",
+   "aliases": [
+    "奶油蘇打"
+   ],
+   "catalogName": "氣泡水（目錄中文名與遊戲不同）",
+   "files": [
+    {
+     "file": "bank/cookie-092-s8.png",
+     "source": "S8 live team strip (card11)",
+     "confirmedBy": "user in chat 2026-11-16 (Cream Soda = 奶油蘇打)"
+    }
+   ]
+  },
+  "cookie-147": {
+   "name": "風鈴草",
+   "english": "Silverbell Cookie",
+   "aliases": [
+    "風鈴草"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-147-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-070": {
+   "name": "巴斯克起司",
+   "english": "Burnt Cheese Cookie",
+   "aliases": [
+    "巴斯克"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-070-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-178": {
+   "name": "阿福花餅乾",
+   "english": "Asphodel Cookie",
+   "aliases": [
+    "阿福花"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-178-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-181": {
+   "name": "小花茉莉餅乾",
+   "english": "Mogra Cookie",
+   "aliases": [
+    "茉莉"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-181-s8.png",
+     "source": "S8 live team strip (template matched; check-mark verified live 2026-11-16)",
+     "confirmedBy": "Claude visual review vs wiki art; user agreed 2026-11-16"
+    }
+   ]
+  },
+  "cookie-184": {
+   "name": "氣泡水",
+   "english": "",
+   "aliases": [
+    "氣泡"
+   ],
+   "files": [
+    {
+     "file": "bank/cookie-184-9f829c4adf3741db.png",
+     "source": "S8 live team strip card12",
+     "confirmedBy": "user in chat 2026-11-16 (promotional art: 氣泡水餅乾, EPIC support)"
+    }
+   ]
+  }
+ }
+}

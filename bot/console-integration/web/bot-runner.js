@@ -34,7 +34,15 @@
   halt.append(haltText, el('p', 'tiny', '同一層失敗超過重試次數時程式會鎖定。請先調整隊伍或配置，清除後再開始。'), haltBtn);
   const recent = el('details', 'bot-recent section-space'); const sum = el('summary', '', '最近動作'); const list = el('ol', 'bot-log');
   recent.append(sum, list);
-  pad.append(msg, where, hand, problems, controls, halt, recent);
+  // layout: state + route on the left, actions on the right; hand-over plate spans the card when it is your turn
+  const stateBig = el('div', 'bot-state-label', '讀取中');
+  const route = el('ol', 'bot-route'); route.setAttribute('aria-label', '本區路線');
+  const routeHead = el('p', 'tiny bot-route-head', '');
+  const left = el('div', 'bot-left'); left.append(stateBig, msg, where, routeHead, route);
+  const right = el('div', 'bot-right'); const ctrlHelp = el('p', 'tiny bot-ctrl-help', '程式會依攻略逐層前進；未確認的畫面或角色會停下等你。');
+  controls.classList.add('bot-controls'); right.append(controls, ctrlHelp);
+  const body = el('div', 'bot-body'); body.append(left, right);
+  pad.append(hand, body, problems, halt, recent);
   card.append(head, pad);
   const overview = $('overview');
   overview.insertBefore(card, overview.querySelector('.grid'));
@@ -49,7 +57,8 @@
   function render(s) {
     st = s; const m = s ? s.mode : 'loading';
     const [label, idleText] = MODE[m] || [m, ''];
-    badge.textContent = label; badge.dataset.mode = m;
+    badge.textContent = label; badge.dataset.mode = m; card.dataset.mode = m; stateBig.textContent = label;
+    renderRoute(s && s.route);
     msg.textContent = s ? (s.message || idleText) : MODE.loading[1];
     where.textContent = s && s.zone ? `進度紀錄：區域 ${s.zone}・下一層 第 ${(s.step ?? 0) + 1} 層` + (s.age != null && s.running ? `・${s.age} 秒前更新` : '') : '';
     const running = !!(s && s.running);
@@ -86,6 +95,19 @@
     }
   }
 
+  const TYPE = { battle: '戰鬥', random: '節點', heal: '恢復', boss: '王關' };
+  function renderRoute(r) {
+    route.replaceChildren(); routeHead.textContent = '';
+    if (!r || !r.floors.length) return;
+    routeHead.textContent = '區域 ' + r.zone + ' 路線';
+    for (const f of r.floors) {
+      const li = el('li', 'bot-floor is-' + f.state + (f.manual ? ' is-manual' : '') + (f.type === 'boss' ? ' is-boss' : ''));
+      li.append(el('span', 'bot-floor-n', f.type === 'boss' ? '王' : String(f.floor)), el('span', 'bot-floor-t', f.manual ? '手動' : TYPE[f.type] || f.type));
+      li.title = (f.type === 'boss' ? '王關' : '第 ' + f.floor + ' 層') + '：' + (TYPE[f.type] || f.type) + (f.manual ? '（玩家手動）' : '') + ({ done: '・已完成', current: '・目前', next: '' })[f.state];
+      if (f.state === 'current') li.setAttribute('aria-current', 'step');
+      route.append(li);
+    }
+  }
   function renderLog(rows) {
     list.replaceChildren();
     for (const r of rows.slice(-15).reverse()) {
@@ -121,37 +143,81 @@
   document.addEventListener('visibilitychange', () => { if (!document.hidden) poll(); });
   render(null); setInterval(poll, 2000); setTimeout(poll, 300);
 
-  // ---------- roster page: card mapping ----------
+  // ---------- roster page: confirmed in-game cards + inbox of unknown cards ----------
   const cardsBox = el('article', 'card section-space'); cardsBox.id = 'botCards';
-  const ch = el('div', 'card-head'); ch.append(el('h2', '', '角色卡片對應'), el('span', 'tiny', '自動通關用來在隊伍設定裡認角色'));
-  const cbody = el('div', 'pad'); const cintro = el('p', 'tiny', '每位出場角色要對應到一張遊戲內的角色卡片圖。名稱能唯一比對時會自動對應；比對不到或有多個可能時，請在這裡選擇。');
-  const ctable = el('div', 'bot-cards'); const csave = button('儲存卡片對應', saveCards, 'btn primary'); csave.disabled = true;
-  const cstate = el('p', 'tiny'); cstate.setAttribute('role', 'status');
-  cbody.append(cintro, ctable, el('div', 'controls section-space'), cstate); cbody.querySelector('.controls').append(csave);
+  const ch = el('div', 'card-head'); ch.append(el('h2', '', '遊戲內角色卡片'), el('span', 'tiny', '自動通關選角只認這裡確認過的卡片'));
+  const cbody = el('div', 'pad');
+  cbody.append(el('p', 'tiny', '自動通關在「隊伍設定」只會點選已確認的遊戲內卡片；不在這裡的角色，程式會停下來等你確認，不會用猜的。'));
+  const ctable = el('div', 'bot-cards'); const cstate = el('p', 'tiny'); cstate.setAttribute('role', 'status');
+  const csave = button('儲存舊版名稱對應', saveCards, 'btn'); csave.disabled = true; csave.hidden = true;
+  const ihead = el('div', 'bot-inbox-head'); const ititle = el('h3', '', '待確認的新卡片');
+  const isuggest = button('產生辨識建議', suggest, 'btn'); ihead.append(ititle, isuggest);
+  const ihelp = el('p', 'tiny', '程式在隊伍設定畫面看到卡片庫沒有的卡片時會存到這裡。角色模型會給出判定（沒把握時不判定）；確認後加入卡片庫。');
+  const inbox = el('div', 'bot-inbox');
+  const cctrl = el('div', 'controls section-space'); cctrl.append(csave);
+  cbody.append(ctable, cctrl, cstate, ihead, ihelp, inbox);
   cardsBox.append(ch, cbody); $('roster').append(cardsBox);
   let cardData = null;
+  const charName = id => (C?.characters.find(c => c.id === id)?.name) || id;
+  function characterSelect(id, first) {
+    const sel = el('select'); sel.id = id; sel.append(new Option('選擇角色…', ''));
+    const used = new Set();
+    const group = (label, items) => { if (!items.length) return; const g = document.createElement('optgroup'); g.label = label; for (const [v, t] of items) { if (used.has(v)) continue; used.add(v); g.append(new Option(t, v)); } if (g.children.length) sel.append(g); };
+    group('模型判定與相似角色', first);
+    const roster = [...(C?.initialRoster || []), ...(C?.extraRoster || [])];
+    group('起始名單', roster.map(r => [r, charName(r)]));
+    group('全部角色', (C?.characters || []).map(c => [c.id, c.name]));
+    return sel;
+  }
   async function loadCards() {
-    ctable.replaceChildren(el('p', 'tiny', '讀取中…'));
+    ctable.replaceChildren(el('p', 'tiny', '讀取中…')); inbox.replaceChildren();
     try { cardData = await api('/api/bot/cards'); } catch (e) { ctable.replaceChildren(el('p', 'error', '讀取角色卡片失敗：' + e.message)); return; }
-    ctable.replaceChildren();
-    if (!cardData.roster.length) { ctable.append(el('p', 'tiny', '起始名單還沒有角色。先在上方選好起始 15 隻。')); return; }
-    if (!cardData.labels.length) { ctable.append(el('p', 'error', '找不到角色卡片圖（bot/cards/labels.json）。')); return; }
+    ctable.replaceChildren(); csave.hidden = true;
+    if (!cardData.roster.length) ctable.append(el('p', 'tiny', '起始名單還沒有角色。先在上方選好起始 15 隻。'));
     for (const r of cardData.roster) {
       const row = el('div', 'bot-card-row'), name = el('span', 'bot-card-name', r.name);
-      const id = 'botCard-' + r.id, lab = el('label', 'sr-only', r.name + ' 的角色卡片'); lab.htmlFor = id;
-      const sel = el('select'); sel.id = id; sel.dataset.id = r.id;
-      sel.append(new Option('（未對應）', ''));
-      for (const l of cardData.labels) sel.append(new Option(l, l, false, l === r.card));
       const img = el('img', 'bot-card-img'); img.alt = ''; img.width = 48; img.height = 48;
-      const how = el('span', 'tiny', r.how === 'map' ? '已指定' : r.how === 'name' ? '依名稱自動對應' : '需要選擇');
-      const show = () => { if (sel.value) { img.src = '/api/bot/card/' + encodeURIComponent(sel.value); img.hidden = false; } else img.hidden = true; };
-      sel.onchange = () => { show(); how.textContent = '尚未儲存'; csave.disabled = false; cstate.textContent = '有未儲存的卡片對應'; };
-      show(); row.append(img, name, lab, sel, how); ctable.append(row);
+      if (r.inBank) {
+        img.src = '/api/bot/bank-image/' + encodeURIComponent(r.id);
+        row.append(img, name, el('span', 'bot-card-ok', '已確認'), el('span'));
+      } else {
+        // legacy short-name templates (bot/cards/labels.json) can still stand in until a confirmed card exists
+        const id = 'botCard-' + r.id, lab = el('label', 'sr-only', r.name + ' 的舊版卡片名稱'); lab.htmlFor = id;
+        const sel = el('select'); sel.id = id; sel.dataset.id = r.id; sel.append(new Option('（沒有遊戲內卡片）', ''));
+        for (const l of cardData.labels) sel.append(new Option('舊版：' + l, l, false, l === r.card));
+        sel.onchange = () => { csave.disabled = false; csave.hidden = false; cstate.textContent = '有未儲存的對應'; };
+        img.hidden = true; const st = el('span', 'bot-card-missing', r.card ? '使用舊版名稱對應' : '需要遊戲內卡片');
+        row.append(img, name, lab, sel); row.append(st);
+      }
+      ctable.append(row);
+    }
+    const items = cardData.inbox || [];
+    ititle.textContent = '待確認的新卡片' + (items.length ? `（${items.length}）` : '');
+    isuggest.disabled = !items.some(i => !i.suggestions);
+    if (!items.length) { inbox.append(el('p', 'tiny muted', '目前沒有待確認的卡片。')); return; }
+    for (const it of items) {
+      const box = el('div', 'bot-inbox-item'), img = el('img', 'bot-inbox-img'); img.src = '/api/bot/inbox-image/' + it.file; img.alt = '遊戲中看到、尚未確認的角色卡片';
+      const sid = 'botInbox-' + it.file.slice(0, 16), lab = el('label', 'tiny', '這是哪位角色？'); lab.htmlFor = sid;
+      const sugg = (it.suggestions || []).slice(0, 3).map(s => [s.id, (s.id === it.modelId ? '模型判定：' : '') + `${s.name}（相似度 ${s.similarity.toFixed(2)}）`]);
+      const sel = characterSelect(sid, sugg);
+      const verdict = it.modelId ? `模型判定為「${charName(it.modelId)}」並通過檢查；請核對後確認。` : it.suggestions ? '模型無法確定是誰' + (it.modelReason ? `（${it.modelReason.replace('low score', '相似度不足').replace('ambiguous', '與其他角色太接近').replace('no geometric support', '細節對不上')}）` : '') + '，請自行選擇。' : '尚無模型判定';
+      const ok = button('確認', async () => {
+        if (!sel.value) throw new Error('請先選擇角色');
+        await api('/api/bot/inbox/confirm', 'POST', { file: it.file, characterId: sel.value });
+        toast('已加入確認卡片：' + charName(sel.value)); loadCards(); poll();
+      }, 'btn primary');
+      const no = button('不是角色卡片', async () => { await api('/api/bot/inbox/dismiss', 'POST', { file: it.file }); loadCards(); }, 'btn');
+      const acts = el('div', 'controls'); acts.append(ok, no);
+      box.append(img, lab, sel, el('p', 'tiny' + (it.modelId ? '' : ' muted'), verdict), acts); inbox.append(box);
     }
   }
+  async function suggest() {
+    await api('/api/bot/inbox/suggest', 'POST', {}); cstate.textContent = '正在產生建議（約半分鐘）…';
+    setTimeout(async () => { await loadCards(); cstate.textContent = ''; }, 30000);
+  }
   async function saveCards() {
-    const map = {}; for (const s of ctable.querySelectorAll('select')) map[s.dataset.id] = s.value;
-    await api('/api/bot/cards', 'PUT', { map }); csave.disabled = true; cstate.textContent = '已儲存卡片對應'; toast('已儲存卡片對應'); loadCards(); poll();
+    const map = {}; for (const s of ctable.querySelectorAll('select[data-id]')) map[s.dataset.id] = s.value;
+    await api('/api/bot/cards', 'PUT', { map }); csave.disabled = true; cstate.textContent = '已儲存'; toast('已儲存舊版名稱對應'); loadCards(); poll();
   }
   document.querySelector('.nav').addEventListener('click', e => { if (e.target.closest('[data-page="roster"]')) loadCards(); });
   document.addEventListener('crk-config-refreshed', () => { if (activePage === 'roster') loadCards(); });

@@ -1,0 +1,37 @@
+{
+  "format": "crk-name-overrides-v1",
+  "note": "Taiwan in-game names read from each cookie's own detail page (kingdom cookie list, 2026-11-16, OCR then hand-corrected). Catalog names that were typos, user shorthand or a different translation. Codex's models/cards/model.json is integrity-hashed and is not edited; readers apply this table on top.",
+  "names": {
+    "cookie-092": "奶油蘇打餅乾",
+    "cookie-007": "超時空餅乾",
+    "cookie-020": "辣椒素餅乾",
+    "cookie-136": "帕夫洛娃蛋糕餅乾",
+    "cookie-055": "千層酥餅乾",
+    "cookie-145": "阿芙佳朵餅乾",
+    "cookie-139": "甜辣醬餅乾",
+    "cookie-149": "雪酪鯊魚餅乾",
+    "cookie-036": "泡泡糖餅乾",
+    "cookie-033": "探險家餅乾",
+    "cookie-038": "魔法師餅乾",
+    "cookie-050": "勇士餅乾",
+    "cookie-046": "紅蘿蔔餅乾",
+    "cookie-077": "搖滾巨星餅乾",
+    "cookie-159": "莫札瑞拉起司餅乾",
+    "cookie-099": "口香糖球潛水員餅乾",
+    "cookie-109": "宇宙甜甜圈",
+    "cookie-031": "冰雪怪餅乾",
+    "cookie-079": "月光魔法師餅乾",
+    "cookie-151": "黑巧克力餅乾",
+    "cookie-153": "黑森林蛋糕餅乾",
+    "cookie-154": "黑檸檬汽水餅乾",
+    "cookie-029": "棉花糖兔餅乾",
+    "cookie-028": "鮮奶油貂餅乾",
+    "cookie-016": "火龍果龍族餅乾",
+    "cookie-083": "松果餅乾",
+    "cookie-069": "巧克力脆片餅乾"
+  },
+  "added": {
+    "cookie-184": {"name": "氣泡水餅乾", "note": "EPIC support, back row; not in Codex's 180-class catalog. Identity confirmed by the user 2026-11-16 (S8 card12)."}
+  },
+  "unsure": ["cookie-143 錫蘭 (OCR 蘭士)", "cookie-152 黑棗汁 (OCR 黑汁)", "cookie-158 黑麥 (OCR 黑)", "cookie-124 艦長 (OCR 長魚子醬)", "cookie-054 仙桃 (OCR 桃花)", "cookie-118 紫薯 (OCR 紫心薯)"]
+}
