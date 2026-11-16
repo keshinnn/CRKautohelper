@@ -1,0 +1,18 @@
+.bot-card .bot-message{margin:0 0 4px;font-size:15px;line-height:1.6}
+.bot-badge[data-mode="auto"]{color:#bfe8a8}.bot-badge[data-mode="manual"]{color:#ffd28a}.bot-badge[data-mode="paused"],.bot-badge[data-mode="error"]{color:#ffaeae}
+.bot-badge::before{content:"● ";font-size:10px}.bot-badge[data-mode="idle"]::before,.bot-badge[data-mode="stopped"]::before{content:"○ "}
+.bot-handover{margin-top:14px;padding:16px;border:2px solid #d9a441;border-radius:8px;background:#2a2213}
+.bot-handover h3{margin:0 0 6px;font-size:16px}
+.bot-handover .btn{margin-top:8px}
+.bot-problems{margin-top:12px}.bot-problems ul{margin:4px 0 10px;padding-left:20px;line-height:1.7}
+.bot-halt{border-left:3px solid #ffaeae;padding-left:12px}
+.bot-recent summary{cursor:pointer;color:var(--muted);font-size:12px}
+.bot-log{margin:8px 0 0;padding-left:0;list-style:none;font-family:monospace;font-size:12px;line-height:1.7;max-height:260px;overflow:auto}
+.bot-log-pause,.bot-log-note{color:#ffaeae}.bot-log-manual{color:#ffd28a}
+.bot-cards{display:grid;gap:8px}
+.bot-card-row{display:grid;grid-template-columns:48px minmax(120px,1fr) minmax(120px,180px) minmax(90px,auto);gap:10px;align-items:center}
+.bot-card-img{width:48px;height:48px;object-fit:cover;border-radius:6px;background:#10171d}
+.bot-card-name{overflow-wrap:anywhere}
+.level-manual-play{display:inline-block;margin-top:4px;padding:2px 7px;border-radius:5px;border:1px solid #d9a441;color:#ffd28a;font-size:11px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (max-width:640px){.bot-card-row{grid-template-columns:40px 1fr}.bot-card-row select{grid-column:1/-1}}
