@@ -42,7 +42,21 @@
   const right = el('div', 'bot-right'); const ctrlHelp = el('p', 'tiny bot-ctrl-help', '程式會依攻略逐層前進；未確認的畫面或角色會停下等你。');
   controls.classList.add('bot-controls'); right.append(controls, ctrlHelp);
   const body = el('div', 'bot-body'); body.append(left, right);
-  pad.append(hand, body, problems, halt, recent);
+  // in-context help: the steps of the flow that starts here (full manual: 'CRK Helper 冥界自動通關 操作說明')
+  const help = (title, steps, notes = []) => {
+    const d = el('details', 'bot-help'); d.append(el('summary', '', title));
+    const ol = el('ol'); for (const t of steps) ol.append(el('li', '', t)); d.append(ol);
+    for (const t of notes) d.append(el('p', 'tiny', t));
+    return d;
+  };
+  const runHelp = help('怎麼使用自動通關', [
+    '開著 MuMu（2560×1440），遊戲裡開新的一場冥界試煉，自己選好 15 隻，停在地圖畫面，並開啟遊戲的「自動戰鬥」。',
+    '在「攻略配置」填好每一區的路線數字、每一層的隊伍，最上方選滿三件預設寶物；只有要換寶物的層才另外勾選。',
+    '要自己打的層，在該層的編輯視窗勾「本關由玩家手動遊玩」。',
+    '新的一場按「從第一層重新開始」；暫停或停止後按「繼續自動通關」。',
+    '走到手動關卡時程式會停手；你打完後按「我已完成這關，交還程式」，或不按也行，程式看到該層勝利畫面會自己接著跑。'
+  ], ['路線數字是地圖上固定的格子（由左至右 1～4），例如 234323 = 第 1 層第 2 格、第 2 層第 3 格。', '程式停下時，原因會寫在上方；處理好再按繼續。']);
+  pad.append(hand, body, problems, halt, runHelp, recent);
   card.append(head, pad);
   const overview = $('overview');
   overview.insertBefore(card, overview.querySelector('.grid'));
@@ -145,9 +159,10 @@
 
   // ---------- roster page: confirmed in-game cards + inbox of unknown cards ----------
   const cardsBox = el('article', 'card section-space'); cardsBox.id = 'botCards';
-  const ch = el('div', 'card-head'); ch.append(el('h2', '', '遊戲內角色卡片'), el('span', 'tiny', '自動通關選角只認這裡確認過的卡片'));
+  const ch = el('div', 'card-head'); ch.append(el('h2', '', '遊戲內角色卡片'), el('span', 'tiny bot-cards-sum', ''));
   const cbody = el('div', 'pad');
-  cbody.append(el('p', 'tiny', '自動通關在「隊伍設定」只會點選已確認的遊戲內卡片；不在這裡的角色，程式會停下來等你確認，不會用猜的。'));
+  const cardSum = ch.querySelector('.bot-cards-sum');
+  cbody.append(el('p', 'tiny', '隊伍設定時，已確認的卡片直接點選；其餘角色由辨識模型在畫面上找卡。模型沒把握時不會猜，會停下來並把卡片存到下方「待確認的新卡片」。'));
   const ctable = el('div', 'bot-cards'); const cstate = el('p', 'tiny'); cstate.setAttribute('role', 'status');
   const csave = button('儲存舊版名稱對應', saveCards, 'btn'); csave.disabled = true; csave.hidden = true;
   const ihead = el('div', 'bot-inbox-head'); const ititle = el('h3', '', '待確認的新卡片');
@@ -155,7 +170,13 @@
   const ihelp = el('p', 'tiny', '程式在隊伍設定畫面看到卡片庫沒有的卡片時會存到這裡。角色模型會給出判定（沒把握時不判定）；確認後加入卡片庫。');
   const inbox = el('div', 'bot-inbox');
   const cctrl = el('div', 'controls section-space'); cctrl.append(csave);
-  cbody.append(ctable, cctrl, cstate, ihead, ihelp, inbox);
+  const cardHelp = help('角色卡片怎麼運作', [
+    '程式在組隊畫面比對卡片圖，不需要訓練：參考圖來自 Codex 的 180 位角色目錄、你擁有角色清單裡每位角色目前的樣子，以及這裡確認過的卡片。',
+    '沒把握時一律不點，會把卡片存到下方「待確認的新卡片」，並停下來等你。',
+    '確認時從選單選角色；清單裡沒有的新角色，選最下面的「新增角色（輸入名稱）」並填遊戲裡顯示的名字。',
+    '換了造型或抽到新角色後，重新收集一次擁有角色清單（collect_cookies.py → cards_owned_build.py，見操作說明）。'
+  ]);
+  cbody.append(ctable, cctrl, cstate, cardHelp, ihead, ihelp, inbox);
   cardsBox.append(ch, cbody); $('roster').append(cardsBox);
   let cardData = null;
   const charName = id => (C?.characters.find(c => c.id === id)?.name) || id;
@@ -167,6 +188,7 @@
     const roster = [...(C?.initialRoster || []), ...(C?.extraRoster || [])];
     group('起始名單', roster.map(r => [r, charName(r)]));
     group('全部角色', (C?.characters || []).map(c => [c.id, c.name]));
+    const g = document.createElement('optgroup'); g.label = '清單裡沒有'; g.append(new Option('新增角色（輸入名稱）…', '__new__')); sel.append(g);
     return sel;
   }
   async function loadCards() {
@@ -174,23 +196,21 @@
     try { cardData = await api('/api/bot/cards'); } catch (e) { ctable.replaceChildren(el('p', 'error', '讀取角色卡片失敗：' + e.message)); return; }
     ctable.replaceChildren(); csave.hidden = true;
     if (!cardData.roster.length) ctable.append(el('p', 'tiny', '起始名單還沒有角色。先在上方選好起始 15 隻。'));
+    const count = { bank: 0, model: 0, none: 0 };
     for (const r of cardData.roster) {
-      const row = el('div', 'bot-card-row'), name = el('span', 'bot-card-name', r.name);
-      const img = el('img', 'bot-card-img'); img.alt = ''; img.width = 48; img.height = 48;
-      if (r.inBank) {
-        img.src = '/api/bot/bank-image/' + encodeURIComponent(r.id);
-        row.append(img, name, el('span', 'bot-card-ok', '已確認'), el('span'));
-      } else {
-        // legacy short-name templates (bot/cards/labels.json) can still stand in until a confirmed card exists
-        const id = 'botCard-' + r.id, lab = el('label', 'sr-only', r.name + ' 的舊版卡片名稱'); lab.htmlFor = id;
-        const sel = el('select'); sel.id = id; sel.dataset.id = r.id; sel.append(new Option('（沒有遊戲內卡片）', ''));
-        for (const l of cardData.labels) sel.append(new Option('舊版：' + l, l, false, l === r.card));
-        sel.onchange = () => { csave.disabled = false; csave.hidden = false; cstate.textContent = '有未儲存的對應'; };
-        img.hidden = true; const st = el('span', 'bot-card-missing', r.card ? '使用舊版名稱對應' : '需要遊戲內卡片');
-        row.append(img, name, lab, sel); row.append(st);
-      }
+      const kind = r.inBank ? 'bank' : r.inModel ? 'model' : 'none'; count[kind]++;
+      const row = el('div', 'bot-card-row'); row.dataset.kind = kind;
+      const img = el('img', 'bot-card-img'); img.alt = ''; img.width = 52; img.height = 62; img.loading = 'lazy';
+      const art = C?.characters.find(c => c.id === r.id)?.skins?.[0]?.image;
+      if (r.inBank) img.src = '/api/bot/bank-image/' + encodeURIComponent(r.id); else if (art) img.src = art; else img.hidden = true;
+      const [zh, en] = String(r.name).split(' / ');
+      const name = el('span', 'bot-card-name', zh); if (en) name.append(el('small', '', en));
+      const state = el('span', 'bot-card-state', kind === 'bank' ? '已確認的遊戲內卡片' : kind === 'model' ? '由辨識模型找卡' : '模型不認得，需要遊戲內卡片');
+      row.append(img, name, state);
+      if (kind === 'none') row.append(el('span', 'bot-card-hint', '實戰遇到時會存到下方待確認，確認一次即可。'));
       ctable.append(row);
     }
+    cardSum.textContent = cardData.roster.length ? `已確認 ${count.bank}・模型辨識 ${count.model}` + (count.none ? `・需要卡片 ${count.none}` : '') : '';
     const items = cardData.inbox || [];
     ititle.textContent = '待確認的新卡片' + (items.length ? `（${items.length}）` : '');
     isuggest.disabled = !items.some(i => !i.suggestions);
@@ -201,14 +221,23 @@
       const sugg = (it.suggestions || []).slice(0, 3).map(s => [s.id, (s.id === it.modelId ? '模型判定：' : '') + `${s.name}（相似度 ${s.similarity.toFixed(2)}）`]);
       const sel = characterSelect(sid, sugg);
       const verdict = it.modelId ? `模型判定為「${charName(it.modelId)}」並通過檢查；請核對後確認。` : it.suggestions ? '模型無法確定是誰' + (it.modelReason ? `（${it.modelReason.replace('low score', '相似度不足').replace('ambiguous', '與其他角色太接近').replace('no geometric support', '細節對不上')}）` : '') + '，請自行選擇。' : '尚無模型判定';
+      const nid = sid + '-name', nlab = el('label', 'tiny', '新角色名稱（遊戲裡顯示的名字）'); nlab.htmlFor = nid; nlab.hidden = true;
+      const nin = el('input'); nin.id = nid; nin.maxLength = 40; nin.hidden = true; nin.placeholder = '例如：氣泡水餅乾';
+      sel.onchange = () => { const isNew = sel.value === '__new__'; nlab.hidden = nin.hidden = !isNew; if (isNew) nin.focus(); };
       const ok = button('確認', async () => {
         if (!sel.value) throw new Error('請先選擇角色');
+        if (sel.value === '__new__') {
+          if (!nin.value.trim()) { nin.focus(); throw new Error('請輸入新角色的名稱'); }
+          if (typeof dirty !== 'undefined' && dirty) throw new Error('攻略有未儲存的修改，請先儲存再新增角色');
+          const r = await api('/api/bot/inbox/confirm', 'POST', { file: it.file, newName: nin.value.trim() });
+          toast('已新增角色並加入卡片：' + nin.value.trim()); setTimeout(() => location.reload(), 600); return r;
+        }
         await api('/api/bot/inbox/confirm', 'POST', { file: it.file, characterId: sel.value });
         toast('已加入確認卡片：' + charName(sel.value)); loadCards(); poll();
       }, 'btn primary');
       const no = button('不是角色卡片', async () => { await api('/api/bot/inbox/dismiss', 'POST', { file: it.file }); loadCards(); }, 'btn');
       const acts = el('div', 'controls'); acts.append(ok, no);
-      box.append(img, lab, sel, el('p', 'tiny' + (it.modelId ? '' : ' muted'), verdict), acts); inbox.append(box);
+      box.append(img, lab, sel, nlab, nin, el('p', 'tiny' + (it.modelId ? '' : ' muted'), verdict), acts); inbox.append(box);
     }
   }
   async function suggest() {

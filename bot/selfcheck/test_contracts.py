@@ -66,9 +66,12 @@ class Contracts(unittest.TestCase):
         pk = map_packet(); pk['evidence'] += [ev('冥界裂縫'), ev('危险度'), ev('可能發生的事件'), ev('確', 2100, 1290)]
         kinds = [R({'zone': 1, 'step': 0}).decide(pk)[0] for _ in range(2)]; self.assertEqual(kinds, ['pause', 'pause'])
 
-    def test_heal_panel_off_strategy_pauses(self):
+    def test_heal_panel_off_strategy_closes_then_pauses(self):
+        # a heal preview we did not open for this step: closing a preview is reversible, but only twice; never 恢復
         pk = map_packet(); pk['evidence'] += [ev('恢復'), ev('危险度'), ev('選擇恢復方式'), ev('恢復所有餅乾')]
-        self.assertEqual(R({'zone': 1, 'step': 0}).decide(pk)[0], 'pause')
+        r = R({'zone': 1, 'step': 0}); acts = [r.decide(pk) for _ in range(3)]
+        self.assertEqual([a[0] for a in acts], ['tap', 'tap', 'pause'])
+        self.assertEqual(acts[0][1], (2490, 290))
 
     def test_heal_panel_on_strategy_taps_recover_after_two_observations(self):
         strat = {'zones': [{'zone': 1, 'steps': [{'column': 2, 'type': 'battle'}, {'column': 3, 'type': 'heal'}]}]}
@@ -76,6 +79,21 @@ class Contracts(unittest.TestCase):
         r = R({'zone': 1, 'step': 1, 'pending': {'type': 'heal', 'floor': 2}}); r.s = strat
         self.assertEqual(r.decide(pk)[0], 'wait'); a = r.decide(pk)
         self.assertEqual(a[0], 'tap'); self.assertGreater(a[1][1], 1200); self.assertEqual(r.state['step'], 2)
+
+    def test_heal_slot_on_battle_step_heals_and_waits_for_result(self):
+        # route digits are fixed map slots; another player's map may hold a heal where the author fought
+        strat = {'zones': [{'zone': 1, 'steps': [{'column': 2, 'type': 'battle', 'team': ['金桂']}, {'column': 2, 'type': 'battle', 'team': ['莫札']}]}]}
+        pk = map_packet(); pk['evidence'] += [ev('第1層恢復', 2600, 100), ev('危险度'), ev('選擇恢復方式'), ev('恢復所有餅乾'), ev('15/15恢復', 2200, 1290)]
+        r = R({'zone': 1, 'step': 0, 'pending': {'type': 'battle', 'floor': 1}}); r.s = strat
+        self.assertEqual(r.decide(pk)[0], 'wait'); a = r.decide(pk); self.assertEqual(a[0], 'tap'); self.assertEqual(r.state['step'], 1)
+        self.assertEqual(r.decide(pk)[0], 'wait')                     # panel still open right after 恢復: wait, never pause
+        r.state['healed']['at'] -= 30; self.assertEqual(r.decide(pk)[0], 'pause')   # 20 s and still no 已恢復: ask
+        pk2 = map_packet(); pk2['evidence'] += [ev('第1層恢復', 2600, 100), ev('危险度'), ev('選擇恢復方式'), ev('已恢復')]
+        self.assertEqual(r.decide(pk2), ('tap', (2490, 290), 'heal done (已恢復) -> close panel'))
+
+    def test_reward_box_notice_confirms(self):
+        pk = map_packet(); pk['evidence'] += [ev('所獲得的自寶箱'), ev('已移動至庫，'), ev('確', 1280, 1010)]
+        a = R({'zone': 1, 'step': 0}).decide(pk); self.assertEqual(a[0], 'tap'); self.assertLess(abs(a[1][1] - 1025), 40)
 
     def test_recruit_popup_joins(self):
         pk = map_packet(); pk['evidence'] += [ev('發現新夥伴！'), ev('加入', 1280, 1200)]

@@ -17,7 +17,30 @@ STATUS_FILE = HERE / 'status.json'
 def write_status(d):
     """Shared with webui.py: what the runner is doing right now."""
     d = {**d, 'at': time.time(), 'pid': __import__('os').getpid()}
-    tmp = STATUS_FILE.with_suffix('.tmp'); tmp.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding='utf-8'); tmp.replace(STATUS_FILE)
+    tmp = STATUS_FILE.with_suffix('.tmp'); tmp.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding='utf-8')
+    for i in range(10):   # Windows refuses the rename while a reader (web console, monitor) has status.json open
+        try:
+            tmp.replace(STATUS_FILE); return
+        except PermissionError:
+            time.sleep(0.05 * (i + 1))
+    print(json.dumps({'note': 'status.json busy; this status update skipped'}), flush=True)   # status is advisory only
+
+
+MAP_COLUMNS = [906.67, 1200.0, 1493.33, 1786.67]   # MuMu 2560x1440 map column centres
+_BOSS_T = None
+def boss_icon(img):
+    """Unique zone-boss icon on the map (template from a live S8 frame): >=0.98 when visible, <=0.69 otherwise."""
+    global _BOSS_T
+    if img is None: return None
+    import cv2, numpy as np
+    if _BOSS_T is None: _BOSS_T = cv2.imread(str(HERE / 'maps' / 'boss_icon.png'))
+    im = np.asarray(img)
+    if im.ndim != 3 or im.shape[1] != 2560: return None
+    if not isinstance(img, np.ndarray): im = cv2.cvtColor(im, cv2.COLOR_RGB2BGR)
+    r = cv2.matchTemplate(im, _BOSS_T, cv2.TM_CCOEFF_NORMED); _, mx, _, loc = cv2.minMaxLoc(r)
+    r[max(0, loc[1]-60):loc[1]+60, max(0, loc[0]-60):loc[0]+60] = -1
+    if mx >= .95 and r.max() < .8: return (loc[0] + 50.0, loc[1] + 50.0)
+    return None
 
 
 def norm(t):
@@ -218,16 +241,34 @@ class Runner:
             return ('tap', g, 'rift -> confirm (green)') if g else ('wait', 'rift: confirm not visible yet')
         if any('結束探' in t or '前往大廳' in t for t in T):
             return ('pause', 'expedition menu (繼續/前往大廳/結束探險) is open; never act behind it')
+        if any('移動至' in t for t in T) and any('寶箱' in t or '寶' in t for t in T):   # zone BOX reward notice: information only, one 確認 button
+            rows = [r for t, r in texts(p, .5) if t in ('確認', '確', '認', '確定')]
+            if len(rows) == 1: return ('tap', center_of(rows[0]), 'reward box moved to storage notice -> 確認')
+            return ('wait', 'reward box notice: 確認 button not read yet')
         if recruit_popup(T):
             rows = find_text(p, '加入')
             return ('tap', center_of(rows[-1]), 'recruit popup -> 加入 (no choice offered)')
         pv = preview_panel(T) if state in ('MAP', 'UNKNOWN') else None   # dialogs over the panel keep their own state
         if pv == 'HEAL' and '已恢復' in T:   # heal already applied; the panel stays open -> close it (reversible)
+            self.state.pop('healed', None)
             return ('tap', (2490, 290), 'heal done (已恢復) -> close panel')
         if pv == 'HEAL':
             st = self.current_step(); pend = self.state.get('pending') or {}
             fl = next((int(m.group(1)) for t in T for m in [re.search(r'第(\d+)[層唇]', t)] if m), None)
-            if not st or st['type'] not in ('heal', 'random') or pend.get('type') != st['type'] or pend.get('floor') != st['floor'] or (fl is not None and fl != st['floor']):
+            if not pend and not self.state.get('healed') and st and st['type'] != 'heal' and self.state.get('panelCloses', 0) < 2:
+                # a heal preview we did not open for the current step (left over from an earlier tap): closing a preview is reversible
+                self.state['panelCloses'] = self.state.get('panelCloses', 0) + 1
+                return ('tap', (2490, 290), f'stray heal preview (strategy step is {st["type"]}) -> close preview')
+            if sm.get('panelButton') == 'gray' and not self.state.get('healed'):
+                return ('pause', f'第 {fl or "?"} 層的恢復節點按鈕是灰色（從目前位置走不到這個節點）；地圖與攻略路線不符，請確認要走哪個節點')
+            h = self.state.get('healed')   # we just tapped 恢復: the panel needs a moment before it shows 已恢復
+            if h and (fl is None or fl == h['floor']) and time.time() - h['at'] < 20:
+                return ('wait', f'heal floor {h["floor"]} applying (panel still open, waiting for 已恢復)')
+            if h and (fl is None or fl == h['floor']):
+                return ('pause', f'第 {h["floor"]} 層已按「恢復」，但 20 秒後恢復面板仍未顯示「已恢復」；請確認是否已恢復後關閉面板再繼續')
+            # the route digit is a fixed map slot; maps differ between players, so the slot may hold a heal even
+            # where the strategy author met a battle or rift -> heal it (no team needed) when it is the node we tapped
+            if not st or st['type'] == 'boss' or pend.get('type') != st['type'] or pend.get('floor') != st['floor'] or (fl is not None and fl != st['floor']):
                 return ('pause', f'heal panel open but strategy step is {st and st["type"]} (pending {pend.get("type")}); not acting')
             seen = self.state.get('previewSeen')
             self.state['previewSeen'] = {'floor': st['floor'], 'state': 'HEAL', 'at': time.time()}
@@ -236,7 +277,7 @@ class Runner:
             # default option is 恢復所有餅乾 (all +20); the action button at the panel bottom reads '…恢復'
             btn = sorted([r for t, r in texts(p, .85) if t.endswith('恢復') and t not in ('恢復',) or t == '恢復'], key=lambda r: center_of(r)[1])
             if not btn: return ('pause', 'heal confirm button not found')
-            self.state.update(previewSeen=None, pending=None, step=self.state['step'] + 1); self.state.pop('mapTaps', None)
+            self.state.update(previewSeen=None, pending=None, step=self.state['step'] + 1, healed={'floor': st['floor'], 'at': time.time()}); self.state.pop('mapTaps', None)
             return ('tap', center_of(btn[-1]), f'heal floor {st["floor"]}: default 恢復所有餅乾 -> 恢復')
         if pv == 'UNKNOWN_PANEL':
             return ('pause', 'unknown node panel open (never plan map taps behind a panel)')
@@ -284,14 +325,30 @@ class Runner:
             labels = [t for t in T if t == '進行中']
             if hp and hp[1] == self.state['step'] and not labels:
                 p['_lastCompletedFloor'] = hp[1]
+            mr = p.get('mapReview') or {}
+            if not mr.get('columns') and getattr(self, 'last_img', None) is not None:
+                # V1 needs all four map columns on screen to trust its lattice; the columns sit at fixed x on MuMu
+                # 2560x1440 (measured on zones 1-5), so re-read the map with that geometry instead of giving up
+                try:
+                    from observe import ROOT as _V1
+                    from map_vision import inspect_map
+                    from map_current import inspect_current_node
+                    g = inspect_map(self.last_img, _V1 / 'data' / 'map', geometry={'columns': MAP_COLUMNS}, read_header=False)
+                    g['header'] = mr.get('header'); g['currentPosition'] = inspect_current_node(self.last_img, p['evidence'], g, _V1 / 'data' / 'map', p['progress'])
+                    p['mapReview'] = g
+                except Exception as e:
+                    print(json.dumps({'n': self.n, 'note': f'fixed-lattice map read failed: {e!r}'}), flush=True)
             plan = plan_map_tap(p, st)
+            if plan['point'] is None and st['type'] == 'boss':
+                b = boss_icon(getattr(self, 'last_img', None))   # V1 map vision misses some boss nodes; a tap only opens the preview
+                if b: plan = {'point': b, 'nodeId': 'boss-icon', 'reason': 'boss icon template'}
             if plan['point'] is None:
                 if plan.get('scroll') and self.state.get('scrolls', 0) < 4:
                     self.state['scrolls'] = self.state.get('scrolls', 0) + 1
                     W, H = self.d.size[1], self.d.size[0]  # landscape
                     return ('swipe', (W*0.5, H*0.7, W*0.5, H*0.35) if plan['scroll'] == 'down' else (W*0.5, H*0.35, W*0.5, H*0.7), plan['reason'])
                 return ('pause', 'map: ' + plan['reason'])
-            self.state['scrolls'] = 0
+            self.state['scrolls'] = 0; self.state.pop('panelCloses', None); self.state.pop('healed', None)   # plain map again: no panel of ours is open
             cand = {'floor': st['floor'], 'column': st['column'], 'point': [round(v, 1) for v in plan['point']], 'at': time.time()}
             prev = self.state.get('mapCandidate')
             stable = prev and prev['floor'] == cand['floor'] and prev['column'] == cand['column'] and \
@@ -431,7 +488,8 @@ class Runner:
                 from team import set_team
                 r = set_team(self.d, action[1]['team'], action[1]['clear'], log=lambda m: print(m, flush=True))
                 print(json.dumps(r, ensure_ascii=False), flush=True)
-                if not r['ok']: self.save(); return 'pause'
+                if not r['ok']:
+                    self.save(); write_status({'mode': 'paused', 'message': r.get('message') or r.get('reason', '隊伍設定失敗'), 'n': self.n, 'state': 'TEAM_SELECT', 'run': self.state}); return 'pause'
                 wanted_t = action[1].get('treasures') or []
                 if wanted_t:
                     from treasure import equip
@@ -439,7 +497,8 @@ class Runner:
                     tr = equip(self.d, wanted_t, log=lambda m: print(m, flush=True))
                     print(json.dumps(tr, ensure_ascii=False), flush=True)
                     self.d.tap(2300, 105); time.sleep(1.2)       # close modal
-                    if not tr['ok']: self.save(); return 'pause'
+                    if not tr['ok']:
+                        self.save(); write_status({'mode': 'paused', 'message': '寶物裝備失敗：' + str(tr.get('reason', tr.get('missing', ''))), 'n': self.n, 'state': 'TEAM_SELECT', 'run': self.state}); return 'pause'
                 self.d.tap(2480, 75); time.sleep(1.5)   # close team screen (top-right X)
                 self.state['teamSetFor'] = [self.state['zone'], self.state['step']]
         self.save()

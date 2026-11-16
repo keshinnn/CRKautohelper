@@ -152,7 +152,12 @@ def same_card_checked(strip, art):
     return None
 
 
-def find_card(dev, name, templates, max_swipes=3):
+# forward scan step: 900 px (~3 cards). A full-width swipe (1600 px) jumped from the start straight to the end of a
+# 17-card list and left the 9th card half-hidden in both views (live, zone 6, 2026-11-16).
+STEP_TO = 1400
+
+
+def find_card(dev, name, templates, max_swipes=6):
     """Scan the strip (start -> end) for a card. Returns (info, strip) or (None, None). Leaves strip where found."""
     y_mid = (STRIP[0] + STRIP[1]) / 2
     for attempt in range(2 * max_swipes + 2):
@@ -161,13 +166,25 @@ def find_card(dev, name, templates, max_swipes=3):
             return vis[name], strip
         if attempt == max_swipes:   # reached the end side: go back to the start once
             for _ in range(max_swipes): dev.swipe(700, y_mid, 2300, y_mid, 700); time.sleep(0.8)
-        elif attempt < max_swipes: dev.swipe(2300, y_mid, 700, y_mid, 900)
-        else: dev.swipe(2300, y_mid, 700, y_mid, 900)
+        elif attempt < max_swipes: dev.swipe(2300, y_mid, STEP_TO, y_mid, 700)
+        else: dev.swipe(2300, y_mid, STEP_TO, y_mid, 700)
         time.sleep(1.2)
     return None, None
 
 
-def set_team(dev, wanted, clear_point, log=print, max_swipes=3):
+def display_name(key):
+    """strategy key (catalog id or bank alias) -> name a player recognises (Taiwan in-game name when known)."""
+    cid = resolve_id(key) or key
+    try:
+        if BANK.exists():
+            row = json.loads(BANK.read_text(encoding='utf-8'))['cards'].get(cid)
+            if row: return row['name']
+        return recognizer().names.get(cid, key)
+    except Exception:
+        return key
+
+
+def set_team(dev, wanted, clear_point, log=print, max_swipes=6):
     """On TEAM_SELECT: clear all, then tap each wanted card and re-find it to verify the check mark."""
     templates = load_templates()
     missing = [n for n in wanted if n not in templates and not resolve_id(n)]
@@ -182,19 +199,19 @@ def set_team(dev, wanted, clear_point, log=print, max_swipes=3):
     for name in wanted:
         if name not in templates:            # no confirmed in-game card: the card model may identify it (never guesses)
             r = model_select(dev, resolve_id(name), roster, max_swipes, log)
-            if not r: return {'ok': False, 'reason': f'card {name} not identified without doubt', 'selected': done}
+            if not r: return {'ok': False, 'reason': f'card {name} not identified without doubt', 'message': f'隊伍設定找不到「{display_name(name)}」：可能不在這次冥界試煉的名單裡，或模型沒把握。請確認攻略的角色後再按「繼續」', 'selected': done}
             done.append(name); continue
         info, _ = find_card(dev, name, templates, max_swipes)
         if info is None:
             try:
                 img, _ = dev.capture(); harvest_unknown(strip_of(img), templates, log)
             except Exception: pass
-            return {'ok': False, 'reason': f'card {name} not found (or not identifiable without doubt)', 'selected': done}
+            return {'ok': False, 'reason': f'card {name} not found (or not identifiable without doubt)', 'message': f'隊伍設定找不到「{display_name(name)}」的卡片：可能不在這次冥界試煉的名單裡。看不懂的卡片已存到網頁「待確認的新卡片」', 'selected': done}
         if not info['checked']:
             dev.tap(info['x'] + CARD_W / 2, y_mid); time.sleep(1.0)
             info, _ = find_card(dev, name, templates, max_swipes)
             log(f'  tap {name} -> checked={bool(info and info["checked"])}')
-            if not info or not info['checked']: return {'ok': False, 'reason': f'could not verify {name} selected', 'selected': done}
+            if not info or not info['checked']: return {'ok': False, 'reason': f'could not verify {name} selected', 'message': f'點了「{display_name(name)}」但確認不到已勾選，請檢查隊伍畫面', 'selected': done}
         done.append(name)
     return {'ok': True, 'selected': done}
 
@@ -209,10 +226,10 @@ def model_select(dev, cid, roster, max_swipes, log):
                 img, _ = dev.capture(); x = same_card_checked(strip_of(img), hit['art'])
                 if x is not None:
                     log(f'  tap {cid} (card model, score {hit["score"]}) -> checked=True'); return True
-                dev.swipe(2300, y_mid, 700, y_mid, 900); time.sleep(1.2)
+                dev.swipe(2300, y_mid, STEP_TO, y_mid, 700); time.sleep(1.2)
             log(f'  tap {cid} (card model) -> could not verify the tick'); return False
         if attempt == max_swipes:
             for _ in range(max_swipes): dev.swipe(700, y_mid, 2300, y_mid, 700); time.sleep(0.8)
-        else: dev.swipe(2300, y_mid, 700, y_mid, 900)
+        else: dev.swipe(2300, y_mid, STEP_TO, y_mid, 700)
         time.sleep(1.2)
     return False

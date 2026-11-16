@@ -23,8 +23,8 @@ function cardFor(character, labels, map, bank = {}) {
   return s ? { card: s, how: 'name' } : { card: null, how: 'none' };
 }
 
-function toStrategy(config, { labels = [], map = {}, treasureNames = null, bank = {} } = {}) {
-  const errors = [], warnings = [];
+function toStrategy(config, { labels = [], map = {}, treasureNames = null, bank = {}, modelIds = null } = {}) {
+  const errors = [], warnings = [], byModel = new Map();
   const chars = new Map(config.characters.map(c => [c.id, c]));
   const trs = new Map(config.treasures.map(t => [t.id, t.name]));
   const known = treasureNames ? new Set(treasureNames) : null;
@@ -42,7 +42,9 @@ function toStrategy(config, { labels = [], map = {}, treasureNames = null, bank 
         for (const t of l.team) {
           const c = chars.get(t.characterId); if (!c) continue;
           const { card } = cardFor(c, labels, map, bank);
-          if (card) team.push(card); else if (!l.manualPlay) errors.push(`${where}：「${c.name}」還沒有對應的角色卡片`);
+          if (card) team.push(card);
+          else if (modelIds && modelIds.has(c.id)) { team.push(c.id); byModel.set(c.id, c.name); }   // runner finds it with bot/card_model2 (abstains -> pause)
+          else if (!l.manualPlay) errors.push(`${where}：「${c.name}」還沒有對應的角色卡片`);
         }
         if (!l.team.length && !l.manualPlay) errors.push(`${where}：尚未選角（或勾選「本關由玩家手動遊玩」）`);
         if (team.length) step.team = team;
@@ -52,6 +54,7 @@ function toStrategy(config, { labels = [], map = {}, treasureNames = null, bank 
     });
     zones.push({ zone: z.number, steps });
   }
+  if (byModel.size) warnings.push(`${byModel.size} 隻角色還沒有遊戲內卡片（${[...byModel.values()].map(chineseName).slice(0, 6).join('、')}${byModel.size > 6 ? '…' : ''}），組隊時改由辨識模型找卡；認不出時會停下等你確認`);
   const def = (config.defaultTreasures || []).map(tname).filter(Boolean);
   if (def.length && def.length < 3) warnings.push('預設寶物未選滿三件');
   const strategy = {
@@ -93,7 +96,12 @@ class BotRunner {
     const m = this.read(path.join(this.root, 'data', 'treasures', 'manifest.json'), { treasures: [] });
     return m.treasures.map(t => t.name);
   }
-  plan(config) { return toStrategy(config, { labels: this.labels(), map: this.cardMap(), treasureNames: this.treasureNames(), bank: this.bank() }); }
+  // ids bot/card_model2 can find on screen: Codex's catalog + every owned cookie's in-game list card (bot/cards/owned.json)
+  modelIds() {
+    const m = this.read(path.join(this.root, 'models', 'cards', 'model.json'), { classes: [] }), o = this.read(this.p('cards', 'owned.json'), { cards: {} });
+    return new Set([...(m.classes || []).map(c => c.id), ...Object.keys(o.cards || {})]);
+  }
+  plan(config) { return toStrategy(config, { labels: this.labels(), map: this.cardMap(), treasureNames: this.treasureNames(), bank: this.bank(), modelIds: this.modelIds() }); }
   // ---- confirmed card bank + inbox of unknown cards seen in the game ----
   bank() { return (this.read(this.p('cards', 'bank.json'), { cards: {} }).cards) || {}; }
   bankImage(id) {

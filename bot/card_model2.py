@@ -39,7 +39,7 @@ def _inliers(q, r):
 
 
 class CardRecognizer:
-    def __init__(self, v1=V1, bank=HERE / 'cards' / 'bank.json'):
+    def __init__(self, v1=V1, bank=HERE / 'cards' / 'bank.json', owned=HERE / 'cards' / 'owned.json', skip_owned=()):
         info = json.loads((v1 / 'models/cards/model.json').read_text(encoding='utf-8'))
         self.names = {c['id']: c['name'] for c in info['classes']}
         ov = v1 / 'data' / 'name-overrides-tw.json'   # Taiwan in-game names (model.json itself is integrity-hashed)
@@ -54,6 +54,12 @@ class CardRecognizer:
             for cid, row in json.loads(Path(bank).read_text(encoding='utf-8'))['cards'].items():
                 for f in row['files']:
                     self.ids.append(cid); self.variants.append('MuMu bank: ' + f['file']); arts.append(A.mumu_art(cv2.imread(str(Path(bank).parent / f['file']))))
+                self.names.setdefault(cid, row.get('name', cid))
+        if owned and Path(owned).exists():   # every owned cookie as it looks in the game right now (kingdom cookie list, name read in-game)
+            for cid, row in json.loads(Path(owned).read_text(encoding='utf-8'))['cards'].items():
+                if cid in skip_owned: continue
+                for f in row['files']:
+                    self.ids.append(cid); self.variants.append('owned list card: ' + f['file']); arts.append(A.list_art(cv2.imread(str(Path(owned).parent / f['file']))))
                 self.names.setdefault(cid, row.get('name', cid))
         self.ids = np.array(self.ids); self.arts = arts; self.R = np.stack(arts).astype(np.float32); self.base = A.mask(); self._sf = {}
 

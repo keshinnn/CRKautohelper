@@ -1,6 +1,6 @@
 --- a/server.cjs
 +++ b/server.cjs
-@@ -1,112 +1,135 @@
+@@ -1,112 +1,142 @@
 -'use strict';
 -const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 -const Schema=require('./web/config.js'),Auth=require('./lib/auth.cjs'),{Vision}=require('./lib/vision.cjs'),{FlowEngine}=require('./lib/flow.cjs');
@@ -207,10 +207,17 @@
 +  if(p==='/api/bot/status'&&req.method==='GET'){json(res,200,bot.status(config));return;}
 +  if(p==='/api/bot/log'&&req.method==='GET'){json(res,200,bot.log());return;}
 +  if(p==='/api/bot/frame'&&req.method==='GET'){const f=bot.frameFile();if(!f){json(res,404,{error:'尚無遊戲畫面'});return;}res.writeHead(200,{'Content-Type':'image/jpeg','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});fs.createReadStream(f).pipe(res);return;}
-+  if(p==='/api/bot/cards'&&req.method==='GET'){const labels=bot.labels(),map=bot.cardMap(),bank=bot.bank(),roster=[...config.initialRoster,...(config.extraRoster||[])].map(id=>config.characters.find(c=>c.id===id)).filter(Boolean).map(c=>({id:c.id,name:c.name,inBank:!!bank[c.id],...cardFor(c,labels,map,bank)}));json(res,200,{labels,roster,bankCount:Object.keys(bank).length,inbox:bot.inbox()});return;}
++  if(p==='/api/bot/cards'&&req.method==='GET'){const labels=bot.labels(),map=bot.cardMap(),bank=bot.bank(),models=bot.modelIds(),roster=[...config.initialRoster,...(config.extraRoster||[])].map(id=>config.characters.find(c=>c.id===id)).filter(Boolean).map(c=>({id:c.id,name:c.name,inBank:!!bank[c.id],inModel:models.has(c.id),...cardFor(c,labels,map,bank)}));json(res,200,{labels,roster,bankCount:Object.keys(bank).length,inbox:bot.inbox()});return;}
 +  if(p.startsWith('/api/bot/bank-image/')&&req.method==='GET'){const f=bot.bankImage(p.slice('/api/bot/bank-image/'.length));if(!f||!fs.existsSync(f)){json(res,404,{error:'找不到卡片'});return;}res.writeHead(200,{'Content-Type':'image/png','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});fs.createReadStream(f).pipe(res);return;}
 +  if(p.startsWith('/api/bot/inbox-image/')&&req.method==='GET'){const f=bot.inboxImage(p.slice('/api/bot/inbox-image/'.length));if(!f){json(res,404,{error:'找不到卡片'});return;}res.writeHead(200,{'Content-Type':'image/png','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});fs.createReadStream(f).pipe(res);return;}
-+  if(req.method==='POST'&&p==='/api/bot/inbox/confirm'){const b=await body(req,4096),c=config.characters.find(c=>c.id===b.characterId);if(!c){json(res,400,{error:'請選擇角色'});return;}json(res,200,bot.confirmCard(String(b.file||''),c));return;}
++  if(req.method==='POST'&&p==='/api/bot/inbox/confirm'){const b=await body(req,4096);let c=config.characters.find(c=>c.id===b.characterId);
++   if(!c&&typeof b.newName==='string'){if(bot.running()){json(res,409,{error:'請先停止自動通關再確認卡片'});return;}if(!bot.inboxImage(String(b.file||''))){json(res,404,{error:'找不到這張卡片'});return;}// a cookie Codex's catalog does not have: create it once, then its card is a normal reference (no retraining)
++    const name=b.newName.trim().replace(/\s+/g,' ');if(!name||name.length>40){json(res,400,{error:'請輸入 1～40 字的角色名稱'});return;}
++    if(config.characters.some(x=>x.name.split(' / ')[0]===name)){json(res,400,{error:'已經有同名角色，請直接從清單選擇'});return;}
++    const n=Math.max(0,...config.characters.map(x=>/^cookie-(\d+)$/.exec(x.id)).filter(Boolean).map(m=>+m[1]))+1,id='cookie-'+String(n).padStart(3,'0');
++    const next=Schema.validate({...config,characters:[...config.characters,{id,name,skins:[],builds:[]}]});save(configPath,next);config=next;c=config.characters.find(x=>x.id===id);
++    try{const f=path.join(bot.root,'data','name-overrides-tw.json'),o=read(f,{format:'crk-name-overrides-v1',names:{},added:{}});o.added=o.added||{};o.added[id]={name,note:'added from the card inbox '+new Date().toISOString().slice(0,10)};fs.mkdirSync(path.dirname(f),{recursive:true});save(f,o);}catch{}}
++   if(!c){json(res,400,{error:'請選擇角色'});return;}json(res,200,{...bot.confirmCard(String(b.file||''),c),created:typeof b.newName==='string'?c.id:null});return;}
 +  if(req.method==='POST'&&p==='/api/bot/inbox/dismiss'){const b=await body(req,4096);json(res,200,bot.dismissCard(String(b.file||'')));return;}
 +  if(req.method==='POST'&&p==='/api/bot/inbox/suggest'){await body(req,4096);json(res,202,bot.suggest());return;}
 +  if(p==='/api/bot/cards'&&req.method==='PUT'){const b=await body(req,65536);json(res,200,{map:bot.saveCardMap(b.map)});return;}

@@ -46,6 +46,14 @@ def plan_map_tap(packet, step):
                     if step['column'] is None or n.get('column') == step['column']:
                         return {'point': _center(n['box']), 'nodeId': n['id'], 'reason': 'resume_in_progress_node(label)'}
                     return {'point': None, 'reason': f'in-progress node is column {n.get("column")}, strategy says {step["column"]}'}
+    # 1c) zone boss: the boss node is unique on the map and needs no floor anchor (a tap only opens its
+    #     preview; 進入 is still gated by the preview check)
+    if step['column'] is None:
+        bosses = [n for n in nodes if n['type'] == 'boss' and not n.get('completed')]
+        if len(bosses) == 1:
+            return {'point': _center(bosses[0]['box']), 'nodeId': bosses[0]['id'], 'type': 'boss', 'reason': 'zone_boss'}
+        if len(bosses) > 1:
+            return {'point': None, 'reason': f'{len(bosses)} boss candidates on screen'}
     # 2) anchor row: absolute floors if the recognizer anchored them, else relative to current/completed node.
     def floor_of(n):
         if n.get('floor') is not None:

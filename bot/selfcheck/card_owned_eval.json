@@ -1,0 +1,26 @@
+{
+ "A codex": {
+  "counts": {
+   "right": 192,
+   "right via owned": 0,
+   "abstain": 24
+  },
+  "wrong": []
+ },
+ "B codex+owned": {
+  "counts": {
+   "right": 199,
+   "right via owned": 71,
+   "abstain": 17
+  },
+  "wrong": []
+ },
+ "C owned-only for S8": {
+  "counts": {
+   "right": 199,
+   "right via owned": 199,
+   "abstain": 17
+  },
+  "wrong": []
+ }
+}

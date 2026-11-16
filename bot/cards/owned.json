@@ -1,0 +1,1505 @@
+{
+ "format": "crk-owned-cards-v1",
+ "source": "cookie-list-20261116-103719",
+ "note": "Kingdom cookie-list cards (equipped costume) with the in-game name; references for card_model2, not training data.",
+ "cards": {
+  "cookie-084": {
+   "name": "果醬夾心",
+   "files": [
+    {
+     "file": "owned/cookie-084-103719-001.png",
+     "ocr": "果酱爽心鲜乾"
+    }
+   ]
+  },
+  "cookie-028": {
+   "name": "鮮奶油貂",
+   "files": [
+    {
+     "file": "owned/cookie-028-103719-002.png",
+     "ocr": "鮮奶油貂餅乾"
+    }
+   ]
+  },
+  "cookie-029": {
+   "name": "棉花糖兔",
+   "files": [
+    {
+     "file": "owned/cookie-029-103719-003.png",
+     "ocr": "棉花糖免饼乾"
+    }
+   ]
+  },
+  "wiki-07259ee7b5a4": {
+   "name": "暗黑魔女餅乾",
+   "files": [
+    {
+     "file": "owned/wiki-07259ee7b5a4-103719-004.png",
+     "ocr": "暗黑魔女餅乾"
+    }
+   ]
+  },
+  "cookie-002": {
+   "name": "聖百合",
+   "files": [
+    {
+     "file": "owned/cookie-002-103719-005.png",
+     "ocr": "聖百合餅乾"
+    }
+   ]
+  },
+  "cookie-003": {
+   "name": "聖莓果",
+   "files": [
+    {
+     "file": "owned/cookie-003-103719-006.png",
+     "ocr": "聖莓果餅乾"
+    }
+   ]
+  },
+  "cookie-001": {
+   "name": "純香草",
+   "files": [
+    {
+     "file": "owned/cookie-001-103719-007.png",
+     "ocr": "纯香草饼乾"
+    }
+   ]
+  },
+  "cookie-004": {
+   "name": "黃金起司",
+   "files": [
+    {
+     "file": "owned/cookie-004-103719-008.png",
+     "ocr": "黄金起司餅乾"
+    }
+   ]
+  },
+  "cookie-005": {
+   "name": "黑可可",
+   "files": [
+    {
+     "file": "owned/cookie-005-103719-009.png",
+     "ocr": "黑可可饼乾"
+    }
+   ]
+  },
+  "cookie-162": {
+   "name": "永恆糖",
+   "files": [
+    {
+     "file": "owned/cookie-162-103719-010.png",
+     "ocr": "永恒糖餅乾"
+    }
+   ]
+  },
+  "cookie-011": {
+   "name": "風箭手",
+   "files": [
+    {
+     "file": "owned/cookie-011-103719-011.png",
+     "ocr": "風箭手乾"
+    }
+   ]
+  },
+  "cookie-079": {
+   "name": "月光魔法師",
+   "files": [
+    {
+     "file": "owned/cookie-079-103719-012.png",
+     "ocr": "月光魔法師餅乾"
+    }
+   ]
+  },
+  "cookie-007": {
+   "name": "超時空",
+   "files": [
+    {
+     "file": "owned/cookie-007-103719-013.png",
+     "ocr": "超時空饼乾"
+    }
+   ]
+  },
+  "cookie-177": {
+   "name": "地下冥王餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-177-103719-014.png",
+     "ocr": "也下冥王饼乾"
+    }
+   ]
+  },
+  "cookie-176": {
+   "name": "鳳梨龍族餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-176-103719-015.png",
+     "ocr": "鳯梨龍族餅乾"
+    }
+   ]
+  },
+  "wiki-1549e7199d49": {
+   "name": "千年古樹餅乾",
+   "files": [
+    {
+     "file": "owned/wiki-1549e7199d49-103719-016.png",
+     "ocr": "千年古樹餅乾"
+    }
+   ]
+  },
+  "cookie-171": {
+   "name": "白糖天鵝餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-171-103719-017.png",
+     "ocr": "白糖天鹅餅乾"
+    }
+   ]
+  },
+  "cookie-016": {
+   "name": "火龍果龍族",
+   "files": [
+    {
+     "file": "owned/cookie-016-103719-018.png",
+     "ocr": "火龍果龍族餠乾"
+    }
+   ]
+  },
+  "cookie-014": {
+   "name": "星塵",
+   "files": [
+    {
+     "file": "owned/cookie-014-103719-019.png",
+     "ocr": "星摩饼乾"
+    }
+   ]
+  },
+  "cookie-021": {
+   "name": "閃耀之星",
+   "files": [
+    {
+     "file": "owned/cookie-021-103719-020.png",
+     "ocr": "閃耀之星"
+    }
+   ]
+  },
+  "cookie-020": {
+   "name": "辣椒素",
+   "files": [
+    {
+     "file": "owned/cookie-020-103719-021.png",
+     "ocr": "辣椒素饼乾"
+    }
+   ]
+  },
+  "cookie-017": {
+   "name": "牡蠣",
+   "files": [
+    {
+     "file": "owned/cookie-017-103719-022.png",
+     "ocr": "牡饼乾"
+    }
+   ]
+  },
+  "cookie-169": {
+   "name": "猛毒麵團餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-169-103719-023.png",
+     "ocr": "猛毒面團饼乾"
+    }
+   ]
+  },
+  "cookie-174": {
+   "name": "優碘餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-174-103719-024.png",
+     "ocr": "優碘饼乾"
+    }
+   ]
+  },
+  "cookie-180": {
+   "name": "時空黑影餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-180-103719-025.png",
+     "ocr": "時空黑影乾"
+    }
+   ]
+  },
+  "cookie-074": {
+   "name": "扭扭糖",
+   "files": [
+    {
+     "file": "owned/cookie-074-103719-026.png",
+     "ocr": "扭扭糖饼乾"
+    }
+   ]
+  },
+  "cookie-133": {
+   "name": "藍莓派",
+   "files": [
+    {
+     "file": "owned/cookie-133-103719-027.png",
+     "ocr": "蓝莓派饼乾"
+    }
+   ]
+  },
+  "cookie-155": {
+   "name": "黑糖",
+   "files": [
+    {
+     "file": "owned/cookie-155-103719-028.png",
+     "ocr": "黑糖餅乾"
+    }
+   ]
+  },
+  "cookie-107": {
+   "name": "瑪德蓮",
+   "files": [
+    {
+     "file": "owned/cookie-107-103719-029.png",
+     "ocr": "瑪德蓮鲜乾"
+    }
+   ]
+  },
+  "cookie-151": {
+   "name": "黑巧克力",
+   "files": [
+    {
+     "file": "owned/cookie-151-103719-030.png",
+     "ocr": "黑巧克力餅乾"
+    }
+   ]
+  },
+  "cookie-064": {
+   "name": "奶油泡芙",
+   "files": [
+    {
+     "file": "owned/cookie-064-103719-031.png",
+     "ocr": "奶油泡芙饼乾"
+    }
+   ]
+  },
+  "cookie-130": {
+   "name": "薄荷巧克力",
+   "files": [
+    {
+     "file": "owned/cookie-130-103719-032.png",
+     "ocr": "薄荷巧克力饼乾"
+    }
+   ]
+  },
+  "cookie-104": {
+   "name": "牛奶",
+   "files": [
+    {
+     "file": "owned/cookie-104-103719-033.png",
+     "ocr": "牛奶餅乾"
+    }
+   ]
+  },
+  "cookie-094": {
+   "name": "蕾絲水母",
+   "files": [
+    {
+     "file": "owned/cookie-094-103719-034.png",
+     "ocr": "蕾絲水母餅乾"
+    }
+   ]
+  },
+  "cookie-152": {
+   "name": "黑棗汁",
+   "files": [
+    {
+     "file": "owned/cookie-152-103719-035.png",
+     "ocr": "黑汁鲜乾"
+    }
+   ]
+  },
+  "cookie-165": {
+   "name": "紅毛丹",
+   "files": [
+    {
+     "file": "owned/cookie-165-103719-036.png",
+     "ocr": "紅毛丹餅乾"
+    }
+   ]
+  },
+  "cookie-153": {
+   "name": "黑森林蛋糕",
+   "files": [
+    {
+     "file": "owned/cookie-153-103719-037.png",
+     "ocr": "黑森林蛋糕饼乾"
+    }
+   ]
+  },
+  "cookie-148": {
+   "name": "馬卡龍",
+   "files": [
+    {
+     "file": "owned/cookie-148-103719-038.png",
+     "ocr": "馬卡龍餅乾"
+    }
+   ]
+  },
+  "cookie-157": {
+   "name": "黑藍寶石",
+   "files": [
+    {
+     "file": "owned/cookie-157-103719-039.png",
+     "ocr": "黑藍寶石鲜乾"
+    }
+   ]
+  },
+  "cookie-102": {
+   "name": "焦糖烤布蕾",
+   "files": [
+    {
+     "file": "owned/cookie-102-103719-040.png",
+     "ocr": "焦糖烤布蕾饼乾"
+    }
+   ]
+  },
+  "cookie-141": {
+   "name": "金桂",
+   "files": [
+    {
+     "file": "owned/cookie-141-103719-041.png",
+     "ocr": "金桂餅乾"
+    }
+   ]
+  },
+  "cookie-132": {
+   "name": "薄荷醇",
+   "files": [
+    {
+     "file": "owned/cookie-132-103719-042.png",
+     "ocr": "薄荷醇餅乾"
+    }
+   ]
+  },
+  "cookie-078": {
+   "name": "星珊瑚",
+   "files": [
+    {
+     "file": "owned/cookie-078-103719-043.png",
+     "ocr": "星珊瑚餅乾"
+    }
+   ]
+  },
+  "cookie-057": {
+   "name": "反烤蘋果塔",
+   "files": [
+    {
+     "file": "owned/cookie-057-103719-044.png",
+     "ocr": "反烤果塔饼乾"
+    }
+   ]
+  },
+  "cookie-071": {
+   "name": "布丁百匯",
+   "files": [
+    {
+     "file": "owned/cookie-071-103719-045.png",
+     "ocr": "市丁百匯饼乾"
+    }
+   ]
+  },
+  "cookie-136": {
+   "name": "帕夫洛娃蛋糕",
+   "files": [
+    {
+     "file": "owned/cookie-136-103719-046.png",
+     "ocr": "帕夫洛娃蛋糕饼乾"
+    }
+   ]
+  },
+  "cookie-154": {
+   "name": "黑檸檬汽水",
+   "files": [
+    {
+     "file": "owned/cookie-154-103719-047.png",
+     "ocr": "黑檸檬汽水饼乾"
+    }
+   ]
+  },
+  "cookie-123": {
+   "name": "肉蔻虎",
+   "files": [
+    {
+     "file": "owned/cookie-123-103719-048.png",
+     "ocr": "肉蔻虎餅乾"
+    }
+   ]
+  },
+  "cookie-092": {
+   "name": "奶油蘇打",
+   "files": [
+    {
+     "file": "owned/cookie-092-103719-049.png",
+     "ocr": "奶油蘇打饼乾"
+    }
+   ]
+  },
+  "cookie-103": {
+   "name": "煙燻起司",
+   "files": [
+    {
+     "file": "owned/cookie-103-103719-050.png",
+     "ocr": "煙烟起司饼乾"
+    }
+   ]
+  },
+  "cookie-135": {
+   "name": "蘋果糖",
+   "files": [
+    {
+     "file": "owned/cookie-135-103719-051.png",
+     "ocr": "黄果糖饼乾"
+    }
+   ]
+  },
+  "cookie-170": {
+   "name": "毛菌麵團餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-170-103719-052.png",
+     "ocr": "毛菌面團餅乾"
+    }
+   ]
+  },
+  "cookie-184": {
+   "name": "氣泡水",
+   "files": [
+    {
+     "file": "owned/cookie-184-103719-053.png",
+     "ocr": "氣泡水饼乾"
+    }
+   ]
+  },
+  "cookie-067": {
+   "name": "婚禮蛋糕",
+   "files": [
+    {
+     "file": "owned/cookie-067-103719-054.png",
+     "ocr": "婚禮蛋糕饼乾"
+    }
+   ]
+  },
+  "cookie-125": {
+   "name": "芒果",
+   "files": [
+    {
+     "file": "owned/cookie-125-103719-055.png",
+     "ocr": "芒果饼乾"
+    }
+   ]
+  },
+  "cookie-083": {
+   "name": "松果",
+   "files": [
+    {
+     "file": "owned/cookie-083-103719-056.png",
+     "ocr": "松果鲜乾"
+    }
+   ]
+  },
+  "cookie-100": {
+   "name": "濃縮咖啡",
+   "files": [
+    {
+     "file": "owned/cookie-100-103719-057.png",
+     "ocr": "濃縮咖啡饼乾"
+    }
+   ]
+  },
+  "cookie-156": {
+   "name": "黑葡萄乾",
+   "files": [
+    {
+     "file": "owned/cookie-156-103719-058.png",
+     "ocr": "黑葡萄乾餅乾"
+    }
+   ]
+  },
+  "cookie-149": {
+   "name": "雪酪鯊魚",
+   "files": [
+    {
+     "file": "owned/cookie-149-103719-059.png",
+     "ocr": "雪酪鲨鱼餅乾"
+    }
+   ]
+  },
+  "cookie-076": {
+   "name": "拿鐵",
+   "files": [
+    {
+     "file": "owned/cookie-076-103719-060.png",
+     "ocr": "拿鐵饼乾"
+    }
+   ]
+  },
+  "cookie-055": {
+   "name": "千層酥",
+   "files": [
+    {
+     "file": "owned/cookie-055-103719-061.png",
+     "ocr": "千唇酥餅乾"
+    }
+   ]
+  },
+  "cookie-150": {
+   "name": "麻辣",
+   "files": [
+    {
+     "file": "owned/cookie-150-103719-062.png",
+     "ocr": "麻辣饼乾"
+    }
+   ]
+  },
+  "cookie-061": {
+   "name": "吸血鬼",
+   "files": [
+    {
+     "file": "owned/cookie-061-103719-063.png",
+     "ocr": "吸血鬼饼乾"
+    }
+   ]
+  },
+  "cookie-158": {
+   "name": "黑麥",
+   "files": [
+    {
+     "file": "owned/cookie-158-103719-064.png",
+     "ocr": "黑餅乾"
+    }
+   ]
+  },
+  "cookie-065": {
+   "name": "奶油獨角獸",
+   "files": [
+    {
+     "file": "owned/cookie-065-103719-065.png",
+     "ocr": "奶油獨角獸饼乾"
+    }
+   ]
+  },
+  "cookie-062": {
+   "name": "墨魚",
+   "files": [
+    {
+     "file": "owned/cookie-062-103719-066.png",
+     "ocr": "墨鱼餅乾"
+    }
+   ]
+  },
+  "cookie-124": {
+   "name": "艦長",
+   "files": [
+    {
+     "file": "owned/cookie-124-103719-067.png",
+     "ocr": "長鱼子酱饼乾"
+    }
+   ]
+  },
+  "cookie-096": {
+   "name": "法式焦糖奶油酥",
+   "files": [
+    {
+     "file": "owned/cookie-096-103719-068.png",
+     "ocr": "法式焦糖奶油酥乾"
+    }
+   ]
+  },
+  "cookie-137": {
+   "name": "覆盆莓",
+   "files": [
+    {
+     "file": "owned/cookie-137-103719-069.png",
+     "ocr": "覆盆莓饼乾"
+    }
+   ]
+  },
+  "cookie-140": {
+   "name": "野莓",
+   "files": [
+    {
+     "file": "owned/cookie-140-103719-070.png",
+     "ocr": "野莓餅乾"
+    }
+   ]
+  },
+  "cookie-138": {
+   "name": "費南雪",
+   "files": [
+    {
+     "file": "owned/cookie-138-103719-071.png",
+     "ocr": "南雪饼乾"
+    }
+   ]
+  },
+  "cookie-093": {
+   "name": "氣泡飲",
+   "files": [
+    {
+     "file": "owned/cookie-093-103719-072.png",
+     "ocr": "氣泡飮饼乾"
+    }
+   ]
+  },
+  "cookie-143": {
+   "name": "錫蘭",
+   "files": [
+    {
+     "file": "owned/cookie-143-103719-073.png",
+     "ocr": "蘭士餅乾"
+    }
+   ]
+  },
+  "cookie-105": {
+   "name": "狼人",
+   "files": [
+    {
+     "file": "owned/cookie-105-103719-074.png",
+     "ocr": "狼人鲜乾"
+    }
+   ]
+  },
+  "cookie-072": {
+   "name": "帕菲",
+   "files": [
+    {
+     "file": "owned/cookie-072-103719-075.png",
+     "ocr": "帕菲餅乾"
+    }
+   ]
+  },
+  "cookie-119": {
+   "name": "綠茶慕斯",
+   "files": [
+    {
+     "file": "owned/cookie-119-103719-076.png",
+     "ocr": "茶慕斯饼乾"
+    }
+   ]
+  },
+  "cookie-159": {
+   "name": "莫札瑞拉起司",
+   "files": [
+    {
+     "file": "owned/cookie-159-103719-077.png",
+     "ocr": "莫札瑞拉起司饼乾"
+    }
+   ]
+  },
+  "cookie-118": {
+   "name": "紫薯",
+   "files": [
+    {
+     "file": "owned/cookie-118-103719-078.png",
+     "ocr": "紫心薯餅乾"
+    }
+   ]
+  },
+  "cookie-108": {
+   "name": "甘草",
+   "files": [
+    {
+     "file": "owned/cookie-108-103719-079.png",
+     "ocr": "甘草餅乾"
+    }
+   ]
+  },
+  "cookie-131": {
+   "name": "薄荷糖",
+   "files": [
+    {
+     "file": "owned/cookie-131-103719-080.png",
+     "ocr": "薄荷糖饼乾"
+    }
+   ]
+  },
+  "cookie-113": {
+   "name": "石榴",
+   "files": [
+    {
+     "file": "owned/cookie-113-103719-081.png",
+     "ocr": "石榴餅乾"
+    }
+   ]
+  },
+  "cookie-147": {
+   "name": "風鈴草",
+   "files": [
+    {
+     "file": "owned/cookie-147-103719-082.png",
+     "ocr": "風鈴草饼乾"
+    }
+   ]
+  },
+  "cookie-126": {
+   "name": "草莓可麗餅",
+   "files": [
+    {
+     "file": "owned/cookie-126-103719-083.png",
+     "ocr": "草莓可麗饼饼乾"
+    }
+   ]
+  },
+  "cookie-091": {
+   "name": "毒蘑菇",
+   "files": [
+    {
+     "file": "owned/cookie-091-103719-084.png",
+     "ocr": "毒蘑菇鲜乾"
+    }
+   ]
+  },
+  "cookie-121": {
+   "name": "義賊",
+   "files": [
+    {
+     "file": "owned/cookie-121-103719-085.png",
+     "ocr": "義贼餅乾"
+    }
+   ]
+  },
+  "cookie-081": {
+   "name": "木炭",
+   "files": [
+    {
+     "file": "owned/cookie-081-103719-086.png",
+     "ocr": "木炭餅乾"
+    }
+   ]
+  },
+  "cookie-098": {
+   "name": "海膽",
+   "files": [
+    {
+     "file": "owned/cookie-098-103719-087.png",
+     "ocr": "海腾饼乾"
+    }
+   ]
+  },
+  "cookie-145": {
+   "name": "阿芙佳朵",
+   "files": [
+    {
+     "file": "owned/cookie-145-103719-088.png",
+     "ocr": "阿芙佳朵饼乾"
+    }
+   ]
+  },
+  "cookie-120": {
+   "name": "義大利寬麵",
+   "files": [
+    {
+     "file": "owned/cookie-120-103719-089.png",
+     "ocr": "義大利寬面饼乾"
+    }
+   ]
+  },
+  "cookie-167": {
+   "name": "西洋棋巧克力餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-167-103719-090.png",
+     "ocr": "西洋棋巧克力饼乾"
+    }
+   ]
+  },
+  "cookie-068": {
+   "name": "巧克力淋醬",
+   "files": [
+    {
+     "file": "owned/cookie-068-103719-091.png",
+     "ocr": "巧克力淋醬饼乾"
+    }
+   ]
+  },
+  "cookie-109": {
+   "name": "宇宙甜甜圈",
+   "files": [
+    {
+     "file": "owned/cookie-109-103719-092.png",
+     "ocr": "宇宙甜甜圈"
+    }
+   ]
+  },
+  "cookie-095": {
+   "name": "水銀騎士",
+   "files": [
+    {
+     "file": "owned/cookie-095-103719-093.png",
+     "ocr": "水銀士饼乾"
+    }
+   ]
+  },
+  "cookie-077": {
+   "name": "搖滾巨星",
+   "files": [
+    {
+     "file": "owned/cookie-077-103719-094.png",
+     "ocr": "摇滚巨星饼乾"
+    }
+   ]
+  },
+  "cookie-056": {
+   "name": "南瓜派",
+   "files": [
+    {
+     "file": "owned/cookie-056-103719-095.png",
+     "ocr": "南瓜派饼乾"
+    }
+   ]
+  },
+  "cookie-085": {
+   "name": "查爾斯",
+   "files": [
+    {
+     "file": "owned/cookie-085-103719-096.png",
+     "ocr": "查爾斯"
+    }
+   ]
+  },
+  "cookie-111": {
+   "name": "白雲靈獸",
+   "files": [
+    {
+     "file": "owned/cookie-111-103719-097.png",
+     "ocr": "白雲靈默餅乾"
+    }
+   ]
+  },
+  "cookie-069": {
+   "name": "巧克力脆片",
+   "files": [
+    {
+     "file": "owned/cookie-069-103719-098.png",
+     "ocr": "巧克力脆片食"
+    }
+   ]
+  },
+  "cookie-112": {
+   "name": "皇家人造奶油",
+   "files": [
+    {
+     "file": "owned/cookie-112-103719-099.png",
+     "ocr": "皇家人造奶油鲜乾"
+    }
+   ]
+  },
+  "cookie-142": {
+   "name": "銀河",
+   "files": [
+    {
+     "file": "owned/cookie-142-103719-100.png",
+     "ocr": "銀河餅乾"
+    }
+   ]
+  },
+  "cookie-058": {
+   "name": "叢林戰士",
+   "files": [
+    {
+     "file": "owned/cookie-058-103719-101.png",
+     "ocr": "叢林士饼乾"
+    }
+   ]
+  },
+  "cookie-070": {
+   "name": "巴斯克起司",
+   "files": [
+    {
+     "file": "owned/cookie-070-103719-102.png",
+     "ocr": "巴斯克起司乾"
+    }
+   ]
+  },
+  "cookie-087": {
+   "name": "棉花",
+   "files": [
+    {
+     "file": "owned/cookie-087-103719-103.png",
+     "ocr": "棉花饼乾"
+    }
+   ]
+  },
+  "cookie-054": {
+   "name": "仙桃",
+   "files": [
+    {
+     "file": "owned/cookie-054-103719-104.png",
+     "ocr": "桃花饼乾"
+    }
+   ]
+  },
+  "cookie-099": {
+   "name": "口香糖球潛水員",
+   "files": [
+    {
+     "file": "owned/cookie-099-103719-105.png",
+     "ocr": "口香糖球潜水員饼乾"
+    }
+   ]
+  },
+  "cookie-080": {
+   "name": "月兔",
+   "files": [
+    {
+     "file": "owned/cookie-080-103719-106.png",
+     "ocr": "月免饼乾"
+    }
+   ]
+  },
+  "cookie-117": {
+   "name": "紫丁香",
+   "files": [
+    {
+     "file": "owned/cookie-117-103719-107.png",
+     "ocr": "丁香饼乾"
+    }
+   ]
+  },
+  "cookie-059": {
+   "name": "可可",
+   "files": [
+    {
+     "file": "owned/cookie-059-103719-108.png",
+     "ocr": "可可饼乾"
+    }
+   ]
+  },
+  "cookie-097": {
+   "name": "洋菜凍",
+   "files": [
+    {
+     "file": "owned/cookie-097-103719-109.png",
+     "ocr": "洋菜餅乾"
+    }
+   ]
+  },
+  "cookie-110": {
+   "name": "甜饅頭",
+   "files": [
+    {
+     "file": "owned/cookie-110-103719-110.png",
+     "ocr": "甜鳗頭餅乾"
+    }
+   ]
+  },
+  "cookie-139": {
+   "name": "甜辣醬",
+   "files": [
+    {
+     "file": "owned/cookie-139-103719-111.png",
+     "ocr": "甜辣酱餅乾"
+    }
+   ]
+  },
+  "cookie-075": {
+   "name": "抹茶",
+   "files": [
+    {
+     "file": "owned/cookie-075-103719-112.png",
+     "ocr": "抹茶鲜乾"
+    }
+   ]
+  },
+  "cookie-073": {
+   "name": "彩貝",
+   "files": [
+    {
+     "file": "owned/cookie-073-103719-113.png",
+     "ocr": "彩具饼乾"
+    }
+   ]
+  },
+  "cookie-053": {
+   "name": "丹桂",
+   "files": [
+    {
+     "file": "owned/cookie-053-103719-114.png",
+     "ocr": "丹桂餅乾"
+    }
+   ]
+  },
+  "cookie-063": {
+   "name": "奶油捲麵包",
+   "files": [
+    {
+     "file": "owned/cookie-063-103719-115.png",
+     "ocr": "奶油捲面包饼乾"
+    }
+   ]
+  },
+  "cookie-106": {
+   "name": "玉春糖",
+   "files": [
+    {
+     "file": "owned/cookie-106-103719-116.png",
+     "ocr": "玉春糖饼乾"
+    }
+   ]
+  },
+  "cookie-122": {
+   "name": "聖多諾黑",
+   "files": [
+    {
+     "file": "owned/cookie-122-103719-117.png",
+     "ocr": "聖多諾黑餠乾"
+    }
+   ]
+  },
+  "cookie-101": {
+   "name": "無花果",
+   "files": [
+    {
+     "file": "owned/cookie-101-103719-118.png",
+     "ocr": "無花果餅乾"
+    }
+   ]
+  },
+  "cookie-115": {
+   "name": "糖蝶",
+   "files": [
+    {
+     "file": "owned/cookie-115-103719-119.png",
+     "ocr": "糖蝶饼乾"
+    }
+   ]
+  },
+  "cookie-172": {
+   "name": "灰鹽餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-172-103719-120.png",
+     "ocr": "灰餅乾"
+    }
+   ]
+  },
+  "cookie-089": {
+   "name": "檸檬",
+   "files": [
+    {
+     "file": "owned/cookie-089-103719-121.png",
+     "ocr": "檸檬饼乾"
+    }
+   ]
+  },
+  "cookie-128": {
+   "name": "萊姆",
+   "files": [
+    {
+     "file": "owned/cookie-128-103719-122.png",
+     "ocr": "莱姆餅乾"
+    }
+   ]
+  },
+  "cookie-173": {
+   "name": "可頌麵包餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-173-103719-123.png",
+     "ocr": "可颂面包饼乾"
+    }
+   ]
+  },
+  "cookie-129": {
+   "name": "葡萄柚",
+   "files": [
+    {
+     "file": "owned/cookie-129-103719-124.png",
+     "ocr": "葡萄柚鲜乾"
+    }
+   ]
+  },
+  "cookie-086": {
+   "name": "柳橙",
+   "files": [
+    {
+     "file": "owned/cookie-086-103719-125.png",
+     "ocr": "柳橙餅乾"
+    }
+   ]
+  },
+  "cookie-168": {
+   "name": "霉變麵團餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-168-103719-126.png",
+     "ocr": "霉面團餅乾"
+    }
+   ]
+  },
+  "cookie-178": {
+   "name": "阿福花餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-178-103719-127.png",
+     "ocr": "阿福花饼乾"
+    }
+   ]
+  },
+  "cookie-175": {
+   "name": "石蕊餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-175-103719-128.png",
+     "ocr": "石蕊餅乾"
+    }
+   ]
+  },
+  "cookie-179": {
+   "name": "風味章魚餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-179-103719-129.png",
+     "ocr": "風味章鱼餠乾"
+    }
+   ]
+  },
+  "cookie-181": {
+   "name": "小花茉莉餅乾",
+   "files": [
+    {
+     "file": "owned/cookie-181-103719-130.png",
+     "ocr": "小花茉莉饼乾"
+    }
+   ]
+  },
+  "cookie-030": {
+   "name": "花小龍",
+   "files": [
+    {
+     "file": "owned/cookie-030-103719-131.png",
+     "ocr": "花小龍鲜乾"
+    }
+   ]
+  },
+  "cookie-031": {
+   "name": "冰雪怪",
+   "files": [
+    {
+     "file": "owned/cookie-031-103719-132.png",
+     "ocr": "冰雪怪餅乾"
+    }
+   ]
+  },
+  "cookie-185": {
+   "name": "j-hope",
+   "files": [
+    {
+     "file": "owned/cookie-185-103719-133.png",
+     "ocr": "be饼乾"
+    }
+   ]
+  },
+  "cookie-186": {
+   "name": "Jimin",
+   "files": [
+    {
+     "file": "owned/cookie-186-103719-134.png",
+     "ocr": "Jimin餠乾"
+    }
+   ]
+  },
+  "cookie-187": {
+   "name": "Jung Kook",
+   "files": [
+    {
+     "file": "owned/cookie-187-103719-135.png",
+     "ocr": "Jung"
+    }
+   ]
+  },
+  "cookie-188": {
+   "name": "佐依",
+   "files": [
+    {
+     "file": "owned/cookie-188-103719-136.png",
+     "ocr": "佐依饼乾"
+    }
+   ]
+  },
+  "cookie-189": {
+   "name": "艾法芭",
+   "files": [
+    {
+     "file": "owned/cookie-189-103719-137.png",
+     "ocr": "艾法芭餅乾"
+    }
+   ]
+  },
+  "cookie-190": {
+   "name": "索尼克",
+   "files": [
+    {
+     "file": "owned/cookie-190-103719-138.png",
+     "ocr": "索尼克饼乾"
+    }
+   ]
+  },
+  "cookie-191": {
+   "name": "SUGA",
+   "files": [
+    {
+     "file": "owned/cookie-191-103719-139.png",
+     "ocr": "JGA餅乾"
+    }
+   ]
+  },
+  "cookie-192": {
+   "name": "RM",
+   "files": [
+    {
+     "file": "owned/cookie-192-103719-140.png",
+     "ocr": "RM餅乾"
+    }
+   ]
+  },
+  "cookie-193": {
+   "name": "Jin",
+   "files": [
+    {
+     "file": "owned/cookie-193-103719-141.png",
+     "ocr": "Jin饼乾"
+    }
+   ]
+  },
+  "cookie-194": {
+   "name": "V",
+   "files": [
+    {
+     "file": "owned/cookie-194-103719-142.png",
+     "ocr": "V饼乾"
+    }
+   ]
+  },
+  "cookie-195": {
+   "name": "塔爾斯",
+   "files": [
+    {
+     "file": "owned/cookie-195-103719-143.png",
+     "ocr": "塔爾斯鲜乾"
+    }
+   ]
+  },
+  "cookie-196": {
+   "name": "米拉",
+   "files": [
+    {
+     "file": "owned/cookie-196-103719-144.png",
+     "ocr": "米拉餅乾"
+    }
+   ]
+  },
+  "cookie-197": {
+   "name": "魯米",
+   "files": [
+    {
+     "file": "owned/cookie-197-103719-145.png",
+     "ocr": "鲁米饼乾"
+    }
+   ]
+  },
+  "cookie-052": {
+   "name": "黑莓",
+   "files": [
+    {
+     "file": "owned/cookie-052-103719-146.png",
+     "ocr": "黑莓餅乾"
+    }
+   ]
+  },
+  "cookie-050": {
+   "name": "勇士",
+   "files": [
+    {
+     "file": "owned/cookie-050-103719-147.png",
+     "ocr": "勇士餅乾"
+    }
+   ]
+  },
+  "cookie-039": {
+   "name": "幸運草",
+   "files": [
+    {
+     "file": "owned/cookie-039-103719-148.png",
+     "ocr": "幸運草餅乾"
+    }
+   ]
+  },
+  "cookie-035": {
+   "name": "卡士達",
+   "files": [
+    {
+     "file": "owned/cookie-035-103719-149.png",
+     "ocr": "卡士達三"
+    }
+   ]
+  },
+  "cookie-042": {
+   "name": "櫻桃",
+   "files": [
+    {
+     "file": "owned/cookie-042-103719-150.png",
+     "ocr": "樱桃餅乾"
+    }
+   ]
+  },
+  "cookie-049": {
+   "name": "鍊金術師",
+   "files": [
+    {
+     "file": "owned/cookie-049-103719-151.png",
+     "ocr": "金術師餠乾"
+    }
+   ]
+  },
+  "cookie-041": {
+   "name": "惡魔",
+   "files": [
+    {
+     "file": "owned/cookie-041-103719-152.png",
+     "ocr": "惡魔餅乾"
+    }
+   ]
+  },
+  "cookie-036": {
+   "name": "泡泡糖",
+   "files": [
+    {
+     "file": "owned/cookie-036-103719-153.png",
+     "ocr": "泡泡糖餅乾"
+    }
+   ]
+  },
+  "cookie-033": {
+   "name": "探險家",
+   "files": [
+    {
+     "file": "owned/cookie-033-103719-154.png",
+     "ocr": "探险家饼乾"
+    }
+   ]
+  },
+  "cookie-048": {
+   "name": "酪梨",
+   "files": [
+    {
+     "file": "owned/cookie-048-103719-155.png",
+     "ocr": "酪梨乾"
+    }
+   ]
+  },
+  "cookie-032": {
+   "name": "公主",
+   "files": [
+    {
+     "file": "owned/cookie-032-103719-156.png",
+     "ocr": "公主乾"
+    }
+   ]
+  },
+  "cookie-046": {
+   "name": "紅蘿蔔",
+   "files": [
+    {
+     "file": "owned/cookie-046-103719-157.png",
+     "ocr": "紅萄餅乾"
+    }
+   ]
+  },
+  "cookie-043": {
+   "name": "洋蔥",
+   "files": [
+    {
+     "file": "owned/cookie-043-103719-158.png",
+     "ocr": "洋葱餅乾"
+    }
+   ]
+  },
+  "cookie-038": {
+   "name": "魔法師",
+   "files": [
+    {
+     "file": "owned/cookie-038-103719-159.png",
+     "ocr": "魔法師乾"
+    }
+   ]
+  },
+  "cookie-047": {
+   "name": "草莓",
+   "files": [
+    {
+     "file": "owned/cookie-047-103719-160.png",
+     "ocr": "草莓餅乾"
+    }
+   ]
+  },
+  "cookie-034": {
+   "name": "勇敢",
+   "files": [
+    {
+     "file": "owned/cookie-034-103719-161.png",
+     "ocr": "勇敢乾"
+    }
+   ]
+  },
+  "cookie-045": {
+   "name": "肌肉",
+   "files": [
+    {
+     "file": "owned/cookie-045-103719-162.png",
+     "ocr": "肌肉乾"
+    }
+   ]
+  },
+  "cookie-037": {
+   "name": "天使",
+   "files": [
+    {
+     "file": "owned/cookie-037-103719-163.png",
+     "ocr": "天使餅乾"
+    },
+    {
+     "file": "owned/cookie-037-103719-166.png",
+     "ocr": "天使餠乾"
+    }
+   ]
+  },
+  "cookie-044": {
+   "name": "甜菜",
+   "files": [
+    {
+     "file": "owned/cookie-044-103719-164.png",
+     "ocr": "甜菜餅乾"
+    }
+   ]
+  },
+  "cookie-040": {
+   "name": "忍者",
+   "files": [
+    {
+     "file": "owned/cookie-040-103719-165.png",
+     "ocr": "忍者餅乾"
+    },
+    {
+     "file": "owned/cookie-040-103719-167.png",
+     "ocr": "忽者餅乾"
+    },
+    {
+     "file": "owned/cookie-040-103719-168.png",
+     "ocr": "忽者乾"
+    }
+   ]
+  }
+ },
+ "review": []
+}

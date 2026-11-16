@@ -13,6 +13,6 @@ for r, strip in card_lab.crops():
     for mode, cand in (('open', None), ('roster', roster)):
         o = rec.identify(card, cand)
         if o['status'] != 'ok': res[(mode, 'abstain' if truth else 'out-abstain')] += 1
-        elif truth and o['id'] == name2id.get(truth): res[(mode, 'right')] += 1
+        elif (truth and o['id'] == name2id.get(truth)) or (r['truth'] == '氣泡' and o['id'] == 'cookie-184'): res[(mode, 'right')] += 1
         else: res[(mode, 'WRONG')] += 1; wrong.append((mode, r['truth'], o['name'], o['score'], o['margin'], o['inliers']))
 print(dict(res)); print(wrong[:10])

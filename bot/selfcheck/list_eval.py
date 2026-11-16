@@ -23,7 +23,7 @@ if '--table' in sys.argv:
     for r in rows: t = truth(r['name']); print(r['file'], r['name'], '->', names.get(t, t))
     sys.exit()
 import card_model2 as CM
-rec = CM.CardRecognizer(bank=None)
+rec = CM.CardRecognizer(bank=None, owned=None)   # the list cards themselves are owned references: keep them out
 res = collections.Counter(); wrong = []; abst = []
 for r in rows:
     t = truth(r['name']); card = cv2.imread(str(D / r['file']))

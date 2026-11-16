@@ -256,3 +256,23 @@ p95 尾端來自 V1 對 UNKNOWN 畫面的多尺度模板比對（大廳、讀取
 - User confirmed: 奶油蘇打 = sailor art = cookie-092 (Cream Soda; the catalog's Chinese name 氣泡水 was wrong). 氣泡水餅乾 (EPIC support, veil) is not in Codex's catalog → new id **cookie-184**; S8 card12 confirmed into the bank (alias 氣泡).
 - `data/name-overrides-tw.json`: 27 catalog names replaced with in-game names read from each cookie's detail page (typos such as 抄時空/袙夫洛娃/千層蘇, wrong identities 氣泡水/辣椒, other translations such as 巫師→魔法師). 6 names left as they were because the OCR was not clean enough (listed under `unsure`). Codex's `models/cards/model.json` is integrity-hashed and was not edited; `card_model2` applies the table on top. Applied to `runtime/config.json` (console) and `bank.json` (catalogName kept). Backup: `backups/claude-20261116/names-034319/`.
 - Re-check after the change: list 149/0 wrong/3 abstain, out-of-catalog 14 abstain; team 192/0/18. S8 strips: cookie-092 and cookie-184 both found 6×, no conflict.
+
+## 19. Live zones 4-6 and the pre-release check (2026-11-16)
+
+Live (S8 strategy from the PDF, started from the CRUMB console): zone 4 (with one user-confirmed strategy fix: 4-5 is slot 3), zone 5 with no intervention, zone 6 floors 1-3 (6-2 team chosen by the user after a tower boss timed out). Fixes found on the way: fixed-lattice map read when V1 cannot see four columns (zone start), boss icon template (>=0.98 present / <=0.69 absent), reward-box notice, heal on any non-boss slot + wait for 已恢復 + stop on a grey (unreachable) heal button, stray heal preview closed (twice at most), 900 px strip steps (a 1600 px swipe hid the 9th of 17 cards), status.json rename retried on Windows, plain-language pause reasons. The "N-th node of the row" reading of route digits was tried and rejected: zones 1-3 live frames prove fixed slots (30/30).
+
+Pre-release check:
+- V1 node tests: 202/202 (all 49 files). V1 Python tests on the Windows venv: 34/34 files OK.
+- Bot: test_contracts 18/18 (2 new: heal slot on a battle step, reward-box notice; heal-preview contract now "close twice, then pause"), test_manual 11/11, test_treasure_equip PASS — on Linux and on the Windows venv.
+- Map planner live frames 30/30. Screen model unchanged (text 362/365 held, 0 wrong; model file hash unchanged).
+- Cards: team 192/0 wrong/18, list 149/0/3 (+14 out-of-catalog abstain), stress 161/0. Two recruits seen live (Pavlova, Agar Agar) are not in the bank; card_model2 names them correctly.
+- Console config -> runner strategy: 0 errors, default treasures carried to every step without its own.
+
+## 20. Every owned cookie as a reference; cookies outside the catalog; docs (2026-11-16)
+
+- `bot/cards/owned.json` (built by `cards_owned_build.py` from the kingdom cookie-list recording): 165 cookies, 168 list cards in their equipped costume, ids from the in-game name. card_model2 loads them as references (list layout); nothing is trained.
+- 14 cookies outside Codex's catalog got ids: cookie-184 氣泡水 (earlier) and cookie-185..197 (BTS ×7, 佐依, 艾法芭, 索尼克, 塔爾斯, 米拉, 魯米; names from the game's detail page, Latin spellings by OCR). Added to `data/name-overrides-tw.json` and the console config. Two former "SKIP" cards resolved where OCR and model agree (星塵 cookie-014, 蘋果糖 cookie-135).
+- Cross-layout check (`selfcheck/card_owned_eval.py`, live S8 team cards, bank excluded): Codex only 192 right / 0 wrong / 24 abstain; Codex+owned 199 / 0 / 17; owned list card as the ONLY reference for the S8 cookies 199 / 0 / 17 -> one list card per cookie is enough to find it on the team screen. Stress (Codex refs with the exact costume removed, owned added): 392 right / 0 wrong.
+- Future cookies: the inbox can create a character ("新增角色（輸入名稱）"): new cookie-NNN, saved config + name table + bank card. Console `modelIds` = catalog + owned, so those characters no longer block a strategy.
+- Docs: Claude Docs "CRK Helper 冥界自動通關 操作說明"; in-page help on the auto-run card and the card page.
+- Checks: node 203/203; test_contracts 18/18, test_manual 11/11, treasure PASS (Linux + Windows venv); map 30/30.

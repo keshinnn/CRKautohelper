@@ -118,6 +118,19 @@ test('HTTP：/api/bot/* 需控制啟用，狀態含攻略檢查', async () => {
     if (enabled) { assert.equal(ok.status, 202, await ok.clone().text()); await fetch(base + '/api/bot/stop', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }); bot.proc = null; }
     assert.equal((await fetch(base + '/api/bot/card/' + encodeURIComponent('金桂'))).status, 200);
     assert.equal((await fetch(base + '/api/bot/card/' + encodeURIComponent('../x'))).status, 404);
+    bot.proc = null; fs.rmSync(path.join(root, 'bot', 'status.json'), { force: true });
+    if (enabled) {   // a cookie that is not in the catalog: the inbox creates it once (new id, saved config, name table)
+      fs.mkdirSync(path.join(root, 'bot', 'cards', 'inbox'), { recursive: true }); fs.writeFileSync(path.join(root, 'bot', 'cards', 'inbox', '00112233445566aa.png'), 'z');
+      const post = body => fetch(base + '/api/bot/inbox/confirm', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      assert.equal((await post({ file: '00112233445566aa.png', newName: '' })).status, 400);
+      assert.equal((await post({ file: '00112233445566aa.png', newName: '金桂' })).status, 400, 'same name as an existing character');
+      const made = await (await post({ file: '00112233445566aa.png', newName: '新來的餅乾' })).json();
+      assert.match(made.created, /^cookie-\d{3}$/);
+      const cfg = await (await fetch(base + '/api/config')).json();
+      assert.ok(cfg.characters.some(c => c.id === made.created && c.name === '新來的餅乾'));
+      assert.equal(bot.bank()[made.created].files.length, 1);
+      assert.equal(JSON.parse(fs.readFileSync(path.join(root, 'data', 'name-overrides-tw.json'), 'utf8')).added[made.created].name, '新來的餅乾');
+    }
     } finally { server.closeAllConnections?.(); await new Promise(r => server.close(r)); }
   }
 });
@@ -139,4 +152,25 @@ test('卡片庫：已確認卡片優先，新卡片需使用者確認才入庫',
   assert.ok(fs.existsSync(path.join(root, 'bot', 'cards', 'bank', 'men-0123456789abcdef.png')));
   b.dismissCard('fedcba9876543210.png'); assert.equal(b.inbox().length, 0);
   assert.equal(b.bankImage('men'), path.join(root, 'bot', 'cards', 'bank/men-0123456789abcdef.png'));
+});
+
+test('辨識模型可找卡的角色＝Codex 目錄＋擁有角色的遊戲內清單卡片', () => {
+  const root = tempRoot(), b = new BotRunner({ root, python: 'py', spawnFn: () => ({ exitCode: null }) });
+  fs.mkdirSync(path.join(root, 'models', 'cards'), { recursive: true });
+  fs.writeFileSync(path.join(root, 'models', 'cards', 'model.json'), JSON.stringify({ classes: [{ id: 'cookie-001' }] }));
+  fs.writeFileSync(path.join(root, 'bot', 'cards', 'owned.json'), JSON.stringify({ cards: { 'cookie-190': { name: '索尼克', files: [] } } }));
+  assert.deepEqual([...b.modelIds()].sort(), ['cookie-001', 'cookie-190']);
+});
+
+test('沒有遊戲內卡片的角色：在辨識模型目錄內 → 交給模型（警告）；不在目錄內 → 擋下', () => {
+  const c = sampleConfig();
+  c.characters.push({ id: 'cookie-139', name: '甜辣醬餅乾 / Chili Pepper Cookie', skins: [], builds: [] }, { id: 'cookie-184', name: '氣泡水餅乾', skins: [], builds: [] });
+  c.zones[0].levels[4].team = [{ characterId: 'cookie-139', buildId: '' }];
+  c.zones[1].levels[0].team = [{ characterId: 'cookie-184', buildId: '' }];
+  const cfg = Schema.validate(c);
+  const r = toStrategy(cfg, { labels: LABELS, map: { soda: '奶油蘇打' }, modelIds: new Set(['cookie-139']) });
+  assert.deepEqual(r.strategy.zones[0].steps[4].team, ['cookie-139']);
+  assert.ok(r.warnings.some(w => w.includes('甜辣醬') && w.includes('辨識模型')));
+  assert.deepEqual(r.errors, ['區域 2・第 1 層：「氣泡水餅乾」還沒有對應的角色卡片']);
+  assert.ok(toStrategy(cfg, { labels: LABELS, map: { soda: '奶油蘇打' } }).errors.length === 2, 'without the model catalog both stay errors');
 });
